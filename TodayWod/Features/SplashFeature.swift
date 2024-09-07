@@ -13,7 +13,8 @@ struct SplashFeature {
 
     @ObservableState
     struct State {
-        let title: String = "TodayWod"
+        let title: String = "todaywod"
+        var opacity: Double = 0.0
     }
 
     enum Action {
@@ -24,6 +25,7 @@ struct SplashFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.opacity = 1.0
                 return .none
             }
         }
@@ -34,19 +36,29 @@ struct SplashFeature {
 import SwiftUI
 
 struct SplashView: View {
+
+    let store: StoreOf<SplashFeature>
+
     var body: some View {
         VStack {
-            Text("todayword")
+            Text(store.title)
                 .bold()
                 .font(.system(size: 26.0))
                 .foregroundStyle(.white)
+                .opacity(store.opacity)
         }
+        .animation(.spring(duration: 3), value: store.opacity)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            store.send(.onAppear)
+        }
         .background(Color("SplashBackground"))
     }
 }
 
 
 #Preview {
-    SplashView()
+    SplashView(store: Store(initialState: SplashFeature.State()) {
+        SplashFeature()
+    })
 }
