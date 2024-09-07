@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct TodayWodApp: App {
+
+    static let store = Store(initialState: SplashFeature.State()) {
+        SplashFeature()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(store: TodayWodApp.store)
         }
     }
 }

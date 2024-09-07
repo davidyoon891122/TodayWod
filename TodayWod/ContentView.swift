@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct ContentView: View {
+
+    let store: StoreOf<SplashFeature>
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("TodayWod")
-        }
-        .padding()
+        SplashView(store: store)
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(store: Store(initialState: SplashFeature.State()) {
+        SplashFeature()
+    })
 }
