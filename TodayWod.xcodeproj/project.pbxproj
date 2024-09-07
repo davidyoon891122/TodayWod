@@ -15,6 +15,8 @@
 		499B07642C8BEFB400C46FDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07632C8BEFB400C46FDD /* Images.xcassets */; };
 		499B07662C8BEFBF00C46FDD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07652C8BEFBF00C46FDD /* Colors.xcassets */; };
 		499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07682C8BEFDB00C46FDD /* SplashFeature.swift */; };
+		49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */; };
+		49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		499B07632C8BEFB400C46FDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		499B07652C8BEFBF00C46FDD /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		499B07682C8BEFDB00C46FDD /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
+		49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Colors+Generated.swift"; sourceTree = "<group>"; };
+		49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Images+Generated.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +66,7 @@
 				499B07522C8BD6B700C46FDD /* TodayWodApp.swift */,
 				499B07542C8BD6B700C46FDD /* ContentView.swift */,
 				499B076A2C8BEFDF00C46FDD /* Features */,
-				499B07672C8BEFC600C46FDD /* Resource */,
+				499B07672C8BEFC600C46FDD /* Resources */,
 				499B07582C8BD6B900C46FDD /* Preview Content */,
 			);
 			path = TodayWod;
@@ -76,14 +80,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		499B07672C8BEFC600C46FDD /* Resource */ = {
+		499B07672C8BEFC600C46FDD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				49B8AEFF2C8C5B8000EA78CC /* SwiftGen */,
 				499B07562C8BD6B900C46FDD /* Assets.xcassets */,
 				499B07632C8BEFB400C46FDD /* Images.xcassets */,
 				499B07652C8BEFBF00C46FDD /* Colors.xcassets */,
 			);
-			path = Resource;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		499B076A2C8BEFDF00C46FDD /* Features */ = {
@@ -92,6 +97,15 @@
 				499B07682C8BEFDB00C46FDD /* SplashFeature.swift */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		49B8AEFF2C8C5B8000EA78CC /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */,
+				49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */,
+			);
+			path = SwiftGen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +118,7 @@
 				499B074B2C8BD6B700C46FDD /* Sources */,
 				499B074C2C8BD6B700C46FDD /* Frameworks */,
 				499B074D2C8BD6B700C46FDD /* Resources */,
+				49B8AEFE2C8C577800EA78CC /* SwiftGen */,
 			);
 			buildRules = (
 			);
@@ -167,13 +182,36 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		49B8AEFE2C8C577800EA78CC /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/opt/homebrew/bin/swiftgen config run --config $SRCROOT/swiftgen.yml\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		499B074B2C8BD6B700C46FDD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
+				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
 				499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */,
+				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,
 				499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,7 +256,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -281,7 +319,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

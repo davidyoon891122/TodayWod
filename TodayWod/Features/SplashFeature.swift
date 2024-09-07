@@ -53,7 +53,7 @@ struct SplashView: View {
             .onAppear {
                 store.send(.onAppear)
             }
-            .background(Color("SplashBackground"))
+            .background(Colors.splashBackground.swiftUIColor)
         }
     }
 }

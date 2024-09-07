@@ -1,0 +1,13 @@
+xcassets:
+  - inputs: "TodayWod/Resources/Colors.xcassets"
+    outputs:
+      templateName: swift5
+      output: "TodayWod/Resources/SwiftGen/Colors+Generated.swift"
+      params:
+        enumName: "Colors"
+  - inputs: "TodayWod/Resources/Images.xcassets"
+    outputs:
+      templateName: swift5
+      output: "TodayWod/Resources/SwiftGen/Images+Generated.swift"
+      params:
+        enumName: "Images"
