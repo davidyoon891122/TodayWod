@@ -10,15 +10,27 @@ import ComposableArchitecture
 
 struct ContentView: View {
 
-    let store: StoreOf<SplashFeature>
+    let store: StoreOf<AppFeature>
 
     var body: some View {
-        SplashView(store: store)
+        TabView {
+            HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Display")
+                }
+
+            SettingsView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
+                }
+        }
     }
 }
 
 #Preview {
-    ContentView(store: Store(initialState: SplashFeature.State()) {
-        SplashFeature()
+    ContentView(store: Store(initialState: AppFeature.State()) {
+        AppFeature()
     })
 }

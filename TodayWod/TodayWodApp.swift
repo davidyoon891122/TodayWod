@@ -11,13 +11,13 @@ import ComposableArchitecture
 @main
 struct TodayWodApp: App {
 
-    static let store = Store(initialState: SplashFeature.State()) {
-        SplashFeature()
+    static let store = Store(initialState: TodayWod.State.splash(SplashFeature.State())) {
+        TodayWod()
     }
 
     var body: some Scene {
         WindowGroup {
-            ContentView(store: TodayWodApp.store)
+            RootView(store: TodayWodApp.store)
         }
     }
 }

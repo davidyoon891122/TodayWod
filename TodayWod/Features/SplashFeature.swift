@@ -12,21 +12,32 @@ import ComposableArchitecture
 struct SplashFeature {
 
     @ObservableState
-    struct State {
+    struct State: Equatable {
         let title: String = "todaywod"
         var opacity: Double = 0.0
+        var isFinished = false
     }
 
     enum Action {
         case onAppear
+        case finishSplash
     }
+
+    @Dependency(\.continuousClock) var clock
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
                 state.opacity = 1.0
-                return .none
+                return .run { send in
+                    try await clock.sleep(for: .seconds(3))
+                    await send(.finishSplash)
+                }
+
+            case .finishSplash:
+                state.isFinished = true
+               return .none
             }
         }
     }
