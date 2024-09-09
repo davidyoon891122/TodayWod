@@ -47,11 +47,15 @@ struct RootView: View {
 
     var body: some View {
         SwitchStore(self.store) { initialState in
-            CaseLet(/TodayWod.State.splash, action: TodayWod.Action.splash) { splashStore in
-                SplashView(store: splashStore)
-            }
-            CaseLet(/TodayWod.State.app, action: TodayWod.Action.app) { appStore in
-                ContentView(store: appStore)
+            switch initialState {
+            case .splash:
+                CaseLet(/TodayWod.State.splash, action: TodayWod.Action.splash) { splashStore in
+                    SplashView(store: splashStore)
+                }
+            case .app:
+                CaseLet(/TodayWod.State.app, action: TodayWod.Action.app) { appStore in
+                    ContentView(store: appStore)
+                }
             }
         }
     }
