@@ -17,14 +17,28 @@ struct SocialLoginFeature {
     }
 
     enum Action {
-
+        case didTapAppleLogin
+        case didTapGoogleLogin
+        case didTapKakaoLogin
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
-
             switch action {
+            case .didTapAppleLogin:
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveUserInfo(data: .appleFake)
 
+                return .none
+            case .didTapGoogleLogin:
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveUserInfo(data: .googleFake)
+
+                return .none
+            case .didTapKakaoLogin:
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveUserInfo(data: .kakaoFake)
+                return .none
             }
 
         }

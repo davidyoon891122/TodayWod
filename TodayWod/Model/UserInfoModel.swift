@@ -26,4 +26,9 @@ extension UserInfoModel {
 
     static let fake: Self = .init(userId: "qqpo12", accessToken: UUID().uuidString, email: "qqpo12@naver.com", loginType: .apple)
 
+    static let kakaoFake: Self = .init(userId: "qqpo12", accessToken: UUID().uuidString, email: "qqpo12@naver.com", loginType: .kakao)
+
+    static let appleFake: Self = .init(userId: "qqpo12", accessToken: UUID().uuidString, email: "qqpo12@naver.com", loginType: .apple)
+
+    static let googleFake: Self = .init(userId: "qqpo12", accessToken: UUID().uuidString, email: "qqpo12@naver.com", loginType: .google)
 }
