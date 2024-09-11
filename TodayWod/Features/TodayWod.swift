@@ -13,20 +13,29 @@ struct TodayWod {
     enum State: Equatable {
         case splash(SplashFeature.State)
         case app(AppFeature.State)
+        case login(SocialLoginFeature.State)
     }
 
     enum Action {
         case splash(SplashFeature.Action)
         case app(AppFeature.Action)
+        case login(SocialLoginFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .splash(.finishSplash):
-                state = .app(AppFeature.State())
+                let userDefaulsManager = UserDefaultsManager()
+
+                if let loginInfo = userDefaulsManager.loadUserInfo() {
+                    state = .app(AppFeature.State())
+                } else {
+                    state = .login(SocialLoginFeature.State())
+                }
+
                 return .none
-            case .splash, .app:
+            case .splash, .app, .login:
                 return .none
             }
         }
@@ -35,6 +44,9 @@ struct TodayWod {
         }
         .ifCaseLet(\.app, action: \.app) {
             AppFeature()
+        }
+        .ifCaseLet(\.login, action: \.login) {
+            SocialLoginFeature()
         }
     }
 }
@@ -55,6 +67,10 @@ struct RootView: View {
             case .app:
                 CaseLet(/TodayWod.State.app, action: TodayWod.Action.app) { appStore in
                     ContentView(store: appStore)
+                }
+            case .login:
+                CaseLet(/TodayWod.State.login, action: TodayWod.Action.login) { loginStore in
+                    SocialLoginView(store: loginStore)
                 }
             }
         }
