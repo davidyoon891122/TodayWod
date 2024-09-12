@@ -8,6 +8,11 @@ xcuserdata
 DerivedData/
 *.xcodeproj
 
+### Fastlane ###
+*.dSYM.zip
+*.ipa
+*.mobileprovision
+N4GFNPZS25.json
 
 ### Xcode ###
 ## User settings
