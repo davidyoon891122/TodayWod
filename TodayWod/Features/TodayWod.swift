@@ -10,6 +10,7 @@ import ComposableArchitecture
 
 @Reducer
 struct TodayWod {
+    @ObservableState
     enum State: Equatable {
         case splash(SplashFeature.State)
         case app(AppFeature.State)
@@ -58,21 +59,37 @@ struct RootView: View {
     let store: StoreOf<TodayWod>
 
     var body: some View {
-        SwitchStore(self.store) { initialState in
-            switch initialState {
-            case .splash:
-                CaseLet(/TodayWod.State.splash, action: TodayWod.Action.splash) { splashStore in
-                    SplashView(store: splashStore)
-                }
-            case .app:
-                CaseLet(/TodayWod.State.app, action: TodayWod.Action.app) { appStore in
-                    ContentView(store: appStore)
-                }
-            case .login:
-                CaseLet(/TodayWod.State.login, action: TodayWod.Action.login) { loginStore in
-                    SocialLoginView(store: loginStore)
-                }
+        
+        switch store.state {
+        case .splash:
+            if let store = store.scope(state: \.splash, action: \.splash) {
+                SplashView(store: store)
+            }
+        case .app:
+            if let store = store.scope(state: \.app, action: \.app) {
+                ContentView(store: store)
+            }
+        case .login:
+            if let store = store.scope(state: \.login, action: \.login) {
+                SocialLoginView(store: store)
             }
         }
+        
+//        SwitchStore(self.store) { initialState in
+//            switch initialState {
+//            case .splash:
+//                CaseLet(/TodayWod.State.splash, action: TodayWod.Action.splash) { splashStore in
+//                    SplashView(store: splashStore)
+//                }
+//            case .app:
+//                CaseLet(/TodayWod.State.app, action: TodayWod.Action.app) { appStore in
+//                    ContentView(store: appStore)
+//                }
+//            case .login:
+//                CaseLet(/TodayWod.State.login, action: TodayWod.Action.login) { loginStore in
+//                    SocialLoginView(store: loginStore)
+//                }
+//            }
+//        }
     }
 }
