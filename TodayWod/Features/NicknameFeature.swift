@@ -34,6 +34,9 @@ struct NicknameFeature {
 import SwiftUI
 
 struct NicknameInputView: View {
+
+    let store: StoreOf<NicknameFeature>
+
     var body: some View {
         VStack {
             Text("NickName")
@@ -42,5 +45,7 @@ struct NicknameInputView: View {
 }
 
 #Preview {
-    NicknameInputView()
+    NicknameInputView(store: Store(initialState: NicknameFeature.State()) {
+        NicknameFeature()
+    })
 }

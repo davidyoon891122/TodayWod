@@ -37,9 +37,12 @@ struct GenderSelectFeature {
             switch action {
             case let .setGender(genderType):
                 state.gender = genderType
-                
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.prepare()
+                generator.impactOccurred()
+
                 return .run(operation: { send in
-                    try await clock.sleep(for: .seconds(2))
+                    try await clock.sleep(for: .seconds(0.3))
                     await send(.toNickname)
                 })
             case .path:
@@ -49,6 +52,9 @@ struct GenderSelectFeature {
                 state.path.append(NicknameFeature.State())
                 return .none
             }
+        }
+        .forEach(\.path, action: \.path) {
+            NicknameFeature()
         }
     }
     
@@ -110,7 +116,7 @@ struct GenderSelectView: View {
                 Spacer()
             }
         } destination: { store in
-            NicknameInputView()
+            NicknameInputView(store: store)
         }
     }
 }
