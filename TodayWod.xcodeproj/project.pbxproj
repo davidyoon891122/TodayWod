@@ -21,6 +21,7 @@
 		499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07682C8BEFDB00C46FDD /* SplashFeature.swift */; };
 		49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */; };
 		49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */; };
+		ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		499B07682C8BEFDB00C46FDD /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Colors+Generated.swift"; sourceTree = "<group>"; };
 		49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Images+Generated.swift"; sourceTree = "<group>"; };
+		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				49101A792C8D3DE800FDB709 /* TodayWod.swift */,
 				49101A732C8D379C00FDB709 /* Home */,
 				49101A762C8D384700FDB709 /* Settings */,
+				ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49101A702C8D373D00FDB709 /* AppFeature.swift in Sources */,
+				ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */,
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
