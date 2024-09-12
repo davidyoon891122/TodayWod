@@ -158,9 +158,9 @@
 		499B076A2C8BEFDF00C46FDD /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				499B07682C8BEFDB00C46FDD /* SplashFeature.swift */,
-				49101A6F2C8D373D00FDB709 /* AppFeature.swift */,
-				49101A792C8D3DE800FDB709 /* TodayWod.swift */,
+				ADBACAA12C92BBCF00BED61C /* Root */,
+				ADBACA9F2C92BBB900BED61C /* Splash */,
+				ADBACAA02C92BBC300BED61C /* Tab */,
 				49101A732C8D379C00FDB709 /* Home */,
 				49101A762C8D384700FDB709 /* Settings */,
 				49101A7D2C8F3D3800FDB709 /* Onboarding */,
@@ -175,6 +175,30 @@
 				49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */,
 			);
 			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		ADBACA9F2C92BBB900BED61C /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				499B07682C8BEFDB00C46FDD /* SplashFeature.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		ADBACAA02C92BBC300BED61C /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				49101A6F2C8D373D00FDB709 /* AppFeature.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		ADBACAA12C92BBCF00BED61C /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				49101A792C8D3DE800FDB709 /* TodayWod.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

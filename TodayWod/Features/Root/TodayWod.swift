@@ -54,7 +54,7 @@ struct TodayWod {
 
 import SwiftUI
 
-struct RootView: View {
+struct TodayWodView: View {
 
     let store: StoreOf<TodayWod>
 
