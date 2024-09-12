@@ -59,7 +59,6 @@ struct RootView: View {
     let store: StoreOf<TodayWod>
 
     var body: some View {
-        
         switch store.state {
         case .splash:
             if let store = store.scope(state: \.splash, action: \.splash) {
@@ -74,22 +73,5 @@ struct RootView: View {
                 SocialLoginView(store: store)
             }
         }
-        
-//        SwitchStore(self.store) { initialState in
-//            switch initialState {
-//            case .splash:
-//                CaseLet(/TodayWod.State.splash, action: TodayWod.Action.splash) { splashStore in
-//                    SplashView(store: splashStore)
-//                }
-//            case .app:
-//                CaseLet(/TodayWod.State.app, action: TodayWod.Action.app) { appStore in
-//                    ContentView(store: appStore)
-//                }
-//            case .login:
-//                CaseLet(/TodayWod.State.login, action: TodayWod.Action.login) { loginStore in
-//                    SocialLoginView(store: loginStore)
-//                }
-//            }
-//        }
     }
 }
