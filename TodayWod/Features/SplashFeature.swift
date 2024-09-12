@@ -14,12 +14,13 @@ struct SplashFeature {
     @ObservableState
     struct State: Equatable {
         let title: String = "todaywod"
+        let duration: Double = 3.0
         var opacity: Double = 0.0
-        var isFinished = false
     }
 
     enum Action {
         case onAppear
+        case setDisplay
         case finishSplash
     }
 
@@ -29,14 +30,16 @@ struct SplashFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.opacity = 1.0
-                return .run { send in
-                    try await clock.sleep(for: .seconds(3))
+                let duration = state.duration
+                
+                return .merge(.send(.setDisplay), .run(operation: { send in
+                    try await clock.sleep(for: .seconds(duration))
                     await send(.finishSplash)
-                }
-
+                }))
+            case .setDisplay:
+                state.opacity = 1.0
+                return .none
             case .finishSplash:
-                state.isFinished = true
                return .none
             }
         }
@@ -59,7 +62,7 @@ struct SplashView: View {
                     .foregroundStyle(.white)
                     .opacity(store.opacity)
             }
-            .animation(.spring(duration: 3), value: store.opacity)
+            .animation(.spring(duration: store.duration), value: store.opacity)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear {
                 store.send(.onAppear)
