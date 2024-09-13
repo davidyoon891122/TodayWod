@@ -24,9 +24,9 @@
 		499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07682C8BEFDB00C46FDD /* SplashFeature.swift */; };
 		49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */; };
 		49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */; };
-		ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */; };
 		ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */; };
 		ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */; };
+		ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +47,8 @@
 		499B07682C8BEFDB00C46FDD /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Colors+Generated.swift"; sourceTree = "<group>"; };
 		49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Images+Generated.swift"; sourceTree = "<group>"; };
+		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
+		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
 		ADC5B05A2C93D3E600E06C8E /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		ADC5B05B2C93D3E600E06C8E /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		ADC5B05C2C93D3E600E06C8E /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -57,8 +59,6 @@
 		ADC5B0612C93D3E700E06C8E /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		ADC5B0622C93D3E700E06C8E /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
-		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
-		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				49101A7E2C90850F00FDB709 /* SocialLogin */,
+				AD4187D02C940EAA0071AD99 /* GenderSelect */,
+				AD4187D12C940EBA0071AD99 /* Nickname */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -179,8 +181,6 @@
 				ADBACAA02C92BBC300BED61C /* Tab */,
 				49101A732C8D379C00FDB709 /* Home */,
 				49101A762C8D384700FDB709 /* Settings */,
-				ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */,
-				ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */,
 				49101A7D2C8F3D3800FDB709 /* Onboarding */,
 			);
 			path = Features;
@@ -196,22 +196,22 @@
 			path = SwiftGen;
 			sourceTree = "<group>";
 		};
-		ADC5B0592C93D02300E06C8E /* Fonts */ = {
+		AD4187D02C940EAA0071AD99 /* GenderSelect */ = {
 			isa = PBXGroup;
 			children = (
-				ADC5B05F2C93D3E600E06C8E /* Pretendard-Black.otf */,
-				ADC5B0622C93D3E700E06C8E /* Pretendard-Bold.otf */,
-				ADC5B0612C93D3E700E06C8E /* Pretendard-ExtraBold.otf */,
-				ADC5B05D2C93D3E600E06C8E /* Pretendard-ExtraLight.otf */,
-				ADC5B05E2C93D3E600E06C8E /* Pretendard-Light.otf */,
-				ADC5B0602C93D3E600E06C8E /* Pretendard-Medium.otf */,
-				ADC5B05B2C93D3E600E06C8E /* Pretendard-Regular.otf */,
-				ADC5B05C2C93D3E600E06C8E /* Pretendard-SemiBold.otf */,
-				ADC5B05A2C93D3E600E06C8E /* Pretendard-Thin.otf */,
+				ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */,
 			);
-			path = Fonts;
-            sourceTree = "<group>";
-        };
+			path = GenderSelect;
+			sourceTree = "<group>";
+		};
+		AD4187D12C940EBA0071AD99 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */,
+			);
+			path = Nickname;
+			sourceTree = "<group>";
+		};
 		ADBACA9F2C92BBB900BED61C /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +234,22 @@
 				49101A792C8D3DE800FDB709 /* TodayWod.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		ADC5B0592C93D02300E06C8E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				ADC5B05F2C93D3E600E06C8E /* Pretendard-Black.otf */,
+				ADC5B0622C93D3E700E06C8E /* Pretendard-Bold.otf */,
+				ADC5B0612C93D3E700E06C8E /* Pretendard-ExtraBold.otf */,
+				ADC5B05D2C93D3E600E06C8E /* Pretendard-ExtraLight.otf */,
+				ADC5B05E2C93D3E600E06C8E /* Pretendard-Light.otf */,
+				ADC5B0602C93D3E600E06C8E /* Pretendard-Medium.otf */,
+				ADC5B05B2C93D3E600E06C8E /* Pretendard-Regular.otf */,
+				ADC5B05C2C93D3E600E06C8E /* Pretendard-SemiBold.otf */,
+				ADC5B05A2C93D3E600E06C8E /* Pretendard-Thin.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

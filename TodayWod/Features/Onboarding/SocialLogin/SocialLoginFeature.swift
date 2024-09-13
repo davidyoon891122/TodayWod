@@ -172,7 +172,7 @@ struct SocialLoginView: View {
                 }
                 .alert($store.scope(state: \.alert, action: \.alert))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Colors.splashBackground.swiftUIColor)
+                .background(Colors.blue60.swiftUIColor)
             } destination: { store in
                 ContentView(store: store)
             }
