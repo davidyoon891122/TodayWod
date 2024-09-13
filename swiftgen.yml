@@ -11,3 +11,12 @@ xcassets:
       output: "TodayWod/Resources/SwiftGen/Images+Generated.swift"
       params:
         enumName: "Images"
+
+fonts:
+  - inputs: "TodayWod/Resources/Fonts"
+    outputs:
+      templateName: swift5
+      output:
+          "TodayWod/Resources/SwiftGen/Fonts+Generated.swift"
+      params:
+        enumName: "Fonts"
