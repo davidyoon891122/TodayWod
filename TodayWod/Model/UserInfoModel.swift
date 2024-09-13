@@ -13,7 +13,7 @@ enum SocialLoginType: Codable {
     case kakao
 }
 
-struct UserInfoModel: Codable {
+struct UserInfoModel: Codable, Equatable {
 
     let userId: String
     let accessToken: String

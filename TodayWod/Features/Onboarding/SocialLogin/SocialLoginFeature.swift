@@ -25,53 +25,45 @@ struct SocialLoginFeature {
         case didTapKakaoLogin
         case path(StackAction<AppFeature.State, AppFeature.Action>)
         @CasePathable
-        enum Alert {
-            case moveToTabView
+        enum Alert: Equatable {
+            case moveToTabView(UserInfoModel)
         }
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .alert(.presented(.moveToTabView)):
+            case .alert(.presented(.moveToTabView(let userModel))):
+                let userDefaulsManager = UserDefaultsManager()
+                userDefaulsManager.saveUserInfo(data: userModel)
+                
                 state.path.append(AppFeature.State())
                 return .none
             case .alert:
                 return .none
             case .didTapAppleLogin:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveUserInfo(data: .appleFake)
-
                 state.alert = AlertState {
                     TextState("Login Completed")
                 } actions: {
-                    ButtonState(role: .destructive, action: .send(.moveToTabView)) {
+                    ButtonState(role: .cancel, action: .send(.moveToTabView(.appleFake))) {
                         TextState("Yes")
                     }
                 }
-
                 return .none
             case .didTapGoogleLogin:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveUserInfo(data: .googleFake)
-
                 state.alert = AlertState {
                     TextState("Login Completed")
                 } actions: {
-                    ButtonState(role: .destructive, action: .send(.moveToTabView)) {
+                    ButtonState(role: .cancel, action: .send(.moveToTabView(.googleFake))) {
                         TextState("Yes")
                     }
                 }
-
                 return .none
             case .didTapKakaoLogin:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveUserInfo(data: .kakaoFake)
-
                 state.alert = AlertState {
                     TextState("Login Completed")
                 } actions: {
-                    ButtonState(role: .destructive, action: .send(.moveToTabView)) {
+                    ButtonState(role: .cancel, action: .send(.moveToTabView(.kakaoFake))) {
                         TextState("Yes")
                     }
                 }

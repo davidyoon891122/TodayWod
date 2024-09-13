@@ -127,11 +127,11 @@
 			children = (
 				499B07522C8BD6B700C46FDD /* TodayWodApp.swift */,
 				499B07542C8BD6B700C46FDD /* ContentView.swift */,
+				49101A812C90871600FDB709 /* Manager */,
+				49101A842C90878700FDB709 /* Model */,
 				499B076A2C8BEFDF00C46FDD /* Features */,
 				499B07672C8BEFC600C46FDD /* Resources */,
 				499B07582C8BD6B900C46FDD /* Preview Content */,
-				49101A812C90871600FDB709 /* Manager */,
-				49101A842C90878700FDB709 /* Model */,
 			);
 			path = TodayWod;
 			sourceTree = "<group>";
