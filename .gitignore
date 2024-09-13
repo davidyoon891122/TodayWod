@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=swiftpackagemanager,xcode
 
 ### SwiftPackageManager ###
-Packages
+#Packages
 .build/
 xcuserdata
 DerivedData/
