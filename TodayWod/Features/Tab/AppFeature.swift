@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct AppFeature {
 
+    @ObservableState
     struct State: Equatable {
         var homeTab = HomeFeature.State()
         var settingsTab = SettingsFeature.State()
