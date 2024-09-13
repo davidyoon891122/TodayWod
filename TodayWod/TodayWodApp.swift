@@ -17,7 +17,7 @@ struct TodayWodApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(store: TodayWodApp.store)
+            TodayWodView(store: TodayWodApp.store)
         }
     }
 }
