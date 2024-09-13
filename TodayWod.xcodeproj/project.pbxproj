@@ -12,6 +12,9 @@
 		49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A712C8D374400FDB709 /* HomeFeature.swift */; };
 		49101A752C8D37A500FDB709 /* SettingsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A742C8D37A500FDB709 /* SettingsFeature.swift */; };
 		49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A792C8D3DE800FDB709 /* TodayWod.swift */; };
+		49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */; };
+		49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */; };
+		49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A822C90878300FDB709 /* UserInfoModel.swift */; };
 		499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07522C8BD6B700C46FDD /* TodayWodApp.swift */; };
 		499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07542C8BD6B700C46FDD /* ContentView.swift */; };
 		499B07572C8BD6B900C46FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07562C8BD6B900C46FDD /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 		49101A712C8D374400FDB709 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		49101A742C8D37A500FDB709 /* SettingsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeature.swift; sourceTree = "<group>"; };
 		49101A792C8D3DE800FDB709 /* TodayWod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWod.swift; sourceTree = "<group>"; };
+		49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginFeature.swift; sourceTree = "<group>"; };
+		49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		49101A822C90878300FDB709 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		499B074F2C8BD6B700C46FDD /* TodayWod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodayWod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499B07522C8BD6B700C46FDD /* TodayWodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWodApp.swift; sourceTree = "<group>"; };
 		499B07542C8BD6B700C46FDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +78,38 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		49101A7D2C8F3D3800FDB709 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				49101A7E2C90850F00FDB709 /* SocialLogin */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		49101A7E2C90850F00FDB709 /* SocialLogin */ = {
+			isa = PBXGroup;
+			children = (
+				49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */,
+			);
+			path = SocialLogin;
+			sourceTree = "<group>";
+		};
+		49101A812C90871600FDB709 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		49101A842C90878700FDB709 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				49101A822C90878300FDB709 /* UserInfoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		499B07462C8BD6B700C46FDD = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +131,8 @@
 			children = (
 				499B07522C8BD6B700C46FDD /* TodayWodApp.swift */,
 				499B07542C8BD6B700C46FDD /* ContentView.swift */,
+				49101A812C90871600FDB709 /* Manager */,
+				49101A842C90878700FDB709 /* Model */,
 				499B076A2C8BEFDF00C46FDD /* Features */,
 				499B07672C8BEFC600C46FDD /* Resources */,
 				499B07582C8BD6B900C46FDD /* Preview Content */,
@@ -122,13 +162,14 @@
 		499B076A2C8BEFDF00C46FDD /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				499B07682C8BEFDB00C46FDD /* SplashFeature.swift */,
-				49101A6F2C8D373D00FDB709 /* AppFeature.swift */,
-				49101A792C8D3DE800FDB709 /* TodayWod.swift */,
+				ADBACAA12C92BBCF00BED61C /* Root */,
+				ADBACA9F2C92BBB900BED61C /* Splash */,
+				ADBACAA02C92BBC300BED61C /* Tab */,
 				49101A732C8D379C00FDB709 /* Home */,
 				49101A762C8D384700FDB709 /* Settings */,
 				ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */,
 				ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */,
+				49101A7D2C8F3D3800FDB709 /* Onboarding */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -140,6 +181,30 @@
 				49B8AF052C8C5D3900EA78CC /* Images+Generated.swift */,
 			);
 			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		ADBACA9F2C92BBB900BED61C /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				499B07682C8BEFDB00C46FDD /* SplashFeature.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		ADBACAA02C92BBC300BED61C /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				49101A6F2C8D373D00FDB709 /* AppFeature.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		ADBACAA12C92BBCF00BED61C /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				49101A792C8D3DE800FDB709 /* TodayWod.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,11 +313,14 @@
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
+				49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */,
 				499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */,
+				49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */,
 				49101A752C8D37A500FDB709 /* SettingsFeature.swift in Sources */,
 				49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */,
 				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,
 				499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */,
+				49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,10 +452,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodayWod/Preview Content\"";
-				DEVELOPMENT_TEAM = VLXYWWGUU9;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TodayWod;
@@ -401,13 +471,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.oji.TodayWod;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TodayWod Dev PP";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -417,10 +489,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodayWod/Preview Content\"";
-				DEVELOPMENT_TEAM = VLXYWWGUU9;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TodayWod;
@@ -434,13 +508,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.oji.TodayWod;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TodayWod PP";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
