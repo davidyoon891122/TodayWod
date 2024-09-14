@@ -14,13 +14,13 @@ struct TodayWod {
     enum State: Equatable {
         case splash(SplashFeature.State)
         case app(AppFeature.State)
-        case login(SocialLoginFeature.State)
+        case onBoarding(GenderSelectFeature.State)
     }
 
     enum Action {
         case splash(SplashFeature.Action)
         case app(AppFeature.Action)
-        case login(SocialLoginFeature.Action)
+        case onBoarding(GenderSelectFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
@@ -29,14 +29,14 @@ struct TodayWod {
             case .splash(.finishSplash):
                 let userDefaulsManager = UserDefaultsManager()
 
-                if let loginInfo = userDefaulsManager.loadUserInfo() {
+                if userDefaulsManager.hasUserInfo {
                     state = .app(AppFeature.State())
                 } else {
-                    state = .login(SocialLoginFeature.State())
+                    state = .onBoarding(GenderSelectFeature.State())
                 }
 
                 return .none
-            case .splash, .app, .login:
+            case .splash, .app, .onBoarding:
                 return .none
             }
         }
@@ -46,8 +46,8 @@ struct TodayWod {
         .ifCaseLet(\.app, action: \.app) {
             AppFeature()
         }
-        .ifCaseLet(\.login, action: \.login) {
-            SocialLoginFeature()
+        .ifCaseLet(\.onBoarding, action: \.onBoarding) {
+            GenderSelectFeature()
         }
     }
 }
@@ -68,9 +68,9 @@ struct TodayWodView: View {
             if let store = store.scope(state: \.app, action: \.app) {
                 ContentView(store: store)
             }
-        case .login:
-            if let store = store.scope(state: \.login, action: \.login) {
-                SocialLoginView(store: store)
+        case .onBoarding:
+            if let store = store.scope(state: \.onBoarding, action: \.onBoarding) {
+                GenderSelectView(store: store)
             }
         }
     }

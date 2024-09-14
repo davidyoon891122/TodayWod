@@ -11,13 +11,20 @@ protocol UserDefaultsManagerProtocol {
 
     func saveUserInfo(data: UserInfoModel)
     func loadUserInfo() -> UserInfoModel?
-
+    func saveOnboardingUserInfo(data: OnboardingUserInfoModel)
+    func loadOnboardingUserInfo() -> OnboardingUserInfoModel?
+    
+    var hasUserInfo: Bool { get }
+    
 }
 
 final class UserDefaultsManager {
 
     private let userDefaults: UserDefaults
 
+    var hasUserInfo: Bool {
+        return self.loadOnboardingUserInfo() != nil
+    }
 
     init(userDefaults: UserDefaults = UserDefaults.standard) {
         self.userDefaults = userDefaults
@@ -39,6 +46,17 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return userInfo
     }
     
+    func saveOnboardingUserInfo(data: OnboardingUserInfoModel) {
+        let encodedData = try? PropertyListEncoder().encode(data)
+        self.userDefaults.set(encodedData, forKey: Constants.onboardingUserInfo)
+    }
+    
+    func loadOnboardingUserInfo() -> OnboardingUserInfoModel? {
+        guard let data = self.userDefaults.object(forKey: Constants.onboardingUserInfo) as? Data,
+              let userInfo = try? PropertyListDecoder().decode(OnboardingUserInfoModel.self, from: data) else { return nil }
+
+        return userInfo
+    }
 
 }
 
@@ -46,6 +64,7 @@ private extension UserDefaultsManager {
 
     enum Constants {
         static let userInfo: String = "UserInfo"
+        static let onboardingUserInfo: String = "OnboardingUserInfo"
     }
 
 }
