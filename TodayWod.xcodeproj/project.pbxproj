@@ -15,6 +15,15 @@
 		49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */; };
 		49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */; };
 		49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A822C90878300FDB709 /* UserInfoModel.swift */; };
+		49593C292C9570F4006105D1 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C202C9570F3006105D1 /* Pretendard-Thin.otf */; };
+		49593C2A2C9570F4006105D1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C212C9570F3006105D1 /* Pretendard-Bold.otf */; };
+		49593C2B2C9570F4006105D1 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C222C9570F4006105D1 /* Pretendard-Medium.otf */; };
+		49593C2C2C9570F4006105D1 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C232C9570F4006105D1 /* Pretendard-Black.otf */; };
+		49593C2D2C9570F4006105D1 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C242C9570F4006105D1 /* Pretendard-Regular.otf */; };
+		49593C2E2C9570F4006105D1 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C252C9570F4006105D1 /* Pretendard-SemiBold.otf */; };
+		49593C2F2C9570F4006105D1 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C262C9570F4006105D1 /* Pretendard-Light.otf */; };
+		49593C302C9570F4006105D1 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C272C9570F4006105D1 /* Pretendard-ExtraBold.otf */; };
+		49593C312C9570F4006105D1 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C282C9570F4006105D1 /* Pretendard-ExtraLight.otf */; };
 		499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07522C8BD6B700C46FDD /* TodayWodApp.swift */; };
 		499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07542C8BD6B700C46FDD /* ContentView.swift */; };
 		499B07572C8BD6B900C46FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07562C8BD6B900C46FDD /* Assets.xcassets */; };
@@ -41,6 +50,15 @@
 		49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginFeature.swift; sourceTree = "<group>"; };
 		49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		49101A822C90878300FDB709 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		49593C202C9570F3006105D1 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		49593C212C9570F3006105D1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		49593C222C9570F4006105D1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		49593C232C9570F4006105D1 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		49593C242C9570F4006105D1 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		49593C252C9570F4006105D1 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		49593C262C9570F4006105D1 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		49593C272C9570F4006105D1 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		49593C282C9570F4006105D1 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		499B074F2C8BD6B700C46FDD /* TodayWod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodayWod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499B07522C8BD6B700C46FDD /* TodayWodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWodApp.swift; sourceTree = "<group>"; };
 		499B07542C8BD6B700C46FDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,15 +73,6 @@
 		AD4187D62C9416510071AD99 /* LevelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelType.swift; sourceTree = "<group>"; };
 		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
 		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
-		ADC5B05A2C93D3E600E06C8E /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
-		ADC5B05B2C93D3E600E06C8E /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
-		ADC5B05C2C93D3E600E06C8E /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
-		ADC5B05D2C93D3E600E06C8E /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
-		ADC5B05E2C93D3E600E06C8E /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
-		ADC5B05F2C93D3E600E06C8E /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
-		ADC5B0602C93D3E600E06C8E /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		ADC5B0612C93D3E700E06C8E /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
-		ADC5B0622C93D3E700E06C8E /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -248,15 +257,15 @@
 		ADC5B0592C93D02300E06C8E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				ADC5B05F2C93D3E600E06C8E /* Pretendard-Black.otf */,
-				ADC5B0622C93D3E700E06C8E /* Pretendard-Bold.otf */,
-				ADC5B0612C93D3E700E06C8E /* Pretendard-ExtraBold.otf */,
-				ADC5B05D2C93D3E600E06C8E /* Pretendard-ExtraLight.otf */,
-				ADC5B05E2C93D3E600E06C8E /* Pretendard-Light.otf */,
-				ADC5B0602C93D3E600E06C8E /* Pretendard-Medium.otf */,
-				ADC5B05B2C93D3E600E06C8E /* Pretendard-Regular.otf */,
-				ADC5B05C2C93D3E600E06C8E /* Pretendard-SemiBold.otf */,
-				ADC5B05A2C93D3E600E06C8E /* Pretendard-Thin.otf */,
+				49593C232C9570F4006105D1 /* Pretendard-Black.otf */,
+				49593C212C9570F3006105D1 /* Pretendard-Bold.otf */,
+				49593C272C9570F4006105D1 /* Pretendard-ExtraBold.otf */,
+				49593C282C9570F4006105D1 /* Pretendard-ExtraLight.otf */,
+				49593C262C9570F4006105D1 /* Pretendard-Light.otf */,
+				49593C222C9570F4006105D1 /* Pretendard-Medium.otf */,
+				49593C242C9570F4006105D1 /* Pretendard-Regular.otf */,
+				49593C252C9570F4006105D1 /* Pretendard-SemiBold.otf */,
+				49593C202C9570F3006105D1 /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -326,9 +335,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49593C2B2C9570F4006105D1 /* Pretendard-Medium.otf in Resources */,
 				499B07662C8BEFBF00C46FDD /* Colors.xcassets in Resources */,
+				49593C302C9570F4006105D1 /* Pretendard-ExtraBold.otf in Resources */,
+				49593C2A2C9570F4006105D1 /* Pretendard-Bold.otf in Resources */,
+				49593C292C9570F4006105D1 /* Pretendard-Thin.otf in Resources */,
+				49593C2D2C9570F4006105D1 /* Pretendard-Regular.otf in Resources */,
+				49593C2F2C9570F4006105D1 /* Pretendard-Light.otf in Resources */,
+				49593C312C9570F4006105D1 /* Pretendard-ExtraLight.otf in Resources */,
 				1CC1FCCD2C91C532005FC6A2 /* Images.xcassets in Resources */,
 				499B075A2C8BD6B900C46FDD /* Preview Assets.xcassets in Resources */,
+				49593C2E2C9570F4006105D1 /* Pretendard-SemiBold.otf in Resources */,
+				49593C2C2C9570F4006105D1 /* Pretendard-Black.otf in Resources */,
 				499B07572C8BD6B900C46FDD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +536,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = TodayWod;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -555,6 +574,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = TodayWod;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
