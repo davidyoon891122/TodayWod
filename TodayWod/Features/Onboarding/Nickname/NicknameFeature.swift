@@ -38,10 +38,11 @@ struct NicknameFeature {
             case let .setNickname(nickName):
                 state.nickName = nickName
                 state.isValidNickname = isValidNickName(input: nickName)
-
                 return .none
             case .didTapNextButton:
+                state.onboardingUserModel.nickName = state.nickName
 
+                print(state.onboardingUserModel)
                 return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
@@ -49,6 +50,7 @@ struct NicknameFeature {
         }
     }
 
+    // extension으로 뺄지 고민
     func isValidNickName(input: String) -> Bool {
         let regex = "^[a-zA-Z가-힣0-9]{2,10}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
@@ -110,7 +112,7 @@ struct NicknameInputView: View {
                 }
 
                 Button(action: {
-
+                    store.send(.didTapNextButton)
                 }, label: {
                     Text(store.buttonTitle)
                         .nextButtonStyle()
