@@ -96,6 +96,7 @@ struct NicknameInputView: View {
                 HStack {
                     TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
                         .multilineTextAlignment(.center)
+                        .autocorrectionDisabled()
                         .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                         .foregroundStyle(.grey100)
                         .padding(.vertical, 8)
