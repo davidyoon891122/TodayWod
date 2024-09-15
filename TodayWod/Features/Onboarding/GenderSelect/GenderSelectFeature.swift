@@ -46,7 +46,7 @@ struct GenderSelectFeature {
                 return .none
                 
             case .toNickname:
-                state.path.append(NicknameFeature.State())
+                state.path.append(NicknameFeature.State(onboardingUserModel: state.onboardingUserModel))
                 return .none
             }
         }
@@ -69,16 +69,18 @@ struct GenderSelectView: View {
                 VStack {
                     HStack {
                         Text(store.title)
-                            .bold()
-                            .font(.system(size: 24.0))
+                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                            .foregroundStyle(.grey100)
+                            .lineLimit(2)
                         Spacer()
                     }
                     .padding(.top, 58.0)
                     .padding(.horizontal, 20.0)
                     HStack {
                         Text(store.subTitle)
-                            .font(.system(size: 20.0))
+                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
                             .foregroundStyle(.grey80)
+                            .lineLimit(1)
                         Spacer()
                     }
                     .padding(.top, 16.0)
