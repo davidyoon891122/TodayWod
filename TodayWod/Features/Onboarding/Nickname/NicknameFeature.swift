@@ -27,8 +27,10 @@ struct NicknameFeature {
     enum Action {
         case setNickname(String)
         case didTapNextButton
+        case didTapBackButton
     }
-    
+
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -41,6 +43,8 @@ struct NicknameFeature {
             case .didTapNextButton:
 
                 return .none
+            case .didTapBackButton:
+                return .run { _ in await dismiss() }
             }
         }
     }
@@ -60,10 +64,11 @@ struct NicknameInputView: View {
 
     @Perception.Bindable var store: StoreOf<NicknameFeature>
 
-    @State private var text: String = ""
-
     var body: some View {
         WithPerceptionTracking {
+            CustomNavigationView {
+                store.send(.didTapBackButton)
+            }
             VStack {
                 HStack {
                     Text(store.title)
@@ -108,11 +113,7 @@ struct NicknameInputView: View {
 
                 }, label: {
                     Text(store.buttonTitle)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
-                        .frame(maxWidth: .infinity, minHeight: 56.0)
-                        .background(store.isValidNickname ? .blue60 : .blue20)
-                        .clipShape(.rect(cornerRadius: 300.0))
-                        .foregroundStyle(.white)
+                        .nextButtonStyle()
                 })
                 .disabled(!store.isValidNickname)
                 .padding(.top, 91.0)
@@ -121,6 +122,7 @@ struct NicknameInputView: View {
                 Spacer()
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

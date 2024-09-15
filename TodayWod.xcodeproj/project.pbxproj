@@ -24,6 +24,8 @@
 		49593C2F2C9570F4006105D1 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C262C9570F4006105D1 /* Pretendard-Light.otf */; };
 		49593C302C9570F4006105D1 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C272C9570F4006105D1 /* Pretendard-ExtraBold.otf */; };
 		49593C312C9570F4006105D1 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C282C9570F4006105D1 /* Pretendard-ExtraLight.otf */; };
+		49593C332C969126006105D1 /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C322C969126006105D1 /* CustomNavigationView.swift */; };
+		49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C352C969293006105D1 /* ButtonTextModifier.swift */; };
 		499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07522C8BD6B700C46FDD /* TodayWodApp.swift */; };
 		499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07542C8BD6B700C46FDD /* ContentView.swift */; };
 		499B07572C8BD6B900C46FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07562C8BD6B900C46FDD /* Assets.xcassets */; };
@@ -59,6 +61,8 @@
 		49593C262C9570F4006105D1 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		49593C272C9570F4006105D1 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		49593C282C9570F4006105D1 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		49593C322C969126006105D1 /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
+		49593C352C969293006105D1 /* ButtonTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTextModifier.swift; sourceTree = "<group>"; };
 		499B074F2C8BD6B700C46FDD /* TodayWod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodayWod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499B07522C8BD6B700C46FDD /* TodayWodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWodApp.swift; sourceTree = "<group>"; };
 		499B07542C8BD6B700C46FDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +145,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		49593C342C96912C006105D1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				49593C372C969370006105D1 /* CustomView */,
+				49593C382C969378006105D1 /* Modifier */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		49593C372C969370006105D1 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				49593C322C969126006105D1 /* CustomNavigationView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		49593C382C969378006105D1 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				49593C352C969293006105D1 /* ButtonTextModifier.swift */,
+			);
+			path = Modifier;
+			sourceTree = "<group>";
+		};
 		499B07462C8BD6B700C46FDD = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +223,7 @@
 		499B076A2C8BEFDF00C46FDD /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				49593C342C96912C006105D1 /* Common */,
 				ADBACAA12C92BBCF00BED61C /* Root */,
 				ADBACA9F2C92BBB900BED61C /* Splash */,
 				ADBACAA02C92BBC300BED61C /* Tab */,
@@ -382,6 +412,7 @@
 				49101A702C8D373D00FDB709 /* AppFeature.swift in Sources */,
 				ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
+				49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */,
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
@@ -397,6 +428,7 @@
 				ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */,
 				499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */,
 				49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */,
+				49593C332C969126006105D1 /* CustomNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
