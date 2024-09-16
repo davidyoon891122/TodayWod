@@ -8,11 +8,6 @@
 import Foundation
 import ComposableArchitecture
 
-enum MethodType {
-    case body
-    case machine
-}
-
 @Reducer
 struct MethodSelectFeature {
 
@@ -24,11 +19,15 @@ struct MethodSelectFeature {
 
         var isValidMethod: Bool = false
         var methodType: MethodType? = nil
+        @Presents var methodDescription: MethodDescriptionFeature.State?
     }
 
     enum Action {
         case didTapStartButton
         case setMethod(MethodType)
+        case methodDescriptionTap(PresentationAction<MethodDescriptionFeature.Action>)
+        case didTapBodyDescriptionButton
+        case didTapMachineDescriptionButton
     }
 
     var body: some ReducerOf<Self> {
@@ -47,7 +46,18 @@ struct MethodSelectFeature {
                 }
 
                 return .none
+            case .methodDescriptionTap:
+                return .none
+            case .didTapBodyDescriptionButton:
+                state.methodDescription = MethodDescriptionFeature.State(methodType: .body)
+                return .none
+            case .didTapMachineDescriptionButton:
+                state.methodDescription = MethodDescriptionFeature.State(methodType: .machine)
+                return .none
             }
+        }
+        .ifLet(\.$methodDescription, action: \.methodDescriptionTap) {
+            MethodDescriptionFeature()
         }
     }
 
@@ -57,7 +67,7 @@ import SwiftUI
 
 struct MethodSelectView: View {
 
-    let store: StoreOf<MethodSelectFeature>
+    @Perception.Bindable var store: StoreOf<MethodSelectFeature>
 
     var body: some View {
         VStack {
@@ -101,7 +111,7 @@ struct MethodSelectView: View {
                         .foregroundStyle(.grey100)
                         .padding(.top, 20.0)
                     Button(action: {
-
+                        store.send(.didTapBodyDescriptionButton)
                     }, label: {
                         HStack {
                             Images.icInfo16.swiftUIImage
@@ -134,7 +144,7 @@ struct MethodSelectView: View {
                         .foregroundStyle(.grey100)
                         .padding(.top, 20.0)
                     Button(action: {
-
+                        store.send(.didTapMachineDescriptionButton)
                     }, label: {
                         HStack {
                             Images.icInfo16.swiftUIImage
@@ -161,6 +171,10 @@ struct MethodSelectView: View {
             .disabled(!store.isValidMethod)
             .padding(.bottom, 20.0)
             .padding(.horizontal, 38.0)
+        }
+        .sheet(item: $store.scope(state: \.methodDescription, action: \.methodDescriptionTap)) { store in
+            MethodDescriptionView(store: store)
+                .presentationDetents([.medium, .large])
         }
     }
 
