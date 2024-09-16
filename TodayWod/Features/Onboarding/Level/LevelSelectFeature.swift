@@ -42,7 +42,13 @@ struct LevelSelectFeature {
 
                 return .none
             case let .setLevel(level):
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.prepare()
+                generator.impactOccurred()
                 state.level = level
+                if state.level != nil {
+                    state.isValidLevel = true
+                }
                 return .none
             }
         }
@@ -92,6 +98,7 @@ struct LevelSelectView: View {
                             }
                     }
                 }
+                .padding(.top, 40.0)
 
                 Spacer()
 

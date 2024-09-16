@@ -118,11 +118,11 @@
 			isa = PBXGroup;
 			children = (
 				49101A7E2C90850F00FDB709 /* SocialLogin */,
-				AD4187D02C940EAA0071AD99 /* GenderSelect */,
+				AD4187D02C940EAA0071AD99 /* Gender */,
 				AD4187D12C940EBA0071AD99 /* Nickname */,
 				49593C3B2C969CE9006105D1 /* Height */,
 				4992E6832C97E076001A1375 /* Weight */,
-				4992E6842C980A04001A1375 /* LevelSelectFeature.swift */,
+				4992E6862C981701001A1375 /* Level */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -193,6 +193,14 @@
 				4992E6812C97E068001A1375 /* WeightInputFeature.swift */,
 			);
 			path = Weight;
+			sourceTree = "<group>";
+		};
+		4992E6862C981701001A1375 /* Level */ = {
+			isa = PBXGroup;
+			children = (
+				4992E6842C980A04001A1375 /* LevelSelectFeature.swift */,
+			);
+			path = Level;
 			sourceTree = "<group>";
 		};
 		499B07462C8BD6B700C46FDD = {
@@ -269,12 +277,12 @@
 			path = SwiftGen;
 			sourceTree = "<group>";
 		};
-		AD4187D02C940EAA0071AD99 /* GenderSelect */ = {
+		AD4187D02C940EAA0071AD99 /* Gender */ = {
 			isa = PBXGroup;
 			children = (
 				ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */,
 			);
-			path = GenderSelect;
+			path = Gender;
 			sourceTree = "<group>";
 		};
 		AD4187D12C940EBA0071AD99 /* Nickname */ = {
