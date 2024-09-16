@@ -1,34 +1,33 @@
 //
-//  HeightInputFeature.swift
+//  WeightInputFeature.swift
 //  TodayWod
 //
-//  Created by Jiwon Yoon on 9/15/24.
+//  Created by Jiwon Yoon on 9/16/24.
 //
 
 import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct HeightInputFeature {
+struct WeightInputFeature {
 
     @ObservableState
     struct State: Equatable {
         let title: String = "나만의 운동 프로그램을\n설정할게요!"
-        let subTitle: String = "키(cm) 를 알려주세요."
-        var height: String = ""
+        let subTitle: String = "몸무게(kg) 를 알려주세요."
+        var weight: String = ""
         let placeHolder: String = "0"
         let buttonTitle: String = "다음"
         var onboardingUserModel: OnboardingUserInfoModel
 
-        var isValidHeight: Bool = false
-        @Presents var weightInputState: WeightInputFeature.State?
+        var isValidWeight: Bool = false
+
     }
 
     enum Action {
         case didTapBackButton
         case didTapNextButton
-        case setHeight(String)
-        case weightInput(PresentationAction<WeightInputFeature.Action>)
+        case setWeight(String)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -37,30 +36,23 @@ struct HeightInputFeature {
         Reduce { state, action in
             switch action {
             case .didTapBackButton:
-                
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
-                state.onboardingUserModel.height = Int(state.height)
+                state.onboardingUserModel.weight = Int(state.weight)
                 print(state.onboardingUserModel)
                 // TODO: - 다음 navigation path 세팅 처리
 
-                state.weightInputState = WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)
                 return .none
-            case let .setHeight(height):
-                if let _ = Int(height), !height.isEmpty {
-                    state.height = height
-                    state.isValidHeight = true
+            case let .setWeight(weight):
+                if let _ = Int(weight), !weight.isEmpty {
+                    state.weight = weight
+                    state.isValidWeight = true
                 } else {
-                    state.height = ""
-                    state.isValidHeight = false
+                    state.weight = ""
+                    state.isValidWeight = false
                 }
                 return .none
-            case .weightInput:
-                return .none
             }
-        }
-        .ifLet(\.$weightInputState, action: \.weightInput) {
-            WeightInputFeature()
         }
     }
 
@@ -68,9 +60,9 @@ struct HeightInputFeature {
 
 import SwiftUI
 
-struct HeightInputView: View {
+struct WeightInputView: View {
 
-    @Perception.Bindable var store: StoreOf<HeightInputFeature>
+    @Perception.Bindable var store: StoreOf<WeightInputFeature>
 
     var body: some View {
         WithPerceptionTracking {
@@ -101,7 +93,7 @@ struct HeightInputView: View {
                     .padding(.horizontal, 20)
 
                     HStack(spacing: 8) {
-                        TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
+                        TextField(store.placeHolder, text: $store.weight.sending(\.setWeight))
                             .multilineTextAlignment(.trailing)
                             .autocorrectionDisabled()
                             .keyboardType(.numberPad)
@@ -110,7 +102,7 @@ struct HeightInputView: View {
                             .padding(.vertical, 8)
                             .fixedSize(horizontal: true, vertical: false)
 
-                        Text("cm")
+                        Text("kg")
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                             .foregroundStyle(.grey100)
                     }
@@ -124,7 +116,7 @@ struct HeightInputView: View {
                         Text(store.buttonTitle)
                             .nextButtonStyle()
                     })
-                    .disabled(!store.isValidHeight)
+                    .disabled(!store.isValidWeight)
                     .padding(.top, 91.0)
                     .padding(.horizontal, 38.0)
 
@@ -132,16 +124,14 @@ struct HeightInputView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $store.scope(state: \.weightInputState, action: \.weightInput)) { store in
-                WeightInputView(store: store)
-            }
+
         }
     }
 
 }
 
 #Preview {
-    HeightInputView(store: Store(initialState: HeightInputFeature.State(onboardingUserModel: .init())) {
-        HeightInputFeature()
+    WeightInputView(store: Store(initialState: WeightInputFeature.State(onboardingUserModel: .init())) {
+        WeightInputFeature()
     })
 }
