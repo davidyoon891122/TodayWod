@@ -22,10 +22,27 @@ struct ButtonTextModifier: ViewModifier {
 
 }
 
+struct CloseTextModifier: ViewModifier {
+
+    func body(content: Content) -> some View {
+        content
+            .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
+            .frame(maxWidth: .infinity, minHeight: 56.0)
+            .background(.grey20)
+            .clipShape(.rect(cornerRadius: 300.0))
+            .foregroundStyle(.grey100)
+    }
+
+}
+
 extension View {
 
     func nextButtonStyle() -> some View {
         self.modifier(ButtonTextModifier())
+    }
+
+    func closeButtonStyle() -> some View {
+        self.modifier(CloseTextModifier())
     }
 
 }

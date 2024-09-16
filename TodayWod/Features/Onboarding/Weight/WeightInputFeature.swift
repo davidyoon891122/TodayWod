@@ -21,6 +21,7 @@ struct WeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidWeight: Bool = false
+        @Presents var levelSelectState: LevelSelectFeature.State?
 
     }
 
@@ -28,6 +29,7 @@ struct WeightInputFeature {
         case didTapBackButton
         case didTapNextButton
         case setWeight(String)
+        case levelSelect(PresentationAction<LevelSelectFeature.Action>)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -39,8 +41,7 @@ struct WeightInputFeature {
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
                 state.onboardingUserModel.weight = Int(state.weight)
-                print(state.onboardingUserModel)
-                // TODO: - 다음 navigation path 세팅 처리
+                state.levelSelectState = LevelSelectFeature.State(onboardingUserModel: state.onboardingUserModel)
 
                 return .none
             case let .setWeight(weight):
@@ -52,7 +53,12 @@ struct WeightInputFeature {
                     state.isValidWeight = false
                 }
                 return .none
+            case .levelSelect:
+                return .none
             }
+        }
+        .ifLet(\.$levelSelectState, action: \.levelSelect) {
+            LevelSelectFeature()
         }
     }
 
@@ -124,7 +130,9 @@ struct WeightInputView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-
+            .navigationDestination(item: $store.scope(state: \.levelSelectState, action: \.levelSelect)) { store in
+                LevelSelectView(store: store)
+            }
         }
     }
 

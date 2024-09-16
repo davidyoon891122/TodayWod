@@ -28,6 +28,10 @@
 		49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C352C969293006105D1 /* ButtonTextModifier.swift */; };
 		49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C392C969BC2006105D1 /* HeightInputFeature.swift */; };
 		4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6812C97E068001A1375 /* WeightInputFeature.swift */; };
+		4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6842C980A04001A1375 /* LevelSelectFeature.swift */; };
+		4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */; };
+		4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */; };
+		4992E68D2C9865D5001A1375 /* MethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E68C2C9865D5001A1375 /* MethodType.swift */; };
 		499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07522C8BD6B700C46FDD /* TodayWodApp.swift */; };
 		499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07542C8BD6B700C46FDD /* ContentView.swift */; };
 		499B07572C8BD6B900C46FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07562C8BD6B900C46FDD /* Assets.xcassets */; };
@@ -67,6 +71,10 @@
 		49593C352C969293006105D1 /* ButtonTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTextModifier.swift; sourceTree = "<group>"; };
 		49593C392C969BC2006105D1 /* HeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightInputFeature.swift; sourceTree = "<group>"; };
 		4992E6812C97E068001A1375 /* WeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputFeature.swift; sourceTree = "<group>"; };
+		4992E6842C980A04001A1375 /* LevelSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectFeature.swift; sourceTree = "<group>"; };
+		4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectFeature.swift; sourceTree = "<group>"; };
+		4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDescriptionFeature.swift; sourceTree = "<group>"; };
+		4992E68C2C9865D5001A1375 /* MethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodType.swift; sourceTree = "<group>"; };
 		499B074F2C8BD6B700C46FDD /* TodayWod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodayWod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499B07522C8BD6B700C46FDD /* TodayWodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWodApp.swift; sourceTree = "<group>"; };
 		499B07542C8BD6B700C46FDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,10 +124,12 @@
 			isa = PBXGroup;
 			children = (
 				49101A7E2C90850F00FDB709 /* SocialLogin */,
-				AD4187D02C940EAA0071AD99 /* GenderSelect */,
+				AD4187D02C940EAA0071AD99 /* Gender */,
 				AD4187D12C940EBA0071AD99 /* Nickname */,
 				49593C3B2C969CE9006105D1 /* Height */,
 				4992E6832C97E076001A1375 /* Weight */,
+				4992E6862C981701001A1375 /* Level */,
+				4992E6892C98407E001A1375 /* Method */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -147,6 +157,7 @@
 				AD4187D22C94150B0071AD99 /* OnboardingUserInfoModel.swift */,
 				AD4187D42C9416400071AD99 /* GenderType.swift */,
 				AD4187D62C9416510071AD99 /* LevelType.swift */,
+				4992E68C2C9865D5001A1375 /* MethodType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,6 +201,31 @@
 				4992E6812C97E068001A1375 /* WeightInputFeature.swift */,
 			);
 			path = Weight;
+			sourceTree = "<group>";
+		};
+		4992E6862C981701001A1375 /* Level */ = {
+			isa = PBXGroup;
+			children = (
+				4992E6842C980A04001A1375 /* LevelSelectFeature.swift */,
+			);
+			path = Level;
+			sourceTree = "<group>";
+		};
+		4992E6892C98407E001A1375 /* Method */ = {
+			isa = PBXGroup;
+			children = (
+				4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */,
+				4992E68E2C986A41001A1375 /* Description */,
+			);
+			path = Method;
+			sourceTree = "<group>";
+		};
+		4992E68E2C986A41001A1375 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */,
+			);
+			path = Description;
 			sourceTree = "<group>";
 		};
 		499B07462C8BD6B700C46FDD = {
@@ -266,12 +302,12 @@
 			path = SwiftGen;
 			sourceTree = "<group>";
 		};
-		AD4187D02C940EAA0071AD99 /* GenderSelect */ = {
+		AD4187D02C940EAA0071AD99 /* Gender */ = {
 			isa = PBXGroup;
 			children = (
 				ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */,
 			);
-			path = GenderSelect;
+			path = Gender;
 			sourceTree = "<group>";
 		};
 		AD4187D12C940EBA0071AD99 /* Nickname */ = {
@@ -435,10 +471,14 @@
 				ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */,
 				49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
+				4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */,
 				49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */,
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
+				4992E68D2C9865D5001A1375 /* MethodType.swift in Sources */,
+				4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
+				4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */,
 				49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */,
 				AD4187D32C94150B0071AD99 /* OnboardingUserInfoModel.swift in Sources */,
 				499B07552C8BD6B700C46FDD /* ContentView.swift in Sources */,

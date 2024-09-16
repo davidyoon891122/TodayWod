@@ -39,37 +39,39 @@ struct HomeView: View {
     let store: StoreOf<HomeFeature>
 
     var body: some View {
-        VStack {
-            Image(systemName: "person.circle")
-                .resizable()
-                .frame(width: 120.0, height: 120.0)
-                .padding(.top, 120.0)
-            
-            Text(store.title)
-                .bold()
-                .font(.system(size: 20.0))
-                .padding(.top, 30.0)
-                
-            Text(store.subTitle)
-                .font(.system(size: 16.0))
-                .padding(.top, 10.0)
-                .multilineTextAlignment(.center)
-            
-            Button(action: {
-                
-            }, label: {
-                Text(store.buttonTitle)
+        WithPerceptionTracking {
+            VStack {
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .frame(width: 120.0, height: 120.0)
+                    .padding(.top, 120.0)
+
+                Text(store.title)
                     .bold()
+                    .font(.system(size: 20.0))
+                    .padding(.top, 30.0)
+
+                Text(store.subTitle)
                     .font(.system(size: 16.0))
-            })
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity, minHeight: 56.0)
-            .background(.cyan)
-            .clipShape(.rect(cornerRadius: 300.0))
-            .padding(.horizontal, 38.0)
-            .padding(.top, 40.0)
-            
-            Spacer()
+                    .padding(.top, 10.0)
+                    .multilineTextAlignment(.center)
+
+                Button(action: {
+
+                }, label: {
+                    Text(store.buttonTitle)
+                        .bold()
+                        .font(.system(size: 16.0))
+                })
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, minHeight: 56.0)
+                .background(.cyan)
+                .clipShape(.rect(cornerRadius: 300.0))
+                .padding(.horizontal, 38.0)
+                .padding(.top, 40.0)
+
+                Spacer()
+            }
         }
     }
     
