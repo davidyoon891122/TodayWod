@@ -39,6 +39,8 @@ struct LevelSelectFeature {
                 state.onboardingUserModel.level = state.level
                 print(state.onboardingUserModel)
                 // TODO: - 다음 navigation path 세팅 처리
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
 
                 return .none
             case let .setLevel(level):
