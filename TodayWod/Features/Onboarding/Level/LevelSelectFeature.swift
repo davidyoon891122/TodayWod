@@ -60,60 +60,62 @@ import SwiftUI
 
 struct LevelSelectView: View {
 
-    let store: StoreOf<LevelSelectFeature>
+    @Perception.Bindable var store: StoreOf<LevelSelectFeature>
 
     var body: some View {
-        VStack {
-            CustomNavigationView {
-                store.send(.didTapBackButton)
-            }
+        WithPerceptionTracking {
             VStack {
-                HStack {
-                    Text(store.title)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                        .foregroundStyle(.grey100)
-                        .lineLimit(2)
-                    Spacer()
+                CustomNavigationView {
+                    store.send(.didTapBackButton)
                 }
-                .padding(.top, 10.0)
-                .padding(.horizontal, 20.0)
-
-                HStack {
-                    Text(store.subTitle)
-                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
-                        .foregroundStyle(.grey80)
-                        .lineLimit(1)
-
-                    Spacer()
-                }
-                .padding(.top, 16.0)
-                .padding(.horizontal, 20)
-
-                LazyVStack(spacing: 10.0) {
-                    ForEach(LevelType.allCases, id: \.self) { type in
-                        LevelCardView(type: type, store: store)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                store.send(.setLevel(type))
-                            }
+                VStack {
+                    HStack {
+                        Text(store.title)
+                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                            .foregroundStyle(.grey100)
+                            .lineLimit(2)
+                        Spacer()
                     }
+                    .padding(.top, 10.0)
+                    .padding(.horizontal, 20.0)
+
+                    HStack {
+                        Text(store.subTitle)
+                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
+                            .foregroundStyle(.grey80)
+                            .lineLimit(1)
+
+                        Spacer()
+                    }
+                    .padding(.top, 16.0)
+                    .padding(.horizontal, 20)
+
+                    LazyVStack(spacing: 10.0) {
+                        ForEach(LevelType.allCases, id: \.self) { type in
+                            LevelCardView(type: type, store: store)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    store.send(.setLevel(type))
+                                }
+                        }
+                    }
+                    .padding(.top, 40.0)
+
+                    Spacer()
+
+                    Button(action: {
+                        store.send(.didTapNextButton)
+                    }, label: {
+                        Text(store.buttonTitle)
+                            .nextButtonStyle()
+                    })
+                    .disabled(!store.isValidLevel)
+                    .padding(.bottom, 20.0)
+                    .padding(.horizontal, 38.0)
                 }
-                .padding(.top, 40.0)
-
-                Spacer()
-
-                Button(action: {
-                    store.send(.didTapNextButton)
-                }, label: {
-                    Text(store.buttonTitle)
-                        .nextButtonStyle()
-                })
-                .disabled(!store.isValidLevel)
-                .padding(.bottom, 20.0)
-                .padding(.horizontal, 38.0)
             }
+            .toolbar(.hidden, for: .navigationBar)
         }
-        .toolbar(.hidden, for: .navigationBar)
     }
 
 }
@@ -128,33 +130,35 @@ struct LevelCardView: View {
 
     let type: LevelType
 
-    var store: StoreOf<LevelSelectFeature>
+    @Perception.Bindable var store: StoreOf<LevelSelectFeature>
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(type.title)")
-                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 18.0))
-                    .foregroundStyle(store.state.level == type ? .blue60 : .grey100)
-                Spacer()
+        WithPerceptionTracking {
+            VStack {
+                HStack {
+                    Text("\(type.title)")
+                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 18.0))
+                        .foregroundStyle(store.state.level == type ? .blue60 : .grey100)
+                    Spacer()
+                }
+                .padding(.horizontal, 16.0)
+                .padding(.top, 16.0)
+                HStack {
+                    Text("\(type.description)")
+                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
+                        .foregroundStyle(.grey80)
+                    Spacer()
+                }
+                .padding(.horizontal, 16.0)
+                .padding(.top, 4.0)
+                .padding(.bottom, 16.0)
             }
-            .padding(.horizontal, 16.0)
-            .padding(.top, 16.0)
-            HStack {
-                Text("\(type.description)")
-                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                    .foregroundStyle(.grey80)
-                Spacer()
+            .overlay {
+                RoundedRectangle(cornerRadius: 12.0)
+                    .stroke(store.state.level == type ? .blue60 : .grey40)
             }
-            .padding(.horizontal, 16.0)
-            .padding(.top, 4.0)
-            .padding(.bottom, 16.0)
+            .padding(.horizontal, 20.0)
         }
-        .overlay {
-            RoundedRectangle(cornerRadius: 12.0)
-                .stroke(store.state.level == type ? .blue60 : .grey40)
-        }
-        .padding(.horizontal, 20.0)
     }
 
 }
