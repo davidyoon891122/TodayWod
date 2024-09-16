@@ -38,6 +38,9 @@ struct HeightInputFeature {
                 
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
+                state.onboardingUserModel.height = Int(state.height)
+                print(state.onboardingUserModel)
+                // TODO: - 다음 navigation path 세팅 처리
                 return .none
             case let .setHeight(height):
                 if let _ = Int(height), !height.isEmpty {
