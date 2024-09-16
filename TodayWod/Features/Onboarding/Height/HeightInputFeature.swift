@@ -108,7 +108,7 @@ struct HeightInputView: View {
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
                             .foregroundStyle(.grey100)
                             .padding(.vertical, 8)
-                            .fixedSize(horizontal: true, vertical: false) // Prevent horizontal expansion
+                            .fixedSize(horizontal: true, vertical: false)
 
                         Text("cm")
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
