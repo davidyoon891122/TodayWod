@@ -21,12 +21,14 @@ struct HeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidHeight: Bool = false
+        @Presents var weightInputState: WeightInputFeature.State?
     }
 
     enum Action {
         case didTapBackButton
         case didTapNextButton
         case setHeight(String)
+        case weightInput(PresentationAction<WeightInputFeature.Action>)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -41,6 +43,8 @@ struct HeightInputFeature {
                 state.onboardingUserModel.height = Int(state.height)
                 print(state.onboardingUserModel)
                 // TODO: - 다음 navigation path 세팅 처리
+
+                state.weightInputState = WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)
                 return .none
             case let .setHeight(height):
                 if let _ = Int(height), !height.isEmpty {
@@ -51,7 +55,12 @@ struct HeightInputFeature {
                     state.isValidHeight = false
                 }
                 return .none
+            case .weightInput:
+                return .none
             }
+        }
+        .ifLet(\.$weightInputState, action: \.weightInput) {
+            WeightInputFeature()
         }
     }
 
@@ -65,63 +74,68 @@ struct HeightInputView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            CustomNavigationView {
-                store.send(.didTapBackButton)
-            }
             VStack {
-                HStack {
-                    Text(store.title)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                        .foregroundStyle(.grey100)
-                        .lineLimit(2)
+                CustomNavigationView {
+                    store.send(.didTapBackButton)
+                }
+                VStack {
+                    HStack {
+                        Text(store.title)
+                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                            .foregroundStyle(.grey100)
+                            .lineLimit(2)
+                        Spacer()
+                    }
+                    .padding(.top, 10.0)
+                    .padding(.horizontal, 20.0)
+
+                    HStack {
+                        Text(store.subTitle)
+                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
+                            .foregroundStyle(.grey80)
+                            .lineLimit(1)
+
+                        Spacer()
+                    }
+                    .padding(.top, 16.0)
+                    .padding(.horizontal, 20)
+
+                    HStack(spacing: 8) {
+                        TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
+                            .multilineTextAlignment(.trailing)
+                            .autocorrectionDisabled()
+                            .keyboardType(.numberPad)
+                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
+                            .foregroundStyle(.grey100)
+                            .padding(.vertical, 8)
+                            .fixedSize(horizontal: true, vertical: false) // Prevent horizontal expansion
+
+                        Text("cm")
+                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
+                            .foregroundStyle(.grey100)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 48.0)
+                    .padding(.horizontal, 20.0)
+
+                    Button(action: {
+                        store.send(.didTapNextButton)
+                    }, label: {
+                        Text(store.buttonTitle)
+                            .nextButtonStyle()
+                    })
+                    .disabled(!store.isValidHeight)
+                    .padding(.top, 91.0)
+                    .padding(.horizontal, 38.0)
+
                     Spacer()
                 }
-                .padding(.top, 10.0)
-                .padding(.horizontal, 20.0)
-
-                HStack {
-                    Text(store.subTitle)
-                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
-                        .foregroundStyle(.grey80)
-                        .lineLimit(1)
-
-                    Spacer()
-                }
-                .padding(.top, 16.0)
-                .padding(.horizontal, 20)
-
-                HStack(spacing: 8) {
-                    TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
-                        .multilineTextAlignment(.trailing)
-                        .autocorrectionDisabled()
-                        .keyboardType(.numberPad)
-                        .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
-                        .foregroundStyle(.grey100)
-                        .padding(.vertical, 8)
-                        .fixedSize(horizontal: true, vertical: false) // Prevent horizontal expansion
-
-                    Text("cm")
-                        .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
-                        .foregroundStyle(.grey100)
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 48.0)
-                .padding(.horizontal, 20.0)
-
-                Button(action: {
-                    store.send(.didTapNextButton)
-                }, label: {
-                    Text(store.buttonTitle)
-                        .nextButtonStyle()
-                })
-                .disabled(!store.isValidHeight)
-                .padding(.top, 91.0)
-                .padding(.horizontal, 38.0)
-
-                Spacer()
+            }
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(item: $store.scope(state: \.weightInputState, action: \.weightInput)) { store in
+                WeightInputView(store: store)
             }
         }
-        .toolbar(.hidden, for: .navigationBar)
     }
 
 }
