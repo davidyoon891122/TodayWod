@@ -13,18 +13,20 @@ struct ContentView: View {
     let store: StoreOf<AppFeature>
 
     var body: some View {
-        TabView {
-            HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
-                .tabItem {
-                    Image(systemName: "list.bullet")
-                    Text("Display")
-                }
+        WithPerceptionTracking {
+            TabView {
+                HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
+                    .tabItem {
+                        Image(systemName: "list.bullet")
+                        Text("Display")
+                    }
 
-            SettingsView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
-                }
+                SettingsView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
+                    .tabItem {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
+            }
         }
     }
 }

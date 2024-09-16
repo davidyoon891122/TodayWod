@@ -20,12 +20,14 @@ struct LevelSelectFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidLevel: Bool = false
+        @Presents var methodSelectState: MethodSelectFeature.State?
     }
 
     enum Action {
         case didTapBackButton
         case didTapNextButton
         case setLevel(LevelType)
+        case methodSelect(PresentationAction<MethodSelectFeature.Action>)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -38,9 +40,12 @@ struct LevelSelectFeature {
             case .didTapNextButton:
                 state.onboardingUserModel.level = state.level
                 print(state.onboardingUserModel)
-                // TODO: - 다음 navigation path 세팅 처리
+
+                // TODO: - 여기서 세팅하는게 맞을지 고민(Shared 사용으로 대체 필요)
                 let userDefaultsManager = UserDefaultsManager()
                 userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+                
+                state.methodSelectState = MethodSelectFeature.State()
 
                 return .none
             case let .setLevel(level):
@@ -52,7 +57,12 @@ struct LevelSelectFeature {
                     state.isValidLevel = true
                 }
                 return .none
+            case .methodSelect:
+                return .none
             }
+        }
+        .ifLet(\.$methodSelectState, action: \.methodSelect) {
+            MethodSelectFeature()
         }
     }
 
@@ -117,6 +127,9 @@ struct LevelSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(item: $store.scope(state: \.methodSelectState, action: \.methodSelect)) { store in
+                MethodSelectView(store: store)
+            }
         }
     }
 

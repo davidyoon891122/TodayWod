@@ -130,7 +130,6 @@
 				4992E6832C97E076001A1375 /* Weight */,
 				4992E6862C981701001A1375 /* Level */,
 				4992E6892C98407E001A1375 /* Method */,
-				4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -216,8 +215,17 @@
 			isa = PBXGroup;
 			children = (
 				4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */,
+				4992E68E2C986A41001A1375 /* Description */,
 			);
 			path = Method;
+			sourceTree = "<group>";
+		};
+		4992E68E2C986A41001A1375 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */,
+			);
+			path = Description;
 			sourceTree = "<group>";
 		};
 		499B07462C8BD6B700C46FDD = {
