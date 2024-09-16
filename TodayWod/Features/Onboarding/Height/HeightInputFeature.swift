@@ -41,8 +41,10 @@ struct HeightInputFeature {
             case let .setHeight(height):
                 if let _ = Int(height), !height.isEmpty {
                     state.height = height
+                    state.isValidHeight = true
                 } else {
                     state.height = ""
+                    state.isValidHeight = false
                 }
                 return .none
             }
@@ -98,7 +100,7 @@ struct HeightInputView: View {
                         .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                         .foregroundStyle(.grey100)
                 }
-                .frame(maxWidth: .infinity, alignment: .center) // Center the HStack
+                .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.top, 48.0)
                 .padding(.horizontal, 20.0)
 
