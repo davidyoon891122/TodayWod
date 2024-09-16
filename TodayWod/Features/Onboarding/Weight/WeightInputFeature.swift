@@ -124,7 +124,6 @@ struct WeightInputView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-
         }
     }
 
