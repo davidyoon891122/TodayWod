@@ -18,6 +18,7 @@ struct HeightInputFeature {
         var height: String = ""
         let placeHolder: String = "0"
         let buttonTitle: String = "다음"
+        var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidHeight: Bool = false
     }
@@ -123,7 +124,7 @@ struct HeightInputView: View {
 }
 
 #Preview {
-    HeightInputView(store: Store(initialState: HeightInputFeature.State()) {
+    HeightInputView(store: Store(initialState: HeightInputFeature.State(onboardingUserModel: .init())) {
         HeightInputFeature()
     })
 }
