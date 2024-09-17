@@ -19,22 +19,33 @@ struct WeightInputFeature {
         let placeHolder: String = "0"
         let buttonTitle: String = "다음"
         var onboardingUserModel: OnboardingUserInfoModel
+        var focusedField: FieldType?
 
         var isValidWeight: Bool = false
+
+        enum FieldType: Hashable {
+            case weight
+        }
     }
 
-    enum Action {
+    enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
         case setWeight(String)
         case finishInputWeight(LevelSelectFeature.State)
+        case binding(BindingAction<State>)
     }
 
     @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.focusedField = .weight
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
@@ -52,6 +63,8 @@ struct WeightInputFeature {
                 return .none
             case .finishInputWeight:
                 return .none
+            case .binding:
+                return .none
             }
         }
     }
@@ -63,6 +76,7 @@ import SwiftUI
 struct WeightInputView: View {
 
     @Perception.Bindable var store: StoreOf<WeightInputFeature>
+    @FocusState var focusedField: WeightInputFeature.State.FieldType?
 
     var body: some View {
         WithPerceptionTracking {
@@ -94,6 +108,7 @@ struct WeightInputView: View {
 
                     HStack(spacing: 8) {
                         TextField(store.placeHolder, text: $store.weight.sending(\.setWeight))
+                            .focused($focusedField, equals: .weight)
                             .multilineTextAlignment(.trailing)
                             .autocorrectionDisabled()
                             .keyboardType(.numberPad)
@@ -123,7 +138,11 @@ struct WeightInputView: View {
                     Spacer()
                 }
             }
+            .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 
