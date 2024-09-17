@@ -10,20 +10,30 @@ import ComposableArchitecture
 
 @Reducer
 struct GenderSelectFeature {
-    
+
+    @Reducer(state: .equatable)
+    enum Path {
+        case nickName(NicknameFeature)
+        case height(HeightInputFeature)
+        case weight(WeightInputFeature)
+        case level(LevelSelectFeature)
+        case method(MethodSelectFeature)
+    }
+
     @ObservableState
     struct State: Equatable {
         let title: String = "나만의 운동 프로그램을\n설정할게요!"
         let subTitle: String = "성별을 선택해주세요."
         var gender: GenderType? = nil
-        var path = StackState<NicknameFeature.State>()
+        var path = StackState<Path.State>()
         var onboardingUserModel: OnboardingUserInfoModel = .init()
     }
     
     enum Action {
         case setGender(GenderType)
-        case path(StackAction<NicknameFeature.State, NicknameFeature.Action>)
+        case path(StackActionOf<Path>)
         case toNickname
+        case finishOnboarding
     }
     
     @Dependency(\.continuousClock) var clock
@@ -42,17 +52,35 @@ struct GenderSelectFeature {
                     try await clock.sleep(for: .seconds(0.3))
                     await send(.toNickname)
                 })
-            case .path:
-                return .none
-                
+            case let .path(action):
+                switch action {
+                case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
+                    state.path.append(.height(heightState))
+                    return .none
+                case .element(id: _, action: .height(.finishInputHeight(let weightState))):
+                    state.path.append(.weight(weightState))
+                    return .none
+                case .element(id: _, action: .weight(.finishInputWeight(let levelState))):
+                    state.path.append(.level(levelState))
+                    return .none
+                case .element(id: _, action: .level(.finishInputLevel(let methodState))):
+                    state.path.append(.method(methodState))
+                    return .none
+                case .element(id: _, action: .method(.finishOnboarding)):
+                    return .send(.finishOnboarding)
+                default:
+                    return .none
+                }
+
             case .toNickname:
-                state.path.append(NicknameFeature.State(onboardingUserModel: state.onboardingUserModel))
+                state.path.append(.nickName(NicknameFeature.State(onboardingUserModel: state.onboardingUserModel)))
+                return .none
+
+            case .finishOnboarding:
                 return .none
             }
         }
-        .forEach(\.path, action: \.path) {
-            NicknameFeature()
-        }
+        .forEach(\.path, action: \.path)
     }
     
 }
@@ -88,7 +116,6 @@ struct GenderSelectView: View {
                     
                     HStack {
                         Button(action: {
-                            // TODO: set genderType to man
                             store.send(.setGender(.man))
                         }, label: {
                             Images.genderMan.swiftUIImage
@@ -99,7 +126,6 @@ struct GenderSelectView: View {
                         })
                         
                         Button(action: {
-                            // TODO: set genderType to woman
                             store.send(.setGender(.woman))
                         }, label: {
                             Images.genderWoman.swiftUIImage
@@ -115,7 +141,18 @@ struct GenderSelectView: View {
                     Spacer()
                 }
             } destination: { store in
-                NicknameInputView(store: store)
+                switch store.case {
+                case let .nickName(store):
+                    NicknameInputView(store: store)
+                case let .height(store):
+                    HeightInputView(store: store)
+                case let .weight(store):
+                    WeightInputView(store: store)
+                case let .level(store):
+                    LevelSelectView(store: store)
+                case let .method(store):
+                    MethodSelectView(store: store)
+                }
             }
         }
     }

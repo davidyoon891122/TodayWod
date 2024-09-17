@@ -22,14 +22,13 @@ struct NicknameFeature {
         var nickName: String = ""
         var isValidNickname: Bool = false
         var onboardingUserModel: OnboardingUserInfoModel
-        @Presents var heightInputState: HeightInputFeature.State?
     }
     
     enum Action {
         case setNickname(String)
         case didTapNextButton
         case didTapBackButton
-        case heightInput(PresentationAction<HeightInputFeature.Action>)
+        case finishInputNickname(HeightInputFeature.State)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -43,16 +42,12 @@ struct NicknameFeature {
                 return .none
             case .didTapNextButton:
                 state.onboardingUserModel.nickName = state.nickName
-                state.heightInputState = HeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)
-                return .none
+                return .send(.finishInputNickname(HeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
-            case .heightInput:
+            case .finishInputNickname:
                 return .none
             }
-        }
-        .ifLet(\.$heightInputState, action: \.heightInput) {
-            HeightInputFeature()
         }
     }
 
@@ -133,9 +128,6 @@ struct NicknameInputView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $store.scope(state: \.heightInputState, action: \.heightInput)) { store in
-                HeightInputView(store: store)
-            }
         }
 
     }

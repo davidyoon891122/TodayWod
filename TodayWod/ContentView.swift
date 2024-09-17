@@ -14,6 +14,12 @@ struct ContentView: View {
 
     var body: some View {
         WithPerceptionTracking {
+            // TODO: - 테스트를 위한 버튼
+            Button(action: {
+                store.send(.resetOnboarding)
+            }, label: {
+                Text("Back to onBoarding")
+            })
             TabView {
                 HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
                     .tabItem {

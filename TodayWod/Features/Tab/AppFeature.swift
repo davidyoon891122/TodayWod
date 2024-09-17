@@ -20,6 +20,7 @@ struct AppFeature {
     enum Action {
         case homeTab(HomeFeature.Action)
         case settingsTab(SettingsFeature.Action)
+        case resetOnboarding
     }
 
     var body: some ReducerOf<Self> {
@@ -32,7 +33,10 @@ struct AppFeature {
         }
 
         Reduce { state, action in
-            return .none
+            switch action {
+            case .resetOnboarding:
+                return .none
+            }
         }
     }
 

@@ -20,14 +20,13 @@ struct LevelSelectFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidLevel: Bool = false
-        @Presents var methodSelectState: MethodSelectFeature.State?
     }
 
     enum Action {
         case didTapBackButton
         case didTapNextButton
         case setLevel(LevelType)
-        case methodSelect(PresentationAction<MethodSelectFeature.Action>)
+        case finishInputLevel(MethodSelectFeature.State)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -39,9 +38,8 @@ struct LevelSelectFeature {
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
                 state.onboardingUserModel.level = state.level
-                state.methodSelectState = MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)
 
-                return .none
+                return .send(.finishInputLevel(MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setLevel(level):
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.prepare()
@@ -51,12 +49,9 @@ struct LevelSelectFeature {
                     state.isValidLevel = true
                 }
                 return .none
-            case .methodSelect:
+            case .finishInputLevel:
                 return .none
             }
-        }
-        .ifLet(\.$methodSelectState, action: \.methodSelect) {
-            MethodSelectFeature()
         }
     }
 
@@ -121,9 +116,6 @@ struct LevelSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $store.scope(state: \.methodSelectState, action: \.methodSelect)) { store in
-                MethodSelectView(store: store)
-            }
         }
     }
 

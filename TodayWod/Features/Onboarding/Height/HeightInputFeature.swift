@@ -21,14 +21,13 @@ struct HeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidHeight: Bool = false
-        @Presents var weightInputState: WeightInputFeature.State?
     }
 
     enum Action {
         case didTapBackButton
         case didTapNextButton
         case setHeight(String)
-        case weightInput(PresentationAction<WeightInputFeature.Action>)
+        case finishInputHeight(WeightInputFeature.State)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -41,11 +40,7 @@ struct HeightInputFeature {
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
                 state.onboardingUserModel.height = Int(state.height)
-                print(state.onboardingUserModel)
-                // TODO: - 다음 navigation path 세팅 처리
-
-                state.weightInputState = WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)
-                return .none
+                return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
                 if let _ = Int(height), !height.isEmpty {
                     state.height = height
@@ -55,12 +50,9 @@ struct HeightInputFeature {
                     state.isValidHeight = false
                 }
                 return .none
-            case .weightInput:
+            case .finishInputHeight:
                 return .none
             }
-        }
-        .ifLet(\.$weightInputState, action: \.weightInput) {
-            WeightInputFeature()
         }
     }
 
@@ -132,9 +124,6 @@ struct HeightInputView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $store.scope(state: \.weightInputState, action: \.weightInput)) { store in
-                WeightInputView(store: store)
-            }
         }
     }
 
