@@ -19,6 +19,8 @@ struct MethodSelectFeature {
 
         var isValidMethod: Bool = false
         var methodType: MethodType? = nil
+        var onboardingUserModel: OnboardingUserInfoModel
+        
         @Presents var methodDescription: MethodDescriptionFeature.State?
     }
 
@@ -39,9 +41,14 @@ struct MethodSelectFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapStartButton:
+                // TODO: - 여기서 세팅하는게 맞을지 고민(Shared 사용으로 대체 필요)
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+
                 return .none
             case let .setMethod(methodType):
                 state.methodType = methodType
+                state.onboardingUserModel.method = methodType
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.prepare()
                 generator.impactOccurred()
@@ -193,7 +200,7 @@ struct MethodSelectView: View {
 }
 
 #Preview {
-    MethodSelectView(store: Store(initialState: MethodSelectFeature.State()) {
+    MethodSelectView(store: Store(initialState: MethodSelectFeature.State(onboardingUserModel: .init())) {
         MethodSelectFeature()
     })
 }

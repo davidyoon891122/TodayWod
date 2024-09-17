@@ -39,13 +39,7 @@ struct LevelSelectFeature {
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
                 state.onboardingUserModel.level = state.level
-                print(state.onboardingUserModel)
-
-                // TODO: - 여기서 세팅하는게 맞을지 고민(Shared 사용으로 대체 필요)
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
-                
-                state.methodSelectState = MethodSelectFeature.State()
+                state.methodSelectState = MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)
 
                 return .none
             case let .setLevel(level):

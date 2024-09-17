@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MethodType {
+enum MethodType: Codable {
     case body
     case machine
 
