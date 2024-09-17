@@ -21,15 +21,13 @@ struct WeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidWeight: Bool = false
-        @Presents var levelSelectState: LevelSelectFeature.State?
-
     }
 
     enum Action {
         case didTapBackButton
         case didTapNextButton
         case setWeight(String)
-        case levelSelect(PresentationAction<LevelSelectFeature.Action>)
+        case finishInputWeight(LevelSelectFeature.State)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -41,9 +39,8 @@ struct WeightInputFeature {
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
                 state.onboardingUserModel.weight = Int(state.weight)
-                state.levelSelectState = LevelSelectFeature.State(onboardingUserModel: state.onboardingUserModel)
 
-                return .none
+                return .send(.finishInputWeight(LevelSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setWeight(weight):
                 if let _ = Int(weight), !weight.isEmpty {
                     state.weight = weight
@@ -53,12 +50,9 @@ struct WeightInputFeature {
                     state.isValidWeight = false
                 }
                 return .none
-            case .levelSelect:
+            case .finishInputWeight:
                 return .none
             }
-        }
-        .ifLet(\.$levelSelectState, action: \.levelSelect) {
-            LevelSelectFeature()
         }
     }
 
@@ -130,9 +124,6 @@ struct WeightInputView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $store.scope(state: \.levelSelectState, action: \.levelSelect)) { store in
-                LevelSelectView(store: store)
-            }
         }
     }
 

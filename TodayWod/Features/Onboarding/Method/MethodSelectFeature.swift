@@ -31,6 +31,7 @@ struct MethodSelectFeature {
         case methodDescriptionTap(PresentationAction<MethodDescriptionFeature.Action>)
         case didTapBodyDescriptionButton
         case didTapMachineDescriptionButton
+        case finishOnboarding
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -45,7 +46,7 @@ struct MethodSelectFeature {
                 let userDefaultsManager = UserDefaultsManager()
                 userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
 
-                return .none
+                return .send(.finishOnboarding)
             case let .setMethod(methodType):
                 state.methodType = methodType
                 state.onboardingUserModel.method = methodType
@@ -65,6 +66,8 @@ struct MethodSelectFeature {
                 return .none
             case .didTapMachineDescriptionButton:
                 state.methodDescription = MethodDescriptionFeature.State(methodType: .machine)
+                return .none
+            case .finishOnboarding:
                 return .none
             }
         }

@@ -36,6 +36,9 @@ struct TodayWod {
                 }
 
                 return .none
+            case .onBoarding(.finishOnboarding):
+                state = .app(AppFeature.State())
+                return .none
             case .splash, .app, .onBoarding:
                 return .none
             }
