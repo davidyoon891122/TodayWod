@@ -21,20 +21,31 @@ struct HeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidHeight: Bool = false
+        var focusedField: FieldType?
+
+        enum FieldType: Hashable {
+            case height
+        }
     }
 
-    enum Action {
+    enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
         case setHeight(String)
         case finishInputHeight(WeightInputFeature.State)
+        case binding(BindingAction<State>)
     }
 
     @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.focusedField = .height
+                return .none
             case .didTapBackButton:
                 
                 return .run { _ in await dismiss() }
@@ -52,6 +63,8 @@ struct HeightInputFeature {
                 return .none
             case .finishInputHeight:
                 return .none
+            case .binding:
+                return .none
             }
         }
     }
@@ -63,6 +76,7 @@ import SwiftUI
 struct HeightInputView: View {
 
     @Perception.Bindable var store: StoreOf<HeightInputFeature>
+    @FocusState var focusedField: HeightInputFeature.State.FieldType?
 
     var body: some View {
         WithPerceptionTracking {
@@ -94,6 +108,7 @@ struct HeightInputView: View {
 
                     HStack(spacing: 8) {
                         TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
+                            .focused($focusedField, equals: .height)
                             .multilineTextAlignment(.trailing)
                             .autocorrectionDisabled()
                             .keyboardType(.numberPad)
@@ -123,7 +138,11 @@ struct HeightInputView: View {
                     Spacer()
                 }
             }
+            .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 

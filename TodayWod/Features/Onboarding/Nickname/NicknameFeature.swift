@@ -22,20 +22,31 @@ struct NicknameFeature {
         var nickName: String = ""
         var isValidNickname: Bool = false
         var onboardingUserModel: OnboardingUserInfoModel
+        var focusedField: FieldType?
+
+        enum FieldType: Hashable {
+            case nickName
+        }
     }
     
-    enum Action {
+    enum Action: BindableAction {
+        case onAppear
         case setNickname(String)
         case didTapNextButton
         case didTapBackButton
         case finishInputNickname(HeightInputFeature.State)
+        case binding(BindingAction<State>)
     }
 
     @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.focusedField = .nickName
+                return .none
             case let .setNickname(nickName):
                 state.nickName = nickName
                 state.isValidNickname = isValidNickName(input: nickName)
@@ -46,6 +57,8 @@ struct NicknameFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .finishInputNickname:
+                return .none
+            case .binding:
                 return .none
             }
         }
@@ -66,6 +79,7 @@ import SwiftUI
 struct NicknameInputView: View {
 
     @Perception.Bindable var store: StoreOf<NicknameFeature>
+    @FocusState var focusedField: NicknameFeature.State.FieldType?
 
     var body: some View {
         WithPerceptionTracking {
@@ -97,6 +111,7 @@ struct NicknameInputView: View {
 
                     HStack {
                         TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
+                            .focused($focusedField, equals: .nickName)
                             .multilineTextAlignment(.center)
                             .autocorrectionDisabled()
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
@@ -127,7 +142,11 @@ struct NicknameInputView: View {
                     Spacer()
                 }
             }
+            .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
 
     }
