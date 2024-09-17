@@ -39,6 +39,9 @@ struct TodayWod {
             case .onBoarding(.finishOnboarding):
                 state = .app(AppFeature.State())
                 return .none
+            case .app(.resetOnboarding):
+                state = .onBoarding(GenderSelectFeature.State())
+                return .none
             case .splash, .app, .onBoarding:
                 return .none
             }

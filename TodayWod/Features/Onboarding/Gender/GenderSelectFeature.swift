@@ -116,7 +116,6 @@ struct GenderSelectView: View {
                     
                     HStack {
                         Button(action: {
-                            // TODO: set genderType to man
                             store.send(.setGender(.man))
                         }, label: {
                             Images.genderMan.swiftUIImage
@@ -127,7 +126,6 @@ struct GenderSelectView: View {
                         })
                         
                         Button(action: {
-                            // TODO: set genderType to woman
                             store.send(.setGender(.woman))
                         }, label: {
                             Images.genderWoman.swiftUIImage
