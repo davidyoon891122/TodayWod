@@ -174,7 +174,7 @@ struct SocialLoginView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Colors.blue60.swiftUIColor)
             } destination: { store in
-                ContentView(store: store)
+                AppTabView(store: store)
             }
         }
     }
