@@ -23,6 +23,8 @@ extension WodInfo {
 
 struct WorkOutDayModel: Codable, Equatable {
     
+    let id: UUID = UUID()
+    
     let type: WorkOutDayTagType
     let title: String
     let subTitle: String
@@ -30,6 +32,18 @@ struct WorkOutDayModel: Codable, Equatable {
     let estimatedStartCalorie: Int
     let estimatedEndCalorie: Int
     let workOuts: [WorkOutInfo]
+    
+}
+
+extension WorkOutDayModel {
+    
+    var displayExpectedMinute: String {
+        "약 \(expectedMinute)분"
+    }
+    
+    var displayEstimatedCalorie: String {
+        "약 \(estimatedStartCalorie) ~ \(estimatedEndCalorie) 칼로리"
+    }
     
 }
 
@@ -44,5 +58,17 @@ extension WorkOutDayModel {
         .init(type: .default, title: "타이탄 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
         .init(type: .end, title: "히어로 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
     ]
+    
+}
+
+extension WorkOutDayModel: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
     
 }

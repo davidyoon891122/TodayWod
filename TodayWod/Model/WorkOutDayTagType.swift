@@ -14,3 +14,18 @@ enum WorkOutDayTagType: Codable {
     case `default`
     
 }
+
+extension WorkOutDayTagType {
+    
+    var title: String? {
+        switch self {
+        case .start:
+            return "start"
+        case .end:
+            return "final"
+        default:
+            return nil
+        }
+    }
+    
+}
