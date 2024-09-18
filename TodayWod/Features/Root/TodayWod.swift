@@ -36,6 +36,12 @@ struct TodayWod {
                 }
 
                 return .none
+            case .onBoarding(.finishOnboarding):
+                state = .app(AppFeature.State())
+                return .none
+            case .app(.resetOnboarding):
+                state = .onBoarding(GenderSelectFeature.State())
+                return .none
             case .splash, .app, .onBoarding:
                 return .none
             }
@@ -66,7 +72,7 @@ struct TodayWodView: View {
             }
         case .app:
             if let store = store.scope(state: \.app, action: \.app) {
-                ContentView(store: store)
+                AppTabView(store: store)
             }
         case .onBoarding:
             if let store = store.scope(state: \.onBoarding, action: \.onBoarding) {

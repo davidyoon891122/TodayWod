@@ -21,31 +21,37 @@ struct HeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidHeight: Bool = false
-        @Presents var weightInputState: WeightInputFeature.State?
+        var focusedField: FieldType?
+
+        enum FieldType: Hashable {
+            case height
+        }
     }
 
-    enum Action {
+    enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
         case setHeight(String)
-        case weightInput(PresentationAction<WeightInputFeature.Action>)
+        case finishInputHeight(WeightInputFeature.State)
+        case binding(BindingAction<State>)
     }
 
     @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.focusedField = .height
+                return .none
             case .didTapBackButton:
                 
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
                 state.onboardingUserModel.height = Int(state.height)
-                print(state.onboardingUserModel)
-                // TODO: - 다음 navigation path 세팅 처리
-
-                state.weightInputState = WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)
-                return .none
+                return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
                 if let _ = Int(height), !height.isEmpty {
                     state.height = height
@@ -55,12 +61,11 @@ struct HeightInputFeature {
                     state.isValidHeight = false
                 }
                 return .none
-            case .weightInput:
+            case .finishInputHeight:
+                return .none
+            case .binding:
                 return .none
             }
-        }
-        .ifLet(\.$weightInputState, action: \.weightInput) {
-            WeightInputFeature()
         }
     }
 
@@ -71,6 +76,7 @@ import SwiftUI
 struct HeightInputView: View {
 
     @Perception.Bindable var store: StoreOf<HeightInputFeature>
+    @FocusState var focusedField: HeightInputFeature.State.FieldType?
 
     var body: some View {
         WithPerceptionTracking {
@@ -102,6 +108,7 @@ struct HeightInputView: View {
 
                     HStack(spacing: 8) {
                         TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
+                            .focused($focusedField, equals: .height)
                             .multilineTextAlignment(.trailing)
                             .autocorrectionDisabled()
                             .keyboardType(.numberPad)
@@ -131,9 +138,10 @@ struct HeightInputView: View {
                     Spacer()
                 }
             }
+            .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $store.scope(state: \.weightInputState, action: \.weightInput)) { store in
-                WeightInputView(store: store)
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }
