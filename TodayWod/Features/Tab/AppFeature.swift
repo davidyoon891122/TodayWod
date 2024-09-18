@@ -12,15 +12,18 @@ import ComposableArchitecture
 struct AppFeature {
 
     @ObservableState
-    struct State: Equatable {
+    struct State: Equatable, Sendable {
         var homeTab = HomeFeature.State()
         var settingsTab = SettingsFeature.State()
+        var selectedItem: TabMenuItem = .home
     }
 
-    enum Action {
+    enum Action: BindableAction {
         case homeTab(HomeFeature.Action)
         case settingsTab(SettingsFeature.Action)
         case resetOnboarding
+        case binding(BindingAction<State>)
+
     }
 
     var body: some ReducerOf<Self> {
@@ -32,9 +35,12 @@ struct AppFeature {
             SettingsFeature()
         }
 
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .resetOnboarding:
+                return .none
+            case .binding:
                 return .none
             }
         }
@@ -42,3 +48,41 @@ struct AppFeature {
 
 }
 
+import SwiftUI
+
+
+struct AppTabView: View {
+
+    @Perception.Bindable var store: StoreOf<AppFeature>
+    @State private var selectedItem: TabMenuItem = .home
+
+    var body: some View {
+        WithPerceptionTracking {
+            // TODO: - 테스트를 위한 버튼
+            Button(action: {
+                store.send(.resetOnboarding)
+            }, label: {
+                Text("Back to onBoarding")
+            })
+            VStack {
+                switch store.state.selectedItem {
+                case .home:
+                    HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
+                case .settings:
+                    SettingsView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
+                }
+                Spacer()
+                CustomTabView(selectedItem: $selectedItem)
+                    .padding(.bottom, 20)
+                    .bind($store.state.selectedItem, to: $selectedItem)
+            }
+            .edgesIgnoringSafeArea(.bottom)
+        }
+    }
+}
+
+#Preview {
+    AppTabView(store: Store(initialState: AppFeature.State()) {
+        AppFeature()
+    })
+}
