@@ -27,14 +27,14 @@ extension WorkOutInfo {
 struct WodModel: Codable, Equatable {
     
     let name: String
-    let type: WodType
+    let unit: ExerciseUnit
     let set: Int
     let minute: Int?
     let count: Int?
     
-    init(name: String, type: WodType, set: Int, minute: Int? = nil, count: Int? = nil) {
+    init(name: String, unit: ExerciseUnit, set: Int, minute: Int? = nil, count: Int? = nil) {
         self.name = name
-        self.type = type
+        self.unit = unit
         self.set = set
         self.minute = minute
         self.count = count
@@ -45,19 +45,19 @@ struct WodModel: Codable, Equatable {
 extension WodModel {
     
     static var warmUpDummies: [Self] = [
-        .init(name: "암서클", type: .분, set: 1, minute: 2),
-        .init(name: "점핑잭", type: .분, set: 1, minute: 2)
+        .init(name: "암서클", unit: .minutes, set: 1, minute: 2),
+        .init(name: "점핑잭", unit: .minutes, set: 1, minute: 2)
     ]
     
     static var mainDummies: [Self] = [
-        .init(name: "덤밸 스내치", type: .횟수, set: 3, count: 8),
-        .init(name: "핸드 릴리즈 푸시업", type: .횟수, set: 3, count: 10),
-        .init(name: "박스", type: .횟수, set: 3, count: 8)
+        .init(name: "덤밸 스내치", unit: .repetitions, set: 3, count: 8),
+        .init(name: "핸드 릴리즈 푸시업", unit: .repetitions, set: 3, count: 10),
+        .init(name: "박스", unit: .repetitions, set: 3, count: 8)
     ]
     
     static var coolDownDummies: [Self] = [
-        .init(name: "플랭크", type: .분, set: 1, minute: 1),
-        .init(name: "스트레칭", type: .분, set: 1, minute: 3)
+        .init(name: "플랭크", unit: .minutes, set: 1, minute: 1),
+        .init(name: "스트레칭", unit: .minutes, set: 1, minute: 3)
     ]
     
 }
