@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WorkOutInfo {
+struct WorkOutInfo: Codable, Equatable {
     
     let type: WorkOutType
     let items: [WodModel]
@@ -24,13 +24,21 @@ extension WorkOutInfo {
     
 }
 
-struct WodModel {
+struct WodModel: Codable, Equatable {
     
     let name: String
     let type: WodType
     let set: Int
-    let minute: Int? = nil
-    let count: Int? = nil
+    let minute: Int?
+    let count: Int?
+    
+    init(name: String, type: WodType, set: Int, minute: Int? = nil, count: Int? = nil) {
+        self.name = name
+        self.type = type
+        self.set = set
+        self.minute = minute
+        self.count = count
+    }
     
 }
 

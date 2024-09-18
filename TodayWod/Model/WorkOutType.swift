@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkOutType {
+enum WorkOutType: Codable {
     
     case WarmUp
     case Main

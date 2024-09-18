@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkOutDayTagType {
+enum WorkOutDayTagType: Codable {
     
     case start
     case end

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WodType {
+enum WodType: Codable {
     
     case 분
     case 횟수
