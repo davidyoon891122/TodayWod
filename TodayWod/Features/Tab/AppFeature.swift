@@ -42,6 +42,8 @@ struct AppFeature {
                 return .none
             case .binding:
                 return .none
+            case .homeTab, .settingsTab:
+                return .none
             }
         }
     }
