@@ -21,11 +21,11 @@ struct CustomDivider: View {
     let direction: DividerDirectionType
     
     init(
-        color: ColorAsset = Colors.grey100,
+        color: Color = Colors.grey100.swiftUIColor,
         size: CGFloat = 1.0,
         direction: DividerDirectionType = .horizontal
     ) {
-        self.color = color.swiftUIColor
+        self.color = color
         self.size = size
         self.direction = direction
     }
@@ -44,5 +44,5 @@ struct CustomDivider: View {
 }
 
 #Preview {
-    CustomDivider(color: Colors.blue10, direction: .horizontal)
+    CustomDivider(color: Colors.blue10.swiftUIColor, direction: .horizontal)
 }

@@ -13,7 +13,7 @@ struct MethodDescriptionFeature {
 
     @ObservableState
     struct State: Equatable {
-        let methodType: MethodType
+        let methodType: ProgramMethodType
         let buttonTitle: String = "닫기"
     }
 

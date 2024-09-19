@@ -28,7 +28,7 @@ struct WorkOutDayView: View {
                         .background(Colors.blue60.swiftUIColor)
                         .cornerRadius(30)
                 }
-                CustomDivider(color: Colors.grey20, direction: .vertical)
+                CustomDivider(color: Colors.grey20.swiftUIColor, direction: .vertical)
             }
             VStack(alignment: .leading, spacing: 20) {
                 HStack {

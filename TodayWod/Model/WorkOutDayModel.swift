@@ -9,7 +9,7 @@ import Foundation
 
 struct WodInfo: Codable, Equatable {
     
-    let programType: MethodType
+    let methodType: ProgramMethodType
     let level: LevelType
     let workOutDays: [WorkOutDayModel]
     
@@ -17,13 +17,13 @@ struct WodInfo: Codable, Equatable {
 
 extension WodInfo {
     
-    static var fake: Self = .init(programType: .body, level: .beginner, workOutDays: WorkOutDayModel.fakes)
+    static var fake: Self = .init(methodType: .body, level: .beginner, workOutDays: WorkOutDayModel.fakes)
     
 }
 
-struct WorkOutDayModel: Codable, Equatable {
+struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
-    let id: UUID = UUID()
+    var id: UUID = UUID()
     
     let type: WorkOutDayTagType
     let title: String
@@ -58,17 +58,5 @@ extension WorkOutDayModel {
         .init(type: .default, title: "타이탄 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
         .init(type: .end, title: "히어로 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
     ]
-    
-}
-
-extension WorkOutDayModel: Hashable {
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.id == rhs.id
-    }
     
 }

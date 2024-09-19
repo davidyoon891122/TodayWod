@@ -42,7 +42,7 @@
 		4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6842C980A04001A1375 /* LevelSelectFeature.swift */; };
 		4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */; };
 		4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */; };
-		4992E68D2C9865D5001A1375 /* MethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E68C2C9865D5001A1375 /* MethodType.swift */; };
+		4992E68D2C9865D5001A1375 /* ProgramMethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E68C2C9865D5001A1375 /* ProgramMethodType.swift */; };
 		4992E6902C9AA82A001A1375 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E68F2C9AA82A001A1375 /* CustomTabView.swift */; };
 		4992E6942C9ABD2F001A1375 /* TabMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6932C9ABD2F001A1375 /* TabMenuItem.swift */; };
 		499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07522C8BD6B700C46FDD /* TodayWodApp.swift */; };
@@ -97,7 +97,7 @@
 		4992E6842C980A04001A1375 /* LevelSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectFeature.swift; sourceTree = "<group>"; };
 		4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectFeature.swift; sourceTree = "<group>"; };
 		4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDescriptionFeature.swift; sourceTree = "<group>"; };
-		4992E68C2C9865D5001A1375 /* MethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodType.swift; sourceTree = "<group>"; };
+		4992E68C2C9865D5001A1375 /* ProgramMethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramMethodType.swift; sourceTree = "<group>"; };
 		4992E68F2C9AA82A001A1375 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		4992E6932C9ABD2F001A1375 /* TabMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItem.swift; sourceTree = "<group>"; };
 		499B074F2C8BD6B700C46FDD /* TodayWod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodayWod.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,7 +225,7 @@
 				AD4187D22C94150B0071AD99 /* OnboardingUserInfoModel.swift */,
 				AD4187D42C9416400071AD99 /* GenderType.swift */,
 				AD4187D62C9416510071AD99 /* LevelType.swift */,
-				4992E68C2C9865D5001A1375 /* MethodType.swift */,
+				4992E68C2C9865D5001A1375 /* ProgramMethodType.swift */,
 				1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */,
 				1CFED2CC2C9B9C0D000A09E5 /* WorkOutType.swift */,
 				1CFED2CE2C9B9C0D000A09E5 /* WorkOutDayTagType.swift */,
@@ -557,7 +557,7 @@
 				1CFED2E62C9B9C9B000A09E5 /* WorkOutFeature.swift in Sources */,
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
-				4992E68D2C9865D5001A1375 /* MethodType.swift in Sources */,
+				4992E68D2C9865D5001A1375 /* ProgramMethodType.swift in Sources */,
 				4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
 				4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */,

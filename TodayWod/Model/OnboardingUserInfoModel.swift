@@ -14,14 +14,14 @@ struct OnboardingUserInfoModel: Codable, Equatable {
     var height: Int?
     var weight: Int?
     var level: LevelType?
-    var method: MethodType?
+    var method: ProgramMethodType?
 
     init(gender: GenderType? = nil,
          nickName: String? = nil,
          height: Int? = nil,
          weight: Int? = nil,
          level: LevelType? = nil,
-         method: MethodType? = nil) {
+         method: ProgramMethodType? = nil) {
         self.gender = gender
         self.nickName = nickName
         self.height = height
