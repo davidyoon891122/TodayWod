@@ -57,6 +57,14 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
 
         return userInfo
     }
+    
+    func saveIsAlreadyLaunch(data: Bool) {
+        self.userDefaults.set(data, forKey: Constants.alreadyLaunch)
+    }
+    
+    func loadIsAlreadyLaunch() -> Bool {
+        self.userDefaults.bool(forKey: Constants.alreadyLaunch)
+    }
 
 }
 
@@ -65,6 +73,7 @@ private extension UserDefaultsManager {
     enum Constants {
         static let userInfo: String = "UserInfo"
         static let onboardingUserInfo: String = "OnboardingUserInfo"
+        static let alreadyLaunch: String = "alreadyLaunch"
     }
 
 }

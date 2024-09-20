@@ -18,7 +18,7 @@ struct MethodSelectFeature {
         let buttonTitle: String = "시작하기"
 
         var isValidMethod: Bool = false
-        var methodType: MethodType? = nil
+        var methodType: ProgramMethodType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
         
         @Presents var methodDescription: MethodDescriptionFeature.State?
@@ -27,7 +27,7 @@ struct MethodSelectFeature {
     enum Action {
         case didTapBackButton
         case didTapStartButton
-        case setMethod(MethodType)
+        case setMethod(ProgramMethodType)
         case methodDescriptionTap(PresentationAction<MethodDescriptionFeature.Action>)
         case didTapBodyDescriptionButton
         case didTapMachineDescriptionButton

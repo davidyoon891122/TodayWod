@@ -1,5 +1,5 @@
 //
-//  MethodType.swift
+//  ProgramMethodType.swift
 //  TodayWod
 //
 //  Created by Jiwon Yoon on 9/16/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MethodType: Codable {
+enum ProgramMethodType: Codable {
     case body
     case machine
 
