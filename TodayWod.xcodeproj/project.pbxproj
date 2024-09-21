@@ -157,12 +157,9 @@
 		49101A842C90878700FDB709 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				49101A822C90878300FDB709 /* UserInfoModel.swift */,
-				AD4187D22C94150B0071AD99 /* OnboardingUserInfoModel.swift */,
-				AD4187D42C9416400071AD99 /* GenderType.swift */,
-				AD4187D62C9416510071AD99 /* LevelType.swift */,
-				4992E68C2C9865D5001A1375 /* MethodType.swift */,
-				4992E6932C9ABD2F001A1375 /* TabMenuItem.swift */,
+				4992E6972C9E44A1001A1375 /* Login */,
+				4992E6952C9E448C001A1375 /* Onboading */,
+				4992E6962C9E4497001A1375 /* Tab */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -233,6 +230,33 @@
 				4992E68A2C98601B001A1375 /* MethodDescriptionFeature.swift */,
 			);
 			path = Description;
+			sourceTree = "<group>";
+		};
+		4992E6952C9E448C001A1375 /* Onboading */ = {
+			isa = PBXGroup;
+			children = (
+				AD4187D22C94150B0071AD99 /* OnboardingUserInfoModel.swift */,
+				AD4187D42C9416400071AD99 /* GenderType.swift */,
+				AD4187D62C9416510071AD99 /* LevelType.swift */,
+				4992E68C2C9865D5001A1375 /* MethodType.swift */,
+			);
+			path = Onboading;
+			sourceTree = "<group>";
+		};
+		4992E6962C9E4497001A1375 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				4992E6932C9ABD2F001A1375 /* TabMenuItem.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		4992E6972C9E44A1001A1375 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				49101A822C90878300FDB709 /* UserInfoModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		499B07462C8BD6B700C46FDD = {

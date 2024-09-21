@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct SettingsFeature {
 
     struct State: Equatable {
-
+        let onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
     }
 
     enum Action {
