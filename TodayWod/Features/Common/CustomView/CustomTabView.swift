@@ -36,5 +36,9 @@ struct CustomTabView: View {
 }
 
 #Preview {
-    CustomTabView(selectedItem: .constant(.home))
+    VStack {
+        Text("Hello")
+        CustomTabView(selectedItem: .constant(.home))
+    }
+    .background(.black)
 }

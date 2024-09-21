@@ -66,14 +66,13 @@ struct AppTabView: View {
             }, label: {
                 Text("Back to onBoarding")
             })
-            VStack {
+            VStack(spacing: 0) {
                 switch store.state.selectedItem {
                 case .home:
                     HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
                 case .settings:
                     MyPageView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
-                Spacer()
                 CustomTabView(selectedItem: $selectedItem)
                     .padding(.bottom, 20)
                     .bind($store.state.selectedItem, to: $selectedItem)
