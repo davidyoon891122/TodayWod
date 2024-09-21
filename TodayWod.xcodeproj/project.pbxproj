@@ -21,7 +21,7 @@
 		1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2E12C9B9C9B000A09E5 /* WorkOutDayFeature.swift */; };
 		49101A702C8D373D00FDB709 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A6F2C8D373D00FDB709 /* AppFeature.swift */; };
 		49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A712C8D374400FDB709 /* HomeFeature.swift */; };
-		49101A752C8D37A500FDB709 /* SettingsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A742C8D37A500FDB709 /* SettingsFeature.swift */; };
+		49101A752C8D37A500FDB709 /* MyPageFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A742C8D37A500FDB709 /* MyPageFeature.swift */; };
 		49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A792C8D3DE800FDB709 /* TodayWod.swift */; };
 		49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */; };
 		49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */; };
@@ -42,6 +42,7 @@
 		497C0F052C9E463900F7444E /* GenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F002C9E463900F7444E /* GenderType.swift */; };
 		497C0F072C9E463900F7444E /* OnboardingUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */; };
 		497C0F092C9E466500F7444E /* TabMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F082C9E466500F7444E /* TabMenuItem.swift */; };
+		497C0F0B2C9E4EE000F7444E /* RecentActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0A2C9E4EE000F7444E /* RecentActivityModel.swift */; };
 		4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6812C97E068001A1375 /* WeightInputFeature.swift */; };
 		4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6842C980A04001A1375 /* LevelSelectFeature.swift */; };
 		4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */; };
@@ -77,7 +78,7 @@
 		1CFED2E12C9B9C9B000A09E5 /* WorkOutDayFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDayFeature.swift; sourceTree = "<group>"; };
 		49101A6F2C8D373D00FDB709 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		49101A712C8D374400FDB709 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
-		49101A742C8D37A500FDB709 /* SettingsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeature.swift; sourceTree = "<group>"; };
+		49101A742C8D37A500FDB709 /* MyPageFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFeature.swift; sourceTree = "<group>"; };
 		49101A792C8D3DE800FDB709 /* TodayWod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWod.swift; sourceTree = "<group>"; };
 		49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginFeature.swift; sourceTree = "<group>"; };
 		49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		497C0F002C9E463900F7444E /* GenderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderType.swift; sourceTree = "<group>"; };
 		497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingUserInfoModel.swift; sourceTree = "<group>"; };
 		497C0F082C9E466500F7444E /* TabMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuItem.swift; sourceTree = "<group>"; };
+		497C0F0A2C9E4EE000F7444E /* RecentActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityModel.swift; sourceTree = "<group>"; };
 		4992E6812C97E068001A1375 /* WeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputFeature.swift; sourceTree = "<group>"; };
 		4992E6842C980A04001A1375 /* LevelSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectFeature.swift; sourceTree = "<group>"; };
 		4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectFeature.swift; sourceTree = "<group>"; };
@@ -185,7 +187,7 @@
 		49101A762C8D384700FDB709 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				49101A742C8D37A500FDB709 /* SettingsFeature.swift */,
+				49101A742C8D37A500FDB709 /* MyPageFeature.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -231,6 +233,7 @@
 				1CFED2CE2C9B9C0D000A09E5 /* WorkOutDayTagType.swift */,
 				1CFED2CF2C9B9C0D000A09E5 /* WodModel.swift */,
 				1CFED2CD2C9B9C0D000A09E5 /* WorkOutDayModel.swift */,
+				497C0F0A2C9E4EE000F7444E /* RecentActivityModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -589,12 +592,13 @@
 				4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
 				4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */,
+				497C0F0B2C9E4EE000F7444E /* RecentActivityModel.swift in Sources */,
 				49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */,
 				497C0F052C9E463900F7444E /* GenderType.swift in Sources */,
 				1CFED2D22C9B9C0D000A09E5 /* WorkOutDayModel.swift in Sources */,
 				49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */,
 				1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */,
-				49101A752C8D37A500FDB709 /* SettingsFeature.swift in Sources */,
+				49101A752C8D37A500FDB709 /* MyPageFeature.swift in Sources */,
 				49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */,
 				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,
 				1CFED2D32C9B9C0D000A09E5 /* WorkOutDayTagType.swift in Sources */,

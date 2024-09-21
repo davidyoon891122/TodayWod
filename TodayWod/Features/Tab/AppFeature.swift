@@ -14,13 +14,13 @@ struct AppFeature {
     @ObservableState
     struct State: Equatable, Sendable {
         var homeTab = HomeFeature.State()
-        var settingsTab = SettingsFeature.State()
+        var settingsTab = MyPageFeature.State()
         var selectedItem: TabMenuItem = .home
     }
 
     enum Action: BindableAction {
         case homeTab(HomeFeature.Action)
-        case settingsTab(SettingsFeature.Action)
+        case settingsTab(MyPageFeature.Action)
         case resetOnboarding
         case binding(BindingAction<State>)
 
@@ -32,7 +32,7 @@ struct AppFeature {
         }
 
         Scope(state: \.settingsTab, action: \.settingsTab) {
-            SettingsFeature()
+            MyPageFeature()
         }
 
         BindingReducer()
@@ -71,7 +71,7 @@ struct AppTabView: View {
                 case .home:
                     HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
                 case .settings:
-                    SettingsView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
+                    MyPageView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
                 Spacer()
                 CustomTabView(selectedItem: $selectedItem)

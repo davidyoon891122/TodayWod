@@ -41,9 +41,9 @@ struct CalendarView: View {
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                 Spacer()
             }
-            .padding(.horizontal, 20.0)
             .padding(.vertical, 4.0)
-            
+            .padding(.horizontal, 1.0)
+
             HStack {
                 ForEach(Self.weekdaySymbols, id: \.self) { symbol in
                     Text(symbol)
@@ -55,7 +55,6 @@ struct CalendarView: View {
             .padding(.top, 20.0)
             .padding(.bottom, 5.0)
         }
-        .padding(.horizontal, 19.0)
     }
     
     private var calendarGridView: some View {
@@ -90,7 +89,6 @@ struct CalendarView: View {
                 }
             }
         }
-        .padding(.horizontal, 19.0)
     }
     
     private struct CellView: View {
