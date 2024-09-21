@@ -10,26 +10,45 @@ import ComposableArchitecture
 
 @Reducer
 struct HomeFeature {
-
+    
     @ObservableState
     struct State: Equatable {
-        let title: String = "운동 루틴을 만들어보세요"
-        let subTitle: String = "월요일부터 토요일까지 \n자동으로 새로운 운동 프로그램을 만들어요"
-        let buttonTitle: String = "새로운 운동 만들기"
+        var isAlreadyLaunch = UserDefaultsManager().loadIsAlreadyLaunch()
+        var workOutEmpty = WorkOutEmptyFeature.State()
+        var workOut = WorkOutFeature.State()
     }
 
     enum Action {
-
+        case toggleIsAlreadyLaunch(Bool)
+        case workOutEmpty(WorkOutEmptyFeature.Action)
+        case workOut(WorkOutFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
+        Scope(state: \.workOutEmpty, action: \.workOutEmpty) {
+            WorkOutEmptyFeature()
+        }
+        
+        Scope(state: \.workOut, action: \.workOut) {
+            WorkOutFeature()
+        }
+        
         Reduce { state, action in
             switch action {
-
+            case let .toggleIsAlreadyLaunch(isAlreadyLaunch):
+                state.isAlreadyLaunch = isAlreadyLaunch
+                UserDefaultsManager().saveIsAlreadyLaunch(data: isAlreadyLaunch)
+                return .none
+            case .workOutEmpty(.didTapStartButton):
+                return .run(operation: { send in
+                    await send(.toggleIsAlreadyLaunch(true))
+                })
+            case .workOut:
+                return .none
             }
         }
     }
-
+    
 }
 
 import SwiftUI
@@ -40,37 +59,20 @@ struct HomeView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            VStack {
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .frame(width: 120.0, height: 120.0)
-                    .padding(.top, 120.0)
-
-                Text(store.title)
-                    .bold()
-                    .font(.system(size: 20.0))
-                    .padding(.top, 30.0)
-
-                Text(store.subTitle)
-                    .font(.system(size: 16.0))
-                    .padding(.top, 10.0)
-                    .multilineTextAlignment(.center)
-
-                Button(action: {
-
-                }, label: {
-                    Text(store.buttonTitle)
-                        .bold()
-                        .font(.system(size: 16.0))
-                })
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity, minHeight: 56.0)
-                .background(.cyan)
-                .clipShape(.rect(cornerRadius: 300.0))
-                .padding(.horizontal, 38.0)
-                .padding(.top, 40.0)
-
-                Spacer()
+            if store.isAlreadyLaunch {
+                WorkOutView(
+                    store: store.scope(
+                        state: \.workOut,
+                        action: \.workOut
+                    )
+                )
+            } else {
+                WorkOutEmptyView(
+                    store: store.scope(
+                        state: \.workOutEmpty,
+                        action: \.workOutEmpty
+                    )
+                )
             }
         }
     }
