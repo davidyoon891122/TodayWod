@@ -13,17 +13,30 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
-        
+        @Presents var timerState: BreakTimeFeature.State?
+        var isPresented: Bool = false
     }
 
-    enum Action {
-        
+    enum Action: BindableAction {
+        case onAppear
+        case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
+        case binding(BindingAction<State>)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.isPresented = true
+                return .none
+            case .breakTimerAction:
+                return .none
+            case .binding:
+                return .none
             }
+        }
+        .ifLet(\.$timerState, action: \.breakTimerAction) {
+            BreakTimeFeature()
         }
     }
     
@@ -31,12 +44,27 @@ struct WorkOutDetailFeature {
 
 struct WorkOutDetailView: View {
     
-    let store: StoreOf<WorkOutDetailFeature>
-    
+    @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
+
+    @State private var isPresented: Bool = false
+
     var body: some View {
         WithPerceptionTracking {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            VStack {
+                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            }
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .bind($store.state.isPresented, to: $isPresented)
+            .bottomSheet(isPresented: $isPresented) {
+                BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
+                    BreakTimeFeature()
+                })
+                .padding(.bottom, 20.0)
+            }
         }
+
     }
 }
 
