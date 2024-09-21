@@ -37,6 +37,14 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
 
 extension WorkOutDayModel {
     
+    var displayExpectedMinuteTitle: String {
+        "예상 시간"
+    }
+    
+    var displayEstimatedCalorieTitle: String {
+        "예상 소모 칼로리"
+    }
+    
     var displayExpectedMinute: String {
         "약 \(expectedMinute)분"
     }

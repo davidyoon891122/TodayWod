@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct WorkOutInfo: Codable, Equatable {
+struct WorkOutInfo: Codable, Equatable, Identifiable {
+    
+    var id: UUID = UUID()
     
     let type: WorkOutType
     let items: [WodModel]
@@ -24,40 +26,82 @@ extension WorkOutInfo {
     
 }
 
-struct WodModel: Codable, Equatable {
+struct WodModel: Codable, Equatable, Identifiable {
     
-    let name: String
+    var id: UUID = UUID()
+    
+    let title: String
+    let subTitle: String
     let unit: ExerciseUnit
-    let set: Int
-    let minute: Int?
-    let count: Int?
+    let set: [WodSet]
     
-    init(name: String, unit: ExerciseUnit, set: Int, minute: Int? = nil, count: Int? = nil) {
-        self.name = name
+    init(title: String, subTitle: String, unit: ExerciseUnit, set: [WodSet]) {
+        self.title = title
+        self.subTitle = subTitle
         self.unit = unit
         self.set = set
-        self.minute = minute
-        self.count = count
     }
     
 }
 
 extension WodModel {
     
+    var isShowSet: Bool {
+        self.set.count > 1
+    }
+    
+    var displaySet: String {
+        "세트 (Set)"
+    }
+    
+}
+
+extension WodModel {
+    
+    static var fake: Self {
+        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, set: [WodSet(unitValue: 8), WodSet(unitValue: 8), WodSet(unitValue: 8)])
+    }
+    
     static var warmUpDummies: [Self] = [
-        .init(name: "암서클", unit: .minutes, set: 1, minute: 2),
-        .init(name: "점핑잭", unit: .minutes, set: 1, minute: 2)
+        .init(title: "암서클", subTitle: "lowing abc", 
+              unit: .minutes, set: [WodSet(unitValue: 2)]),
+        .init(title: "점핑잭", subTitle: "lowing abc", unit: .minutes, set: [WodSet(unitValue: 2)])
     ]
     
     static var mainDummies: [Self] = [
-        .init(name: "덤밸 스내치", unit: .repetitions, set: 3, count: 8),
-        .init(name: "핸드 릴리즈 푸시업", unit: .repetitions, set: 3, count: 10),
-        .init(name: "박스", unit: .repetitions, set: 3, count: 8)
+        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, set: [WodSet(unitValue: 8), WodSet(unitValue: 8), WodSet(unitValue: 8)]),
+        .init(title: "핸드 릴리즈 푸시업", subTitle: "lowing abc", unit: .repetitions, set: [WodSet(unitValue: 10), WodSet(unitValue: 10), WodSet(unitValue: 10)]),
+        .init(title: "박스", subTitle: "lowing abc", unit: .repetitions, set: [WodSet(unitValue: 8), WodSet(unitValue: 8), WodSet(unitValue: 8)])
     ]
     
     static var coolDownDummies: [Self] = [
-        .init(name: "플랭크", unit: .minutes, set: 1, minute: 1),
-        .init(name: "스트레칭", unit: .minutes, set: 1, minute: 3)
+        .init(title: "플랭크", subTitle: "lowing abc", unit: .minutes, set: [WodSet(unitValue: 1)]),
+        .init(title: "스트레칭", subTitle: "lowing abc", unit: .minutes, set: [WodSet(unitValue: 3)])
     ]
+    
+}
+
+struct WodSet: Codable, Equatable, Identifiable {
+
+    var id: UUID = UUID()
+    
+    var unitValue: Int
+    var isCompleted: Bool = false
+    
+}
+
+extension WodSet {
+    
+    var displayUnitValue: String {
+        String(self.unitValue)
+    }
+    
+}
+
+extension WodSet {
+    
+    static var fake: Self {
+        .init(unitValue: 2, isCompleted: true)
+    }
     
 }
