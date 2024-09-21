@@ -243,7 +243,7 @@
 			children = (
 				49593C372C969370006105D1 /* CustomView */,
 				49593C382C969378006105D1 /* Modifier */,
-				AD386C2F2C9D3A470038C27F /* CalendarView.swift */,
+				497C0F0C2C9E5F8300F7444E /* Calendar */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -273,6 +273,14 @@
 				49593C392C969BC2006105D1 /* HeightInputFeature.swift */,
 			);
 			path = Height;
+			sourceTree = "<group>";
+		};
+		497C0F0C2C9E5F8300F7444E /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				AD386C2F2C9D3A470038C27F /* CalendarView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		4992E6832C97E076001A1375 /* Weight */ = {

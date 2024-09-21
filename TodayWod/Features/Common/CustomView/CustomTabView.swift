@@ -30,7 +30,7 @@ struct CustomTabView: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .frame(width: UIScreen.main.bounds.width, height: 79)
+        .frame(width: UIScreen.main.bounds.width, height: 58)
         .background(.blue10)
     }
 }
