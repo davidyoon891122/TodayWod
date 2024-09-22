@@ -24,6 +24,7 @@ struct WorkOutDetailFeature {
     }
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -61,7 +62,6 @@ struct WorkOutDetailView: View {
                 BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
                     BreakTimeFeature()
                 })
-                .padding(.bottom, 20.0)
             }
         }
 
