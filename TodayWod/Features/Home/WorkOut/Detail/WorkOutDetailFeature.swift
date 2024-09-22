@@ -35,30 +35,28 @@ struct WorkOutDetailView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            ZStack {
-                ScrollView {
-                    VStack {
-                        WorkOutDetailTitleView(item: store.item)
-                        
-                        VStack(alignment: .leading, spacing: 10) {
-                            ForEach(store.item.workOuts) { workOut in
-                                Text(workOut.type.title)
-                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                    .foregroundStyle(Colors.grey100.swiftUIColor)
-                                    .frame(height: 40)
-                                    .padding(.top, 10)
-                                
-                                LazyVStack(alignment: .leading, spacing: 10) {
-                                    ForEach(workOut.items) { item in
-                                        WodView(model: item)
-                                    }
+            ScrollView {
+                VStack {
+                    WorkOutDetailTitleView(item: store.item)
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(store.item.workOuts) { workOut in
+                            Text(workOut.type.title)
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                .foregroundStyle(Colors.grey100.swiftUIColor)
+                                .frame(height: 40)
+                                .padding(.top, 10)
+                            
+                            LazyVStack(alignment: .leading, spacing: 10) {
+                                ForEach(workOut.items) { item in
+                                    WodView(model: item)
                                 }
                             }
                         }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
             }
             .background(Colors.blue10.swiftUIColor)
         }

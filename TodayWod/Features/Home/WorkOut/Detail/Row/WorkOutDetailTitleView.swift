@@ -48,5 +48,10 @@ struct WorkOutDetailTitleView: View {
 }
 
 #Preview {
-    WorkOutDetailTitleView(item: WorkOutDayModel.fake)
+    VStack {
+        Spacer()
+        WorkOutDetailTitleView(item: WorkOutDayModel.fake)
+        Spacer()
+    }
+    .background(.blue10)
 }

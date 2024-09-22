@@ -22,7 +22,7 @@ struct WodView: View {
                 LazyVStack(spacing: 10) {
                     ForEach(Array(model.set.enumerated()), id: \.element.id) { index, set in
                         HStack(spacing: 10) {
-                            if model.isShowSet {
+                            if model.isSetVisible {
                                 Text(String(index + 1))
                                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
                                     .foregroundStyle(Colors.grey100.swiftUIColor)
@@ -54,7 +54,7 @@ struct WodView: View {
     
     var headerView: some View {
         HStack(spacing: 10) {
-            if model.isShowSet {
+            if model.isSetVisible {
                 Text(model.displaySet)
                     .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
@@ -75,5 +75,10 @@ struct WodView: View {
 }
 
 #Preview {
-    WodView(model: WodModel.fake)
+    VStack {
+        Spacer()
+        WodView(model: WodModel.fake)
+        Spacer()
+    }
+    .background(.blue10)
 }

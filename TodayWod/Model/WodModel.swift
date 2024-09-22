@@ -46,7 +46,7 @@ struct WodModel: Codable, Equatable, Identifiable {
 
 extension WodModel {
     
-    var isShowSet: Bool {
+    var isSetVisible: Bool {
         self.set.count > 1
     }
     
