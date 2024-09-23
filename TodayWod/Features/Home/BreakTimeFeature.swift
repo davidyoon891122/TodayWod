@@ -117,10 +117,7 @@ struct BreakTimerView: View {
                         if (store.buttonState == .pause) {
                             Images.icPause24.swiftUIImage
                         } else {
-                            Image(systemName: "play.fill")
-                                .resizable()
-                                .frame(width: 24.0, height: 24.0)
-                                .tint(.black)
+                            Images.icPlay24.swiftUIImage
                         }
                         
                     })
