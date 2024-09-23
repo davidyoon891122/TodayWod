@@ -30,11 +30,15 @@ struct CustomTabView: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .frame(width: UIScreen.main.bounds.width, height: 79)
+        .frame(width: UIScreen.main.bounds.width, height: 58)
         .background(.blue10)
     }
 }
 
 #Preview {
-    CustomTabView(selectedItem: .constant(.home))
+    VStack {
+        Text("Hello")
+        CustomTabView(selectedItem: .constant(.home))
+    }
+    .background(.black)
 }
