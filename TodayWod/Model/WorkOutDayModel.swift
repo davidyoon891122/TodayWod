@@ -9,9 +9,20 @@ import Foundation
 
 struct WodInfo: Codable, Equatable {
     
+    var completedDate: Date?
+    var completedDuration: Int?
+    
     let methodType: ProgramMethodType
     let level: LevelType
     let workOutDays: [WorkOutDayModel]
+    
+    init(methodType: ProgramMethodType, level: LevelType, workOutDays: [WorkOutDayModel], completedDate: Date? = nil, completedDuration: Int? = nil) {
+        self.methodType = methodType
+        self.level = level
+        self.workOutDays = workOutDays
+        self.completedDate = completedDate
+        self.completedDuration = completedDuration
+    }
     
 }
 

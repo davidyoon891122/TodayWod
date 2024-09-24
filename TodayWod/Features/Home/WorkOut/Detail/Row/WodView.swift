@@ -20,10 +20,10 @@ struct WodView: View {
                 headerView
                 
                 LazyVStack(spacing: 10) {
-                    ForEach(Array(model.set.enumerated()), id: \.element.id) { index, set in
+                    ForEach(model.wodSet) { set in
                         HStack(spacing: 10) {
                             if model.isSetVisible {
-                                Text(String(index + 1))
+                                Text(set.displaySetNumber)
                                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
                                     .foregroundStyle(Colors.grey100.swiftUIColor)
                                     .frame(width: 48)
