@@ -14,7 +14,7 @@ struct MyPageFeature {
     @ObservableState
     struct State: Equatable {
         let userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
-        let version: String = AppEnvironment.shortVersion ?? ""
+        let version: String = AppEnvironment.shortVersion
     }
 
     enum Action {
