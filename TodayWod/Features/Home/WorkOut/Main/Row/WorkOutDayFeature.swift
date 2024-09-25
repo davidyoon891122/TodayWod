@@ -30,6 +30,8 @@ struct WorkOutDayView: View {
                 }
                 CustomDivider(color: Colors.grey20.swiftUIColor, direction: .vertical)
             }
+            .frame(width: 40)
+            
             VStack(alignment: .leading, spacing: 20) {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
@@ -51,7 +53,7 @@ struct WorkOutDayView: View {
                         Text(item.displayExpectedMinute)
                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
                             .foregroundStyle(Colors.grey100.swiftUIColor)
-                        Text(Constants.expectedTimeTitle)
+                        Text(item.displayExpectedMinuteTitle)
                             .font(Fonts.Pretendard.regular.swiftUIFont(size: 12))
                             .foregroundStyle(Colors.grey70.swiftUIColor)
                     }
@@ -59,7 +61,7 @@ struct WorkOutDayView: View {
                         Text(item.displayEstimatedCalorie)
                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
                             .foregroundStyle(Colors.grey100.swiftUIColor)
-                        Text(Constants.expectedCalorieTitle)
+                        Text(item.displayEstimatedCalorieTitle)
                             .font(Fonts.Pretendard.regular.swiftUIFont(size: 12))
                             .foregroundStyle(Colors.grey70.swiftUIColor)
                     }
@@ -78,8 +80,6 @@ private extension WorkOutDayView {
     
     enum Constants {
         static let dayTitle: String = "Day "
-        static let expectedTimeTitle: String = "예상 시간"
-        static let expectedCalorieTitle: String = "예상 소모 칼로리"
     }
     
 }

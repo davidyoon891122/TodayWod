@@ -14,4 +14,15 @@ enum ExerciseUnit: Codable {
     
 }
 
-
+extension ExerciseUnit {
+    
+    var title: String {
+        switch self {
+        case .minutes:
+            return "분 (Min)"
+        case .repetitions:
+            return "회 (rep)"
+        }
+    }
+    
+}
