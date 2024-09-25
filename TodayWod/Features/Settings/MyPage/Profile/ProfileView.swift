@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ProfileView: View {
+    
+    let nickName: String
+    
     var body: some View {
         VStack {
             Images.genderMan.swiftUIImage
                 .resizable()
                 .frame(width: 120.0, height: 120.0)
             
-            Text("Username")
+            Text(nickName)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
                 .padding(.top, 20.0)
             Button(action: {
@@ -37,5 +40,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(nickName: "Nick")
 }

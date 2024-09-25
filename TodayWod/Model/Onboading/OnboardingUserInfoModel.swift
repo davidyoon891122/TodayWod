@@ -35,7 +35,7 @@ struct OnboardingUserInfoModel: Codable, Equatable {
 extension OnboardingUserInfoModel {
     
     static let preview: Self = .init(gender: .man, nickName: "The King", height: 192, weight: 101, level: .advanced, method: .machine)
-    
+
 }
 
 extension OnboardingUserInfoModel {
