@@ -9,6 +9,8 @@ import SwiftUI
 
 struct VersionInfoView: View {
     
+    let version: String
+    
     var body: some View {
         VStack {
             HStack {
@@ -18,7 +20,7 @@ struct VersionInfoView: View {
             }
             .padding(.top, 25.0)
             
-            MyPageRowItemView(model: .init(title: "24.0.1", value: "최신버전"))
+            MyPageRowItemView(model: .init(title: "\(version)", value: "최신버전"))
         }
         .padding(.horizontal, 20.0)
         .padding(.bottom, 30.0)
@@ -27,5 +29,5 @@ struct VersionInfoView: View {
 }
 
 #Preview {
-    VersionInfoView()
+    VersionInfoView(version: "0.0.1")
 }

@@ -14,6 +14,7 @@ struct MyPageFeature {
     @ObservableState
     struct State: Equatable {
         let userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
+        let version: String = AppEnvironment.shortVersion ?? ""
     }
 
     enum Action {
@@ -49,7 +50,7 @@ struct MyPageView: View {
                     CustomDivider(color: .grey20, size: 5, direction: .horizontal)
                     MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
                     CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                    VersionInfoView()
+                    VersionInfoView(version: store.version)
                 }
             }
         }
