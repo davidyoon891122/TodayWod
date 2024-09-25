@@ -17,14 +17,17 @@ struct CelebrateFeature {
     }
 
     enum Action {
-
+        case didTapCloesButton
     }
 
+    @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .didTapCloesButton:
 
+                return .run { _ in await dismiss() }
             }
         }
     }
@@ -57,7 +60,7 @@ struct CelebrateView: View {
 
             HStack {
                 Button(action: {
-                    // TODO: - did tap close
+                    store.send(.didTapCloesButton)
                 }, label: {
                     Text("닫기")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))

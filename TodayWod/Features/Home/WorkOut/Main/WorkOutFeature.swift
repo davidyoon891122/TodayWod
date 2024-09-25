@@ -15,22 +15,34 @@ struct WorkOutFeature {
     struct State: Equatable {
         let items: [WorkOutDayModel] = WorkOutDayModel.fakes
         var path = StackState<WorkOutDetailFeature.State>()
+
+        @Presents var celebrateState: CelebrateFeature.State?
     }
 
     enum Action {
+        case onAppear
         case didTapDayView(item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
+        case celebrateAction(PresentationAction<CelebrateFeature.Action>)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.celebrateState = CelebrateFeature.State()
+                return .none
             case let .didTapDayView(item):
                 state.path.append(WorkOutDetailFeature.State(item: item))
                 return .none
             case .path(_):
                 return .none
+            case .celebrateAction:
+                return .none
             }
+        }
+        .ifLet(\.$celebrateState, action: \.celebrateAction) {
+            CelebrateFeature()
         }
         .forEach(\.path, action: \.path) {
             WorkOutDetailFeature()
@@ -64,8 +76,16 @@ struct WorkOutView: View {
                     
                     Spacer()
                 }
+                .onAppear {
+                    store.send(.onAppear)
+                }
+
             } destination: { store in
                 WorkOutDetailView(store: store)
+            }
+            .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { store in
+                CelebrateView(store: store)
+                    .presentationDetents([.medium, .large])
             }
         }
     }
