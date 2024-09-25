@@ -13,7 +13,7 @@ struct MyPageFeature {
 
     @ObservableState
     struct State: Equatable {
-
+        let userInfoModel = UserDefaultsManager().loadOnboardingUserInfo()?.convertToSubArray() ?? OnboardingUserInfoModel.preview.convertToSubArray()
     }
 
     enum Action {
@@ -36,8 +36,14 @@ struct MyPageView: View {
     let store: StoreOf<MyPageFeature>
 
     var body: some View {
-        VStack {
-            Text("My Page View")
+        ScrollView {
+            LazyVStack {
+                ProfileView()
+                CustomDivider(color: .grey20, size: 5, direction: .horizontal)
+                MyInfoView(userInfo: store.userInfoModel)
+                CustomDivider(color: .grey20, size: 5, direction: .horizontal)
+                VersionInfoView()
+            }
         }
     }
 

@@ -34,8 +34,7 @@ struct SocialLoginFeature {
         Reduce { state, action in
             switch action {
             case .alert(.presented(.moveToTabView(let userModel))):
-                let userDefaulsManager = UserDefaultsManager()
-                userDefaulsManager.saveUserInfo(data: userModel)
+                // TODO: - 로그인 기능 추가 될 시 유저 정보 데이터 가져와서 확인 후 처리하는 로직 추가
                 
                 state.path.append(AppFeature.State())
                 return .none
