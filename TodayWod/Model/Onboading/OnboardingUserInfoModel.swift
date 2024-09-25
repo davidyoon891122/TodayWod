@@ -44,7 +44,7 @@ extension OnboardingUserInfoModel {
         var subItems: [UserInfoSubItemModel] = []
                 
         if let gender = gender {
-            subItems.append(UserInfoSubItemModel(title: "성별", value: "\(gender)"))
+            subItems.append(UserInfoSubItemModel(title: "성별", value: "\(gender.title)"))
         }
         
         if let height = height {
@@ -52,15 +52,15 @@ extension OnboardingUserInfoModel {
         }
         
         if let weight = weight {
-            subItems.append(UserInfoSubItemModel(title: "몸무게", value: "\(weight) kg"))
+            subItems.append(UserInfoSubItemModel(title: "몸무게", value: "\(weight) kg", modifiable: true))
         }
         
         if let level = level {
-            subItems.append(UserInfoSubItemModel(title: "운동 수준", value: "\(level)"))
+            subItems.append(UserInfoSubItemModel(title: "운동 수준", value: "\(level.title)", modifiable: true))
         }
         
         if let method = method {
-            subItems.append(UserInfoSubItemModel(title: "운동 방식", value: "\(method)"))
+            subItems.append(UserInfoSubItemModel(title: "운동 방식", value: "\(method.title)", modifiable: true))
         }
         
         return subItems
@@ -72,5 +72,6 @@ struct UserInfoSubItemModel: Equatable, Hashable {
     
     var title: String
     var value: String
+    var modifiable: Bool = false
     
 }

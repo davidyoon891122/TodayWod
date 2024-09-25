@@ -9,12 +9,11 @@ import SwiftUI
 
 struct MyPageRowItemView: View {
     
-    let title: String
-    let value: String
+    let model: UserInfoSubItemModel
     
     var body: some View {
         HStack {
-            Text(title)
+            Text(model.title)
                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
                 .foregroundStyle(.grey100)
             Spacer()
@@ -23,17 +22,22 @@ struct MyPageRowItemView: View {
                 
             }, label: {
                 HStack {
-                    Text(value)
+                    Text(model.value)
                         .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
-                    Images.icChevronForward16.swiftUIImage
+                        .foregroundStyle(.grey80)
+                    if model.modifiable{
+                        Images.icChevronForward16.swiftUIImage
+                    }
+                        
                 }
             })
             .tint(.grey80)
+            .disabled(!model.modifiable)
         }
         .padding(.vertical, 12.0)
     }
 }
 
 #Preview {
-    MyPageRowItemView(title: "성별", value: "남성")
+    MyPageRowItemView(model: .init(title: "성별", value: "남자", modifiable: false))
 }

@@ -17,13 +17,16 @@ struct MyPageFeature {
     }
 
     enum Action {
-        
+        case didTapBackButton
     }
-
+    
+    @Dependency(\.dismiss) var dismiss
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-
+            case .didTapBackButton:
+                return .run { _ in await dismiss() }
             }
         }
     }
@@ -36,15 +39,21 @@ struct MyPageView: View {
     let store: StoreOf<MyPageFeature>
 
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ProfileView(nickName: store.userInfoModel.nickName ?? "")
-                CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
-                CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                VersionInfoView()
+        VStack {
+            CustomNavigationView {
+                store.send(.didTapBackButton)
+            }
+            ScrollView {
+                LazyVStack {
+                    ProfileView(nickName: store.userInfoModel.nickName ?? "")
+                    CustomDivider(color: .grey20, size: 5, direction: .horizontal)
+                    MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
+                    CustomDivider(color: .grey20, size: 5, direction: .horizontal)
+                    VersionInfoView()
+                }
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 
 }

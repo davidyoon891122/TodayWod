@@ -22,7 +22,7 @@ struct MyInfoView: View {
             
             LazyVStack {
                 ForEach(userInfo, id: \.title) { item in
-                    MyPageRowItemView(title: item.title, value: item.value)
+                    MyPageRowItemView(model: item)
                 }
             }
             .padding(.bottom, 30.0)
