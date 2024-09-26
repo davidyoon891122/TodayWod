@@ -9,9 +9,20 @@ import Foundation
 
 struct WodInfo: Codable, Equatable {
     
+    var completedDate: Date?
+    var completedDuration: Int?
+    
     let methodType: ProgramMethodType
     let level: LevelType
     let workOutDays: [WorkOutDayModel]
+    
+    init(methodType: ProgramMethodType, level: LevelType, workOutDays: [WorkOutDayModel], completedDate: Date? = nil, completedDuration: Int? = nil) {
+        self.methodType = methodType
+        self.level = level
+        self.workOutDays = workOutDays
+        self.completedDate = completedDate
+        self.completedDuration = completedDuration
+    }
     
 }
 
@@ -36,6 +47,14 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
 }
 
 extension WorkOutDayModel {
+    
+    var displayExpectedMinuteTitle: String {
+        "예상 시간"
+    }
+    
+    var displayEstimatedCalorieTitle: String {
+        "예상 소모 칼로리"
+    }
     
     var displayExpectedMinute: String {
         "약 \(expectedMinute)분"
