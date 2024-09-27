@@ -20,7 +20,9 @@ struct VersionInfoView: View {
             }
             .padding(.top, 25.0)
             
-            MyPageRowItemView(model: .init(title: "\(version)", value: "최신버전"))
+            MyPageRowItemView(model: .init(title: "\(version)", value: "최신버전", type: .version)) {
+                
+            }
         }
         .padding(.horizontal, 20.0)
         .padding(.bottom, 30.0)

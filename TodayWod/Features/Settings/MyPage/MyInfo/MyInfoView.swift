@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct MyInfoView: View {
+    
+    let store: StoreOf<MyPageFeature>
     
     let userInfo: [UserInfoSubItemModel]
     
@@ -32,5 +35,7 @@ struct MyInfoView: View {
 }
 
 #Preview {
-    MyInfoView(userInfo: OnboardingUserInfoModel.preview.convertToSubArray())
+    MyInfoView(store: Store(initialState: MyPageFeature.State()) {
+        MyPageFeature()
+    }, userInfo: OnboardingUserInfoModel.preview.convertToSubArray())
 }

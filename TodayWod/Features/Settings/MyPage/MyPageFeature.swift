@@ -21,6 +21,7 @@ struct MyPageFeature {
         case onAppear
         case didTapBackButton
         case didTapModifyProfileButton(OnboardingUserInfoModel)
+        case didTapInfoButton(UserInfoType)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -35,7 +36,8 @@ struct MyPageFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapModifyProfileButton:
-                // TODO: - 프로필 수정 피처 추가
+                return .none
+            case let .didTapInfoButton(userInfoType):
                 return .none
             }
         }
@@ -60,7 +62,7 @@ struct MyPageView: View {
                             store.send(.didTapModifyProfileButton(store.state.userInfoModel))
                         }
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                        MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
+                        MyInfoView(store: store, userInfo: store.userInfoModel.convertToSubArray())
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
                         VersionInfoView(version: store.version)
                     }

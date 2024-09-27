@@ -15,6 +15,7 @@ struct MyActivityFeature {
     enum Path {
         case myPage(MyPageFeature)
         case modifyProfile(ModifyProfileFeature)
+        case modifyWeight(ModifyWeightFeature)
     }
 
     @ObservableState
@@ -41,6 +42,19 @@ struct MyActivityFeature {
                 switch action {
                 case .element(id: _, action: .myPage(let .didTapModifyProfileButton(onboardingUserInfoModel))):
                     state.path.append(.modifyProfile(ModifyProfileFeature.State(onboardingUserInfoModel: onboardingUserInfoModel)))
+                    return .none
+                case .element(id: _, action: .myPage(let .didTapInfoButton(userInfoType))):
+                    switch userInfoType {
+                    case .gender, .height, .version:
+                        return .none
+                    case .weight:
+                        state.path.append(.modifyWeight(ModifyWeightFeature.State()))
+                        return .none
+                    case .level:
+                        return .none
+                    case .method:
+                        return .none
+                    }
                     return .none
                 default:
                     return .none
@@ -142,6 +156,8 @@ struct MyActivityView: View {
                     MyPageView(store: store)
                 case let .modifyProfile(store):
                     ModifyProfileView(store: store)
+                case let .modifyWeight(store):
+                    ModifyWeightView(store: store)
                 }
             }
         }
