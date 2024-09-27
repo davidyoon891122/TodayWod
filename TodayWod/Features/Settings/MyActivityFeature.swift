@@ -34,8 +34,8 @@ struct MyActivityFeature {
             switch action {
             case let .path(action):
                 switch action {
-                case .element(id: _, action: .myPage(.didTapModifyProfileButton)):
-                    state.path.append(.modifyProfile(ModifyProfileFeature.State(placeHolder: "David")))
+                case .element(id: _, action: .myPage(let .didTapModifyProfileButton(onboardingUserInfoModel))):
+                    state.path.append(.modifyProfile(ModifyProfileFeature.State(placeHolder: onboardingUserInfoModel.nickName ?? "")))
                     return .none
                 default:
                     return .none

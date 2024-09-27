@@ -19,7 +19,7 @@ struct MyPageFeature {
 
     enum Action {
         case didTapBackButton
-        case didTapModifyProfileButton
+        case didTapModifyProfileButton(OnboardingUserInfoModel)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -52,7 +52,7 @@ struct MyPageView: View {
                 ScrollView {
                     LazyVStack {
                         ProfileView(nickName: store.userInfoModel.nickName ?? "") {
-                            store.send(.didTapModifyProfileButton)
+                            store.send(.didTapModifyProfileButton(store.state.userInfoModel))
                         }
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
                         MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
