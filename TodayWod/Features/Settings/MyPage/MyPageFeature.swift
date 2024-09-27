@@ -13,11 +13,12 @@ struct MyPageFeature {
     
     @ObservableState
     struct State: Equatable {
-        let userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
+        var userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
         let version: String = AppEnvironment.shortVersion
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapModifyProfileButton(OnboardingUserInfoModel)
     }
@@ -27,6 +28,10 @@ struct MyPageFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                guard let onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() else { return .none }
+                state.userInfoModel = onboardingUserInfoModel
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapModifyProfileButton:
@@ -60,6 +65,9 @@ struct MyPageView: View {
                         VersionInfoView(version: store.version)
                     }
                 }
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
             .toolbar(.hidden, for: .navigationBar)
         }

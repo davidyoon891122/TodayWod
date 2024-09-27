@@ -19,12 +19,13 @@ struct MyActivityFeature {
 
     @ObservableState
     struct State: Equatable {
-        let onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
+        var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
         let recentActivityModel: RecentActivityModel = .fake
         var path = StackState<Path.State>()
     }
 
     enum Action {
+        case onAppear
         case path(StackActionOf<Path>)
         case didTapMyPage
     }
@@ -32,10 +33,14 @@ struct MyActivityFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                guard let onbarodingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() else { return .none }
+                state.onboardingUserInfoModel = onbarodingUserInfoModel
+                return .none
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .myPage(let .didTapModifyProfileButton(onboardingUserInfoModel))):
-                    state.path.append(.modifyProfile(ModifyProfileFeature.State(placeHolder: onboardingUserInfoModel.nickName ?? "")))
+                    state.path.append(.modifyProfile(ModifyProfileFeature.State(onboardingUserInfoModel: onboardingUserInfoModel)))
                     return .none
                 default:
                     return .none
@@ -127,6 +132,9 @@ struct MyActivityView: View {
                             }
                         }
                     }
+                }
+                .onAppear {
+                    store.send(.onAppear)
                 }
             } destination: { store in
                 switch store.case {

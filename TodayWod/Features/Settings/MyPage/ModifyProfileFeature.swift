@@ -13,12 +13,13 @@ struct ModifyProfileFeature {
     
     @ObservableState
     struct State: Equatable {
-        var placeHolder: String
+        var placeHolder: String = ""
         var nickName: String = ""
         var isValidNickname: Bool = false
         let ruleDescription: String = "영어와 한글, 숫자 2~10자 이내"
         let validNicknameMessage: String = "멋진 닉네임이에요!"
         var focusedField: FieldType?
+        var onboardingUserInfoModel: OnboardingUserInfoModel
         
         enum FieldType: Hashable {
             case nickName
@@ -40,17 +41,20 @@ struct ModifyProfileFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.placeHolder = state.onboardingUserInfoModel.nickName ?? ""
                 state.focusedField = .nickName
                 return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapConfirmButton:
-                // TODO: - 변경된 닉네임 저장 후 화면 닫기
+                UserDefaultsManager().saveOnboardingUserInfo(data: state.onboardingUserInfoModel)
+                
                 return .run { _ in await dismiss() }
             case .binding:
                 return .none
             case let .setNickname(nickname):
                 state.nickName = nickname
+                state.onboardingUserInfoModel.nickName = nickname
                 state.isValidNickname = isValidNickName(input: nickname)
                 return .none
             }
@@ -122,7 +126,7 @@ struct ModifyProfileView: View {
 }
 
 #Preview {
-    ModifyProfileView(store: Store(initialState: ModifyProfileFeature.State(placeHolder: "Nickname")) {
+    ModifyProfileView(store: Store(initialState: ModifyProfileFeature.State( onboardingUserInfoModel: .preview)) {
         ModifyProfileFeature()
     })
 }
