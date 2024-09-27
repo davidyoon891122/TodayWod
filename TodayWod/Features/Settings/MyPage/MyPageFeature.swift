@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 @Reducer
 struct MyPageFeature {
-
+    
     @ObservableState
     struct State: Equatable {
         let userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
@@ -19,6 +19,7 @@ struct MyPageFeature {
 
     enum Action {
         case didTapBackButton
+        case didTapModifyProfileButton
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -28,6 +29,9 @@ struct MyPageFeature {
             switch action {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
+            case .didTapModifyProfileButton:
+                // TODO: - 프로필 수정 피처 추가
+                return .none
             }
         }
     }
