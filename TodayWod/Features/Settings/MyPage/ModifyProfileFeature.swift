@@ -64,41 +64,43 @@ struct ModifyProfileView: View {
     @Perception.Bindable var store: StoreOf<ModifyProfileFeature>
     
     var body: some View {
-        VStack {
-            CustomNavigationView {
-                store.send(.didTapBackButton)
+        WithPerceptionTracking {
+            VStack {
+                CustomNavigationView {
+                    store.send(.didTapBackButton)
+                }
+                HStack {
+                    TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
+                        .autocorrectionDisabled()
+                        .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
+                        .foregroundStyle(.grey100)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(height: 48.0)
+                .padding(.top, 100.0)
+                .padding(.horizontal, 20.0)
+                
+                HStack {
+                    Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
+                        .multilineTextAlignment(.center)
+                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
+                        .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
+                }
+                .padding(.top, 8.0)
+                
+                Spacer()
+                
+                Button(action: {
+                    store.send(.didTapConfirmButton)
+                }, label: {
+                    Text("확인")
+                        .nextButtonStyle() // TODO: - 범용적인 이름으로 바꿀지 고민
+                })
+                .disabled(!store.isValidNickname)
+                .padding(.horizontal, 38.0)
+                .padding(.bottom, 20.0)
             }
-            HStack {
-                TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
-                    .autocorrectionDisabled()
-                    .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
-                    .foregroundStyle(.grey100)
-                    .multilineTextAlignment(.center)
-            }
-            .frame(height: 48.0)
-            .padding(.top, 100.0)
-            .padding(.horizontal, 20.0)
-            
-            HStack {
-                Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
-                    .multilineTextAlignment(.center)
-                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                    .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
-            }
-            .padding(.top, 8.0)
-            
-            Spacer()
-            
-            Button(action: {
-                store.send(.didTapConfirmButton)
-            }, label: {
-                Text("확인")
-                    .nextButtonStyle() // TODO: - 범용적인 이름으로 바꿀지 고민
-            })
-            .disabled(!store.isValidNickname)
-            .padding(.horizontal, 38.0)
-            .padding(.bottom, 20.0)
-
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
     

@@ -10,28 +10,42 @@ import ComposableArchitecture
 
 @Reducer
 struct MyActivityFeature {
+    
+    @Reducer(state: .equatable)
+    enum Path {
+        case myPage(MyPageFeature)
+        case modifyProfile(ModifyProfileFeature)
+    }
 
     @ObservableState
     struct State: Equatable {
         let onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
         let recentActivityModel: RecentActivityModel = .fake
-        var path = StackState<MyPageFeature.State>()
+        var path = StackState<Path.State>()
     }
 
     enum Action {
-        case path(StackAction<MyPageFeature.State, MyPageFeature.Action>)
+        case path(StackActionOf<Path>)
+        case didTapMyPage
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .path:
+            case let .path(action):
+                switch action {
+                case .element(id: _, action: .myPage(.didTapModifyProfileButton)):
+                    state.path.append(.modifyProfile(ModifyProfileFeature.State(placeHolder: "David")))
+                    return .none
+                default:
+                    return .none
+                }
+            case .didTapMyPage:
+                state.path.append(.myPage(MyPageFeature.State()))
                 return .none
             }
         }
-        .forEach(\.path, action: \.path) {
-            MyPageFeature()
-        }
+        .forEach(\.path, action: \.path)
     }
 
 }
@@ -47,27 +61,30 @@ struct MyActivityView: View {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
                 ScrollView {
                     VStack {
-                        NavigationLink(state: MyPageFeature.State()) {
-                            HStack(spacing: 4) {
-                                Images.genderMan.swiftUIImage
-                                    .resizable()
-                                    .frame(width: 48.0, height: 48.0)
-                                VStack(alignment: .leading, spacing: 4.0) {
-                                    Text(store.onboardingUserInfoModel?.nickName ?? "No name")
-                                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
-                                        .foregroundStyle(.grey100)
-                                    Text(store.onboardingUserInfoModel?.level?.title ?? "No Level")
-                                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 12.0))
-                                        .foregroundStyle(.grey70)
-                                }
-
-                                Spacer()
-
-                                Images.icChevronForward16.swiftUIImage
+                        HStack(spacing: 4) {
+                            Images.genderMan.swiftUIImage
+                                .resizable()
+                                .frame(width: 48.0, height: 48.0)
+                            VStack(alignment: .leading, spacing: 4.0) {
+                                Text(store.onboardingUserInfoModel?.nickName ?? "No name")
+                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
+                                    .foregroundStyle(.grey100)
+                                Text(store.onboardingUserInfoModel?.level?.title ?? "No Level")
+                                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 12.0))
+                                    .foregroundStyle(.grey70)
                             }
-                            .padding(.vertical, 12.0)
-                            .padding(.horizontal, 20.0)
+
+                            Spacer()
+
+                            Images.icChevronForward16.swiftUIImage
                         }
+                        .padding(.vertical, 12.0)
+                        .padding(.horizontal, 20.0)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            store.send(.didTapMyPage)
+                        }
+                        
 
                         CalendarView(month: Date(), markedDates: [Date()])
                             .padding(.horizontal, 19)
@@ -112,7 +129,12 @@ struct MyActivityView: View {
                     }
                 }
             } destination: { store in
-                MyPageView(store: store)
+                switch store.case {
+                case let .myPage(store):
+                    MyPageView(store: store)
+                case let .modifyProfile(store):
+                    ModifyProfileView(store: store)
+                }
             }
         }
 

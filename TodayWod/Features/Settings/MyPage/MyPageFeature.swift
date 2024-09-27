@@ -44,21 +44,26 @@ struct MyPageView: View {
     let store: StoreOf<MyPageFeature>
 
     var body: some View {
-        VStack {
-            CustomNavigationView {
-                store.send(.didTapBackButton)
-            }
-            ScrollView {
-                LazyVStack {
-                    ProfileView(nickName: store.userInfoModel.nickName ?? "")
-                    CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                    MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
-                    CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                    VersionInfoView(version: store.version)
+        WithPerceptionTracking { 
+            VStack {
+                CustomNavigationView {
+                    store.send(.didTapBackButton)
+                }
+                ScrollView {
+                    LazyVStack {
+                        ProfileView(nickName: store.userInfoModel.nickName ?? "") {
+                            store.send(.didTapModifyProfileButton)
+                        }
+                        CustomDivider(color: .grey20, size: 5, direction: .horizontal)
+                        MyInfoView(userInfo: store.userInfoModel.convertToSubArray())
+                        CustomDivider(color: .grey20, size: 5, direction: .horizontal)
+                        VersionInfoView(version: store.version)
+                    }
                 }
             }
+            .toolbar(.hidden, for: .navigationBar)
         }
-        .toolbar(.hidden, for: .navigationBar)
+        
     }
 
 }

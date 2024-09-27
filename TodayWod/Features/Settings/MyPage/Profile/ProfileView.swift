@@ -11,6 +11,8 @@ struct ProfileView: View {
     
     let nickName: String
     
+    let action: (() -> Void)
+    
     var body: some View {
         VStack {
             Images.genderMan.swiftUIImage
@@ -21,7 +23,7 @@ struct ProfileView: View {
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
                 .padding(.top, 20.0)
             Button(action: {
-                // TODO: - 프로필 수정 액션
+                action()
             }, label: {
                 Text("프로필 수정")
                     .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
@@ -40,5 +42,7 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(nickName: "Nick")
+    ProfileView(nickName: "Nick") {
+        print("did tap modify profile button")
+    }
 }
