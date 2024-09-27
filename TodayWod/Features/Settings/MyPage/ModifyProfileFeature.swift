@@ -18,9 +18,15 @@ struct ModifyProfileFeature {
         var isValidNickname: Bool = false
         let ruleDescription: String = "영어와 한글, 숫자 2~10자 이내"
         let validNicknameMessage: String = "멋진 닉네임이에요!"
+        var focusedField: FieldType?
+        
+        enum FieldType: Hashable {
+            case nickName
+        }
     }
     
     enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapConfirmButton
         case setNickname(String)
@@ -33,6 +39,9 @@ struct ModifyProfileFeature {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.focusedField = .nickName
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapConfirmButton:
@@ -62,6 +71,7 @@ import SwiftUI
 struct ModifyProfileView: View {
     
     @Perception.Bindable var store: StoreOf<ModifyProfileFeature>
+    @FocusState var focusedField: ModifyProfileFeature.State.FieldType?
     
     var body: some View {
         WithPerceptionTracking {
@@ -71,6 +81,7 @@ struct ModifyProfileView: View {
                 }
                 HStack {
                     TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
+                        .focused($focusedField, equals: .nickName)
                         .autocorrectionDisabled()
                         .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                         .foregroundStyle(.grey100)
@@ -100,6 +111,10 @@ struct ModifyProfileView: View {
                 .padding(.horizontal, 38.0)
                 .padding(.bottom, 20.0)
             }
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
         }
     }
