@@ -16,9 +16,13 @@ struct WorkOutDetailFeature {
         let index: Int
         var item: WorkOutDayModel
         var isDayCompleted: Bool = false
+        var isPresented: Bool = false
+        
+        @Presents var timerState: BreakTimeFeature.State?
     }
 
-    enum Action {
+    enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapDoneButton
         case setCompleted(WodSet)
@@ -26,13 +30,20 @@ struct WorkOutDetailFeature {
         case updateWodSet(WodSet)
         case saveWorkOutOfDay
         case updateDayCompleted
+        case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
+        case binding(BindingAction<State>)
     }
     
     @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                // TODO: - 운동 시작하기 버튼 누르면 presented 되도록 수정 필요
+                state.isPresented = true
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
@@ -65,7 +76,6 @@ struct WorkOutDetailFeature {
                     }
                 }
             }
-                
                 return .merge(.send(.saveWorkOutOfDay),
                               .send(.updateDayCompleted))
             case .saveWorkOutOfDay:
@@ -86,7 +96,14 @@ struct WorkOutDetailFeature {
                     print("isDayCompleted!!!")
                 }
                 return .none
+            case .breakTimerAction:
+                return .none
+            case .binding:
+                return .none
             }
+        }
+        .ifLet(\.$timerState, action: \.breakTimerAction) {
+            BreakTimeFeature()
         }
     }
     
@@ -96,6 +113,8 @@ struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
+    @State private var isPresented: Bool = false
+
     var body: some View {
         WithPerceptionTracking {
             VStack {
@@ -131,7 +150,17 @@ struct WorkOutDetailView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .background(Colors.blue10.swiftUIColor)
+            .bind($store.isPresented, to: $isPresented)
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .bottomSheet(isPresented: $isPresented) {
+                BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
+                    BreakTimeFeature()
+                })
+            }
         }
+
     }
     
 }

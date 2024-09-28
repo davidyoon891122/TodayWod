@@ -9,8 +9,6 @@ import Foundation
 
 protocol UserDefaultsManagerProtocol {
 
-    func saveUserInfo(data: UserInfoModel)
-    func loadUserInfo() -> UserInfoModel?
     func saveOnboardingUserInfo(data: OnboardingUserInfoModel)
     func loadOnboardingUserInfo() -> OnboardingUserInfoModel?
     
@@ -33,18 +31,6 @@ final class UserDefaultsManager {
 }
 
 extension UserDefaultsManager: UserDefaultsManagerProtocol {
-
-    func saveUserInfo(data: UserInfoModel) {
-        let encodedData = try? PropertyListEncoder().encode(data)
-        self.userDefaults.set(encodedData, forKey: Constants.userInfo)
-    }
-    
-    func loadUserInfo() -> UserInfoModel? {
-        guard let data = self.userDefaults.object(forKey: Constants.userInfo) as? Data,
-              let userInfo = try? PropertyListDecoder().decode(UserInfoModel.self, from: data) else { return nil }
-
-        return userInfo
-    }
     
     func saveOnboardingUserInfo(data: OnboardingUserInfoModel) {
         let encodedData = try? PropertyListEncoder().encode(data)
