@@ -56,7 +56,8 @@ import SwiftUI
 struct WorkOutView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutFeature>
-    
+    @State private var dynamicHeight: CGFloat = .zero
+
     var body: some View {
         WithPerceptionTracking {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
@@ -85,7 +86,16 @@ struct WorkOutView: View {
             }
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { store in
                 CelebrateView(store: store)
-                    .presentationDetents([.medium, .large])
+                    .presentationDetents([.height(dynamicHeight + 20.0)]) // 20 정도 여분을 주지 않으면 텍스트 잘림 현상 발생 가능성 있음
+                    .presentationDragIndicator(.visible)
+                    .background {
+                        GeometryReader { proxy in
+                            Color.clear
+                                .onAppear {
+                                    dynamicHeight = proxy.size.height
+                                }
+                        }
+                    }
             }
         }
     }
