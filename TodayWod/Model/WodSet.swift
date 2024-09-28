@@ -9,15 +9,19 @@ import Foundation
 
 struct WodSet: Codable, Equatable, Identifiable {
 
-    var id: UUID = UUID()
-    var workOutInfoId: UUID? = nil
-    var wodModelId: UUID? = nil
+    var id: UUID
+    var workOutInfoId: UUID?
+    var wodModelId: UUID?
     
     var unitValue: Int
     var number: Int?
     var isCompleted: Bool
     
     init(unitValue: Int, number: Int? = nil, isCompleted: Bool = false) {
+        self.id = UUID()
+        self.workOutInfoId = nil
+        self.wodModelId = nil
+        
         self.unitValue = unitValue
         self.number = number
         self.isCompleted = isCompleted

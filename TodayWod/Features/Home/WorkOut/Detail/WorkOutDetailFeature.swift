@@ -15,12 +15,13 @@ struct WorkOutDetailFeature {
     struct State: Equatable {
         let index: Int
         var item: WorkOutDayModel
+        var hasStart: Bool = false
         var isDayCompleted: Bool = false
         var isPresented: Bool = false
         
         @Presents var timerState: BreakTimeFeature.State?
     }
-
+    
     enum Action: BindableAction {
         case didTapBackButton
         case didTapDoneButton
@@ -35,7 +36,7 @@ struct WorkOutDetailFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
-
+    
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
@@ -46,6 +47,7 @@ struct WorkOutDetailFeature {
                 return .none
             case .didTapStartButton:
                 // TODO: - Total Timer 시작
+                state.hasStart = true
                 return .none
             case let .setCompleted(set):
                 var updatedSet = set
@@ -87,9 +89,7 @@ struct WorkOutDetailFeature {
                 return .none
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.workOuts.flatMap {
-                    $0.items.flatMap {
-                        $0.wodSet
-                    }
+                    $0.items.flatMap { $0.wodSet }
                 }.allSatisfy { wodSet in
                     wodSet.isCompleted
                 }
@@ -123,11 +123,10 @@ struct WorkOutDetailView: View {
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
     @State private var isPresented: Bool = false
-
+    
     var body: some View {
         WithPerceptionTracking {
             ZStack {
-                
                 VStack {
                     WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
                         store.send(.didTapBackButton)
@@ -136,41 +135,50 @@ struct WorkOutDetailView: View {
                     }
                     
                     ScrollView {
-                        VStack {
-                            WorkOutDetailTitleView(item: store.item)
-                            
-                            VStack(alignment: .leading, spacing: 10) {
-                                ForEach(store.item.workOuts) { workOut in
-                                    Text(workOut.type.title)
-                                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                        .foregroundStyle(Colors.grey100.swiftUIColor)
-                                        .frame(height: 40)
-                                        .padding(.top, 10)
-                                    
-                                    LazyVStack(alignment: .leading, spacing: 10) {
-                                        ForEach(workOut.items) { item in
-                                            WodView(store: store, model: item)
+                        ZStack {
+                            VStack {
+                                WorkOutDetailTitleView(item: store.item)
+                                
+                                VStack(alignment: .leading, spacing: 10) {
+                                    ForEach(store.item.workOuts) { workOut in
+                                        Text(workOut.type.title)
+                                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                            .foregroundStyle(Colors.grey100.swiftUIColor)
+                                            .frame(height: 40)
+                                            .padding(.top, 10)
+                                        
+                                        LazyVStack(alignment: .leading, spacing: 10) {
+                                            ForEach(workOut.items) { item in
+                                                WodView(store: store, model: item)
+                                            }
                                         }
                                     }
                                 }
                             }
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 149)
+                            
+                            if !store.hasStart {
+                                Colors.black100.swiftUIColor.opacity(0.3)
+                            }
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 149)
+                        .disabled(!store.hasStart) /* Q: 시작하기 눌러야 활성화되게 처리. 기획 */
                     }
                 }
                 .background(Colors.blue10.swiftUIColor)
                 
-                VStack {
-                    Spacer()
-                    Button(action: {
-                        store.send(.didTapStartButton)
-                    }, label: {
-                        Text(Constants.buttonTitle)
-                    })
-                    .nextButtonStyle()
-                    .padding(.horizontal, 38)
-                    .padding(.bottom, 20)
+                if !store.hasStart {
+                    VStack {
+                        Spacer()
+                        Button(action: {
+                            store.send(.didTapStartButton)
+                        }, label: {
+                            Text(Constants.buttonTitle)
+                        })
+                        .nextButtonStyle()
+                        .padding(.horizontal, 38)
+                        .padding(.bottom, 20)
+                    }
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
@@ -181,9 +189,7 @@ struct WorkOutDetailView: View {
                 })
             }
         }
-
     }
-    
 }
 
 private extension WorkOutDetailView {

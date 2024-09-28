@@ -7,30 +7,34 @@
 
 import Foundation
 
-struct WodInfo: Codable, Equatable {
+struct WodInfo: Codable {
 
-    let methodType: ProgramMethodType
-    let level: LevelType
-    let workOutDays: [WorkOutDayModel]
+    var workOutDays: [WorkOutDayModel]
     
-    init(methodType: ProgramMethodType, level: LevelType, workOutDays: [WorkOutDayModel]) {
-        self.methodType = methodType
-        self.level = level
-        self.workOutDays = workOutDays
+    init(data: WodInfoEntity) {
+        self.workOutDays = data.workOutDays.map { WorkOutDayModel(data: $0) }
     }
     
 }
 
 extension WodInfo {
     
-    static var fake: Self = .init(methodType: .body, level: .beginner, workOutDays: WorkOutDayModel.fakes)
+    var hasWod: Bool {
+        self.workOutDays.count != 0
+    }
+    
+}
+
+extension WodInfo {
+    
+    static let fake: Self = .init(data: WodInfoEntity.fake)
     
 }
 
 struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
-    var id: UUID = UUID()
-    var completedInfo: CompletedWorkOutDayInfo = .init()
+    var id: UUID
+    var completedInfo: CompletedWorkOutDayInfo
     
     let type: WorkOutDayTagType
     let title: String
@@ -40,14 +44,17 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     let estimatedEndCalorie: Int
     var workOuts: [WorkOutInfo]
     
-    init(type: WorkOutDayTagType, title: String, subTitle: String, expectedMinute: Int, estimatedStartCalorie: Int, estimatedEndCalorie: Int, workOuts: [WorkOutInfo]) {
-        self.type = type
-        self.title = title
-        self.subTitle = subTitle
-        self.expectedMinute = expectedMinute
-        self.estimatedStartCalorie = estimatedStartCalorie
-        self.estimatedEndCalorie = estimatedEndCalorie
-        self.workOuts = workOuts
+    init(data: WorkOutDayEntity) {
+        self.id = UUID()
+        self.completedInfo = .init()
+        
+        self.type = data.type
+        self.title = data.title
+        self.subTitle = data.subTitle
+        self.expectedMinute = data.expectedMinute
+        self.estimatedStartCalorie = data.estimatedStartCalorie
+        self.estimatedEndCalorie = data.estimatedEndCalorie
+        self.workOuts = data.workOuts.map { WorkOutInfo(data: $0) }
     }
     
 }
@@ -74,19 +81,17 @@ extension WorkOutDayModel {
 
 extension WorkOutDayModel {
     
-    static var fake: Self {
-        .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
-    }
+    static let fake: Self = .init(data: WorkOutDayEntity.fake)
     
-    static var fakes: [Self] = [
-        .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
-        .init(type: .default, title: "타이탄 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
-        .init(type: .end, title: "히어로 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
-    ]
+    static var fakes: [Self] = {
+        return WorkOutDayEntity.fakes.map { fake -> WorkOutDayModel in
+            .init(data: fake)
+        }
+    }()
     
 }
 
-struct CompletedWorkOutDayInfo: Codable, Equatable { // TODO: - Refactoring 구조. 이 구조는 내부에서 mapping한 값만 갖도록.
+struct CompletedWorkOutDayInfo: Codable, Equatable {
     
     var isCompleted: Bool
     var completedDate: Date?
