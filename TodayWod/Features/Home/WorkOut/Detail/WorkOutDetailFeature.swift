@@ -19,16 +19,24 @@ struct WorkOutDetailFeature {
     }
 
     enum Action {
+        case didTapBackButton
+        case didTapDoneButton
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
         case saveWorkOutOfDay
         case updateDayCompleted
     }
+    
+    @Dependency(\.dismiss) var dismiss
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .didTapBackButton:
+                return .run { _ in await dismiss() }
+            case .didTapDoneButton:
+                return .none
             case let .setCompleted(set):
                 var updatedSet = set
                 updatedSet.isCompleted.toggle()
@@ -90,29 +98,38 @@ struct WorkOutDetailView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            ScrollView {
-                VStack {
-                    WorkOutDetailTitleView(item: store.item)
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        ForEach(store.item.workOuts) { workOut in
-                            Text(workOut.type.title)
-                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                .foregroundStyle(Colors.grey100.swiftUIColor)
-                                .frame(height: 40)
-                                .padding(.top, 10)
-                            
-                            LazyVStack(alignment: .leading, spacing: 10) {
-                                ForEach(workOut.items) { item in
-                                    WodView(store: store, model: item)
+            VStack {
+                WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
+                    store.send(.didTapBackButton)
+                } doneAction: {
+                    store.send(.didTapDoneButton)
+                }
+                
+                ScrollView {
+                    VStack {
+                        WorkOutDetailTitleView(item: store.item)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(store.item.workOuts) { workOut in
+                                Text(workOut.type.title)
+                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                    .foregroundStyle(Colors.grey100.swiftUIColor)
+                                    .frame(height: 40)
+                                    .padding(.top, 10)
+                                
+                                LazyVStack(alignment: .leading, spacing: 10) {
+                                    ForEach(workOut.items) { item in
+                                        WodView(store: store, model: item)
+                                    }
                                 }
                             }
                         }
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
             }
+            .toolbar(.hidden, for: .navigationBar)
             .background(Colors.blue10.swiftUIColor)
         }
     }
