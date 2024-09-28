@@ -45,6 +45,7 @@ internal enum Images {
   internal static let icHomeDisable = ImageAsset(name: "ic_home_disable")
   internal static let icPause16 = ImageAsset(name: "ic_pause_16")
   internal static let icPause24 = ImageAsset(name: "ic_pause_24")
+  internal static let icPlay24 = ImageAsset(name: "ic_play_24")
   internal static let icRefresh16 = ImageAsset(name: "ic_refresh_16")
   internal static let icRefresh24 = ImageAsset(name: "ic_refresh_24")
   internal static let icRemove16 = ImageAsset(name: "ic_remove_16")

@@ -13,17 +13,33 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
+        @Presents var timerState: BreakTimeFeature.State?
+        var isPresented: Bool = false
         let item: WorkOutDayModel
     }
 
-    enum Action {
-        
+    enum Action: BindableAction {
+        case onAppear
+        case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
+        case binding(BindingAction<State>)
     }
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                // TODO: - 운동 시작하기 버튼 누르면 presented 되도록 수정 필요
+                state.isPresented = true
+                return .none
+            case .breakTimerAction:
+                return .none
+            case .binding:
+                return .none
             }
+        }
+        .ifLet(\.$timerState, action: \.breakTimerAction) {
+            BreakTimeFeature()
         }
     }
     
@@ -31,8 +47,10 @@ struct WorkOutDetailFeature {
 
 struct WorkOutDetailView: View {
     
-    let store: StoreOf<WorkOutDetailFeature>
-    
+    @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
+
+    @State private var isPresented: Bool = false
+
     var body: some View {
         WithPerceptionTracking {
             ScrollView {
@@ -59,7 +77,17 @@ struct WorkOutDetailView: View {
                 .padding(.vertical, 10)
             }
             .background(Colors.blue10.swiftUIColor)
+            .bind($store.isPresented, to: $isPresented)
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .bottomSheet(isPresented: $isPresented) {
+                BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
+                    BreakTimeFeature()
+                })
+            }
         }
+
     }
     
 }
