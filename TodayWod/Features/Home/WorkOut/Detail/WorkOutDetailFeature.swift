@@ -22,9 +22,9 @@ struct WorkOutDetailFeature {
     }
 
     enum Action: BindableAction {
-        case onAppear
         case didTapBackButton
         case didTapDoneButton
+        case didTapStartButton
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
@@ -40,17 +40,20 @@ struct WorkOutDetailFeature {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                // TODO: - 운동 시작하기 버튼 누르면 presented 되도록 수정 필요
-                state.isPresented = true
-                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
                 return .none
+            case .didTapStartButton:
+                // TODO: - Total Timer 시작
+                return .none
             case let .setCompleted(set):
                 var updatedSet = set
                 updatedSet.isCompleted.toggle()
+                
+                if updatedSet.isCompleted {
+                    state.isPresented = true // 휴식 시작.
+                }
                 
                 let wodSet = updatedSet
                 return .run { send in
@@ -92,7 +95,13 @@ struct WorkOutDetailFeature {
                 }
                 
                 if state.isDayCompleted {
-                    // TODO: SaveDate, SaveDuration
+                    // TODO: 운동을 완료할까요? BottomSheet 호출
+                    // TODO: completedInfo에 SaveDate, SaveDuration 함께 저장.
+                    state.item.completedInfo = .init(isCompleted: true)
+                    
+                    let userDefaultsManager = UserDefaultsManager()
+                    userDefaultsManager.saveWorkOutDay(index: state.index, data: state.item)
+                    
                     print("isDayCompleted!!!")
                 }
                 return .none
@@ -117,43 +126,55 @@ struct WorkOutDetailView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            VStack {
-                WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
-                    store.send(.didTapBackButton)
-                } doneAction: {
-                    store.send(.didTapDoneButton)
-                }
+            ZStack {
                 
-                ScrollView {
-                    VStack {
-                        WorkOutDetailTitleView(item: store.item)
-                        
-                        VStack(alignment: .leading, spacing: 10) {
-                            ForEach(store.item.workOuts) { workOut in
-                                Text(workOut.type.title)
-                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                    .foregroundStyle(Colors.grey100.swiftUIColor)
-                                    .frame(height: 40)
-                                    .padding(.top, 10)
-                                
-                                LazyVStack(alignment: .leading, spacing: 10) {
-                                    ForEach(workOut.items) { item in
-                                        WodView(store: store, model: item)
+                VStack {
+                    WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
+                        store.send(.didTapBackButton)
+                    } doneAction: {
+                        store.send(.didTapDoneButton)
+                    }
+                    
+                    ScrollView {
+                        VStack {
+                            WorkOutDetailTitleView(item: store.item)
+                            
+                            VStack(alignment: .leading, spacing: 10) {
+                                ForEach(store.item.workOuts) { workOut in
+                                    Text(workOut.type.title)
+                                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                        .foregroundStyle(Colors.grey100.swiftUIColor)
+                                        .frame(height: 40)
+                                        .padding(.top, 10)
+                                    
+                                    LazyVStack(alignment: .leading, spacing: 10) {
+                                        ForEach(workOut.items) { item in
+                                            WodView(store: store, model: item)
+                                        }
                                     }
                                 }
                             }
                         }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 149)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
+                }
+                .background(Colors.blue10.swiftUIColor)
+                
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        store.send(.didTapStartButton)
+                    }, label: {
+                        Text(Constants.buttonTitle)
+                    })
+                    .nextButtonStyle()
+                    .padding(.horizontal, 38)
+                    .padding(.bottom, 20)
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .background(Colors.blue10.swiftUIColor)
             .bind($store.isPresented, to: $isPresented)
-            .onAppear {
-                store.send(.onAppear)
-            }
             .bottomSheet(isPresented: $isPresented) {
                 BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
                     BreakTimeFeature()
@@ -165,7 +186,13 @@ struct WorkOutDetailView: View {
     
 }
 
-
+private extension WorkOutDetailView {
+    
+    enum Constants {
+        static let buttonTitle = "운동 시작하기"
+    }
+    
+}
 
 #Preview {
     WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(index: 0, item: WorkOutDayModel.fake)) {

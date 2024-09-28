@@ -30,9 +30,7 @@ extension WodInfo {
 struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
     var id: UUID = UUID()
-    
-    var completedDate: Date?
-    var completedDuration: Int?
+    var completedInfo: CompletedWorkOutDayInfo = .init()
     
     let type: WorkOutDayTagType
     let title: String
@@ -42,7 +40,7 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     let estimatedEndCalorie: Int
     var workOuts: [WorkOutInfo]
     
-    init(type: WorkOutDayTagType, title: String, subTitle: String, expectedMinute: Int, estimatedStartCalorie: Int, estimatedEndCalorie: Int, workOuts: [WorkOutInfo], completedDate: Date? = nil, completedDuration: Int? = nil) {
+    init(type: WorkOutDayTagType, title: String, subTitle: String, expectedMinute: Int, estimatedStartCalorie: Int, estimatedEndCalorie: Int, workOuts: [WorkOutInfo]) {
         self.type = type
         self.title = title
         self.subTitle = subTitle
@@ -50,8 +48,6 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
         self.estimatedStartCalorie = estimatedStartCalorie
         self.estimatedEndCalorie = estimatedEndCalorie
         self.workOuts = workOuts
-        self.completedDate = completedDate
-        self.completedDuration = completedDuration
     }
     
 }
@@ -87,5 +83,19 @@ extension WorkOutDayModel {
         .init(type: .default, title: "타이탄 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
         .init(type: .end, title: "히어로 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
     ]
+    
+}
+
+struct CompletedWorkOutDayInfo: Codable, Equatable { // TODO: - Refactoring 구조. 이 구조는 내부에서 mapping한 값만 갖도록.
+    
+    var isCompleted: Bool
+    var completedDate: Date?
+    var completedDuration: Int?
+    
+    init(isCompleted: Bool = false, completedDate: Date? = nil, completedDuration: Int? = nil) {
+        self.isCompleted = isCompleted
+        self.completedDate = completedDate
+        self.completedDuration = completedDuration
+    }
     
 }

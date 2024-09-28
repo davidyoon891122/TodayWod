@@ -32,11 +32,14 @@ struct WorkOutFeature {
             case .onAppear:
                 let userDefaultsManager = UserDefaultsManager()
                 state.items = userDefaultsManager.loadWorkOutOfWeek()
+                
+                let isCelebrate = state.items.allSatisfy { $0.completedInfo.isCompleted }
+                if isCelebrate {
+                    state.celebrateState = CelebrateFeature.State()
+                }
                 return .none
             case let .didTapDayView(index, item):
                 state.path.append(WorkOutDetailFeature.State(index: index, item: item))
-
-                state.celebrateState = CelebrateFeature.State()
                 return .none
             case .path(_):
                 return .none
