@@ -29,6 +29,7 @@ struct WorkOutDetailFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                // TODO: - 운동 시작하기 버튼 누르면 presented 되도록 수정 필요
                 state.isPresented = true
                 return .none
             case .breakTimerAction:
