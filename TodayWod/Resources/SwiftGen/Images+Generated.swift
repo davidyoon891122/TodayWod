@@ -65,6 +65,7 @@ internal enum Images {
   internal static let icWeek8 = ImageAsset(name: "ic_week_8")
   internal static let icWeek9 = ImageAsset(name: "ic_week_9")
   internal static let machineWeight = ImageAsset(name: "machine_weight")
+  internal static let trophy = ImageAsset(name: "trophy")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
