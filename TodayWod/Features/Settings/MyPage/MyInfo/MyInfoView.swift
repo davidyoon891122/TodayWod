@@ -25,7 +25,9 @@ struct MyInfoView: View {
             
             LazyVStack {
                 ForEach(userInfo, id: \.title) { item in
-                    MyPageRowItemView(model: item)
+                    MyPageRowItemView(model: item) {
+                        store.send(.didTapInfoButton(item.type))
+                    }
                 }
             }
             .padding(.bottom, 30.0)

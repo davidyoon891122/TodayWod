@@ -11,8 +11,8 @@ struct MyPageRowItemView: View {
     
     let model: UserInfoSubItemModel
     
-    let action: ((UserInfoType?) -> Void)
-    
+    var action: (() -> Void)? = nil
+
     var body: some View {
         HStack {
             Text(model.title)
@@ -21,7 +21,7 @@ struct MyPageRowItemView: View {
             Spacer()
             
             Button(action: {
-                action(model.type)
+                action?()
             }, label: {
                 HStack {
                     Text(model.value)
@@ -41,7 +41,7 @@ struct MyPageRowItemView: View {
 }
 
 #Preview {
-    MyPageRowItemView(model: .init(title: "성별", value: "남자", modifiable: false, type: .gender), action: { type in
-        print("Did tap button: \(type)")
+    MyPageRowItemView(model: .init(title: "성별", value: "남자", modifiable: false, type: .gender), action: {
+        print("Did tap button")
     })
 }
