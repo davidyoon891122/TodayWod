@@ -10,6 +10,8 @@ import Foundation
 struct WodSet: Codable, Equatable, Identifiable {
 
     var id: UUID = UUID()
+    var workOutInfoId: UUID? = nil
+    var wodModelId: UUID? = nil
     
     var unitValue: Int
     var number: Int?
@@ -33,10 +35,12 @@ extension WodSet {
         String(self.unitValue)
     }
     
-    func createNumbering(set: Int) -> [WodSet] {
+    func createNumbering(set: Int, workOutInfoId: UUID?, wodModelId: UUID) -> [WodSet] {
         (0..<set).map { idx in
             var updatedSet = self
             updatedSet.id = UUID()
+            updatedSet.workOutInfoId = workOutInfoId
+            updatedSet.wodModelId = wodModelId
             updatedSet.number = idx + 1
             return updatedSet
         }

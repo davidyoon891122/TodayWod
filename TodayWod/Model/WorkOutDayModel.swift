@@ -8,20 +8,15 @@
 import Foundation
 
 struct WodInfo: Codable, Equatable {
-    
-    var completedDate: Date?
-    var completedDuration: Int?
-    
+
     let methodType: ProgramMethodType
     let level: LevelType
     let workOutDays: [WorkOutDayModel]
     
-    init(methodType: ProgramMethodType, level: LevelType, workOutDays: [WorkOutDayModel], completedDate: Date? = nil, completedDuration: Int? = nil) {
+    init(methodType: ProgramMethodType, level: LevelType, workOutDays: [WorkOutDayModel]) {
         self.methodType = methodType
         self.level = level
         self.workOutDays = workOutDays
-        self.completedDate = completedDate
-        self.completedDuration = completedDuration
     }
     
 }
@@ -36,13 +31,28 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
     var id: UUID = UUID()
     
+    var completedDate: Date?
+    var completedDuration: Int?
+    
     let type: WorkOutDayTagType
     let title: String
     let subTitle: String
     let expectedMinute: Int
     let estimatedStartCalorie: Int
     let estimatedEndCalorie: Int
-    let workOuts: [WorkOutInfo]
+    var workOuts: [WorkOutInfo]
+    
+    init(type: WorkOutDayTagType, title: String, subTitle: String, expectedMinute: Int, estimatedStartCalorie: Int, estimatedEndCalorie: Int, workOuts: [WorkOutInfo], completedDate: Date? = nil, completedDuration: Int? = nil) {
+        self.type = type
+        self.title = title
+        self.subTitle = subTitle
+        self.expectedMinute = expectedMinute
+        self.estimatedStartCalorie = estimatedStartCalorie
+        self.estimatedEndCalorie = estimatedEndCalorie
+        self.workOuts = workOuts
+        self.completedDate = completedDate
+        self.completedDuration = completedDuration
+    }
     
 }
 

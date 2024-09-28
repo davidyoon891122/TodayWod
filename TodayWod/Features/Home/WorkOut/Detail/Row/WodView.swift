@@ -7,9 +7,11 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 struct WodView: View {
     
+    @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     let model: WodModel
     
     var body: some View {
@@ -28,7 +30,7 @@ struct WodView: View {
                                     .foregroundStyle(Colors.grey100.swiftUIColor)
                                     .frame(width: 48)
                             }
-                            WodSetView(model: set)
+                            WodSetView(store: store, model: set)
                         }
                     }
                 }
@@ -77,7 +79,9 @@ struct WodView: View {
 #Preview {
     VStack {
         Spacer()
-        WodView(model: WodModel.fake)
+        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake), reducer: {
+            WorkOutDetailFeature()
+        }), model: WodModel.fake)
         Spacer()
     }
     .background(.blue10)

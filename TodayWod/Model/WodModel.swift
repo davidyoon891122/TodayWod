@@ -9,10 +9,17 @@ import Foundation
 
 struct WorkOutInfo: Codable, Equatable, Identifiable {
     
-    var id: UUID = UUID()
+    var id: UUID
     
     let type: WorkOutType
-    let items: [WodModel]
+    var items: [WodModel]
+    
+    init(type: WorkOutType, items: [WodModel]) {
+        let id = UUID()
+        self.id = id
+        self.type = type
+        self.items = items.map { $0.createParentClassification(id: id) }
+    }
     
 }
 
@@ -29,18 +36,19 @@ extension WorkOutInfo {
 struct WodModel: Codable, Equatable, Identifiable {
     
     var id: UUID = UUID()
+    var workOutInfoId: UUID? = nil
     
     let title: String
     let subTitle: String
     let unit: ExerciseUnit
-    let wodSet: [WodSet]
+    var wodSet: [WodSet]
     let set: Int
     
     init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int = 1) {
         self.title = title
         self.subTitle = subTitle
         self.unit = unit
-        self.wodSet = WodSet(unitValue: unitValue).createNumbering(set: set)
+        self.wodSet = WodSet(unitValue: unitValue).createNumbering(set: set, workOutInfoId: workOutInfoId, wodModelId: id)
         self.set = set
     }
     
@@ -54,6 +62,16 @@ extension WodModel {
     
     var displaySet: String {
         "세트 (Set)"
+    }
+    
+}
+
+extension WodModel {
+    
+    func createParentClassification(id: UUID) -> Self {
+        var updatedWod = self
+        updatedWod.workOutInfoId = id
+        return updatedWod
     }
     
 }
