@@ -17,6 +17,7 @@ struct MyActivityFeature {
         case modifyProfile(ModifyProfileFeature)
         case modifyWeight(ModifyWeightFeature)
         case modifyLevel(LevelSelectFeature)
+        case modifyMethod(MethodSelectFeature)
     }
 
     @ObservableState
@@ -56,6 +57,9 @@ struct MyActivityFeature {
                         state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         return .none
                     case .method:
+                        guard let onboardingUserInfoModel = state.onboardingUserInfoModel else { return .none }
+                        state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
+
                         return .none
                     }
                 default:
@@ -162,6 +166,8 @@ struct MyActivityView: View {
                     ModifyWeightView(store: store)
                 case let .modifyLevel(store):
                     LevelSelectView(store: store)
+                case let .modifyMethod(store):
+                    MethodSelectView(store: store)
                 }
             }
         }

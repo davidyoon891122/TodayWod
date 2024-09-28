@@ -8,11 +8,6 @@
 import Foundation
 import ComposableArchitecture
 
-enum EntryType {
-    case onBoarding
-    case modify
-}
-
 @Reducer
 struct LevelSelectFeature {
 

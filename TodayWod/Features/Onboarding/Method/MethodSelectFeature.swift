@@ -20,7 +20,8 @@ struct MethodSelectFeature {
         var isValidMethod: Bool = false
         var methodType: ProgramMethodType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
-        
+        var entryType: EntryType = .onBoarding
+
         @Presents var methodDescription: MethodDescriptionFeature.State?
     }
 
@@ -44,9 +45,19 @@ struct MethodSelectFeature {
             case .didTapStartButton:
                 // TODO: - 여기서 세팅하는게 맞을지 고민(Shared 사용으로 대체 필요)
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+                switch state.entryType {
+                case .onBoarding:
+                    userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
 
-                return .send(.finishOnboarding)
+                    return .send(.finishOnboarding)
+                case .modify:
+                    guard var onboadingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                    onboadingUserModel.method = state.methodType
+                    userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
+
+                    return .run { _ in await dismiss() }
+                }
+
             case let .setMethod(methodType):
                 state.methodType = methodType
                 state.onboardingUserModel.method = methodType
