@@ -8,6 +8,11 @@
 import Foundation
 import ComposableArchitecture
 
+enum EntryType {
+    case onBoarding
+    case modify
+}
+
 @Reducer
 struct LevelSelectFeature {
 
@@ -20,6 +25,7 @@ struct LevelSelectFeature {
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidLevel: Bool = false
+        var entryType: EntryType = .onBoarding
     }
 
     enum Action {
@@ -37,9 +43,20 @@ struct LevelSelectFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
-                state.onboardingUserModel.level = state.level
+                switch state.entryType {
+                case .onBoarding:
+                    state.onboardingUserModel.level = state.level
 
-                return .send(.finishInputLevel(MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
+                    return .send(.finishInputLevel(MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
+                case .modify:
+                    let userDefaultsManager = UserDefaultsManager()
+                    guard var onboardingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                    onboardingUserModel.level = state.level
+                    userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
+
+                    return .run { _ in await dismiss() }
+                }
+
             case let .setLevel(level):
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.prepare()

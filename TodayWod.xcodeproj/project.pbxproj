@@ -339,6 +339,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		498712122CA793F000FB876E /* ModifyWeight */ = {
+			isa = PBXGroup;
+			children = (
+				AD386C452CA69B040038C27F /* ModifyWeightFeature.swift */,
+			);
+			path = ModifyWeight;
+			sourceTree = "<group>";
+		};
 		4992E6832C97E076001A1375 /* Weight */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,7 +507,7 @@
 				AD386C372CA3904D0038C27F /* MyInfo */,
 				AD386C3D2CA392890038C27F /* VersionInfo */,
 				AD386C442CA69ADC0038C27F /* ModifyProfile */,
-				AD386C452CA69B040038C27F /* ModifyWeightFeature.swift */,
+				498712122CA793F000FB876E /* ModifyWeight */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";

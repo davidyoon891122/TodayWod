@@ -40,6 +40,7 @@ struct ModifyWeightFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.placeHolder = String(state.onboardingUserInfoModel?.weight ?? 0)
                 state.focusedField = .weight
                 return .none
             case let .setWeight(weight):
