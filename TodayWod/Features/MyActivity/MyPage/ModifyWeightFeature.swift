@@ -17,7 +17,7 @@ struct ModifyWeightFeature {
         var weight: String = ""
         var isValidWeight: Bool = false
         let buttonTitle: String = "확인"
-        
+        var onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo()
         var focusedField: FieldType?
         
         enum FieldType: Hashable {
@@ -30,6 +30,7 @@ struct ModifyWeightFeature {
         case setWeight(String)
         case binding(BindingAction<State>)
         case didTapBackButton
+        case didTapConfirmButton
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -53,6 +54,12 @@ struct ModifyWeightFeature {
             case .binding:
                 return .none
             case .didTapBackButton:
+                return .run { _ in await dismiss() }
+            case .didTapConfirmButton:
+                guard var onboardingUserInfoModel = state.onboardingUserInfoModel else { return .none }
+                onboardingUserInfoModel.weight = Int(state.weight)
+                UserDefaultsManager().saveOnboardingUserInfo(data: onboardingUserInfoModel)
+
                 return .run { _ in await dismiss() }
             }
         }
@@ -93,7 +100,7 @@ struct ModifyWeightView: View {
                 .padding(.top, 100.0)
                 Spacer()
                 Button(action: {
-                    // TODO: - did tap confirm button
+                    store.send(.didTapConfirmButton)
                 }, label: {
                     Text(store.state.buttonTitle)
                         .nextButtonStyle()

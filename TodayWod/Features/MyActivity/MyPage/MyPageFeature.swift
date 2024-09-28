@@ -37,7 +37,7 @@ struct MyPageFeature {
                 return .run { _ in await dismiss() }
             case .didTapModifyProfileButton:
                 return .none
-            case let .didTapInfoButton(userInfoType):
+            case .didTapInfoButton:
                 return .none
             }
         }

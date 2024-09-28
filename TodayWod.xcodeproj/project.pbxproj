@@ -227,13 +227,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		49101A762C8D384700FDB709 /* Settings */ = {
+		49101A762C8D384700FDB709 /* MyActivity */ = {
 			isa = PBXGroup;
 			children = (
 				49101A742C8D37A500FDB709 /* MyActivityFeature.swift */,
 				AD386C392CA390610038C27F /* MyPage */,
 			);
-			path = Settings;
+			path = MyActivity;
 			sourceTree = "<group>";
 		};
 		49101A7D2C8F3D3800FDB709 /* Onboarding */ = {
@@ -457,9 +457,9 @@
 				ADBACAA12C92BBCF00BED61C /* Root */,
 				ADBACA9F2C92BBB900BED61C /* Splash */,
 				ADBACAA02C92BBC300BED61C /* Tab */,
-				49101A732C8D379C00FDB709 /* Home */,
-				49101A762C8D384700FDB709 /* Settings */,
 				49101A7D2C8F3D3800FDB709 /* Onboarding */,
+				49101A732C8D379C00FDB709 /* Home */,
+				49101A762C8D384700FDB709 /* MyActivity */,
 			);
 			path = Features;
 			sourceTree = "<group>";

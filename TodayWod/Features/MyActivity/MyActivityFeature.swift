@@ -55,7 +55,6 @@ struct MyActivityFeature {
                     case .method:
                         return .none
                     }
-                    return .none
                 default:
                     return .none
                 }
