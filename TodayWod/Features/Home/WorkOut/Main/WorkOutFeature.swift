@@ -26,10 +26,7 @@ struct WorkOutFeature {
         Reduce { state, action in
             switch action {
             case let .didTapDayView(item):
-                
-                print("didTapDayView : \(item)")
-                
-                state.path.append(WorkOutDetailFeature.State())
+                state.path.append(WorkOutDetailFeature.State(item: item))
                 return .none
             case .path(_):
                 return .none

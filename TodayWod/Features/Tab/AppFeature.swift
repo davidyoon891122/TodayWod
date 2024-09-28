@@ -74,7 +74,6 @@ struct AppTabView: View {
                     MyPageView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
                 CustomTabView(selectedItem: $selectedItem)
-                    .padding(.bottom, 20)
                     .bind($store.state.selectedItem, to: $selectedItem)
             }
             .edgesIgnoringSafeArea(.bottom)

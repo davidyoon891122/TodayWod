@@ -14,3 +14,18 @@ enum WorkOutType: Codable {
     case CoolDown
     
 }
+
+extension WorkOutType {
+    
+    var title: String {
+        switch self {
+        case .WarmUp:
+            return "Warm-Up"
+        case .Main:
+            return "Main WOD"
+        case .CoolDown:
+            return "Cool Down"
+        }
+    }
+    
+}

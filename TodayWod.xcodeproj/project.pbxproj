@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C22730C2CA2A955009CE95C /* WodSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C22730B2CA2A955009CE95C /* WodSet.swift */; };
+		1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */; };
+		1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A82CA18B630017F1D4 /* WodView.swift */; };
+		1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */; };
 		1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */; };
 		1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */; };
 		1CC1FCCD2C91C532005FC6A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC1FCCC2C91C532005FC6A2 /* Images.xcassets */; };
@@ -70,6 +74,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C22730B2CA2A955009CE95C /* WodSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodSet.swift; sourceTree = "<group>"; };
+		1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodSetView.swift; sourceTree = "<group>"; };
+		1C4EE0A82CA18B630017F1D4 /* WodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodView.swift; sourceTree = "<group>"; };
+		1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailTitleView.swift; sourceTree = "<group>"; };
 		1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1CC1FCCC2C91C532005FC6A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -144,6 +152,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C4EE0AA2CA18B630017F1D4 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */,
+				1C4EE0A82CA18B630017F1D4 /* WodView.swift */,
+				1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
 		1CFED2D82C9B9C9B000A09E5 /* WorkOut */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +183,7 @@
 		1CFED2DC2C9B9C9B000A09E5 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				1C4EE0AA2CA18B630017F1D4 /* Row */,
 				1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */,
 			);
 			path = Detail;
@@ -244,6 +263,7 @@
 				1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */,
 				1CFED2CC2C9B9C0D000A09E5 /* WorkOutType.swift */,
 				1CFED2CE2C9B9C0D000A09E5 /* WorkOutDayTagType.swift */,
+				1C22730B2CA2A955009CE95C /* WodSet.swift */,
 				1CFED2CF2C9B9C0D000A09E5 /* WodModel.swift */,
 				1CFED2CD2C9B9C0D000A09E5 /* WorkOutDayModel.swift */,
 				497C0F0A2C9E4EE000F7444E /* RecentActivityModel.swift */,
@@ -612,6 +632,7 @@
 				ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */,
 				1CFED2D42C9B9C0D000A09E5 /* WodModel.swift in Sources */,
 				1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */,
+				1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */,
 				49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */,
 				497C0F1F2CA0309100F7444E /* CalendarCellView.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
@@ -625,6 +646,7 @@
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				497C0F0E2C9E6D7100F7444E /* BreakTimeFeature.swift in Sources */,
 				497C0F1D2CA02E9000F7444E /* CalendarGridView.swift in Sources */,
+				1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
 				4992E68D2C9865D5001A1375 /* ProgramMethodType.swift in Sources */,
 				4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */,
@@ -649,8 +671,10 @@
 				4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */,
 				4992E6902C9AA82A001A1375 /* CustomTabView.swift in Sources */,
 				497C0F032C9E463900F7444E /* LevelType.swift in Sources */,
+				1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */,
 				49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */,
 				1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */,
+				1C22730C2CA2A955009CE95C /* WodSet.swift in Sources */,
 				49593C332C969126006105D1 /* CustomNavigationView.swift in Sources */,
 				497C0F092C9E466500F7444E /* TabMenuItem.swift in Sources */,
 			);
