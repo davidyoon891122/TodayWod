@@ -58,6 +58,21 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return userInfo
     }
     
+    func saveWorkOutDay(index: Int, data: WorkOutDayModel) {
+        var workOutOfWeek: [WorkOutDayModel] = loadWorkOutOfWeek()
+        workOutOfWeek[index] = data
+        
+        let encodedData = try? PropertyListEncoder().encode(workOutOfWeek)
+        self.userDefaults.set(encodedData, forKey: Constants.workOutOfWeek)
+    }
+    
+    func loadWorkOutOfWeek() -> [WorkOutDayModel] {
+        guard let data = self.userDefaults.object(forKey: Constants.workOutOfWeek) as? Data,
+              let weekModel = try? PropertyListDecoder().decode([WorkOutDayModel].self, from: data) else { return WorkOutDayModel.fakes }
+
+        return weekModel
+    }
+    
     func saveIsAlreadyLaunch(data: Bool) {
         self.userDefaults.set(data, forKey: Constants.alreadyLaunch)
     }
@@ -73,6 +88,7 @@ private extension UserDefaultsManager {
     enum Constants {
         static let userInfo: String = "UserInfo"
         static let onboardingUserInfo: String = "OnboardingUserInfo"
+        static let workOutOfWeek = "WorkOutOfWeek"
         static let alreadyLaunch: String = "alreadyLaunch"
     }
 

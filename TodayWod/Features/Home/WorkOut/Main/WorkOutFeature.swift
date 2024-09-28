@@ -13,20 +13,25 @@ struct WorkOutFeature {
     
     @ObservableState
     struct State: Equatable {
-        let items: [WorkOutDayModel] = WorkOutDayModel.fakes
+        var items: [WorkOutDayModel] = []
         var path = StackState<WorkOutDetailFeature.State>()
     }
 
     enum Action {
-        case didTapDayView(item: WorkOutDayModel)
+        case onAppear
+        case didTapDayView(index: Int, item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .didTapDayView(item):
-                state.path.append(WorkOutDetailFeature.State(item: item))
+            case .onAppear:
+                let userDefaultsManager = UserDefaultsManager()
+                state.items = userDefaultsManager.loadWorkOutOfWeek()
+                return .none
+            case let .didTapDayView(index, item):
+                state.path.append(WorkOutDetailFeature.State(index: index, item: item))
                 return .none
             case .path(_):
                 return .none
@@ -58,11 +63,14 @@ struct WorkOutView: View {
                     ForEach(Array(store.items.enumerated()), id: \.element.id) { index, item in
                         WorkOutDayView(index: index, item: item)
                             .onTapGesture {
-                                store.send(.didTapDayView(item: item))
+                                store.send(.didTapDayView(index: index, item: item))
                             }
                     }
                     
                     Spacer()
+                }
+                .onAppear {
+                    store.send(.onAppear)
                 }
             } destination: { store in
                 WorkOutDetailView(store: store)

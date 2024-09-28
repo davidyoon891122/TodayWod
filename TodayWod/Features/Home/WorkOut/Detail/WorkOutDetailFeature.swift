@@ -13,6 +13,7 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
+        let index: Int
         var item: WorkOutDayModel
         var isDayCompleted: Bool = false
     }
@@ -21,6 +22,7 @@ struct WorkOutDetailFeature {
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
+        case saveWorkOutOfDay
         case updateDayCompleted
     }
 
@@ -49,15 +51,19 @@ struct WorkOutDetailFeature {
                     if let setIndex = wod.wodSet.firstIndex(where: { $0.id == set.id }) {
                         state.item.workOuts[index].items[wodIndex].wodSet[setIndex] = set
                         
-                        print("%%%%%% Update: \(state.item.workOuts)")
+                        print("%%%%%% UpdateWodSet: \(state.item.workOuts)")
                         
                         break outerLoop
                     }
                 }
             }
-                return .run { send in
-                    await send(.updateDayCompleted)
-                }
+                
+                return .merge(.send(.saveWorkOutOfDay),
+                              .send(.updateDayCompleted))
+            case .saveWorkOutOfDay:
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveWorkOutDay(index: state.index, data: state.item)
+                return .none
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.workOuts.flatMap {
                     $0.items.flatMap {
@@ -116,7 +122,7 @@ struct WorkOutDetailView: View {
 
 
 #Preview {
-    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake)) {
+    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(index: 0, item: WorkOutDayModel.fake)) {
         WorkOutDetailFeature()
     })
 }
