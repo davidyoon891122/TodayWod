@@ -48,6 +48,7 @@ internal enum Images {
   internal static let icPlay24 = ImageAsset(name: "ic_play_24")
   internal static let icRefresh16 = ImageAsset(name: "ic_refresh_16")
   internal static let icRefresh24 = ImageAsset(name: "ic_refresh_24")
+  internal static let icRefreshGray16 = ImageAsset(name: "ic_refresh_gray_16")
   internal static let icRemove16 = ImageAsset(name: "ic_remove_16")
   internal static let icRemove24 = ImageAsset(name: "ic_remove_24")
   internal static let bodyWeight = ImageAsset(name: "body_weight")

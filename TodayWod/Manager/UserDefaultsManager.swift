@@ -12,6 +12,13 @@ protocol UserDefaultsManagerProtocol {
     func saveOnboardingUserInfo(data: OnboardingUserInfoModel)
     func loadOnboardingUserInfo() -> OnboardingUserInfoModel?
     
+    func saveWodInfo(index: Int, day: WorkOutDayModel)
+    func saveWodInfo(data: WodInfo?)
+    func loadWodInfo() -> WodInfo?
+    
+    func saveWodPrograms(data: [WodInfo])
+    func loadWodPrograms() -> [WodInfo]
+    
     var hasUserInfo: Bool { get }
     
 }
@@ -44,29 +51,40 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return userInfo
     }
     
-    func saveWorkOutDay(index: Int, data: WorkOutDayModel) {
-        var workOutOfWeek: [WorkOutDayModel] = loadWorkOutOfWeek()
-        workOutOfWeek[index] = data
-        
-        let encodedData = try? PropertyListEncoder().encode(workOutOfWeek)
-        self.userDefaults.set(encodedData, forKey: Constants.workOutOfWeek)
+    func saveWodInfo(index: Int, day: WorkOutDayModel) {
+        if var wodInfo = loadWodInfo() {
+            wodInfo.workOutDays[index] = day
+            
+            self.saveWodInfo(data: wodInfo)
+        } else {
+            self.userDefaults.set(nil, forKey: Constants.wodInfo)
+        }
     }
     
-    func loadWorkOutOfWeek() -> [WorkOutDayModel] {
-        guard let data = self.userDefaults.object(forKey: Constants.workOutOfWeek) as? Data,
-              let weekModel = try? PropertyListDecoder().decode([WorkOutDayModel].self, from: data) else { return WorkOutDayModel.fakes }
+    func saveWodInfo(data: WodInfo?) {
+        let encodedData = try? PropertyListEncoder().encode(data)
+        self.userDefaults.set(encodedData, forKey: Constants.wodInfo)
+    }
+    
+    func loadWodInfo() -> WodInfo? {
+        guard let data = self.userDefaults.object(forKey: Constants.wodInfo) as? Data,
+              let wodInfo = try? PropertyListDecoder().decode(WodInfo.self, from: data) else { return nil }
 
-        return weekModel
+        return wodInfo
     }
     
-    func saveIsAlreadyLaunch(data: Bool) {
-        self.userDefaults.set(data, forKey: Constants.alreadyLaunch)
+    func saveWodPrograms(data: [WodInfo]) {
+        let encodedData = try? PropertyListEncoder().encode(data)
+        self.userDefaults.set(encodedData, forKey: Constants.wodPrograms)
     }
     
-    func loadIsAlreadyLaunch() -> Bool {
-        self.userDefaults.bool(forKey: Constants.alreadyLaunch)
-    }
+    func loadWodPrograms() -> [WodInfo] {
+        guard let data = self.userDefaults.object(forKey: Constants.wodPrograms) as? Data,
+              let programs = try? PropertyListDecoder().decode([WodInfo].self, from: data) else { return [] }
 
+        return programs
+    }
+   
 }
 
 private extension UserDefaultsManager {
@@ -74,8 +92,8 @@ private extension UserDefaultsManager {
     enum Constants {
         static let userInfo: String = "UserInfo"
         static let onboardingUserInfo: String = "OnboardingUserInfo"
-        static let workOutOfWeek = "WorkOutOfWeek"
-        static let alreadyLaunch: String = "alreadyLaunch"
+        static let wodPrograms = "WodPrograms"
+        static let wodInfo = "WodInfo"
     }
 
 }

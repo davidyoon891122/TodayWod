@@ -42,9 +42,22 @@ struct MethodSelectFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapStartButton:
+                var targetPrograms: [WodInfoEntity] = WodInfoEntity.bodyBeginners // TEMP
+                if state.onboardingUserModel.method == .body {
+                    switch state.onboardingUserModel.level {
+                    case .beginner:
+                        targetPrograms = WodInfoEntity.bodyBeginners
+                    default:
+                        break
+                    }
+                } else {
+                    //
+                }
+                
                 // TODO: - 여기서 세팅하는게 맞을지 고민(Shared 사용으로 대체 필요)
                 let userDefaultsManager = UserDefaultsManager()
                 userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+                userDefaultsManager.saveWodPrograms(data: targetPrograms.map { WodInfo(data: $0) })
 
                 return .send(.finishOnboarding)
             case let .setMethod(methodType):
