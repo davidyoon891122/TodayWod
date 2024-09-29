@@ -15,6 +15,7 @@ struct WorkOutDetailFeature {
     struct State: Equatable {
         let index: Int
         var item: WorkOutDayModel
+        var duration: Int = 0
         var hasStart: Bool = false
         var isDayCompleted: Bool = false
         var isPresented: Bool = false
@@ -26,6 +27,7 @@ struct WorkOutDetailFeature {
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
+        case timerTick
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
@@ -34,6 +36,8 @@ struct WorkOutDetailFeature {
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
     }
+    
+    enum CancelID { case timer }
     
     @Dependency(\.dismiss) var dismiss
     
@@ -44,10 +48,19 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
-                return .none
+                return .cancel(id: CancelID.timer)
             case .didTapStartButton:
-                // TODO: - Total Timer 시작
                 state.hasStart = true
+                
+                return .run { send in
+                    while true {
+                        try await Task.sleep(for: .seconds(1))
+                        await send(.timerTick)
+                    }
+                }
+                .cancellable(id: CancelID.timer)
+            case .timerTick:
+                state.duration += 1
                 return .none
             case let .setCompleted(set):
                 var updatedSet = set
@@ -122,13 +135,14 @@ struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
+    @State private var duration: Int = 0
     @State private var isPresented: Bool = false
     
     var body: some View {
         WithPerceptionTracking {
             ZStack {
                 VStack {
-                    WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
+                    WorkOutNavigationView(duration: $duration) {
                         store.send(.didTapBackButton)
                     } doneAction: {
                         store.send(.didTapDoneButton)
@@ -183,6 +197,7 @@ struct WorkOutDetailView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .bind($store.isPresented, to: $isPresented)
+            .bind($store.duration, to: $duration)
             .bottomSheet(isPresented: $isPresented) {
                 BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
                     BreakTimeFeature()
