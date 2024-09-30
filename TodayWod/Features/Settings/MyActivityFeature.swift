@@ -115,7 +115,6 @@ struct MyActivityView: View {
                 MyPageView(store: store)
             }
         }
-
     }
 
 }
