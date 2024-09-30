@@ -31,6 +31,7 @@ struct CustomTabView: View {
             }
         }
         .frame(width: UIScreen.main.bounds.width, height: 58)
+        .padding(.bottom, 20.0)
         .background(.blue10)
     }
 }

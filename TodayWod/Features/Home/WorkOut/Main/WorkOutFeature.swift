@@ -15,22 +15,34 @@ struct WorkOutFeature {
     struct State: Equatable {
         let items: [WorkOutDayModel] = WorkOutDayModel.fakes
         var path = StackState<WorkOutDetailFeature.State>()
+
+        @Presents var celebrateState: CelebrateFeature.State?
     }
 
     enum Action {
+        case onAppear
         case didTapDayView(item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
+        case celebrateAction(PresentationAction<CelebrateFeature.Action>)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.celebrateState = CelebrateFeature.State()
+                return .none
             case let .didTapDayView(item):
                 state.path.append(WorkOutDetailFeature.State(item: item))
                 return .none
             case .path(_):
                 return .none
+            case .celebrateAction:
+                return .none
             }
+        }
+        .ifLet(\.$celebrateState, action: \.celebrateAction) {
+            CelebrateFeature()
         }
         .forEach(\.path, action: \.path) {
             WorkOutDetailFeature()
@@ -44,7 +56,8 @@ import SwiftUI
 struct WorkOutView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutFeature>
-    
+    @State private var dynamicHeight: CGFloat = .zero
+
     var body: some View {
         WithPerceptionTracking {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
@@ -64,8 +77,25 @@ struct WorkOutView: View {
                     
                     Spacer()
                 }
+                .onAppear {
+                    store.send(.onAppear)
+                }
+
             } destination: { store in
                 WorkOutDetailView(store: store)
+            }
+            .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { store in
+                CelebrateView(store: store)
+                    .presentationDetents([.height(dynamicHeight + 20.0)]) // 20 정도 여분을 주지 않으면 텍스트 잘림 현상 발생 가능성 있음
+                    .presentationDragIndicator(.visible)
+                    .background {
+                        GeometryReader { proxy in
+                            Color.clear
+                                .onAppear {
+                                    dynamicHeight = proxy.size.height
+                                }
+                        }
+                    }
             }
         }
     }
