@@ -37,8 +37,9 @@ struct MyActivityFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                guard let onbarodingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() else { return .none }
-                state.onboardingUserInfoModel = onbarodingUserInfoModel
+                if let onbarodingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() {
+                    state.onboardingUserInfoModel = onbarodingUserInfoModel
+                }
                 return .none
             case let .path(action):
                 switch action {
@@ -53,13 +54,14 @@ struct MyActivityFeature {
                         state.path.append(.modifyWeight(ModifyWeightFeature.State()))
                         return .none
                     case .level:
-                        guard let onboardingUserInfoModel = state.onboardingUserInfoModel else { return .none }
-                        state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
+                        if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                            state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
+                        }
                         return .none
                     case .method:
-                        guard let onboardingUserInfoModel = state.onboardingUserInfoModel else { return .none }
-                        state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
-
+                        if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                            state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
+                        }
                         return .none
                     }
                 default:
