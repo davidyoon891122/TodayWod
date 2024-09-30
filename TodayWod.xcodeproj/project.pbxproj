@@ -190,9 +190,18 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		1C8708B42CAA95AA00967DFE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1C4EE0B02CA82C480017F1D4 /* WorkOutNavigationView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		1CFED2D82C9B9C9B000A09E5 /* WorkOut */ = {
 			isa = PBXGroup;
 			children = (
+				1C8708B42CAA95AA00967DFE /* Common */,
 				1CFED2D92C9B9C9B000A09E5 /* Empty */,
 				1CFED2DE2C9B9C9B000A09E5 /* Main */,
 				1CFED2DC2C9B9C9B000A09E5 /* Detail */,
@@ -317,7 +326,6 @@
 				1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */,
 				1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */,
 				49593C322C969126006105D1 /* CustomNavigationView.swift */,
-				1C4EE0B02CA82C480017F1D4 /* WorkOutNavigationView.swift */,
 				4992E68F2C9AA82A001A1375 /* CustomTabView.swift */,
 			);
 			path = CustomView;
