@@ -49,7 +49,7 @@ struct NicknameFeature {
                 return .none
             case let .setNickname(nickName):
                 state.nickName = nickName
-                state.isValidNickname = isValidNickName(input: nickName)
+                state.isValidNickname = nickName.isValidNickName()
                 return .none
             case .didTapNextButton:
                 state.onboardingUserModel.nickName = state.nickName
@@ -62,14 +62,6 @@ struct NicknameFeature {
                 return .none
             }
         }
-    }
-
-    // extension으로 뺄지 고민
-    func isValidNickName(input: String) -> Bool {
-        let regex = "^[a-zA-Z가-힣0-9]{2,10}$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-
-        return predicate.evaluate(with: input)
     }
 
 }

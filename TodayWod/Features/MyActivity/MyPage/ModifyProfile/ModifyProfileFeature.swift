@@ -55,17 +55,10 @@ struct ModifyProfileFeature {
             case let .setNickname(nickname):
                 state.nickName = nickname
                 state.onboardingUserInfoModel.nickName = nickname
-                state.isValidNickname = isValidNickName(input: nickname)
+                state.isValidNickname = nickname.isValidNickName()
                 return .none
             }
         }
-    }
-    
-    func isValidNickName(input: String) -> Bool {
-        let regex = "^[a-zA-Z가-힣0-9]{2,10}$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-
-        return predicate.evaluate(with: input)
     }
     
 }
