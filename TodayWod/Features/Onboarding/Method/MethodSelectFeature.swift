@@ -198,7 +198,7 @@ struct MethodSelectView: View {
                     store.send(.didTapStartButton)
                 }, label: {
                     Text(store.buttonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .disabled(!store.isValidMethod)
                 .padding(.bottom, 20.0)

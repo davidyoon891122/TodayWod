@@ -132,7 +132,7 @@ struct WeightInputView: View {
                     store.send(.didTapNextButton)
                 }, label: {
                     Text(store.buttonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .disabled(!store.isValidWeight)
                 .padding(.bottom, 20.0)

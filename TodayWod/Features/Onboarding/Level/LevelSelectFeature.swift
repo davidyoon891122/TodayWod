@@ -122,7 +122,7 @@ struct LevelSelectView: View {
                     store.send(.didTapNextButton)
                 }, label: {
                     Text(store.buttonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .disabled(!store.isValidLevel)
                 .padding(.bottom, 20.0)

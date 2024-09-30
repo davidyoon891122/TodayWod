@@ -136,7 +136,7 @@ struct NicknameInputView: View {
                     store.send(.didTapNextButton)
                 }, label: {
                     Text(store.buttonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .disabled(!store.isValidNickname)
                 .padding(.bottom, 20.0)

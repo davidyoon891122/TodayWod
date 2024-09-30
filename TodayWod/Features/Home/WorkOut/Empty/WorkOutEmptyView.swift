@@ -58,7 +58,7 @@ struct WorkOutEmptyView: View {
                     store.send(.didTapStartButton)
                 }, label: {
                     Text(Constants.ButtonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity, minHeight: 56.0)

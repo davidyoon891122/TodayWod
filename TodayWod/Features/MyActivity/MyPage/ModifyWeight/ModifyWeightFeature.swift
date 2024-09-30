@@ -106,7 +106,7 @@ struct ModifyWeightView: View {
                     store.send(.didTapConfirmButton)
                 }, label: {
                     Text(store.state.buttonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .disabled(!store.isValidWeight)
                 .padding(.horizontal, 38.0)

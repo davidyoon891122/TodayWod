@@ -37,7 +37,7 @@ struct CloseTextModifier: ViewModifier {
 
 extension View {
 
-    func nextButtonStyle() -> some View {
+    func bottomButtonStyle() -> some View {
         self.modifier(ButtonTextModifier())
     }
 

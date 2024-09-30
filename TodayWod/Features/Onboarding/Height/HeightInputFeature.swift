@@ -132,7 +132,7 @@ struct HeightInputView: View {
                     store.send(.didTapNextButton)
                 }, label: {
                     Text(store.buttonTitle)
-                        .nextButtonStyle()
+                        .bottomButtonStyle()
                 })
                 .disabled(!store.isValidHeight)
                 .padding(.bottom, 20.0)
