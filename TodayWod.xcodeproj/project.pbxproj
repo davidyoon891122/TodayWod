@@ -53,8 +53,8 @@
 		497C0F1B2CA02CD800F7444E /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F1A2CA02CD800F7444E /* Extension+Date.swift */; };
 		497C0F1D2CA02E9000F7444E /* CalendarGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F1C2CA02E9000F7444E /* CalendarGridView.swift */; };
 		497C0F1F2CA0309100F7444E /* CalendarCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F1E2CA0309100F7444E /* CalendarCellView.swift */; };
-		4987120F2CA447C700FB876E /* CelebrateFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4987120E2CA447C700FB876E /* CelebrateFeature.swift */; };
 		4987120B2CA2F48E00FB876E /* MyPageFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4987120A2CA2F48E00FB876E /* MyPageFeature.swift */; };
+		4987120F2CA447C700FB876E /* CelebrateFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4987120E2CA447C700FB876E /* CelebrateFeature.swift */; };
 		4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6812C97E068001A1375 /* WeightInputFeature.swift */; };
 		4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6842C980A04001A1375 /* LevelSelectFeature.swift */; };
 		4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */; };
@@ -75,6 +75,7 @@
 		AD386C362CA390290038C27F /* MyPageRowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD386C352CA390290038C27F /* MyPageRowItemView.swift */; };
 		AD386C3B2CA391740038C27F /* VersionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD386C3A2CA391740038C27F /* VersionInfoView.swift */; };
 		AD386C3F2CA3A2F00038C27F /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD386C3E2CA3A2F00038C27F /* AppEnvironment.swift */; };
+		AD386C482CAA16190038C27F /* WorkoutConfirmationFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */; };
 		ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */; };
 		ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */; };
 		ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */; };
@@ -127,8 +128,8 @@
 		497C0F1A2CA02CD800F7444E /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		497C0F1C2CA02E9000F7444E /* CalendarGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGridView.swift; sourceTree = "<group>"; };
 		497C0F1E2CA0309100F7444E /* CalendarCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCellView.swift; sourceTree = "<group>"; };
-		4987120E2CA447C700FB876E /* CelebrateFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrateFeature.swift; sourceTree = "<group>"; };
 		4987120A2CA2F48E00FB876E /* MyPageFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFeature.swift; sourceTree = "<group>"; };
+		4987120E2CA447C700FB876E /* CelebrateFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrateFeature.swift; sourceTree = "<group>"; };
 		4992E6812C97E068001A1375 /* WeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputFeature.swift; sourceTree = "<group>"; };
 		4992E6842C980A04001A1375 /* LevelSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectFeature.swift; sourceTree = "<group>"; };
 		4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectFeature.swift; sourceTree = "<group>"; };
@@ -149,6 +150,7 @@
 		AD386C352CA390290038C27F /* MyPageRowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRowItemView.swift; sourceTree = "<group>"; };
 		AD386C3A2CA391740038C27F /* VersionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionInfoView.swift; sourceTree = "<group>"; };
 		AD386C3E2CA3A2F00038C27F /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutConfirmationFeature.swift; sourceTree = "<group>"; };
 		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
 		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
 		ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				1CFED2D82C9B9C9B000A09E5 /* WorkOut */,
 				49101A712C8D374400FDB709 /* HomeFeature.swift */,
+				AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */,
 				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
 			);
 			path = Home;
@@ -718,6 +721,7 @@
 				497C0F0B2C9E4EE000F7444E /* RecentActivityModel.swift in Sources */,
 				49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */,
 				497C0F052C9E463900F7444E /* GenderType.swift in Sources */,
+				AD386C482CAA16190038C27F /* WorkoutConfirmationFeature.swift in Sources */,
 				1CFED2D22C9B9C0D000A09E5 /* WorkOutDayModel.swift in Sources */,
 				49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */,
 				1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */,
