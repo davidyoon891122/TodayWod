@@ -81,52 +81,56 @@ struct LevelSelectView: View {
                 CustomNavigationView {
                     store.send(.didTapBackButton)
                 }
-                ScrollView {
-                    VStack {
-                        HStack {
-                            Text(store.title)
-                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                                .foregroundStyle(.grey100)
-                                .lineLimit(2)
-                            Spacer()
-                        }
-                        .padding(.top, 10.0)
-                        .padding(.horizontal, 20.0)
-                        
-                        HStack {
-                            Text(store.subTitle)
-                                .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
-                                .foregroundStyle(.grey80)
-                                .lineLimit(1)
-                            
-                            Spacer()
-                        }
-                        .padding(.top, 16.0)
-                        .padding(.horizontal, 20)
-                        
-                        LazyVStack(spacing: 10.0) {
-                            ForEach(LevelType.allCases, id: \.self) { type in
-                                LevelCardView(type: type, store: store)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        store.send(.setLevel(type))
-                                    }
+                ZStack(alignment: .bottom) {
+                    ScrollView {
+                        VStack {
+                            HStack {
+                                Text(store.title)
+                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                                    .foregroundStyle(.grey100)
+                                    .lineLimit(2)
+                                Spacer()
                             }
+                            .padding(.top, 10.0)
+                            .padding(.horizontal, 20.0)
+
+                            HStack {
+                                Text(store.subTitle)
+                                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
+                                    .foregroundStyle(.grey80)
+                                    .lineLimit(1)
+
+                                Spacer()
+                            }
+                            .padding(.top, 16.0)
+                            .padding(.horizontal, 20)
+
+                            LazyVStack(spacing: 10.0) {
+                                ForEach(LevelType.allCases, id: \.self) { type in
+                                    LevelCardView(type: type, store: store)
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                            store.send(.setLevel(type))
+                                        }
+                                }
+                            }
+                            .padding(.top, 40.0)
                         }
-                        .padding(.top, 40.0)
+                        .padding(.bottom, 56.0 + 40.0) // Button size(56.0 + bottom padding size(20.0) + padding size(20.0
+                    }
+
+                    VStack {
+                        Button(action: {
+                            store.send(.didTapNextButton)
+                        }, label: {
+                            Text(store.buttonTitle)
+                                .bottomButtonStyle()
+                        })
+                        .disabled(!store.isValidLevel)
+                        .padding(.bottom, 20.0)
+                        .padding(.horizontal, 38.0)
                     }
                 }
-                Spacer()
-                
-                Button(action: {
-                    store.send(.didTapNextButton)
-                }, label: {
-                    Text(store.buttonTitle)
-                        .bottomButtonStyle()
-                })
-                .disabled(!store.isValidLevel)
-                .padding(.bottom, 20.0)
-                .padding(.horizontal, 38.0)
             }
             .toolbar(.hidden, for: .navigationBar)
         }
