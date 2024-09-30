@@ -95,50 +95,50 @@ struct GenderSelectView: View {
         WithPerceptionTracking {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
                 VStack {
-                    HStack {
-                        Text(store.title)
-                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                            .foregroundStyle(.grey100)
-                            .lineLimit(2)
-                        Spacer()
-                    }
-                    .padding(.top, 58.0)
-                    .padding(.horizontal, 20.0)
-                    HStack {
-                        Text(store.subTitle)
-                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
-                            .foregroundStyle(.grey80)
-                            .lineLimit(1)
-                        Spacer()
-                    }
-                    .padding(.top, 16.0)
-                    .padding(.horizontal, 20.0)
-                    
-                    HStack {
-                        Button(action: {
-                            store.send(.setGender(.man))
-                        }, label: {
-                            Images.genderMan.swiftUIImage
-                                .resizable()
-                                .frame(width: 160, height: 160)
-                                .clipShape(.circle)
-                                .opacity(store.gender == .man ? 1.0 : 0.6)
-                        })
+                    ScrollView {
+                        HStack {
+                            Text(store.title)
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                                .foregroundStyle(.grey100)
+                                .lineLimit(2)
+                            Spacer()
+                        }
+                        .padding(.top, 58.0)
+                        .padding(.horizontal, 20.0)
+                        HStack {
+                            Text(store.subTitle)
+                                .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
+                                .foregroundStyle(.grey80)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        .padding(.top, 16.0)
+                        .padding(.horizontal, 20.0)
                         
-                        Button(action: {
-                            store.send(.setGender(.woman))
-                        }, label: {
-                            Images.genderWoman.swiftUIImage
-                                .resizable()
-                                .frame(width: 160, height: 160)
-                                .clipShape(.circle)
-                                .opacity(store.gender == .woman ? 1.0 : 0.6)
-                        })
+                        HStack {
+                            Button(action: {
+                                store.send(.setGender(.man))
+                            }, label: {
+                                Images.genderMan.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 160, height: 160)
+                                    .clipShape(.circle)
+                                    .opacity(store.gender == .man ? 1.0 : 0.6)
+                            })
+                            
+                            Button(action: {
+                                store.send(.setGender(.woman))
+                            }, label: {
+                                Images.genderWoman.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 160, height: 160)
+                                    .clipShape(.circle)
+                                    .opacity(store.gender == .woman ? 1.0 : 0.6)
+                            })
+                        }
+                        .padding(.top, 80.0)
+                        .padding(.horizontal)
                     }
-                    .padding(.top, 80.0)
-                    .padding(.horizontal)
-                    
-                    Spacer()
                 }
             } destination: { store in
                 switch store.case {

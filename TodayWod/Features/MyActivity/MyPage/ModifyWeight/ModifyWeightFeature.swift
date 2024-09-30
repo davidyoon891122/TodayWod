@@ -81,24 +81,26 @@ struct ModifyWeightView: View {
                 CustomNavigationView {
                     store.send(.didTapBackButton)
                 }
-                HStack(spacing: 8) {
-                    TextField(store.placeHolder, text: $store.weight.sending(\.setWeight))
-                        .focused($focusedField, equals: .weight)
-                        .multilineTextAlignment(.trailing)
-                        .autocorrectionDisabled()
-                        .keyboardType(.numberPad)
-                        .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
-                        .foregroundStyle(.grey100)
-                        .padding(.vertical, 8)
-                        .fixedSize(horizontal: true, vertical: false)
-
-                    Text("kg")
-                        .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
-                        .foregroundStyle(.grey100)
+                ScrollView {
+                    HStack(spacing: 8) {
+                        TextField(store.placeHolder, text: $store.weight.sending(\.setWeight))
+                            .focused($focusedField, equals: .weight)
+                            .multilineTextAlignment(.trailing)
+                            .autocorrectionDisabled()
+                            .keyboardType(.numberPad)
+                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
+                            .foregroundStyle(.grey100)
+                            .padding(.vertical, 8)
+                            .fixedSize(horizontal: true, vertical: false)
+                        
+                        Text("kg")
+                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
+                            .foregroundStyle(.grey100)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.horizontal, 20.0)
+                    .padding(.top, 100.0)
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.horizontal, 20.0)
-                .padding(.top, 100.0)
                 Spacer()
                 Button(action: {
                     store.send(.didTapConfirmButton)

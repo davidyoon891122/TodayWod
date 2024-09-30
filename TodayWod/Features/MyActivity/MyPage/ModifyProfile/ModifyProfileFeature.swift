@@ -83,25 +83,27 @@ struct ModifyProfileView: View {
                 CustomNavigationView {
                     store.send(.didTapBackButton)
                 }
-                HStack {
-                    TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
-                        .focused($focusedField, equals: .nickName)
-                        .autocorrectionDisabled()
-                        .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
-                        .foregroundStyle(.grey100)
-                        .multilineTextAlignment(.center)
+                ScrollView {
+                    HStack {
+                        TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
+                            .focused($focusedField, equals: .nickName)
+                            .autocorrectionDisabled()
+                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
+                            .foregroundStyle(.grey100)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(height: 48.0)
+                    .padding(.top, 100.0)
+                    .padding(.horizontal, 20.0)
+                    
+                    HStack {
+                        Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
+                            .multilineTextAlignment(.center)
+                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
+                            .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
+                    }
+                    .padding(.top, 8.0)
                 }
-                .frame(height: 48.0)
-                .padding(.top, 100.0)
-                .padding(.horizontal, 20.0)
-                
-                HStack {
-                    Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
-                        .multilineTextAlignment(.center)
-                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                        .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
-                }
-                .padding(.top, 8.0)
                 
                 Spacer()
                 

@@ -87,60 +87,60 @@ struct NicknameInputView: View {
                 CustomNavigationView {
                     store.send(.didTapBackButton)
                 }
-                VStack {
-                    HStack {
-                        Text(store.title)
-                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                            .foregroundStyle(.grey100)
-                            .lineLimit(2)
-                        Spacer()
+                ScrollView {
+                    VStack {
+                        HStack {
+                            Text(store.title)
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                                .foregroundStyle(.grey100)
+                                .lineLimit(2)
+                            Spacer()
+                        }
+                        .padding(.top, 10.0)
+                        .padding(.horizontal, 20.0)
+                        
+                        HStack {
+                            Text(store.subTitle)
+                                .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
+                                .foregroundStyle(.grey80)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 16.0)
+                        .padding(.horizontal, 20)
+                        
+                        HStack {
+                            TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
+                                .focused($focusedField, equals: .nickName)
+                                .multilineTextAlignment(.center)
+                                .autocorrectionDisabled()
+                                .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
+                                .foregroundStyle(.grey100)
+                                .padding(.vertical, 8)
+                        }
+                        .frame(height: 48.0)
+                        .padding(.top, 40.0)
+                        .padding(.horizontal, 20.0)
+                        
+                        HStack {
+                            Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
+                                .multilineTextAlignment(.center)
+                                .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
+                                .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
+                        }
                     }
-                    .padding(.top, 10.0)
-                    .padding(.horizontal, 20.0)
-
-                    HStack {
-                        Text(store.subTitle)
-                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
-                            .foregroundStyle(.grey80)
-                            .lineLimit(1)
-
-                        Spacer()
-                    }
-                    .padding(.top, 16.0)
-                    .padding(.horizontal, 20)
-
-                    HStack {
-                        TextField(store.placeHolder, text: $store.nickName.sending(\.setNickname))
-                            .focused($focusedField, equals: .nickName)
-                            .multilineTextAlignment(.center)
-                            .autocorrectionDisabled()
-                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
-                            .foregroundStyle(.grey100)
-                            .padding(.vertical, 8)
-                    }
-                    .frame(height: 48.0)
-                    .padding(.top, 40.0)
-                    .padding(.horizontal, 20.0)
-
-                    HStack {
-                        Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
-                            .multilineTextAlignment(.center)
-                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                            .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
-                    }
-
-                    Button(action: {
-                        store.send(.didTapNextButton)
-                    }, label: {
-                        Text(store.buttonTitle)
-                            .nextButtonStyle()
-                    })
-                    .disabled(!store.isValidNickname)
-                    .padding(.top, 91.0)
-                    .padding(.horizontal, 38.0)
-
-                    Spacer()
                 }
+                Spacer()
+                Button(action: {
+                    store.send(.didTapNextButton)
+                }, label: {
+                    Text(store.buttonTitle)
+                        .nextButtonStyle()
+                })
+                .disabled(!store.isValidNickname)
+                .padding(.bottom, 20.0)
+                .padding(.horizontal, 38.0)
             }
             .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)

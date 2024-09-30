@@ -84,59 +84,59 @@ struct HeightInputView: View {
                 CustomNavigationView {
                     store.send(.didTapBackButton)
                 }
-                VStack {
-                    HStack {
-                        Text(store.title)
-                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                            .foregroundStyle(.grey100)
-                            .lineLimit(2)
-                        Spacer()
+                ScrollView {
+                    VStack {
+                        HStack {
+                            Text(store.title)
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                                .foregroundStyle(.grey100)
+                                .lineLimit(2)
+                            Spacer()
+                        }
+                        .padding(.top, 10.0)
+                        .padding(.horizontal, 20.0)
+                        
+                        HStack {
+                            Text(store.subTitle)
+                                .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
+                                .foregroundStyle(.grey80)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 16.0)
+                        .padding(.horizontal, 20)
+                        
+                        HStack(spacing: 8) {
+                            TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
+                                .focused($focusedField, equals: .height)
+                                .multilineTextAlignment(.trailing)
+                                .autocorrectionDisabled()
+                                .keyboardType(.numberPad)
+                                .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
+                                .foregroundStyle(.grey100)
+                                .padding(.vertical, 8)
+                                .fixedSize(horizontal: true, vertical: false)
+                            
+                            Text("cm")
+                                .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
+                                .foregroundStyle(.grey100)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 48.0)
+                        .padding(.horizontal, 20.0)
                     }
-                    .padding(.top, 10.0)
-                    .padding(.horizontal, 20.0)
-
-                    HStack {
-                        Text(store.subTitle)
-                            .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
-                            .foregroundStyle(.grey80)
-                            .lineLimit(1)
-
-                        Spacer()
-                    }
-                    .padding(.top, 16.0)
-                    .padding(.horizontal, 20)
-
-                    HStack(spacing: 8) {
-                        TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
-                            .focused($focusedField, equals: .height)
-                            .multilineTextAlignment(.trailing)
-                            .autocorrectionDisabled()
-                            .keyboardType(.numberPad)
-                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
-                            .foregroundStyle(.grey100)
-                            .padding(.vertical, 8)
-                            .fixedSize(horizontal: true, vertical: false)
-
-                        Text("cm")
-                            .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
-                            .foregroundStyle(.grey100)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 48.0)
-                    .padding(.horizontal, 20.0)
-
-                    Button(action: {
-                        store.send(.didTapNextButton)
-                    }, label: {
-                        Text(store.buttonTitle)
-                            .nextButtonStyle()
-                    })
-                    .disabled(!store.isValidHeight)
-                    .padding(.top, 91.0)
-                    .padding(.horizontal, 38.0)
-
-                    Spacer()
                 }
+                Spacer()
+                Button(action: {
+                    store.send(.didTapNextButton)
+                }, label: {
+                    Text(store.buttonTitle)
+                        .nextButtonStyle()
+                })
+                .disabled(!store.isValidHeight)
+                .padding(.bottom, 20.0)
+                .padding(.horizontal, 38.0)
             }
             .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
