@@ -44,9 +44,10 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return userInfo
     }
     
-    func saveWorkOutDay(index: Int, data: WorkOutDayModel) {
-        var workOutOfWeek: [WorkOutDayModel] = loadWorkOutOfWeek()
-        workOutOfWeek[index] = data
+    func saveWorkOutDay(data: WorkOutDayModel) {
+        let workOutOfWeek: [WorkOutDayModel] = loadWorkOutOfWeek().map {
+            $0.id == data.id ? data : $0
+        }
         
         let encodedData = try? PropertyListEncoder().encode(workOutOfWeek)
         self.userDefaults.set(encodedData, forKey: Constants.workOutOfWeek)

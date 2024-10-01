@@ -13,7 +13,6 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
-        let index: Int
         var item: WorkOutDayModel
         var hasStart: Bool = false
         var isDayCompleted: Bool = false
@@ -85,7 +84,7 @@ struct WorkOutDetailFeature {
                               .send(.updateDayCompleted))
             case .saveWorkOutOfDay:
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWorkOutDay(index: state.index, data: state.item)
+                userDefaultsManager.saveWorkOutDay(data: state.item)
                 return .none
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.workOuts.flatMap {
@@ -100,7 +99,7 @@ struct WorkOutDetailFeature {
                     state.item.completedInfo = .init(isCompleted: true)
                     
                     let userDefaultsManager = UserDefaultsManager()
-                    userDefaultsManager.saveWorkOutDay(index: state.index, data: state.item)
+                    userDefaultsManager.saveWorkOutDay(data: state.item)
                     
                     print("isDayCompleted!!!")
                 }
@@ -198,7 +197,7 @@ private extension WorkOutDetailView {
 }
 
 #Preview {
-    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(index: 0, item: WorkOutDayModel.fake)) {
+    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake)) {
         WorkOutDetailFeature()
     })
 }

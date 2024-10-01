@@ -21,7 +21,7 @@ struct WorkOutFeature {
 
     enum Action {
         case onAppear
-        case didTapDayView(index: Int, item: WorkOutDayModel)
+        case didTapDayView(item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
     }
@@ -38,8 +38,8 @@ struct WorkOutFeature {
                     state.celebrateState = CelebrateFeature.State()
                 }
                 return .none
-            case let .didTapDayView(index, item):
-                state.path.append(WorkOutDetailFeature.State(index: index, item: item))
+            case let .didTapDayView(item):
+                state.path.append(WorkOutDetailFeature.State(item: item))
                 return .none
             case .path(_):
                 return .none
@@ -77,7 +77,7 @@ struct WorkOutView: View {
                     ForEach(Array(store.items.enumerated()), id: \.element.id) { index, item in
                         WorkOutDayView(index: index, item: item)
                             .onTapGesture {
-                                store.send(.didTapDayView(index: index, item: item))
+                                store.send(.didTapDayView(item: item))
                             }
                     }
                     
