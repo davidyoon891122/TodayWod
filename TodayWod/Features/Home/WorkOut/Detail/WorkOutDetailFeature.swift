@@ -173,7 +173,7 @@ struct WorkOutDetailView: View {
                     }, label: {
                         Text(Constants.buttonTitle)
                     })
-                    .nextButtonStyle()
+                    .bottomButtonStyle()
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
                 }

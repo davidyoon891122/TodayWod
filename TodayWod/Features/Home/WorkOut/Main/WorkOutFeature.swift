@@ -91,8 +91,7 @@ struct WorkOutView: View {
             }
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { store in
                 CelebrateView(store: store)
-                    .presentationDetents([.height(dynamicHeight + 20.0)]) // 20 정도 여분을 주지 않으면 텍스트 잘림 현상 발생 가능성 있음
-                    .presentationDragIndicator(.visible)
+                    .presentationDetents([.height(dynamicHeight + 20.0)])
                     .background {
                         GeometryReader { proxy in
                             Color.clear
