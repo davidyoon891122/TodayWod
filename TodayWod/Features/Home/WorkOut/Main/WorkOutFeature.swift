@@ -116,6 +116,7 @@ struct WorkOutView: View {
                         
                         ForEach(Array(store.workOutDays.enumerated()), id: \.element.id) { index, item in
                             WorkOutDayView(index: index, item: item)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     store.send(.didTapDayView(item: item))
                                 }

@@ -28,6 +28,7 @@ struct WorkOutNewChallengeView: View {
             .padding(.vertical, 20)
             Spacer()
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             store.send(.didTapNewChallengeButton)
         }
