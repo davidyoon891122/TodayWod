@@ -200,6 +200,14 @@
 			path = Row;
 			sourceTree = "<group>";
 		};
+		1C622DBA2CAC23360034834E /* Confirm */ = {
+			isa = PBXGroup;
+			children = (
+				AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */,
+			);
+			path = Confirm;
+			sourceTree = "<group>";
+		};
 		1C9C9F672CABA85900157001 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				1C9C9F692CABA89600157001 /* WorkOutNavigationView.swift */,
+				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -224,6 +233,7 @@
 				1CFED2D92C9B9C9B000A09E5 /* Empty */,
 				1CFED2DE2C9B9C9B000A09E5 /* Main */,
 				1CFED2DC2C9B9C9B000A09E5 /* Detail */,
+				1C622DBA2CAC23360034834E /* Confirm */,
 			);
 			path = WorkOut;
 			sourceTree = "<group>";
@@ -270,8 +280,6 @@
 			children = (
 				1CFED2D82C9B9C9B000A09E5 /* WorkOut */,
 				49101A712C8D374400FDB709 /* HomeFeature.swift */,
-				AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */,
-				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
