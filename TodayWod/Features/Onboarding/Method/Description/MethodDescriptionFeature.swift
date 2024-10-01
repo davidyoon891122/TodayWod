@@ -42,31 +42,30 @@ struct MethodDescriptionView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            VStack {
-                HStack {
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
                     Text(store.methodType.title)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
                         .foregroundStyle(.grey100)
-                    Spacer()
+
+                    Text(store.methodType.description)
+                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
+                        .foregroundStyle(.grey80)
+                        .padding(.top, 10.0)
                 }
-                Text(store.methodType.description)
-                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
-                    .foregroundStyle(.grey80)
-                    .padding(.top, 10.0)
+                .padding(.top, 30.0)
+                .padding(.horizontal, 20.0)
 
+                Button(action: {
+                    store.send(.didTapBackButton)
+                }, label: {
+                    Text(store.buttonTitle)
+                        .closeButtonStyle()
+                })
+                .padding(.top, 40.0)
+                .padding(.bottom, 20.0)
+                .padding(.horizontal, 38.0)
             }
-            .padding(.top, 30.0)
-            .padding(.horizontal, 20.0)
-
-            Button(action: {
-                store.send(.didTapBackButton)
-            }, label: {
-                Text(store.buttonTitle)
-                    .closeButtonStyle()
-            })
-            .padding(.top, 40.0)
-            .padding(.bottom, 20.0)
-            .padding(.horizontal, 38.0)
         }
     }
 

@@ -15,6 +15,7 @@ struct WorkOutFeature {
     struct State: Equatable {
         let items: [WorkOutDayModel] = WorkOutDayModel.fakes
         var path = StackState<WorkOutDetailFeature.State>()
+        var dynamicHeight: CGFloat = .zero
 
         @Presents var celebrateState: CelebrateFeature.State?
     }
@@ -24,6 +25,7 @@ struct WorkOutFeature {
         case didTapDayView(item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
+        case setDynamicHeight(CGFloat)
     }
 
     var body: some ReducerOf<Self> {
@@ -38,6 +40,9 @@ struct WorkOutFeature {
             case .path(_):
                 return .none
             case .celebrateAction:
+                return .none
+            case let .setDynamicHeight(height):
+                state.dynamicHeight = height
                 return .none
             }
         }
@@ -56,7 +61,6 @@ import SwiftUI
 struct WorkOutView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutFeature>
-    @State private var dynamicHeight: CGFloat = .zero
 
     var body: some View {
         WithPerceptionTracking {
@@ -84,14 +88,14 @@ struct WorkOutView: View {
             } destination: { store in
                 WorkOutDetailView(store: store)
             }
-            .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { store in
-                CelebrateView(store: store)
-                    .presentationDetents([.height(dynamicHeight + 20.0)])
+            .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { celebrateStore in
+                CelebrateView(store: celebrateStore)
+                    .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
                     .background {
                         GeometryReader { proxy in
                             Color.clear
                                 .onAppear {
-                                    dynamicHeight = proxy.size.height
+                                    store.send(.setDynamicHeight(proxy.size.height))
                                 }
                         }
                     }
