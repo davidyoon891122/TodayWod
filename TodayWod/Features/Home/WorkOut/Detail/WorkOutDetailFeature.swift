@@ -126,7 +126,7 @@ struct WorkOutDetailView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            ZStack {
+            ZStack(alignment: .bottom) {
                 VStack {
                     WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
                         store.send(.didTapBackButton)
@@ -166,19 +166,16 @@ struct WorkOutDetailView: View {
                     }
                 }
                 .background(Colors.blue10.swiftUIColor)
-                
+               
                 if !store.hasStart {
-                    VStack {
-                        Spacer()
-                        Button(action: {
-                            store.send(.didTapStartButton)
-                        }, label: {
-                            Text(Constants.buttonTitle)
-                        })
-                        .nextButtonStyle()
-                        .padding(.horizontal, 38)
-                        .padding(.bottom, 20)
-                    }
+                    Button(action: {
+                        store.send(.didTapStartButton)
+                    }, label: {
+                        Text(Constants.buttonTitle)
+                    })
+                    .nextButtonStyle()
+                    .padding(.horizontal, 38)
+                    .padding(.bottom, 20)
                 }
             }
             .toolbar(.hidden, for: .navigationBar)

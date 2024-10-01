@@ -115,3 +115,8 @@ private extension WorkOutView {
     
 }
 
+#Preview {
+    WorkOutView(store: Store(initialState: WorkOutFeature.State()) {
+        WorkOutFeature()
+    })
+}
