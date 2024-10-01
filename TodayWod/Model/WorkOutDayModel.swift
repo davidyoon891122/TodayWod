@@ -15,7 +15,6 @@ struct WodInfo: Codable, Equatable, Identifiable {
     
     init(data: WodInfoEntity) {
         self.id = UUID()
-        
         self.workOutDays = data.workOutDays.map { WorkOutDayModel(data: $0) }
     }
     
@@ -32,13 +31,7 @@ extension WodInfo {
 extension WodInfo {
     
     static let bodyBeginners: [Self] = WodInfoEntity.bodyBeginners.map { WodInfo(data: $0) }
-    
-}
 
-extension WodInfo {
-    
-    static let fake: Self = .init(data: WodInfoEntity.fake)
-    
 }
 
 struct WorkOutDayModel: Codable, Equatable, Identifiable {

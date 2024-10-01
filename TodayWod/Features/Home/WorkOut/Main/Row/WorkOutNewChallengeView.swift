@@ -47,3 +47,9 @@ extension WorkOutNewChallengeView {
     }
     
 }
+
+#Preview {
+    WorkOutNewChallengeView(store: Store(initialState: WorkOutFeature.State()) {
+        WorkOutFeature()
+    })
+}

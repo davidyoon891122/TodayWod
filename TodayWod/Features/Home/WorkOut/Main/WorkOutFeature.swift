@@ -27,7 +27,7 @@ struct WorkOutFeature {
         case setWorkOutDays
         case updateWodInfo
         case updateWeekCompleted
-        case didTapDayView(index: Int, item: WorkOutDayModel)
+        case didTapDayView(item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
     }
@@ -80,8 +80,8 @@ struct WorkOutFeature {
                     state.celebrateState = CelebrateFeature.State()
                 }
                 return .none
-            case let .didTapDayView(index, item):
-                state.path.append(WorkOutDetailFeature.State(index: index, item: item))
+            case let .didTapDayView(item):
+                state.path.append(WorkOutDetailFeature.State(item: item))
                 return .none
             case .path(_):
                 return .none
@@ -117,7 +117,7 @@ struct WorkOutView: View {
                         ForEach(Array(store.workOutDays.enumerated()), id: \.element.id) { index, item in
                             WorkOutDayView(index: index, item: item)
                                 .onTapGesture {
-                                    store.send(.didTapDayView(index: index, item: item))
+                                    store.send(.didTapDayView(item: item))
                                 }
                         }
                         
@@ -132,8 +132,7 @@ struct WorkOutView: View {
             }
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { store in
                 CelebrateView(store: store)
-                    .presentationDetents([.height(dynamicHeight + 20.0)]) // 20 정도 여분을 주지 않으면 텍스트 잘림 현상 발생 가능성 있음
-                    .presentationDragIndicator(.visible)
+                    .presentationDetents([.height(dynamicHeight + 20.0)])
                     .background {
                         GeometryReader { proxy in
                             Color.clear

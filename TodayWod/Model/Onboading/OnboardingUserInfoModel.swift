@@ -44,23 +44,23 @@ extension OnboardingUserInfoModel {
         var subItems: [UserInfoSubItemModel] = []
                 
         if let gender = gender {
-            subItems.append(UserInfoSubItemModel(title: "성별", value: "\(gender.title)"))
+            subItems.append(UserInfoSubItemModel(title: "성별", value: "\(gender.title)", type: .gender))
         }
         
         if let height = height {
-            subItems.append(UserInfoSubItemModel(title: "키", value: "\(height) cm"))
+            subItems.append(UserInfoSubItemModel(title: "키", value: "\(height) cm", type: .height))
         }
         
         if let weight = weight {
-            subItems.append(UserInfoSubItemModel(title: "몸무게", value: "\(weight) kg", modifiable: true))
+            subItems.append(UserInfoSubItemModel(title: "몸무게", value: "\(weight) kg", modifiable: true, type: .weight))
         }
         
         if let level = level {
-            subItems.append(UserInfoSubItemModel(title: "운동 수준", value: "\(level.title)", modifiable: true))
+            subItems.append(UserInfoSubItemModel(title: "운동 수준", value: "\(level.title)", modifiable: true, type: .level))
         }
         
         if let method = method {
-            subItems.append(UserInfoSubItemModel(title: "운동 방식", value: "\(method.title)", modifiable: true))
+            subItems.append(UserInfoSubItemModel(title: "운동 방식", value: "\(method.title)", modifiable: true, type: .method))
         }
         
         return subItems
@@ -73,5 +73,15 @@ struct UserInfoSubItemModel: Equatable, Hashable {
     var title: String
     var value: String
     var modifiable: Bool = false
+    var type: UserInfoType
     
+}
+
+enum UserInfoType: String {
+    case gender
+    case height
+    case weight
+    case level
+    case method
+    case version
 }
