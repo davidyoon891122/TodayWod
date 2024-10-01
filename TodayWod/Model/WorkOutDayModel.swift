@@ -7,11 +7,14 @@
 
 import Foundation
 
-struct WodInfo: Codable {
+struct WodInfo: Codable, Equatable, Identifiable {
 
+    var id: UUID
+    
     var workOutDays: [WorkOutDayModel]
     
     init(data: WodInfoEntity) {
+        self.id = UUID()
         self.workOutDays = data.workOutDays.map { WorkOutDayModel(data: $0) }
     }
     
@@ -27,8 +30,8 @@ extension WodInfo {
 
 extension WodInfo {
     
-    static let fake: Self = .init(data: WodInfoEntity.fake)
-    
+    static let bodyBeginners: [Self] = WodInfoEntity.bodyBeginners.map { WodInfo(data: $0) }
+
 }
 
 struct WorkOutDayModel: Codable, Equatable, Identifiable {
@@ -84,7 +87,7 @@ extension WorkOutDayModel {
     static let fake: Self = .init(data: WorkOutDayEntity.fake)
     
     static var fakes: [Self] = {
-        return WorkOutDayEntity.fakes.map { fake -> WorkOutDayModel in
+        return WorkOutDayEntity.bodyBeginnerAlphaWeek.map { fake -> WorkOutDayModel in
             .init(data: fake)
         }
     }()

@@ -80,11 +80,11 @@ struct WorkOutDetailFeature {
                     }
                 }
             }
-                return .merge(.send(.saveWorkOutOfDay),
-                              .send(.updateDayCompleted))
+                return .concatenate(.send(.saveWorkOutOfDay),
+                                    .send(.updateDayCompleted))
             case .saveWorkOutOfDay:
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWorkOutDay(data: state.item)
+                userDefaultsManager.saveWodInfo(day: state.item)
                 return .none
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.workOuts.flatMap {
@@ -99,7 +99,7 @@ struct WorkOutDetailFeature {
                     state.item.completedInfo = .init(isCompleted: true)
                     
                     let userDefaultsManager = UserDefaultsManager()
-                    userDefaultsManager.saveWorkOutDay(data: state.item)
+                    userDefaultsManager.saveWodInfo(day: state.item)
                     
                     print("isDayCompleted!!!")
                 }

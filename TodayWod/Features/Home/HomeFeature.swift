@@ -13,13 +13,15 @@ struct HomeFeature {
     
     @ObservableState
     struct State: Equatable {
-        var isAlreadyLaunch = UserDefaultsManager().loadIsAlreadyLaunch()
+        var hasWod: Bool = UserDefaultsManager().loadWodInfo() != nil
+
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
+        
     }
 
     enum Action {
-        case toggleIsAlreadyLaunch(Bool)
+        case setWodInfo
         case workOutEmpty(WorkOutEmptyFeature.Action)
         case workOut(WorkOutFeature.Action)
     }
@@ -35,13 +37,17 @@ struct HomeFeature {
         
         Reduce { state, action in
             switch action {
-            case let .toggleIsAlreadyLaunch(isAlreadyLaunch):
-                state.isAlreadyLaunch = isAlreadyLaunch
-                UserDefaultsManager().saveIsAlreadyLaunch(data: isAlreadyLaunch)
+            case .setWodInfo:
+                let userDefaultManager = UserDefaultsManager()
+                let wodPrograms = userDefaultManager.loadWodPrograms()
+                
+                userDefaultManager.saveWodInfo(data: wodPrograms.first)
+                state.hasWod.toggle()
+    
                 return .none
             case .workOutEmpty(.didTapStartButton):
                 return .run(operation: { send in
-                    await send(.toggleIsAlreadyLaunch(true))
+                    await send(.setWodInfo)
                 })
             case .workOut:
                 return .none
@@ -59,7 +65,7 @@ struct HomeView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            if store.isAlreadyLaunch {
+            if store.hasWod {
                 WorkOutView(
                     store: store.scope(
                         state: \.workOut,

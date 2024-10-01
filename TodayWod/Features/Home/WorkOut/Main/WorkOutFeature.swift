@@ -13,7 +13,8 @@ struct WorkOutFeature {
     
     @ObservableState
     struct State: Equatable {
-        var items: [WorkOutDayModel] = []
+        var wodInfo: WodInfo? = nil
+        var workOutDays: [WorkOutDayModel] = []
         var path = StackState<WorkOutDetailFeature.State>()
 
         @Presents var celebrateState: CelebrateFeature.State?
@@ -21,6 +22,11 @@ struct WorkOutFeature {
 
     enum Action {
         case onAppear
+        case didTapNewChallengeButton
+        case didTapResetButton
+        case setWorkOutDays
+        case updateWodInfo
+        case updateWeekCompleted
         case didTapDayView(item: WorkOutDayModel)
         case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
@@ -31,9 +37,45 @@ struct WorkOutFeature {
             switch action {
             case .onAppear:
                 let userDefaultsManager = UserDefaultsManager()
-                state.items = userDefaultsManager.loadWorkOutOfWeek()
+                let wodInfo = userDefaultsManager.loadWodInfo()
+                state.wodInfo = wodInfo
                 
-                let isCelebrate = state.items.allSatisfy { $0.completedInfo.isCompleted }
+                return .concatenate(.send(.setWorkOutDays),
+                                    .send(.updateWeekCompleted))
+            case .didTapNewChallengeButton:
+                let userDefaultsManager = UserDefaultsManager()
+                let wodPrograms = userDefaultsManager.loadWodPrograms()
+                
+                if let id = state.wodInfo?.id, let currentWodIndex = wodPrograms.firstIndex(where: { $0.id == id }) {
+                    let nextIndex = (currentWodIndex + 1) % wodPrograms.count
+                    state.wodInfo = wodPrograms[safe: nextIndex]
+                }
+                
+                return .merge(.send(.setWorkOutDays),
+                              .send(.updateWodInfo))
+            case .didTapResetButton:
+                let userDefaultsManager = UserDefaultsManager()
+                let wodPrograms = userDefaultsManager.loadWodPrograms()
+                
+                if let id = state.wodInfo?.id {
+                    let resetWod = wodPrograms.first { $0.id == id }
+                    state.wodInfo = resetWod
+                }
+                
+                return .merge(.send(.setWorkOutDays),
+                              .send(.updateWodInfo))
+            case .setWorkOutDays:
+                state.workOutDays = state.wodInfo?.workOutDays ?? []
+                return .none
+            case .updateWodInfo:
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveWodInfo(data: state.wodInfo)
+                
+                // TODO: 최근 활동 insert.
+                
+                return .none
+            case .updateWeekCompleted:
+                let isCelebrate = state.workOutDays.allSatisfy { $0.completedInfo.isCompleted }
                 if isCelebrate {
                     state.celebrateState = CelebrateFeature.State()
                 }
@@ -63,28 +105,28 @@ struct WorkOutView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutFeature>
     @State private var dynamicHeight: CGFloat = .zero
-
+    
     var body: some View {
         WithPerceptionTracking {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-                VStack(alignment: .leading) {
-                    Text(Constants.weekWorkOutTitle)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 20))
-                        .foregroundStyle(Colors.grey100.swiftUIColor)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 13)
-                    
-                    ForEach(Array(store.items.enumerated()), id: \.element.id) { index, item in
-                        WorkOutDayView(index: index, item: item)
-                            .onTapGesture {
-                                store.send(.didTapDayView(item: item))
-                            }
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        WorkOutNewChallengeView(store: store)
+                        WorkOutTitleView(store: store)
+                        
+                        ForEach(Array(store.workOutDays.enumerated()), id: \.element.id) { index, item in
+                            WorkOutDayView(index: index, item: item)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    store.send(.didTapDayView(item: item))
+                                }
+                        }
+                        
+                        Spacer()
                     }
-                    
-                    Spacer()
-                }
-                .onAppear {
-                    store.send(.onAppear)
+                    .onAppear {
+                        store.send(.onAppear)
+                    }
                 }
             } destination: { store in
                 WorkOutDetailView(store: store)
