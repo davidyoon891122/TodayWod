@@ -14,12 +14,21 @@ struct WorkOutDetailFeature {
     @ObservableState
     struct State: Equatable {
         var item: WorkOutDayModel
-        var duration: Int = 0
-        var hasStart: Bool = false
-        var isDayCompleted: Bool = false
-        var isPresented: Bool = false
+        var duration: Int
+        var hasStart: Bool
+        var isDayCompleted: Bool
+        var isPresented: Bool
         
         @Presents var timerState: BreakTimeFeature.State?
+        
+        init(item: WorkOutDayModel) {
+            self.item = item
+            self.duration = item.duration
+            self.hasStart = false
+            self.isDayCompleted = false
+            self.isPresented = false
+            self.timerState = nil
+        }
     }
     
     enum Action: BindableAction {
@@ -64,7 +73,11 @@ struct WorkOutDetailFeature {
                 .cancellable(id: CancelID.timer)
             case .timerTick:
                 state.duration += 1
-                return .none
+                
+                state.item.duration = state.duration
+                return .run { send in
+                    await send(.saveWorkOutOfDay)
+                }
             case let .setCompleted(set):
                 var updatedSet = set
                 updatedSet.isCompleted.toggle()
@@ -112,8 +125,7 @@ struct WorkOutDetailFeature {
                 
                 if state.isDayCompleted {
                     // TODO: 운동을 완료할까요? BottomSheet 호출
-                    // TODO: completedInfo에 SaveDate, SaveDuration 함께 저장.
-                    state.item.completedInfo = .init(isCompleted: true)
+                    state.item.completedInfo = .init(isCompleted: true, completedDate: Date())
                     
                     let userDefaultsManager = UserDefaultsManager()
                     userDefaultsManager.saveWodInfo(day: state.item)
