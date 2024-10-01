@@ -13,7 +13,7 @@ struct WorkOutFeature {
     
     @ObservableState
     struct State: Equatable {
-        let items: [WorkOutDayModel] = WorkOutDayModel.fakes
+        var items: [WorkOutDayModel] = []
         var path = StackState<WorkOutDetailFeature.State>()
 
         @Presents var celebrateState: CelebrateFeature.State?
@@ -30,7 +30,13 @@ struct WorkOutFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.celebrateState = CelebrateFeature.State()
+                let userDefaultsManager = UserDefaultsManager()
+                state.items = userDefaultsManager.loadWorkOutOfWeek()
+                
+                let isCelebrate = state.items.allSatisfy { $0.completedInfo.isCompleted }
+                if isCelebrate {
+                    state.celebrateState = CelebrateFeature.State()
+                }
                 return .none
             case let .didTapDayView(item):
                 state.path.append(WorkOutDetailFeature.State(item: item))
@@ -80,7 +86,6 @@ struct WorkOutView: View {
                 .onAppear {
                     store.send(.onAppear)
                 }
-
             } destination: { store in
                 WorkOutDetailView(store: store)
             }
@@ -109,3 +114,8 @@ private extension WorkOutView {
     
 }
 
+#Preview {
+    WorkOutView(store: Store(initialState: WorkOutFeature.State()) {
+        WorkOutFeature()
+    })
+}
