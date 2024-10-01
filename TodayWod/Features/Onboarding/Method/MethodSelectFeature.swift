@@ -30,6 +30,8 @@ struct MethodSelectFeature {
     enum Action {
         case didTapBackButton
         case didTapStartButton
+        case saveUserInfo
+        case saveTargetPrograms
         case setMethod(ProgramMethodType)
         case methodDescriptionTap(PresentationAction<MethodDescriptionFeature.Action>)
         case didTapBodyDescriptionButton
@@ -46,8 +48,11 @@ struct MethodSelectFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapStartButton:
-                // TODO: - 여기서 세팅하는게 맞을지 고민(Shared 사용으로 대체 필요)
+                return .merge(.send(.saveUserInfo),
+                              .send(.saveTargetPrograms))
+            case .saveUserInfo:
                 let userDefaultsManager = UserDefaultsManager()
+                
                 switch state.entryType {
                 case .onBoarding:
                     userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
@@ -60,7 +65,23 @@ struct MethodSelectFeature {
 
                     return .run { _ in await dismiss() }
                 }
-
+            case .saveTargetPrograms:
+                var targetPrograms: [WodInfoEntity] = WodInfoEntity.bodyBeginners // TODO: 현재는 무조건 body, 입문 조건의 Program 셋팅
+                if state.onboardingUserModel.method == .body {
+                    switch state.onboardingUserModel.level {
+                    case .beginner:
+                        targetPrograms = WodInfoEntity.bodyBeginners
+                    default:
+                        break
+                    }
+                } else {
+                    //
+                }
+                
+                let userDefaultsManager = UserDefaultsManager()
+                userDefaultsManager.saveWodPrograms(data: targetPrograms.map { WodInfo(data: $0) })
+                
+                return .none
             case let .setMethod(methodType):
                 state.methodType = methodType
                 state.onboardingUserModel.method = methodType

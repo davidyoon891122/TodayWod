@@ -40,7 +40,7 @@ struct WorkOutDetailTitleView: View {
         .padding(20)
         .background(.white)
         .cornerRadius(12, corners: .allCorners)
-        .padding(.bottom, 10)
+        .padding(.vertical, 10)
     }
     
 }

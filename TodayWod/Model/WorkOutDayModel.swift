@@ -7,34 +7,37 @@
 
 import Foundation
 
-struct WodInfo: Codable, Equatable {
+struct WodInfo: Codable, Equatable, Identifiable {
+
+    var id: UUID
     
-    var completedDate: Date?
-    var completedDuration: Int?
+    var workOutDays: [WorkOutDayModel]
     
-    let methodType: ProgramMethodType
-    let level: LevelType
-    let workOutDays: [WorkOutDayModel]
-    
-    init(methodType: ProgramMethodType, level: LevelType, workOutDays: [WorkOutDayModel], completedDate: Date? = nil, completedDuration: Int? = nil) {
-        self.methodType = methodType
-        self.level = level
-        self.workOutDays = workOutDays
-        self.completedDate = completedDate
-        self.completedDuration = completedDuration
+    init(data: WodInfoEntity) {
+        self.id = UUID()
+        self.workOutDays = data.workOutDays.map { WorkOutDayModel(data: $0) }
     }
     
 }
 
 extension WodInfo {
     
-    static var fake: Self = .init(methodType: .body, level: .beginner, workOutDays: WorkOutDayModel.fakes)
+    var hasWod: Bool {
+        self.workOutDays.count != 0
+    }
     
+}
+
+extension WodInfo {
+    
+    static let bodyBeginners: [Self] = WodInfoEntity.bodyBeginners.map { WodInfo(data: $0) }
+
 }
 
 struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
-    var id: UUID = UUID()
+    var id: UUID
+    var completedInfo: CompletedWorkOutDayInfo
     
     let type: WorkOutDayTagType
     let title: String
@@ -42,7 +45,20 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     let expectedMinute: Int
     let estimatedStartCalorie: Int
     let estimatedEndCalorie: Int
-    let workOuts: [WorkOutInfo]
+    var workOuts: [WorkOutInfo]
+    
+    init(data: WorkOutDayEntity) {
+        self.id = UUID()
+        self.completedInfo = .init()
+        
+        self.type = data.type
+        self.title = data.title
+        self.subTitle = data.subTitle
+        self.expectedMinute = data.expectedMinute
+        self.estimatedStartCalorie = data.estimatedStartCalorie
+        self.estimatedEndCalorie = data.estimatedEndCalorie
+        self.workOuts = data.workOuts.map { WorkOutInfo(data: $0) }
+    }
     
 }
 
@@ -68,14 +84,26 @@ extension WorkOutDayModel {
 
 extension WorkOutDayModel {
     
-    static var fake: Self {
-        .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
-    }
+    static let fake: Self = .init(data: WorkOutDayEntity.fake)
     
-    static var fakes: [Self] = [
-        .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
-        .init(type: .default, title: "타이탄 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies),
-        .init(type: .end, title: "히어로 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfo.infoDummies)
-    ]
+    static var fakes: [Self] = {
+        return WorkOutDayEntity.bodyBeginnerAlphaWeek.map { fake -> WorkOutDayModel in
+            .init(data: fake)
+        }
+    }()
+    
+}
+
+struct CompletedWorkOutDayInfo: Codable, Equatable {
+    
+    var isCompleted: Bool
+    var completedDate: Date?
+    var completedDuration: Int?
+    
+    init(isCompleted: Bool = false, completedDate: Date? = nil, completedDuration: Int? = nil) {
+        self.isCompleted = isCompleted
+        self.completedDate = completedDate
+        self.completedDuration = completedDuration
+    }
     
 }

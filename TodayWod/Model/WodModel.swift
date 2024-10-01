@@ -9,39 +9,41 @@ import Foundation
 
 struct WorkOutInfo: Codable, Equatable, Identifiable {
     
-    var id: UUID = UUID()
+    var id: UUID
     
     let type: WorkOutType
-    let items: [WodModel]
+    var items: [WodModel]
     
-}
-
-extension WorkOutInfo {
-    
-    static var infoDummies: [Self] = [
-        .init(type: .WarmUp, items: WodModel.warmUpDummies),
-        .init(type: .Main, items: WodModel.mainDummies),
-        .init(type: .CoolDown, items: WodModel.coolDownDummies)
-    ]
+    init(data: WorkOutInfoEntity) {
+        let id = UUID()
+        self.id = id
+        
+        self.type = data.type
+        self.items = data.items.map { WodModel(data: $0).createParentClassification(id: id) }
+    }
     
 }
 
 struct WodModel: Codable, Equatable, Identifiable {
     
-    var id: UUID = UUID()
+    var id: UUID
+    var workOutInfoId: UUID?
     
     let title: String
     let subTitle: String
     let unit: ExerciseUnit
-    let wodSet: [WodSet]
+    var wodSet: [WodSet]
     let set: Int
     
-    init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int = 1) {
-        self.title = title
-        self.subTitle = subTitle
-        self.unit = unit
-        self.wodSet = WodSet(unitValue: unitValue).createNumbering(set: set)
-        self.set = set
+    init(data: WodEntity) {
+        self.id = UUID()
+        self.workOutInfoId = nil
+        
+        self.title = data.title
+        self.subTitle = data.subTitle
+        self.unit = data.unit
+        self.wodSet = WodSet(unitValue: data.unitValue).createNumbering(set: data.set, workOutInfoId: workOutInfoId, wodModelId: id)
+        self.set = data.set
     }
     
 }
@@ -60,26 +62,16 @@ extension WodModel {
 
 extension WodModel {
     
-    static var fake: Self {
-        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3)
+    func createParentClassification(id: UUID) -> Self {
+        var updatedWod = self
+        updatedWod.workOutInfoId = id
+        return updatedWod
     }
-    
-    static var warmUpDummies: [Self] = [
-        .init(title: "암서클", subTitle: "lowing abc", 
-              unit: .minutes, unitValue: 2),
-        .init(title: "점핑잭", subTitle: "lowing abc", unit: .minutes, unitValue: 2)
-    ]
-    
-    static var mainDummies: [Self] = [
-        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3),
-        .init(title: "핸드 릴리즈 푸시업", subTitle: "lowing abc", unit: .repetitions, unitValue: 10, set: 3),
-        .init(title: "박스", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3)
-    ]
-    
-    static var coolDownDummies: [Self] = [
-        .init(title: "플랭크", subTitle: "lowing abc", unit: .minutes, unitValue: 1),
-        .init(title: "스트레칭", subTitle: "lowing abc", unit: .minutes, unitValue: 3)
-    ]
     
 }
 
+extension WodModel {
+    
+    static let fake: Self = .init(data: WodEntity.fake)
+    
+}
