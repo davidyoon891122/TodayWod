@@ -28,6 +28,7 @@ struct WorkOutNewChallengeView: View {
             .padding(.vertical, 20)
             Spacer()
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             store.send(.didTapNewChallengeButton)
         }
@@ -46,4 +47,10 @@ extension WorkOutNewChallengeView {
         static let subTitle: String = "한주 간 운동 루틴을 새롭게 만들어요"
     }
     
+}
+
+#Preview {
+    WorkOutNewChallengeView(store: Store(initialState: WorkOutFeature.State()) {
+        WorkOutFeature()
+    })
 }

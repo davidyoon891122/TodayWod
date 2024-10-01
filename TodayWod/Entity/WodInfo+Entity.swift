@@ -69,5 +69,5 @@ extension WodEntity {
     static var fake: Self {
         .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3)
     }
-    
+
 }

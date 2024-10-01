@@ -23,7 +23,7 @@ struct WorkOutTitleView: View {
             } label: {
                 HStack {
                     Images.icRefreshGray16.swiftUIImage
-                    Text(Constants.title)
+                    Text(Constants.resetTitle)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
                         .foregroundStyle(Colors.grey60.swiftUIColor)
                 }
@@ -41,7 +41,14 @@ struct WorkOutTitleView: View {
 extension WorkOutTitleView {
     
     enum Constants {
-        static let title: String = "초기화"
+        static let title: String = "한주 간 운동"
+        static let resetTitle: String = "초기화"
     }
     
+}
+
+#Preview {
+    WorkOutTitleView(store: Store(initialState: WorkOutFeature.State()) {
+        WorkOutFeature()
+    })
 }

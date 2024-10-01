@@ -13,7 +13,6 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
-        let index: Int
         var item: WorkOutDayModel
         var duration: Int = 0
         var hasStart: Bool = false
@@ -27,6 +26,7 @@ struct WorkOutDetailFeature {
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
+        case startTimer
         case timerTick
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
@@ -51,7 +51,10 @@ struct WorkOutDetailFeature {
                 return .cancel(id: CancelID.timer)
             case .didTapStartButton:
                 state.hasStart = true
-                
+                return .run { send in
+                    await send(.startTimer)
+                }
+            case .startTimer:
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
@@ -98,7 +101,7 @@ struct WorkOutDetailFeature {
                                     .send(.updateDayCompleted))
             case .saveWorkOutOfDay:
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWodInfo(index: state.index, day: state.item)
+                userDefaultsManager.saveWodInfo(day: state.item)
                 return .none
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.workOuts.flatMap {
@@ -113,7 +116,7 @@ struct WorkOutDetailFeature {
                     state.item.completedInfo = .init(isCompleted: true)
                     
                     let userDefaultsManager = UserDefaultsManager()
-                    userDefaultsManager.saveWodInfo(index: state.index, day: state.item)
+                    userDefaultsManager.saveWodInfo(day: state.item)
                     
                     print("isDayCompleted!!!")
                 }
@@ -140,7 +143,7 @@ struct WorkOutDetailView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            ZStack {
+            ZStack(alignment: .bottom) {
                 VStack {
                     WorkOutNavigationView(duration: $duration) {
                         store.send(.didTapBackButton)
@@ -171,28 +174,20 @@ struct WorkOutDetailView: View {
                             }
                             .padding(.horizontal, 20)
                             .padding(.bottom, 149)
-                            
-                            if !store.hasStart {
-                                Colors.black100.swiftUIColor.opacity(0.3)
-                            }
                         }
-                        .disabled(!store.hasStart) /* Q: 시작하기 눌러야 활성화되게 처리. 기획 */
                     }
                 }
                 .background(Colors.blue10.swiftUIColor)
-                
+               
                 if !store.hasStart {
-                    VStack {
-                        Spacer()
-                        Button(action: {
-                            store.send(.didTapStartButton)
-                        }, label: {
-                            Text(Constants.buttonTitle)
-                        })
-                        .nextButtonStyle()
-                        .padding(.horizontal, 38)
-                        .padding(.bottom, 20)
-                    }
+                    Button(action: {
+                        store.send(.didTapStartButton)
+                    }, label: {
+                        Text(Constants.buttonTitle)
+                    })
+                    .bottomButtonStyle()
+                    .padding(.horizontal, 38)
+                    .padding(.bottom, 20)
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
@@ -216,7 +211,7 @@ private extension WorkOutDetailView {
 }
 
 #Preview {
-    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(index: 0, item: WorkOutDayModel.fake)) {
+    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake)) {
         WorkOutDetailFeature()
     })
 }

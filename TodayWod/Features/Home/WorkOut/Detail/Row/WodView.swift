@@ -15,7 +15,7 @@ struct WodView: View {
     let model: WodModel
     
     var body: some View {
-        ZStack {
+        WithPerceptionTracking {
             VStack(alignment: .leading) {
                 titleView
                 
@@ -36,9 +36,9 @@ struct WodView: View {
                 }
             }
             .padding(20)
+            .background(.white)
+            .cornerRadius(12, corners: .allCorners)
         }
-        .background(.white)
-        .cornerRadius(12, corners: .allCorners)
     }
     
     var titleView: some View {
@@ -79,7 +79,7 @@ struct WodView: View {
 #Preview {
     VStack {
         Spacer()
-        WodView(store: Store(initialState: WorkOutDetailFeature.State(index: 0, item: WorkOutDayModel.fake), reducer: {
+        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake), reducer: {
             WorkOutDetailFeature()
         }), model: WodModel.fake)
         Spacer()

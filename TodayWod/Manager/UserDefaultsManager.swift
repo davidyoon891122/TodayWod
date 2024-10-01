@@ -12,7 +12,7 @@ protocol UserDefaultsManagerProtocol {
     func saveOnboardingUserInfo(data: OnboardingUserInfoModel)
     func loadOnboardingUserInfo() -> OnboardingUserInfoModel?
     
-    func saveWodInfo(index: Int, day: WorkOutDayModel)
+    func saveWodInfo(day: WorkOutDayModel)
     func saveWodInfo(data: WodInfo?)
     func loadWodInfo() -> WodInfo?
     
@@ -51,9 +51,12 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return userInfo
     }
     
-    func saveWodInfo(index: Int, day: WorkOutDayModel) {
+    func saveWodInfo(day: WorkOutDayModel) {
         if var wodInfo = loadWodInfo() {
-            wodInfo.workOutDays[index] = day
+            let workOutOfWeek: [WorkOutDayModel] = wodInfo.workOutDays.map {
+                $0.id == day.id ? day : $0
+            }
+            wodInfo.workOutDays = workOutOfWeek
             
             self.saveWodInfo(data: wodInfo)
         } else {
