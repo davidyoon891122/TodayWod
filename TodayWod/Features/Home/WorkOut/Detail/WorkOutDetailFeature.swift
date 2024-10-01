@@ -17,7 +17,7 @@ struct WorkOutDetailFeature {
         var hasStart: Bool = false
         var isDayCompleted: Bool = false
         var isPresented: Bool = false
-        
+
         @Presents var timerState: BreakTimeFeature.State?
     }
     
@@ -53,7 +53,7 @@ struct WorkOutDetailFeature {
                 updatedSet.isCompleted.toggle()
                 
                 if updatedSet.isCompleted {
-                    state.isPresented = true // 휴식 시작.
+                    state.timerState = BreakTimeFeature.State()
                 }
                 
                 let wodSet = updatedSet
@@ -97,7 +97,7 @@ struct WorkOutDetailFeature {
                     // TODO: 운동을 완료할까요? BottomSheet 호출
                     // TODO: completedInfo에 SaveDate, SaveDuration 함께 저장.
                     state.item.completedInfo = .init(isCompleted: true)
-                    
+
                     let userDefaultsManager = UserDefaultsManager()
                     userDefaultsManager.saveWodInfo(day: state.item)
                     
@@ -179,10 +179,8 @@ struct WorkOutDetailView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .bind($store.isPresented, to: $isPresented)
-            .bottomSheet(isPresented: $isPresented) {
-                BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
-                    BreakTimeFeature()
-                })
+            .bottomSheet(item: $store.scope(state: \.timerState, action: \.breakTimerAction)) { breakStore in
+                BreakTimerView(store: breakStore)
             }
         }
     }
