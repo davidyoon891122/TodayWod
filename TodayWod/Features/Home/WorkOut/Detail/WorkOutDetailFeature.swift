@@ -16,7 +16,6 @@ struct WorkOutDetailFeature {
         var item: WorkOutDayModel
         var hasStart: Bool = false
         var isDayCompleted: Bool = false
-        var isPresented: Bool = false
 
         @Presents var timerState: BreakTimeFeature.State?
     }
@@ -121,8 +120,6 @@ struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
-    @State private var isPresented: Bool = false
-    
     var body: some View {
         WithPerceptionTracking {
             ZStack(alignment: .bottom) {
@@ -178,7 +175,6 @@ struct WorkOutDetailView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .bind($store.isPresented, to: $isPresented)
             .bottomSheet(item: $store.scope(state: \.timerState, action: \.breakTimerAction)) { breakStore in
                 BreakTimerView(store: breakStore)
             }
