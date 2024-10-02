@@ -11,13 +11,21 @@ struct ProfileView: View {
     
     let nickName: String
     
+    let gender: GenderType
+    
     let action: (() -> Void)
     
     var body: some View {
         VStack {
-            Images.genderMan.swiftUIImage
-                .resizable()
-                .frame(width: 120.0, height: 120.0)
+            if gender == .man {
+                Images.genderMan.swiftUIImage
+                    .resizable()
+                    .frame(width: 120.0, height: 120.0)
+            } else {
+                Images.genderWoman.swiftUIImage
+                    .resizable()
+                    .frame(width: 120.0, height: 120.0)
+            }
             
             Text(nickName)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
@@ -42,7 +50,7 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(nickName: "Nick") {
+    ProfileView(nickName: "Nick", gender: .man) {
         print("did tap modify profile button")
     }
 }

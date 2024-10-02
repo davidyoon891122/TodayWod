@@ -13,7 +13,7 @@ struct WorkOutEmptyFeature {
     
     @ObservableState
     struct State: Equatable {
-        
+        let onboardingUserModel = UserDefaultsManager().loadOnboardingUserInfo()
     }
     
     enum Action {
@@ -39,10 +39,17 @@ struct WorkOutEmptyView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack {
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .frame(width: 120.0, height: 120.0)
-                    .padding(.top, 120.0)
+                if store.state.onboardingUserModel?.gender == .man {
+                    Images.genderMan.swiftUIImage
+                        .resizable()
+                        .frame(width: 120.0, height: 120.0)
+                        .padding(.top, 120.0)
+                } else {
+                    Images.genderWoman.swiftUIImage
+                        .resizable()
+                        .frame(width: 120.0, height: 120.0)
+                        .padding(.top, 120.0)
+                }
                 
                 Text(Constants.Title)
                     .bold()
