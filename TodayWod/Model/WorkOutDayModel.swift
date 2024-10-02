@@ -37,6 +37,7 @@ extension WodInfo {
 struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
     var id: UUID
+    var duration: Int
     var completedInfo: CompletedWorkOutDayInfo
     
     let type: WorkOutDayTagType
@@ -49,6 +50,7 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     
     init(data: WorkOutDayEntity) {
         self.id = UUID()
+        self.duration = 0
         self.completedInfo = .init()
         
         self.type = data.type
@@ -98,12 +100,10 @@ struct CompletedWorkOutDayInfo: Codable, Equatable {
     
     var isCompleted: Bool
     var completedDate: Date?
-    var completedDuration: Int?
     
-    init(isCompleted: Bool = false, completedDate: Date? = nil, completedDuration: Int? = nil) {
+    init(isCompleted: Bool = false, completedDate: Date? = nil) {
         self.isCompleted = isCompleted
         self.completedDate = completedDate
-        self.completedDuration = completedDuration
     }
     
 }
