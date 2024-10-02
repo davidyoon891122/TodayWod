@@ -49,7 +49,7 @@ struct WorkOutDayView: View {
                         if item.isCompleted {
                             Circle()
                                 .foregroundStyle(Colors.blue60.swiftUIColor.opacity(0.8))
-                            Text(Constants.DoneTitle)
+                            Text(Constants.doneTitle)
                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
                                 .foregroundStyle(.white)
                         }
@@ -89,7 +89,7 @@ private extension WorkOutDayView {
     
     enum Constants {
         static let dayTitle: String = "Day "
-        static let DoneTitle: String = "Done!"
+        static let doneTitle: String = "Done!"
     }
     
 }

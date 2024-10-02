@@ -102,12 +102,9 @@ struct ModifyWeightView: View {
                     .padding(.top, 100.0)
                 }
                 Spacer()
-                Button(action: {
+                BottomButton(title: store.state.buttonTitle) {
                     store.send(.didTapConfirmButton)
-                }, label: {
-                    Text(store.state.buttonTitle)
-                        .bottomButtonStyle()
-                })
+                }
                 .disabled(!store.isValidWeight)
                 .padding(.horizontal, 38.0)
                 .padding(.bottom, 20.0)

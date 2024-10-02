@@ -216,12 +216,9 @@ struct MethodSelectView: View {
                         }
                         .padding(.bottom, 56.0 + 20.0 + 20.0)
                     }
-                    Button(action: {
+                    BottomButton(title: store.buttonTitle) {
                         store.send(.didTapStartButton)
-                    }, label: {
-                        Text(store.buttonTitle)
-                            .bottomButtonStyle()
-                    })
+                    }
                     .disabled(!store.isValidMethod)
                     .padding(.bottom, 20.0)
                     .padding(.horizontal, 38.0)
