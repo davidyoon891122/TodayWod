@@ -15,28 +15,30 @@ struct WodView: View {
     let model: WodModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            titleView
-            
-            headerView
-            
-            LazyVStack(spacing: 10) {
-                ForEach(model.wodSet) { set in
-                    HStack(spacing: 10) {
-                        if model.isSetVisible {
-                            Text(set.displaySetNumber)
-                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
-                                .foregroundStyle(Colors.grey100.swiftUIColor)
-                                .frame(width: 48)
+        WithPerceptionTracking {
+            VStack(alignment: .leading) {
+                titleView
+                
+                headerView
+                
+                LazyVStack(spacing: 10) {
+                    ForEach(model.wodSet) { set in
+                        HStack(spacing: 10) {
+                            if model.isSetVisible {
+                                Text(set.displaySetNumber)
+                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
+                                    .foregroundStyle(Colors.grey100.swiftUIColor)
+                                    .frame(width: 48)
+                            }
+                            WodSetView(store: store, model: set)
                         }
-                        WodSetView(store: store, model: set)
                     }
                 }
             }
+            .padding(20)
+            .background(.white)
+            .cornerRadius(12, corners: .allCorners)
         }
-        .padding(20)
-        .background(.white)
-        .cornerRadius(12, corners: .allCorners)
     }
     
     var titleView: some View {
@@ -68,7 +70,6 @@ struct WodView: View {
                 .foregroundStyle(Colors.grey100.swiftUIColor)
                 .frame(width: 48)
         }
-        
         .padding(.bottom, 10)
     }
     

@@ -14,25 +14,41 @@ struct WorkOutDetailFeature {
     @ObservableState
     struct State: Equatable {
         var item: WorkOutDayModel
-        var hasStart: Bool = false
-        var isDayCompleted: Bool = false
-        var isPresented: Bool = false
+        var duration: Int
+        var hasStart: Bool
+        var isDayCompleted: Bool
+        var isPresented: Bool
         
         @Presents var timerState: BreakTimeFeature.State?
+        @Presents var confirmState: WorkoutConfirmationFeature.State?
+        
+        init(item: WorkOutDayModel) {
+            self.item = item
+            self.duration = item.duration
+            self.hasStart = false
+            self.isDayCompleted = false
+            self.isPresented = false
+        }
     }
     
     enum Action: BindableAction {
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
+        case startTimer
+        case stopTimer
+        case timerTick
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
-        case saveWorkOutOfDay
+        case saveWodInfo
         case updateDayCompleted
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
+        case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
     }
+    
+    enum CancelID { case timer }
     
     @Dependency(\.dismiss) var dismiss
     
@@ -43,11 +59,30 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
+                state.confirmState = WorkoutConfirmationFeature.State() // 운동 종료 재확인.
                 return .none
             case .didTapStartButton:
-                // TODO: - Total Timer 시작
                 state.hasStart = true
-                return .none
+                return .run { send in
+                    await send(.startTimer)
+                }
+            case .startTimer:
+                return .run { send in
+                    while true {
+                        try await Task.sleep(for: .seconds(1))
+                        await send(.timerTick)
+                    }
+                }
+                .cancellable(id: CancelID.timer)
+            case .stopTimer:
+                return .cancel(id: CancelID.timer)
+            case .timerTick:
+                state.duration += 1
+                
+                state.item.duration = state.duration
+                return .run { send in
+                    await send(.saveWodInfo)
+                }
             case let .setCompleted(set):
                 var updatedSet = set
                 updatedSet.isCompleted.toggle()
@@ -80,9 +115,9 @@ struct WorkOutDetailFeature {
                     }
                 }
             }
-                return .concatenate(.send(.saveWorkOutOfDay),
+                return .concatenate(.send(.saveWodInfo),
                                     .send(.updateDayCompleted))
-            case .saveWorkOutOfDay:
+            case .saveWodInfo:
                 let userDefaultsManager = UserDefaultsManager()
                 userDefaultsManager.saveWodInfo(day: state.item)
                 return .none
@@ -94,27 +129,28 @@ struct WorkOutDetailFeature {
                 }
                 
                 if state.isDayCompleted {
-                    // TODO: 운동을 완료할까요? BottomSheet 호출
-                    // TODO: completedInfo에 SaveDate, SaveDuration 함께 저장.
-                    state.item.completedInfo = .init(isCompleted: true)
-                    
-                    let userDefaultsManager = UserDefaultsManager()
-                    userDefaultsManager.saveWodInfo(day: state.item)
-                    
-                    print("isDayCompleted!!!")
+                    state.confirmState = WorkoutConfirmationFeature.State() // 운동 완료 재확인.
+                    state.isPresented = false
                 }
                 return .none
-            case .breakTimerAction:
-                return .none
-            case .binding:
+            case .confirmAction(.presented(.didTapDoneButton)):
+                state.item.completedInfo = .init(isCompleted: true, completedDate: Date())
+                
+                print("운동 완료")
+                
+                return .merge(.send(.stopTimer),
+                              .send(.saveWodInfo))
+            default:
                 return .none
             }
         }
         .ifLet(\.$timerState, action: \.breakTimerAction) {
             BreakTimeFeature()
         }
+        .ifLet(\.$confirmState, action: \.confirmAction) {
+            WorkoutConfirmationFeature()
+        }
     }
-    
 }
 
 struct WorkOutDetailView: View {
@@ -122,12 +158,13 @@ struct WorkOutDetailView: View {
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
     @State private var isPresented: Bool = false
+    @State private var dynamicHeight: CGFloat = .zero
     
     var body: some View {
         WithPerceptionTracking {
             ZStack(alignment: .bottom) {
                 VStack {
-                    WorkOutNavigationView(displayTimer: .constant("00:00:00")) {
+                    WorkOutNavigationView(duration: store.duration) {
                         store.send(.didTapBackButton)
                     } doneAction: {
                         store.send(.didTapDoneButton)
@@ -156,16 +193,11 @@ struct WorkOutDetailView: View {
                             }
                             .padding(.horizontal, 20)
                             .padding(.bottom, 149)
-                            
-                            if !store.hasStart {
-                                Colors.black100.swiftUIColor.opacity(0.3)
-                            }
                         }
-                        .disabled(!store.hasStart) /* Q: 시작하기 눌러야 활성화되게 처리. 기획 */
                     }
                 }
                 .background(Colors.blue10.swiftUIColor)
-               
+                
                 if !store.hasStart {
                     Button(action: {
                         store.send(.didTapStartButton)
@@ -184,7 +216,20 @@ struct WorkOutDetailView: View {
                     BreakTimeFeature()
                 })
             }
+            .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { store in
+                WorkoutConfirmationView(store: store)
+                    .presentationDetents([.height(dynamicHeight + 20.0)])
+                    .background {
+                        GeometryReader { proxy in
+                            Color.clear
+                                .onAppear {
+                                    dynamicHeight = proxy.size.height
+                                }
+                        }
+                    }
+            }
         }
+        
     }
 }
 

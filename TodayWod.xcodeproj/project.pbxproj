@@ -11,6 +11,7 @@
 		1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */; };
 		1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A82CA18B630017F1D4 /* WodView.swift */; };
 		1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */; };
+		1C622DB92CABCBB20034834E /* Extension+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C622DB82CABCBB20034834E /* Extension+Int.swift */; };
 		1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */; };
 		1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */; };
 		1C9C9F682CABA85900157001 /* WodInfo+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C9F662CABA85900157001 /* WodInfo+Entity.swift */; };
@@ -96,6 +97,7 @@
 		1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodSetView.swift; sourceTree = "<group>"; };
 		1C4EE0A82CA18B630017F1D4 /* WodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodView.swift; sourceTree = "<group>"; };
 		1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailTitleView.swift; sourceTree = "<group>"; };
+		1C622DB82CABCBB20034834E /* Extension+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Int.swift"; sourceTree = "<group>"; };
 		1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C9C9F662CABA85900157001 /* WodInfo+Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WodInfo+Entity.swift"; sourceTree = "<group>"; };
@@ -198,6 +200,14 @@
 			path = Row;
 			sourceTree = "<group>";
 		};
+		1C622DBA2CAC23360034834E /* Confirm */ = {
+			isa = PBXGroup;
+			children = (
+				AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */,
+			);
+			path = Confirm;
+			sourceTree = "<group>";
+		};
 		1C9C9F672CABA85900157001 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				1C9C9F692CABA89600157001 /* WorkOutNavigationView.swift */,
+				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -222,6 +233,7 @@
 				1CFED2D92C9B9C9B000A09E5 /* Empty */,
 				1CFED2DE2C9B9C9B000A09E5 /* Main */,
 				1CFED2DC2C9B9C9B000A09E5 /* Detail */,
+				1C622DBA2CAC23360034834E /* Confirm */,
 			);
 			path = WorkOut;
 			sourceTree = "<group>";
@@ -383,6 +395,7 @@
 		497C0F202CA0369900F7444E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1C622DB82CABCBB20034834E /* Extension+Int.swift */,
 				497C0F1A2CA02CD800F7444E /* Extension+Date.swift */,
 				AD386C492CAA90ED0038C27F /* Extension+String.swift */,
 				1C9C9F722CABBA3A00157001 /* Extension+Array.swift */,
@@ -777,6 +790,7 @@
 				1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */,
 				1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */,
 				49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */,
+				1C622DB92CABCBB20034834E /* Extension+Int.swift in Sources */,
 				497C0F1F2CA0309100F7444E /* CalendarCellView.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
 				1CFED2D52C9B9C0D000A09E5 /* ExerciseUnit.swift in Sources */,

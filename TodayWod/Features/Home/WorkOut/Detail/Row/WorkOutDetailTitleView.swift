@@ -30,6 +30,7 @@ struct WorkOutDetailTitleView: View {
                     Text(item.displayEstimatedCalorie)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
                         .foregroundStyle(Colors.grey100.swiftUIColor)
+                        .minimumScaleFactor(0.5)
                     Text(item.displayEstimatedCalorieTitle)
                         .font(Fonts.Pretendard.regular.swiftUIFont(size: 12))
                         .foregroundStyle(Colors.grey70.swiftUIColor)
@@ -40,7 +41,6 @@ struct WorkOutDetailTitleView: View {
         .padding(20)
         .background(.white)
         .cornerRadius(12, corners: .allCorners)
-        .padding(.vertical, 10)
     }
     
 }
