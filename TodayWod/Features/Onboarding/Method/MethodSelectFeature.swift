@@ -22,6 +22,8 @@ struct MethodSelectFeature {
         var onboardingUserModel: OnboardingUserInfoModel
         var entryType: EntryType = .onBoarding
 
+        var dynamicHeight: CGFloat = .zero
+
         @Presents var methodDescription: MethodDescriptionFeature.State?
     }
 
@@ -35,6 +37,7 @@ struct MethodSelectFeature {
         case didTapBodyDescriptionButton
         case didTapMachineDescriptionButton
         case finishOnboarding
+        case setDynamicHeight(CGFloat)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -100,6 +103,9 @@ struct MethodSelectFeature {
                 state.methodDescription = MethodDescriptionFeature.State(methodType: .machine)
                 return .none
             case .finishOnboarding:
+                return .none
+            case let .setDynamicHeight(height):
+                state.dynamicHeight = height
                 return .none
             }
         }
@@ -228,9 +234,19 @@ struct MethodSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .sheet(item: $store.scope(state: \.methodDescription, action: \.methodDescriptionTap)) { store in
-                MethodDescriptionView(store: store)
-                    .presentationDetents([.medium, .large])
+            .sheet(item: $store.scope(state: \.methodDescription, action: \.methodDescriptionTap)) { descriptionStore in
+                WithPerceptionTracking {
+                    MethodDescriptionView(store: descriptionStore)
+                        .background {
+                            GeometryReader { proxy in
+                                Color.clear
+                                    .onAppear {
+                                        store.send(.setDynamicHeight(proxy.size.height))
+                                    }
+                            }
+                        }
+                        .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
+                }
             }
         }
     }

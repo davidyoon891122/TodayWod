@@ -280,6 +280,8 @@
 			children = (
 				1CFED2D82C9B9C9B000A09E5 /* WorkOut */,
 				49101A712C8D374400FDB709 /* HomeFeature.swift */,
+				498712332CABADD200FB876E /* WorkoutFinishConfirm */,
+				498712342CABADF400FB876E /* Celebrate */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -415,6 +417,22 @@
 				497C0F0D2C9E6D7100F7444E /* BreakTimeFeature.swift */,
 			);
 			path = Timer;
+			sourceTree = "<group>";
+		};
+		498712332CABADD200FB876E /* WorkoutFinishConfirm */ = {
+			isa = PBXGroup;
+			children = (
+				AD386C472CAA16190038C27F /* WorkoutConfirmationFeature.swift */,
+			);
+			path = WorkoutFinishConfirm;
+			sourceTree = "<group>";
+		};
+		498712342CABADF400FB876E /* Celebrate */ = {
+			isa = PBXGroup;
+			children = (
+				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
+			);
+			path = Celebrate;
 			sourceTree = "<group>";
 		};
 		4992E6832C97E076001A1375 /* Weight */ = {
