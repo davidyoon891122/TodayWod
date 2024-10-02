@@ -17,6 +17,7 @@ struct WorkoutConfirmationFeature {
     }
     
     enum Action {
+        case didTapDoneButton
         case didTapCloseButton
     }
     
@@ -25,6 +26,8 @@ struct WorkoutConfirmationFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .didTapDoneButton:
+                return .run { _ in await dismiss() }
             case .didTapCloseButton:
                 return .run { _ in await dismiss() }
             }
@@ -63,7 +66,7 @@ struct WorkoutConfirmationView: View {
                 })
 
                 Button(action: {
-                    // TODO: - did tap new challenge
+                    store.send(.didTapDoneButton)
                 }, label: {
                     Text("운동 완료")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))

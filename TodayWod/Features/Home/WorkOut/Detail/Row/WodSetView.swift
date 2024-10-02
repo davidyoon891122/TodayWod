@@ -23,27 +23,34 @@ struct WodSetView: View {
     }
     
     var body: some View {
-        HStack {
-            TextField("", text: $unitText)
-                .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
-                .foregroundStyle(Colors.grey100.swiftUIColor)
+        WithPerceptionTracking {
+            HStack {
+                TextField("", text: $unitText)
+                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 18.0))
+                    .foregroundStyle(Colors.grey100.swiftUIColor)
+                    .frame(width: 48, height: 48)
+                    .roundedBorder(radius: 8.0, color: Colors.grey40)
+                    .multilineTextAlignment(.center)
+                    .keyboardType(.numberPad)
+                Spacer()
+                Button {
+                    store.send(.setCompleted(model))
+                } label: {
+                    if store.hasStart {
+                        model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
+                    }
+                }
                 .frame(width: 48, height: 48)
-                .roundedBorder(radius: 8, color: Colors.grey40)
-                .multilineTextAlignment(.center)
-                .keyboardType(.numberPad)
-            Spacer()
-            Button {
-                store.send(.setCompleted(model))
-            } label: {
-                model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
+                .background(Colors.grey20.swiftUIColor)
+                .clipShape(.rect(cornerRadius: 8.0))
+                .roundedBorder(radius: 8.0, color: Colors.grey40)
+                .disabled(!store.hasStart)
             }
-            .frame(width: 48, height: 48)
-        }
-        .onChange(of: unitText) { text in
-            store.send(.setUnitText(text, model))
+            .onChange(of: unitText) { text in
+                store.send(.setUnitText(text, model))
+            }
         }
     }
-    
 }
 
 #Preview {

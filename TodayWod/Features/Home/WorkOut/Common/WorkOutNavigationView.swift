@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkOutNavigationView: View {
 
-    @Binding var displayTimer: String
+    let duration: Int
     
     let backAction: (() -> Void)
     let doneAction: (() -> Void)
@@ -23,7 +23,7 @@ struct WorkOutNavigationView: View {
             })
             .frame(width: 40, height: 40)
             
-            Text(displayTimer)
+            Text(duration.timerFormatter)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
             
@@ -44,7 +44,7 @@ struct WorkOutNavigationView: View {
 
 
 #Preview {
-    WorkOutNavigationView(displayTimer: .constant("00:00:00"), backAction: {
+    WorkOutNavigationView(duration: 0, backAction: {
         print("didTapBackButton")
     }, doneAction: {
         print("didTapDoneButton")
