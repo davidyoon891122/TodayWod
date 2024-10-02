@@ -66,6 +66,10 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
 
 extension WorkOutDayModel {
     
+    var isCompleted: Bool {
+        self.completedInfo.isCompleted
+    }
+    
     var displayExpectedMinuteTitle: String {
         "예상 시간"
     }
@@ -87,6 +91,12 @@ extension WorkOutDayModel {
 extension WorkOutDayModel {
     
     static let fake: Self = .init(data: WorkOutDayEntity.fake)
+    
+    static let completedFake: Self = {
+        var item = WorkOutDayModel.fake
+        item.completedInfo = .init(isCompleted: true, completedDate: Date())
+        return item
+    }()
     
     static var fakes: [Self] = {
         return WorkOutDayEntity.bodyBeginnerAlphaWeek.map { fake -> WorkOutDayModel in

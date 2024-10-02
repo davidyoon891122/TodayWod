@@ -100,12 +100,9 @@ struct ModifyProfileView: View {
                 
                 Spacer()
                 
-                Button(action: {
+                BottomButton(title: "확인") {
                     store.send(.didTapConfirmButton)
-                }, label: {
-                    Text("확인")
-                        .bottomButtonStyle() // TODO: - 범용적인 이름으로 바꿀지 고민
-                })
+                }
                 .disabled(!store.isValidNickname)
                 .padding(.horizontal, 38.0)
                 .padding(.bottom, 20.0)

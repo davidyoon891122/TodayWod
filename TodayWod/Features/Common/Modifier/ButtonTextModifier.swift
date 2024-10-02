@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonTextModifier: ViewModifier {
+struct ButtonButtonModifier: ViewModifier {
 
     @Environment(\.isEnabled) var isEnabled
 
@@ -17,12 +17,13 @@ struct ButtonTextModifier: ViewModifier {
             .frame(maxWidth: .infinity, minHeight: 56.0)
             .background(isEnabled ? .blue60 : .blue20)
             .clipShape(.rect(cornerRadius: 300.0))
+            .contentShape(Rectangle())
             .foregroundStyle(.white)
     }
 
 }
 
-struct CloseTextModifier: ViewModifier {
+struct CloseButtonModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
@@ -38,11 +39,11 @@ struct CloseTextModifier: ViewModifier {
 extension View {
 
     func bottomButtonStyle() -> some View {
-        self.modifier(ButtonTextModifier())
+        self.modifier(ButtonButtonModifier())
     }
 
     func closeButtonStyle() -> some View {
-        self.modifier(CloseTextModifier())
+        self.modifier(CloseButtonModifier())
     }
 
 }

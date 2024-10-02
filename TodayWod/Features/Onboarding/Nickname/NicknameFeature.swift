@@ -124,12 +124,9 @@ struct NicknameInputView: View {
                     }
                 }
                 Spacer()
-                Button(action: {
+                BottomButton(title: store.buttonTitle) {
                     store.send(.didTapNextButton)
-                }, label: {
-                    Text(store.buttonTitle)
-                        .bottomButtonStyle()
-                })
+                }
                 .disabled(!store.isValidNickname)
                 .padding(.bottom, 20.0)
                 .padding(.horizontal, 38.0)

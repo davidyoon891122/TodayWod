@@ -44,22 +44,19 @@ struct WorkOutEmptyView: View {
                     .frame(width: 120.0, height: 120.0)
                     .padding(.top, 120.0)
                 
-                Text(Constants.Title)
+                Text(Constants.title)
                     .bold()
                     .font(.system(size: 20.0))
                     .padding(.top, 30.0)
                 
-                Text(Constants.SubTitle)
+                Text(Constants.subTitle)
                     .font(.system(size: 16.0))
                     .padding(.top, 10.0)
                     .multilineTextAlignment(.center)
                 
-                Button(action: {
+                BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapStartButton)
-                }, label: {
-                    Text(Constants.ButtonTitle)
-                        .bottomButtonStyle()
-                })
+                }
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity, minHeight: 56.0)
                 .background(.cyan)
@@ -77,9 +74,9 @@ struct WorkOutEmptyView: View {
 private extension WorkOutEmptyView {
     
     enum Constants {
-        static let Title: String = "운동 루틴을 만들어보세요"
-        static let SubTitle: String = "월요일부터 토요일까지 \n자동으로 새로운 운동 프로그램을 만들어요"
-        static let ButtonTitle: String = "새로운 운동 만들기"
+        static let title: String = "운동 루틴을 만들어보세요"
+        static let subTitle: String = "월요일부터 토요일까지 \n자동으로 새로운 운동 프로그램을 만들어요"
+        static let buttonTitle: String = "새로운 운동 만들기"
     }
     
 }

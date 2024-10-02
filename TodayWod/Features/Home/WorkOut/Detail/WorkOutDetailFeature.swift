@@ -196,12 +196,9 @@ struct WorkOutDetailView: View {
                 .background(Colors.blue10.swiftUIColor)
                 
                 if !store.hasStart {
-                    Button(action: {
+                    BottomButton(title: Constants.buttonTitle) {
                         store.send(.didTapStartButton)
-                    }, label: {
-                        Text(Constants.buttonTitle)
-                    })
-                    .bottomButtonStyle()
+                    }
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
                 }
