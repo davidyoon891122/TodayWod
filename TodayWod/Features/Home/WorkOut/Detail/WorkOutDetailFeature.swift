@@ -17,7 +17,6 @@ struct WorkOutDetailFeature {
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
-        var isPresented: Bool
         
         @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
@@ -27,7 +26,6 @@ struct WorkOutDetailFeature {
             self.duration = item.duration
             self.hasStart = false
             self.isDayCompleted = false
-            self.isPresented = false
         }
     }
     
@@ -88,7 +86,7 @@ struct WorkOutDetailFeature {
                 updatedSet.isCompleted.toggle()
                 
                 if updatedSet.isCompleted {
-                    state.isPresented = true // 휴식 시작.
+                    state.timerState = BreakTimeFeature.State()
                 }
                 
                 let wodSet = updatedSet
@@ -130,7 +128,7 @@ struct WorkOutDetailFeature {
                 
                 if state.isDayCompleted {
                     state.confirmState = WorkoutConfirmationFeature.State() // 운동 완료 재확인.
-                    state.isPresented = false
+                    state.timerState = BreakTimeFeature.State()
                 }
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)):
@@ -157,7 +155,6 @@ struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
-    @State private var isPresented: Bool = false
     @State private var dynamicHeight: CGFloat = .zero
     
     var body: some View {
@@ -210,11 +207,8 @@ struct WorkOutDetailView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .bind($store.isPresented, to: $isPresented)
-            .bottomSheet(isPresented: $isPresented) {
-                BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
-                    BreakTimeFeature()
-                })
+            .bottomSheet(item: $store.scope(state: \.timerState, action: \.breakTimerAction)) { breakStore in
+                BreakTimerView(store: breakStore)
             }
             .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { store in
                 WorkoutConfirmationView(store: store)

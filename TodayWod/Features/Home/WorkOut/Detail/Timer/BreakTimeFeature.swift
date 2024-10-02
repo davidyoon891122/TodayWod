@@ -52,7 +52,7 @@ struct BreakTimeFeature {
                 }
 
                 state.currentSeconds -= 1
-
+                print(state.currentSeconds)
                 return .none
             case .didTapReset:
                 state.currentSeconds = 60
@@ -96,7 +96,7 @@ struct BreakTimerView: View {
 
     var body: some View {
         WithPerceptionTracking {
-
+            
             VStack {
                 HStack {
                     Text("휴식")
