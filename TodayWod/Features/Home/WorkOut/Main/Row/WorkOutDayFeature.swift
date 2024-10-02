@@ -43,9 +43,18 @@ struct WorkOutDayView: View {
                             .foregroundStyle(Colors.grey80.swiftUIColor)
                     }
                     Spacer()
-                    Images.genderMan.swiftUIImage
-                        .resizable()
-                        .frame(width: 48, height: 48)
+                    ZStack {
+                        Images.genderMan.swiftUIImage
+                            .resizable()
+                        if item.isCompleted {
+                            Circle()
+                                .foregroundStyle(Colors.blue60.swiftUIColor.opacity(0.8))
+                            Text(Constants.DoneTitle)
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .frame(width: 48, height: 48)
                 }
                 
                 HStack(spacing: 40) {
@@ -68,7 +77,7 @@ struct WorkOutDayView: View {
                 }
             }
             .padding(16)
-            .background(Colors.grey10.swiftUIColor)
+            .background(item.isCompleted ? Colors.blue10.swiftUIColor : Colors.grey10.swiftUIColor)
             .cornerRadius(12.0, corners: .allCorners)
         }
         .padding(.horizontal, 20)
@@ -80,10 +89,11 @@ private extension WorkOutDayView {
     
     enum Constants {
         static let dayTitle: String = "Day "
+        static let DoneTitle: String = "Done!"
     }
     
 }
 
 #Preview {
-    WorkOutDayView(index: 0, item: WorkOutDayModel.fake)
+    WorkOutDayView(index: 0, item: WorkOutDayModel.completedFake)
 }
