@@ -157,7 +157,6 @@ struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     
-    @State private var duration: Int = 0
     @State private var isPresented: Bool = false
     @State private var dynamicHeight: CGFloat = .zero
     
@@ -165,7 +164,7 @@ struct WorkOutDetailView: View {
         WithPerceptionTracking {
             ZStack(alignment: .bottom) {
                 VStack {
-                    WorkOutNavigationView(duration: $duration) {
+                    WorkOutNavigationView(duration: store.duration) {
                         store.send(.didTapBackButton)
                     } doneAction: {
                         store.send(.didTapDoneButton)
@@ -212,7 +211,6 @@ struct WorkOutDetailView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .bind($store.isPresented, to: $isPresented)
-            .bind($store.duration, to: $duration)
             .bottomSheet(isPresented: $isPresented) {
                 BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
                     BreakTimeFeature()

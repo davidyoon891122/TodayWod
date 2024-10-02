@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkOutNavigationView: View {
 
-    @Binding var duration: Int
+    let duration: Int
     
     let backAction: (() -> Void)
     let doneAction: (() -> Void)
@@ -44,7 +44,7 @@ struct WorkOutNavigationView: View {
 
 
 #Preview {
-    WorkOutNavigationView(duration: .constant(0), backAction: {
+    WorkOutNavigationView(duration: 0, backAction: {
         print("didTapBackButton")
     }, doneAction: {
         print("didTapDoneButton")

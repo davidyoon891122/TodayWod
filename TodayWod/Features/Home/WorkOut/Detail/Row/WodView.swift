@@ -70,7 +70,6 @@ struct WodView: View {
                 .foregroundStyle(Colors.grey100.swiftUIColor)
                 .frame(width: 48)
         }
-        
         .padding(.bottom, 10)
     }
     
