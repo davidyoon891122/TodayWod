@@ -20,4 +20,8 @@ extension String {
         return predicate.evaluate(with: self)
     }
     
+    var charWrapping: String {
+        return self.split(separator: "").joined(separator: "\u{200B}")
+    }
+    
 }
