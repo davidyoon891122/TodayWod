@@ -7,7 +7,6 @@
 
 import Foundation
 import ComposableArchitecture
-import Combine
 
 @Reducer
 struct WeightInputFeature {
@@ -113,9 +112,10 @@ struct WeightInputView: View {
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
-                                .onReceive(Just(store.weight)) { newValue in
+                                .onChange(of: store.weight) { newValue in
                                     store.send(.setWeight(newValue.heightWeightFilter()))
                                 }
+                                .On
                             
                             Text("kg")
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))

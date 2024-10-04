@@ -7,7 +7,6 @@
 
 import Foundation
 import ComposableArchitecture
-import Combine
 
 @Reducer
 struct ModifyWeightFeature {
@@ -89,7 +88,7 @@ struct ModifyWeightView: View {
                             .foregroundStyle(.grey100)
                             .padding(.vertical, 8)
                             .fixedSize(horizontal: true, vertical: false)
-                            .onReceive(Just(store.weight)) { newValue in
+                            .onChange(of: store.weight) { newValue in
                                 store.send(.setWeight(newValue.heightWeightFilter()))
                             }
                         

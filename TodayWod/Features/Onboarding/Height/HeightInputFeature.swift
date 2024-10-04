@@ -7,7 +7,6 @@
 
 import Foundation
 import ComposableArchitecture
-import Combine
 
 @Reducer
 struct HeightInputFeature {
@@ -113,7 +112,7 @@ struct HeightInputView: View {
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
-                                .onReceive(Just(store.height)) { newValue in // TODO: - Combine 사용하는 방식이라 고민 필요(copy & paste 처리까지 막으려면 onReceive 처리 필요
+                                .onChange(of: store.height) { newValue in // TODO: - onChange 경우 Copy & Paste 처리 불가
                                     store.send(.setHeight(newValue.heightWeightFilter()))
                                 }
                             
