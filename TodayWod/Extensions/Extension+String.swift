@@ -41,10 +41,8 @@ extension String {
         let regex = "^[0-9]*$"
         
         if let _ = self.range(of: regex, options: .regularExpression) {
-            print("pass")
             return "\(self.prefix(3))"
         } else {
-            print("Can't pass")
             return String(self.prefix(self.count - 1))
         }
         

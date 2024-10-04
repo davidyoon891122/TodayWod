@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Combine
 
 @Reducer
 struct WeightInputFeature {
@@ -53,13 +54,8 @@ struct WeightInputFeature {
 
                 return .send(.finishInputWeight(LevelSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setWeight(weight):
-                if let _ = Int(weight), !weight.isEmpty {
-                    state.weight = weight
-                    state.isValidWeight = true
-                } else {
-                    state.weight = ""
-                    state.isValidWeight = false
-                }
+                state.weight = weight
+                state.isValidWeight = state.weight.isValidHeightWeight()
                 return .none
             case .finishInputWeight:
                 return .none
@@ -117,6 +113,9 @@ struct WeightInputView: View {
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
+                                .onReceive(Just(store.weight)) { newValue in
+                                    store.send(.setWeight(newValue.heightWeightFilter()))
+                                }
                             
                             Text("kg")
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
