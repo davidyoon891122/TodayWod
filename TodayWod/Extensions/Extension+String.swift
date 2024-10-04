@@ -21,7 +21,7 @@ extension String {
     }
     
     func nickNameFilter() -> String {
-        let regex = "^[a-zA-Z0-9가-힣]*$"
+        let regex = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]*$"
                         
         if let _ = self.range(of: regex, options: .regularExpression) {
             return "\(self.prefix(10))"
