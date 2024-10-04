@@ -58,7 +58,7 @@ struct MyPageView: View {
                 }
                 ScrollView {
                     LazyVStack {
-                        ProfileView(nickName: store.userInfoModel.nickName ?? "") {
+                        ProfileView(nickName: store.userInfoModel.nickName ?? "", gender: store.userInfoModel.gender ?? .man) {
                             store.send(.didTapModifyProfileButton(store.state.userInfoModel))
                         }
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)

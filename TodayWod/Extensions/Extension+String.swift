@@ -28,6 +28,10 @@ extension String {
         } else {
             return String(self.prefix(self.count - 1))
         }
+	}
+
+    var charWrapping: String {
+        return self.split(separator: "").joined(separator: "\u{200B}")
     }
     
 }
