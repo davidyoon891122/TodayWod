@@ -156,10 +156,17 @@ struct MethodSelectView: View {
                                         store.send(.setMethod(.body))
                                     }, label: {
                                         ZStack {
-                                            Images.bodyWeight.swiftUIImage
-                                                .resizable()
-                                                .frame(width: 160, height: 160)
-                                                .clipShape(.circle)
+                                            if store.state.onboardingUserModel.gender == .man {
+                                                Images.bodyManWeight.swiftUIImage
+                                                    .resizable()
+                                                    .frame(width: 160, height: 160)
+                                                    .clipShape(.circle)
+                                            } else {
+                                                Images.bodyWomanWeight.swiftUIImage
+                                                    .resizable()
+                                                    .frame(width: 160, height: 160)
+                                                    .clipShape(.circle)
+                                            }
                                             Images.icCheck.swiftUIImage
                                                 .resizable()
                                                 .frame(width: 160.0, height: 160.0)
@@ -189,10 +196,17 @@ struct MethodSelectView: View {
                                         store.send(.setMethod(.machine))
                                     }, label: {
                                         ZStack {
-                                            Images.machineWeight.swiftUIImage
-                                                .resizable()
-                                                .frame(width: 160, height: 160)
-                                                .clipShape(.circle)
+                                            if store.state.onboardingUserModel.gender == .man {
+                                                Images.machineManWeight.swiftUIImage
+                                                    .resizable()
+                                                    .frame(width: 160, height: 160)
+                                                    .clipShape(.circle)
+                                            } else {
+                                                Images.machineWomanWeight.swiftUIImage
+                                                    .resizable()
+                                                    .frame(width: 160, height: 160)
+                                                    .clipShape(.circle)
+                                            }
                                             Images.icCheck.swiftUIImage
                                                 .resizable()
                                                 .frame(width: 160.0, height: 160.0)

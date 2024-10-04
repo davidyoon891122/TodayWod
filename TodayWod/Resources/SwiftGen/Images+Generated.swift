@@ -51,7 +51,8 @@ internal enum Images {
   internal static let icRefreshGray16 = ImageAsset(name: "ic_refresh_gray_16")
   internal static let icRemove16 = ImageAsset(name: "ic_remove_16")
   internal static let icRemove24 = ImageAsset(name: "ic_remove_24")
-  internal static let bodyWeight = ImageAsset(name: "body_weight")
+  internal static let bodyManWeight = ImageAsset(name: "body_man_weight")
+  internal static let bodyWomanWeight = ImageAsset(name: "body_woman_weight")
   internal static let genderMan = ImageAsset(name: "gender_man")
   internal static let genderWoman = ImageAsset(name: "gender_woman")
   internal static let icCheck = ImageAsset(name: "ic_check")
@@ -65,7 +66,8 @@ internal enum Images {
   internal static let icWeek7 = ImageAsset(name: "ic_week_7")
   internal static let icWeek8 = ImageAsset(name: "ic_week_8")
   internal static let icWeek9 = ImageAsset(name: "ic_week_9")
-  internal static let machineWeight = ImageAsset(name: "machine_weight")
+  internal static let machineManWeight = ImageAsset(name: "machine_man_weight")
+  internal static let machineWomanWeight = ImageAsset(name: "machine_woman_weight")
   internal static let trophy = ImageAsset(name: "trophy")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
