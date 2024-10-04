@@ -110,6 +110,9 @@ struct NicknameInputView: View {
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
+                                .onChange(of: store.nickName) { newValue in
+                                    store.send(.setNickname(newValue.nickNameFilter()))
+                                }
                         }
                         .frame(height: 48.0)
                         .padding(.top, 40.0)

@@ -84,6 +84,9 @@ struct ModifyProfileView: View {
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                             .foregroundStyle(.grey100)
                             .multilineTextAlignment(.center)
+                            .onChange(of: store.nickName) { newValue in
+                                store.send(.setNickname(newValue.nickNameFilter()))
+                            }
                     }
                     .frame(height: 48.0)
                     .padding(.top, 100.0)
