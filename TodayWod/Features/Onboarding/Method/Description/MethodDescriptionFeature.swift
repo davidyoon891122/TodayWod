@@ -48,10 +48,11 @@ struct MethodDescriptionView: View {
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
                         .foregroundStyle(.grey100)
 
-                    Text(store.methodType.description)
+                    Text(store.methodType.description.charWrapping)
                         .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
                         .foregroundStyle(.grey80)
                         .padding(.top, 10.0)
+                        
                 }
                 .padding(.top, 30.0)
                 .padding(.horizontal, 20.0)
