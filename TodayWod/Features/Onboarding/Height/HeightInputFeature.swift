@@ -55,7 +55,7 @@ struct HeightInputFeature {
                 return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
                 state.height = height
-                state.isValidHeight = state.height.isValidHeight()
+                state.isValidHeight = state.height.isValidHeightWeight()
                 return .none
             case .finishInputHeight:
                 return .none
@@ -114,7 +114,7 @@ struct HeightInputView: View {
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
                                 .onReceive(Just(store.height)) { newValue in // TODO: - Combine 사용하는 방식이라 고민 필요(copy & paste 처리까지 막으려면 onReceive 처리 필요
-                                    store.send(.setHeight(newValue.heightFilter()))
+                                    store.send(.setHeight(newValue.heightWeightFilter()))
                                 }
                             
                             Text("cm")
