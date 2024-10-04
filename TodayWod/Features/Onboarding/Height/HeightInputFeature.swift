@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Combine
 
 @Reducer
 struct HeightInputFeature {
@@ -53,13 +54,8 @@ struct HeightInputFeature {
                 state.onboardingUserModel.height = Int(state.height)
                 return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
-                if let _ = Int(height), !height.isEmpty {
-                    state.height = height
-                    state.isValidHeight = true
-                } else {
-                    state.height = ""
-                    state.isValidHeight = false
-                }
+                state.height = height
+                state.isValidHeight = state.height.isValidHeight()
                 return .none
             case .finishInputHeight:
                 return .none
@@ -117,6 +113,9 @@ struct HeightInputView: View {
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
+                                .onReceive(Just(store.height)) { newValue in // TODO: - Combine 사용하는 방식이라 고민 필요(copy & paste 처리까지 막으려면 onReceive 처리 필요
+                                    store.send(.setHeight(newValue.heightFilter()))
+                                }
                             
                             Text("cm")
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))

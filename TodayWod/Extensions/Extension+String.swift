@@ -30,4 +30,24 @@ extension String {
         }
     }
     
+    func isValidHeight() -> Bool {
+        let regex = "^[0-9]{3}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+
+        return predicate.evaluate(with: self)
+    }
+    
+    func heightFilter() -> String {
+        let regex = "^[0-9]*$"
+        
+        if let _ = self.range(of: regex, options: .regularExpression) {
+            print("pass")
+            return "\(self.prefix(3))"
+        } else {
+            print("Can't pass")
+            return String(self.prefix(self.count - 1))
+        }
+        
+    }
+    
 }
