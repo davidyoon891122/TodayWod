@@ -44,6 +44,7 @@ struct WorkOutDetailFeature {
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
+        case finishWorkOut(WorkOutDayModel)
     }
     
     enum CancelID { case timer }
@@ -102,17 +103,17 @@ struct WorkOutDetailFeature {
                     await send(.updateWodSet(wodSet))
                 }
             case let .updateWodSet(set):
-            outerLoop: for (index, workout) in state.item.workOuts.enumerated() {
-                for (wodIndex, wod) in workout.items.enumerated() {
-                    if let setIndex = wod.wodSet.firstIndex(where: { $0.id == set.id }) {
-                        state.item.workOuts[index].items[wodIndex].wodSet[setIndex] = set
-                        
-                        print("%%%%%% UpdateWodSet: \(state.item.workOuts)")
-                        
-                        break outerLoop
+                outerLoop: for (index, workout) in state.item.workOuts.enumerated() {
+                    for (wodIndex, wod) in workout.items.enumerated() {
+                        if let setIndex = wod.wodSet.firstIndex(where: { $0.id == set.id }) {
+                            state.item.workOuts[index].items[wodIndex].wodSet[setIndex] = set
+                            
+                            print("%%%%%% UpdateWodSet: \(state.item.workOuts)")
+                            
+                            break outerLoop
+                        }
                     }
                 }
-            }
                 return .concatenate(.send(.saveWodInfo),
                                     .send(.updateDayCompleted))
             case .saveWodInfo:
@@ -134,10 +135,9 @@ struct WorkOutDetailFeature {
             case .confirmAction(.presented(.didTapDoneButton)):
                 state.item.completedInfo = .init(isCompleted: true, completedDate: Date())
                 
-                print("운동 완료")
-                
-                return .merge(.send(.stopTimer),
-                              .send(.saveWodInfo))
+                return .concatenate(.send(.stopTimer),
+                                    .send(.saveWodInfo),
+                                    .send(.finishWorkOut(state.item)))
             default:
                 return .none
             }
@@ -149,6 +149,7 @@ struct WorkOutDetailFeature {
             WorkoutConfirmationFeature()
         }
     }
+    
 }
 
 struct WorkOutDetailView: View {
@@ -220,7 +221,6 @@ struct WorkOutDetailView: View {
                     }
             }
         }
-        
     }
 }
 

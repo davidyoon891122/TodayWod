@@ -75,7 +75,7 @@ extension WorkOutDayModel {
     }
     
     var displayEstimatedCalorieTitle: String {
-        "예상 소모 칼로리"
+        "예상 소모 Kcal"
     }
     
     var displayExpectedMinute: String {
@@ -83,7 +83,11 @@ extension WorkOutDayModel {
     }
     
     var displayEstimatedCalorie: String {
-        "약 \(estimatedStartCalorie) ~ \(estimatedEndCalorie) 칼로리"
+        "약 \(estimatedStartCalorie)~\(estimatedEndCalorie) Kcal"
+    }
+    
+    var completedSetCount: Int {
+        self.workOuts.reduce(0) { $0 + $1.completedSetCount }
     }
     
 }

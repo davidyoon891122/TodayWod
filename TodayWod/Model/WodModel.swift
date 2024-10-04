@@ -24,6 +24,14 @@ struct WorkOutInfo: Codable, Equatable, Identifiable {
     
 }
 
+extension WorkOutInfo {
+    
+    var completedSetCount: Int {
+        self.items.reduce(0) { $0 + $1.completedSetCount }
+    }
+    
+}
+
 struct WodModel: Codable, Equatable, Identifiable {
     
     var id: UUID
@@ -50,12 +58,27 @@ struct WodModel: Codable, Equatable, Identifiable {
 
 extension WodModel {
     
+    var completedSetCount: Int {
+        self.wodSet.count(where: { $0.isCompleted })
+    }
+    
     var isSetVisible: Bool {
         self.set > 1
     }
     
     var displaySet: String {
         "세트 (Set)"
+    }
+    
+    var displayCompletedSet: String {
+        if self.set > 1 {
+            return "\(self.set) 세트"
+        } else {
+            if let set = wodSet.first {
+                return set.displayUnitValue + self.unit.title
+            }
+            return "1 세트"
+        }
     }
     
 }

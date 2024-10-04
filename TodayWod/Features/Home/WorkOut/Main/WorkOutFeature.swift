@@ -11,11 +11,17 @@ import ComposableArchitecture
 @Reducer
 struct WorkOutFeature {
     
+    @Reducer(state: .equatable)
+    enum Path {
+        case detail(WorkOutDetailFeature)
+        case completed(WorkOutCompletedFeature)
+    }
+    
     @ObservableState
     struct State: Equatable {
         var wodInfo: WodInfo? = nil
         var workOutDays: [WorkOutDayModel] = []
-        var path = StackState<WorkOutDetailFeature.State>()
+        var path = StackState<Path.State>()
         var dynamicHeight: CGFloat = .zero
 
         @Presents var celebrateState: CelebrateFeature.State?
@@ -29,7 +35,7 @@ struct WorkOutFeature {
         case updateWodInfo
         case updateWeekCompleted
         case didTapDayView(item: WorkOutDayModel)
-        case path(StackAction<WorkOutDetailFeature.State, WorkOutDetailFeature.Action>)
+        case path(StackActionOf<Path>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
         case setDynamicHeight(CGFloat)
     }
@@ -83,10 +89,19 @@ struct WorkOutFeature {
                 }
                 return .none
             case let .didTapDayView(item):
-                state.path.append(WorkOutDetailFeature.State(item: item))
+                state.path.append(.detail(WorkOutDetailFeature.State(item: item)))
                 return .none
-            case .path(_):
-                return .none
+            case let .path(action):
+                switch action {
+                case .element(id: _, action: .detail(.finishWorkOut(let item))):
+                    state.path.append(.completed(WorkOutCompletedFeature.State(item: item)))
+                    return .none
+                case .element(id: _, action: .completed(.didTapCloseButton)):
+                    state.path.removeAll()
+                    return .none
+                default:
+                    return .none
+                }
             case .celebrateAction:
                 return .none
             case let .setDynamicHeight(height):
@@ -97,9 +112,7 @@ struct WorkOutFeature {
         .ifLet(\.$celebrateState, action: \.celebrateAction) {
             CelebrateFeature()
         }
-        .forEach(\.path, action: \.path) {
-            WorkOutDetailFeature()
-        }
+        .forEach(\.path, action: \.path)
     }
     
 }
@@ -133,7 +146,13 @@ struct WorkOutView: View {
                     }
                 }
             } destination: { store in
-                WorkOutDetailView(store: store)
+                switch store.case {
+                case let .detail(store):
+                    WorkOutDetailView(store: store)
+                case let .completed(store):
+                    WorkOutCompletedView(store: store)
+                }
+                
             }
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { celebrateStore in
                 CelebrateView(store: celebrateStore)
