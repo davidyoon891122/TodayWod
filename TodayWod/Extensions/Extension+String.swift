@@ -20,4 +20,18 @@ extension String {
         return predicate.evaluate(with: self)
     }
     
+    func nickNameFilter() -> String {
+        let regex = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]*$"
+                        
+        if let _ = self.range(of: regex, options: .regularExpression) {
+            return "\(self.prefix(10))"
+        } else {
+            return String(self.prefix(self.count - 1))
+        }
+	}
+
+    var charWrapping: String {
+        return self.split(separator: "").joined(separator: "\u{200B}")
+    }
+    
 }

@@ -89,9 +89,15 @@ struct MyActivityView: View {
                 ScrollView {
                     VStack {
                         HStack(spacing: 4) {
-                            Images.genderMan.swiftUIImage
-                                .resizable()
-                                .frame(width: 48.0, height: 48.0)
+                            if store.state.onboardingUserInfoModel?.gender == .man {
+                                Images.genderMan.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 48.0, height: 48.0)
+                            } else {
+                                Images.genderWoman.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 48.0, height: 48.0)
+                            }
                             VStack(alignment: .leading, spacing: 4.0) {
                                 Text(store.onboardingUserInfoModel?.nickName ?? "No name")
                                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
