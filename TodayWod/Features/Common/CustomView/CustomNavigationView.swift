@@ -61,9 +61,15 @@ struct CustomNavigationView: View {
     }
 }
 
-
 #Preview {
     CustomNavigationView(type: .present) {
+        print("Did tap back button")
+    }
+    .border(.gray)
+}
+
+#Preview {
+    CustomNavigationView(type: .push) {
         print("Did tap back button")
     }
     .border(.gray)

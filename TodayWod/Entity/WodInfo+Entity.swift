@@ -27,15 +27,15 @@ struct WorkOutDayEntity: Codable, Equatable {
     let title: String
     let subTitle: String
     let expectedMinute: Int
-    let estimatedStartCalorie: Int
-    let estimatedEndCalorie: Int
+    let estimatedMinCalorie: Int
+    let estimatedMaxCalorie: Int
     var workOuts: [WorkOutInfoEntity]
     
 }
 
 extension WorkOutDayEntity {
     
-    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedStartCalorie: 400, estimatedEndCalorie: 500, workOuts: WorkOutInfoEntity.bodyBeginnerAlphaDay1Info)
+    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedMinCalorie: 400, estimatedMaxCalorie: 500, workOuts: WorkOutInfoEntity.bodyBeginnerAlphaDay1Info)
 
 }
 

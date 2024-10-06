@@ -19,7 +19,7 @@ struct WorkOutCompletedTopView: View {
                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 13))
                 .foregroundStyle(.grey80)
             HStack(spacing: 40) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(item.displayEstimatedCalorie)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
                         .foregroundStyle(.grey100)

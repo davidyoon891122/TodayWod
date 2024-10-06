@@ -67,8 +67,9 @@ struct WorkOutCompletedView: View {
                     .padding(.bottom, 20.0)
                     .padding(.horizontal, 38.0)
                 }
-                .background(Colors.blue10.swiftUIColor)
+                
             }
+            .background(Colors.blue10.swiftUIColor)
             .toolbar(.hidden, for: .navigationBar)
         }
     }
