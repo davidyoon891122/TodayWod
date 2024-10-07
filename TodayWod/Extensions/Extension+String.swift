@@ -44,10 +44,13 @@ extension String {
             return "\(self.prefix(Constants.weightHeightMaxLength))"
         } else {
             return String(self.prefix(self.count - 1))
-        }
-        
+		}
     }
-    
+
+	var charWrapping: String {
+		return self.split(separator: "").joined(separator: "\u{200B}")
+	}
+
 }
 
 private extension String {
