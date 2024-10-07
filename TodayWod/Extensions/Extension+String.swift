@@ -24,7 +24,7 @@ extension String {
         let regex = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]*$"
                         
         if let _ = self.range(of: regex, options: .regularExpression) {
-            return "\(self.prefix(10))"
+            return "\(self.prefix(Constants.nickNameMaxLength))"
         } else {
             return String(self.prefix(self.count - 1))
         }
@@ -41,11 +41,20 @@ extension String {
         let regex = "^[0-9]*$"
         
         if let _ = self.range(of: regex, options: .regularExpression) {
-            return "\(self.prefix(3))"
+            return "\(self.prefix(Constants.weightHeightMaxLength))"
         } else {
             return String(self.prefix(self.count - 1))
         }
         
     }
     
+}
+
+private extension String {
+
+    enum Constants {
+        static let nickNameMaxLength: Int = 10
+        static let weightHeightMaxLength: Int = 3
+    }
+
 }
