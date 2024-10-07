@@ -21,7 +21,7 @@ struct WodView: View {
                 
                 headerView
                 
-                LazyVStack(spacing: 10) {
+                VStack(spacing: 10) {
                     ForEach(model.wodSet) { set in
                         HStack(spacing: 10) {
                             if model.isSetVisible {

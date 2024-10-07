@@ -180,7 +180,7 @@ struct WorkOutDetailView: View {
                                             .frame(height: 40)
                                             .padding(.top, 10)
                                         
-                                        LazyVStack(alignment: .leading, spacing: 10) {
+                                        VStack(alignment: .leading, spacing: 10) {
                                             ForEach(workOut.items) { item in
                                                 WodView(store: store, model: item)
                                             }
