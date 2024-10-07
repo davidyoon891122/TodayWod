@@ -13,11 +13,7 @@ struct HeightInputFeature {
 
     @ObservableState
     struct State: Equatable {
-        let title: String = "나만의 운동 프로그램을\n설정할게요!"
-        let subTitle: String = "키(cm) 를 알려주세요."
         var height: String = ""
-        let placeHolder: String = "0"
-        let buttonTitle: String = "다음"
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidHeight: Bool = false
@@ -82,7 +78,7 @@ struct HeightInputView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            Text(store.title)
+                            Text(Constants.title)
                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
                                 .foregroundStyle(.grey100)
                                 .lineLimit(2)
@@ -92,7 +88,7 @@ struct HeightInputView: View {
                         .padding(.horizontal, 20.0)
                         
                         HStack {
-                            Text(store.subTitle)
+                            Text(Constants.subTitle)
                                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
                                 .foregroundStyle(.grey80)
                                 .lineLimit(1)
@@ -103,7 +99,7 @@ struct HeightInputView: View {
                         .padding(.horizontal, 20)
                         
                         HStack(spacing: 8) {
-                            TextField(store.placeHolder, text: $store.height.sending(\.setHeight))
+                            TextField(Constants.placeHolder, text: $store.height.sending(\.setHeight))
                                 .focused($focusedField, equals: .height)
                                 .multilineTextAlignment(.trailing)
                                 .autocorrectionDisabled()
@@ -116,7 +112,7 @@ struct HeightInputView: View {
                                     store.send(.setHeight(newValue.filteredHeightWeight()))
                                 }
                             
-                            Text("cm")
+                            Text(Constants.unit)
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                                 .foregroundStyle(.grey100)
                         }
@@ -126,7 +122,7 @@ struct HeightInputView: View {
                     }
                 }
                 Spacer()
-                BottomButton(title: store.buttonTitle) {
+                BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapNextButton)
                 }
                 .disabled(!store.isValidHeight)
@@ -139,6 +135,18 @@ struct HeightInputView: View {
                 store.send(.onAppear)
             }
         }
+    }
+
+}
+
+extension HeightInputView {
+
+    enum Constants {
+        static let title: String = "나만의 운동 프로그램을\n설정할게요!"
+        static let subTitle: String = "키(cm) 를 알려주세요."
+        static let placeHolder: String = "0"
+        static let buttonTitle: String = "다음"
+        static let unit: String = "cm"
     }
 
 }
