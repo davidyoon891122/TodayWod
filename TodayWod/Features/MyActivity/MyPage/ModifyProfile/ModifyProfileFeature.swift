@@ -85,7 +85,7 @@ struct ModifyProfileView: View {
                             .foregroundStyle(.grey100)
                             .multilineTextAlignment(.center)
                             .onChange(of: store.nickName) { newValue in
-                                store.send(.setNickname(newValue.nickNameFilter()))
+                                store.send(.setNickname(newValue.filteredNickName()))
                             }
                     }
                     .frame(height: 48.0)

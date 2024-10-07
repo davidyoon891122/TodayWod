@@ -111,7 +111,7 @@ struct NicknameInputView: View {
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
                                 .onChange(of: store.nickName) { newValue in
-                                    store.send(.setNickname(newValue.nickNameFilter()))
+                                    store.send(.setNickname(newValue.filteredNickName()))
                                 }
                         }
                         .frame(height: 48.0)

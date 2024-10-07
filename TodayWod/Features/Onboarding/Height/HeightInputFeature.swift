@@ -53,13 +53,8 @@ struct HeightInputFeature {
                 state.onboardingUserModel.height = Int(state.height)
                 return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
-                if let _ = Int(height), !height.isEmpty {
-                    state.height = height
-                    state.isValidHeight = true
-                } else {
-                    state.height = ""
-                    state.isValidHeight = false
-                }
+                state.height = height
+                state.isValidHeight = state.height.isValidHeightWeight()
                 return .none
             case .finishInputHeight:
                 return .none
@@ -117,6 +112,9 @@ struct HeightInputView: View {
                                 .foregroundStyle(.grey100)
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
+                                .onChange(of: store.height) { newValue in // TODO: - onChange 경우 Copy & Paste 처리 불가
+                                    store.send(.setHeight(newValue.filteredHeightWeight()))
+                                }
                             
                             Text("cm")
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))

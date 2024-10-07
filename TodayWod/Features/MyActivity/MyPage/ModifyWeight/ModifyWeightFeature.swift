@@ -44,13 +44,9 @@ struct ModifyWeightFeature {
                 state.focusedField = .weight
                 return .none
             case let .setWeight(weight):
-                if let _ = Int(weight), !weight.isEmpty {
-                    state.weight = weight
-                    state.isValidWeight = true
-                } else {
-                    state.weight = ""
-                    state.isValidWeight = false
-                }
+                state.weight = weight
+                state.isValidWeight = state.weight.isValidHeightWeight()
+                
                 return .none
             case .binding:
                 return .none
@@ -92,6 +88,9 @@ struct ModifyWeightView: View {
                             .foregroundStyle(.grey100)
                             .padding(.vertical, 8)
                             .fixedSize(horizontal: true, vertical: false)
+                            .onChange(of: store.weight) { newValue in
+                                store.send(.setWeight(newValue.filteredHeightWeight()))
+                            }
                         
                         Text("kg")
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
