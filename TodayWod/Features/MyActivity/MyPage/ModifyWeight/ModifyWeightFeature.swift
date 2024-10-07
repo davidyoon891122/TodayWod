@@ -89,7 +89,7 @@ struct ModifyWeightView: View {
                             .padding(.vertical, 8)
                             .fixedSize(horizontal: true, vertical: false)
                             .onChange(of: store.weight) { newValue in
-                                store.send(.setWeight(newValue.heightWeightFilter()))
+                                store.send(.setWeight(newValue.filteredHeightWeight()))
                             }
                         
                         Text("kg")

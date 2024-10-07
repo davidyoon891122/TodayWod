@@ -113,9 +113,8 @@ struct WeightInputView: View {
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
                                 .onChange(of: store.weight) { newValue in
-                                    store.send(.setWeight(newValue.heightWeightFilter()))
+                                    store.send(.setWeight(newValue.filteredHeightWeight()))
                                 }
-                                .On
                             
                             Text("kg")
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))

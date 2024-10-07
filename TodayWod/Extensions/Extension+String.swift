@@ -20,7 +20,7 @@ extension String {
         return predicate.evaluate(with: self)
     }
     
-    func nickNameFilter() -> String {
+    func filteredNickName() -> String {
         let regex = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]*$"
                         
         if let _ = self.range(of: regex, options: .regularExpression) {
@@ -37,7 +37,7 @@ extension String {
         return predicate.evaluate(with: self) && Int(self) ?? 0 > 0
     }
     
-    func heightWeightFilter() -> String {
+    func filteredHeightWeight() -> String {
         let regex = "^[0-9]*$"
         
         if let _ = self.range(of: regex, options: .regularExpression) {

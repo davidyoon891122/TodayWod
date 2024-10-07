@@ -113,7 +113,7 @@ struct HeightInputView: View {
                                 .padding(.vertical, 8)
                                 .fixedSize(horizontal: true, vertical: false)
                                 .onChange(of: store.height) { newValue in // TODO: - onChange 경우 Copy & Paste 처리 불가
-                                    store.send(.setHeight(newValue.heightWeightFilter()))
+                                    store.send(.setHeight(newValue.filteredHeightWeight()))
                                 }
                             
                             Text("cm")
