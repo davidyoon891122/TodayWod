@@ -139,7 +139,7 @@ struct HeightInputView: View {
 
 }
 
-extension HeightInputView {
+private extension HeightInputView {
 
     enum Constants {
         static let title: String = "나만의 운동 프로그램을\n설정할게요!"
