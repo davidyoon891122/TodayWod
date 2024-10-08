@@ -44,8 +44,8 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     let title: String
     let subTitle: String
     let expectedMinute: Int
-    let estimatedStartCalorie: Int
-    let estimatedEndCalorie: Int
+    let estimatedMinCalorie: Int
+    let estimatedMaxCalorie: Int
     var workOuts: [WorkOutInfo]
     
     init(data: WorkOutDayEntity) {
@@ -57,8 +57,8 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
         self.title = data.title
         self.subTitle = data.subTitle
         self.expectedMinute = data.expectedMinute
-        self.estimatedStartCalorie = data.estimatedStartCalorie
-        self.estimatedEndCalorie = data.estimatedEndCalorie
+        self.estimatedMinCalorie = data.estimatedMinCalorie
+        self.estimatedMaxCalorie = data.estimatedMaxCalorie
         self.workOuts = data.workOuts.map { WorkOutInfo(data: $0) }
     }
     
@@ -75,7 +75,7 @@ extension WorkOutDayModel {
     }
     
     var displayEstimatedCalorieTitle: String {
-        "예상 소모 칼로리"
+        "예상 소모 Kcal"
     }
     
     var displayExpectedMinute: String {
@@ -83,7 +83,11 @@ extension WorkOutDayModel {
     }
     
     var displayEstimatedCalorie: String {
-        "약 \(estimatedStartCalorie) ~ \(estimatedEndCalorie) 칼로리"
+        "약 \(estimatedMinCalorie)~\(estimatedMaxCalorie) Kcal"
+    }
+    
+    var completedSetCount: Int {
+        self.workOuts.reduce(0) { $0 + $1.completedSetCount }
     }
     
 }

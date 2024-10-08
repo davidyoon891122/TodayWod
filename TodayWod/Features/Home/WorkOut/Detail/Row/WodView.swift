@@ -61,7 +61,7 @@ struct WodView: View {
                     .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
             }
-            Text(model.unit.title)
+            Text(model.unit.displayTitle)
                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
             Spacer()

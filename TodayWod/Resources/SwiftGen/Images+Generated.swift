@@ -39,7 +39,6 @@ internal enum Images {
   internal static let icChevronForward = ImageAsset(name: "ic_chevron_forward")
   internal static let icChevronForward16 = ImageAsset(name: "ic_chevron_forward_16")
   internal static let icCircleCheckOpacity80 = ImageAsset(name: "ic_circle_check_opacity_80")
-  internal static let icClose161 = ImageAsset(name: "ic_close_16-1")
   internal static let icClose16 = ImageAsset(name: "ic_close_16")
   internal static let icHomeActivate = ImageAsset(name: "ic_home_activate")
   internal static let icHomeDisable = ImageAsset(name: "ic_home_disable")
