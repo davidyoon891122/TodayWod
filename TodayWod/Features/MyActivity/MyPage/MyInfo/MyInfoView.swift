@@ -17,7 +17,7 @@ struct MyInfoView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("내 정보")
+                Text(Constants.title)
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                 Spacer()
             }
@@ -34,6 +34,14 @@ struct MyInfoView: View {
         }
         .padding(.horizontal, 20.0)
     }
+}
+
+private extension MyInfoView {
+    
+    enum Constants {
+        static let title: String = "내 정보"
+    }
+    
 }
 
 #Preview {

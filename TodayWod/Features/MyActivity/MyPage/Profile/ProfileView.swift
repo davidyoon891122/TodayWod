@@ -33,7 +33,7 @@ struct ProfileView: View {
             Button(action: {
                 action()
             }, label: {
-                Text("프로필 수정")
+                Text(Constants.buttonTitle)
                     .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
                     .padding(.vertical, 10.0)
                     .padding(.horizontal, 16.0)
@@ -47,6 +47,15 @@ struct ProfileView: View {
             .padding(.bottom, 40.0)
         }
     }
+    
+}
+
+private extension ProfileView {
+    
+    enum Constants {
+        static let buttonTitle: String = "프로필 수정"
+    }
+    
 }
 
 #Preview {
