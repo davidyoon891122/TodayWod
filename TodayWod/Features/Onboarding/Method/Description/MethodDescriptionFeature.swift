@@ -14,7 +14,6 @@ struct MethodDescriptionFeature {
     @ObservableState
     struct State: Equatable {
         let methodType: ProgramMethodType
-        let buttonTitle: String = "닫기"
     }
 
     enum Action {
@@ -60,7 +59,7 @@ struct MethodDescriptionView: View {
                 Button(action: {
                     store.send(.didTapBackButton)
                 }, label: {
-                    Text(store.buttonTitle)
+                    Text(Constants.buttonTitle)
                         .closeButtonStyle()
                 })
                 .padding(.top, 40.0)
@@ -70,6 +69,14 @@ struct MethodDescriptionView: View {
         }
     }
 
+}
+
+private extension MethodDescriptionView {
+    
+    enum Constants {
+        static let buttonTitle: String = "닫기"
+    }
+    
 }
 
 #Preview {
