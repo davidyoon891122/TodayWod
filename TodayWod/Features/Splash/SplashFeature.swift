@@ -13,7 +13,6 @@ struct SplashFeature {
 
     @ObservableState
     struct State: Equatable {
-        let title: String = "todaywod"
         let duration: Double = 3.0
         var opacity: Double = 0.0
     }
@@ -56,7 +55,7 @@ struct SplashView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack {
-                Text(store.title)
+                Text(Constants.title)
                     .bold()
                     .font(.system(size: 26.0))
                     .foregroundStyle(.white)
@@ -70,6 +69,14 @@ struct SplashView: View {
             .background(Colors.blue60.swiftUIColor)
         }
     }
+}
+
+private extension SplashView {
+    
+    enum Constants {
+        static let title: String = "todaywod"
+    }
+    
 }
 
 
