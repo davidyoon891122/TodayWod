@@ -16,7 +16,6 @@ struct ModifyWeightFeature {
         var placeHolder: String = "0"
         var weight: String = ""
         var isValidWeight: Bool = false
-        let buttonTitle: String = "확인"
         var onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo()
         var focusedField: FieldType?
         
@@ -92,7 +91,7 @@ struct ModifyWeightView: View {
                                 store.send(.setWeight(newValue.filteredHeightWeight()))
                             }
                         
-                        Text("kg")
+                        Text(Constants.unit)
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                             .foregroundStyle(.grey100)
                     }
@@ -101,7 +100,7 @@ struct ModifyWeightView: View {
                     .padding(.top, 100.0)
                 }
                 Spacer()
-                BottomButton(title: store.state.buttonTitle) {
+                BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapConfirmButton)
                 }
                 .disabled(!store.isValidWeight)
@@ -117,6 +116,16 @@ struct ModifyWeightView: View {
     }
     
 }
+
+private extension ModifyWeightView {
+    
+    enum Constants {
+        static let unit: String = "kg"
+        static let buttonTitle: String = "확인"
+    }
+    
+}
+
 
 #Preview {
     ModifyWeightView(store: Store(initialState: ModifyWeightFeature.State()) {

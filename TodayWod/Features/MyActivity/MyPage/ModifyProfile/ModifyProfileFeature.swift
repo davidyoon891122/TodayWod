@@ -16,8 +16,6 @@ struct ModifyProfileFeature {
         var placeHolder: String = ""
         var nickName: String = ""
         var isValidNickname: Bool = false
-        let ruleDescription: String = "영어와 한글, 숫자 2~10자 이내"
-        let validNicknameMessage: String = "멋진 닉네임이에요!"
         var focusedField: FieldType?
         var onboardingUserInfoModel: OnboardingUserInfoModel
         
@@ -93,7 +91,7 @@ struct ModifyProfileView: View {
                     .padding(.horizontal, 20.0)
                     
                     HStack {
-                        Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
+                        Text(store.isValidNickname ? Constants.validNicknameMessage : Constants.ruleDescription)
                             .multilineTextAlignment(.center)
                             .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
                             .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
@@ -103,7 +101,7 @@ struct ModifyProfileView: View {
                 
                 Spacer()
                 
-                BottomButton(title: "확인") {
+                BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapConfirmButton)
                 }
                 .disabled(!store.isValidNickname)
@@ -116,6 +114,16 @@ struct ModifyProfileView: View {
             .bind($store.focusedField, to: $focusedField)
             .toolbar(.hidden, for: .navigationBar)
         }
+    }
+    
+}
+
+private extension ModifyProfileView {
+    
+    enum Constants {
+        static let ruleDescription: String = "영어와 한글, 숫자 2~10자 이내"
+        static let validNicknameMessage: String = "멋진 닉네임이에요!"
+        static let buttonTitle: String = "확인"
     }
     
 }

@@ -13,10 +13,7 @@ struct LevelSelectFeature {
 
     @ObservableState
     struct State: Equatable {
-        let title: String = "나만의 운동 프로그램을\n설정할게요!"
-        let subTitle: String = "운동 수준을 알려주세요."
         var level: LevelType? = nil
-        let buttonTitle: String = "다음"
         var onboardingUserModel: OnboardingUserInfoModel
 
         var isValidLevel: Bool = false
@@ -85,7 +82,7 @@ struct LevelSelectView: View {
                     ScrollView {
                         VStack {
                             HStack {
-                                Text(store.title)
+                                Text(Constants.title)
                                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
                                     .foregroundStyle(.grey100)
                                     .lineLimit(2)
@@ -95,7 +92,7 @@ struct LevelSelectView: View {
                             .padding(.horizontal, 20.0)
 
                             HStack {
-                                Text(store.subTitle)
+                                Text(Constants.subTitle)
                                     .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
                                     .foregroundStyle(.grey80)
                                     .lineLimit(1)
@@ -107,11 +104,13 @@ struct LevelSelectView: View {
 
                             LazyVStack(spacing: 10.0) {
                                 ForEach(LevelType.allCases, id: \.self) { type in
-                                    LevelCardView(type: type, store: store)
-                                        .contentShape(Rectangle())
-                                        .onTapGesture {
-                                            store.send(.setLevel(type))
-                                        }
+                                    WithPerceptionTracking {
+                                        LevelCardView(type: type, isSelected: store.state.level == type)
+                                            .contentShape(Rectangle())
+                                            .onTapGesture {
+                                                store.send(.setLevel(type))
+                                            }                                        
+                                    }
                                 }
                             }
                             .padding(.top, 40.0)
@@ -120,7 +119,7 @@ struct LevelSelectView: View {
                     }
 
                     VStack {
-                        BottomButton(title: store.buttonTitle) {
+                        BottomButton(title: Constants.buttonTitle) {
                             store.send(.didTapNextButton)
                         }
                         .disabled(!store.isValidLevel)
@@ -135,45 +134,18 @@ struct LevelSelectView: View {
 
 }
 
+extension LevelSelectView {
+    
+    enum Constants {
+        static let title: String = "나만의 운동 프로그램을\n설정할게요!"
+        static let subTitle: String = "운동 수준을 알려주세요."
+        static let buttonTitle: String = "다음"
+    }
+    
+}
+
 #Preview {
     LevelSelectView(store: Store(initialState: LevelSelectFeature.State(onboardingUserModel: .init())) {
         LevelSelectFeature()
     })
-}
-
-struct LevelCardView: View {
-
-    let type: LevelType
-
-    @Perception.Bindable var store: StoreOf<LevelSelectFeature>
-
-    var body: some View {
-        WithPerceptionTracking {
-            VStack {
-                HStack {
-                    Text("\(type.title)")
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 18.0))
-                        .foregroundStyle(store.state.level == type ? .blue60 : .grey100)
-                    Spacer()
-                }
-                .padding(.horizontal, 16.0)
-                .padding(.top, 16.0)
-                HStack {
-                    Text("\(type.description)")
-                        .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                        .foregroundStyle(.grey80)
-                    Spacer()
-                }
-                .padding(.horizontal, 16.0)
-                .padding(.top, 4.0)
-                .padding(.bottom, 16.0)
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(store.state.level == type ? .blue60 : .grey40)
-            }
-            .padding(.horizontal, 20.0)
-        }
-    }
-
 }

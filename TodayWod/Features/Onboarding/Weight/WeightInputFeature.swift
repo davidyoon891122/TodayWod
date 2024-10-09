@@ -13,11 +13,7 @@ struct WeightInputFeature {
 
     @ObservableState
     struct State: Equatable {
-        let title: String = "나만의 운동 프로그램을\n설정할게요!"
-        let subTitle: String = "몸무게(kg) 를 알려주세요."
         var weight: String = ""
-        let placeHolder: String = "0"
-        let buttonTitle: String = "다음"
         var onboardingUserModel: OnboardingUserInfoModel
         var focusedField: FieldType?
 
@@ -82,7 +78,7 @@ struct WeightInputView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            Text(store.title)
+                            Text(Constants.title)
                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
                                 .foregroundStyle(.grey100)
                                 .lineLimit(2)
@@ -92,31 +88,31 @@ struct WeightInputView: View {
                         .padding(.horizontal, 20.0)
                         
                         HStack {
-                            Text(store.subTitle)
+                            Text(Constants.subTitle)
                                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 20.0))
                                 .foregroundStyle(.grey80)
                                 .lineLimit(1)
-                            
+
                             Spacer()
                         }
                         .padding(.top, 16.0)
                         .padding(.horizontal, 20)
                         
-                        HStack(spacing: 8) {
-                            TextField(store.placeHolder, text: $store.weight.sending(\.setWeight))
+                        HStack(spacing: 8.0) {
+                            TextField(Constants.placeHolder, text: $store.weight.sending(\.setWeight))
                                 .focused($focusedField, equals: .weight)
                                 .multilineTextAlignment(.trailing)
                                 .autocorrectionDisabled()
                                 .keyboardType(.numberPad)
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
                                 .foregroundStyle(.grey100)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, 8.0)
                                 .fixedSize(horizontal: true, vertical: false)
                                 .onChange(of: store.weight) { newValue in
                                     store.send(.setWeight(newValue.filteredHeightWeight()))
                                 }
                             
-                            Text("kg")
+                            Text(Constants.unit)
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 24.0))
                                 .foregroundStyle(.grey100)
                         }
@@ -127,7 +123,7 @@ struct WeightInputView: View {
                 }
                 Spacer()
                 
-                BottomButton(title: store.buttonTitle) {
+                BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapNextButton)
                 }
                 .disabled(!store.isValidWeight)
@@ -140,6 +136,18 @@ struct WeightInputView: View {
                 store.send(.onAppear)
             }
         }
+    }
+
+}
+
+private extension WeightInputView {
+
+    enum Constants {
+        static let title: String = "나만의 운동 프로그램을\n설정할게요!"
+        static let subTitle: String = "몸무게(kg) 를 알려주세요."
+        static let placeHolder: String = "0"
+        static let buttonTitle: String = "다음"
+        static let unit: String = "kg"
     }
 
 }
