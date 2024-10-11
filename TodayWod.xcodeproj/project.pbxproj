@@ -96,6 +96,7 @@
 		ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */; };
 		ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */; };
 		ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */; };
+		ADF7DBC82CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DBC62CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +190,7 @@
 		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
 		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
 		ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
+		ADF7DBC72CB89ED3007170BE /* TodayWodCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodayWodCoreData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -557,6 +559,7 @@
 				499B07672C8BEFC600C46FDD /* Resources */,
 				499B07582C8BD6B900C46FDD /* Preview Content */,
 				1C8708C02CACDB9D00967DFE /* info.plist */,
+				ADF7DBC62CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld */,
 			);
 			path = TodayWod;
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 				1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */,
 				49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */,
 				4987120B2CA2F48E00FB876E /* MyPageFeature.swift in Sources */,
+				ADF7DBC82CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld in Sources */,
 				AD1FE4372CB4AE2A0045CE57 /* MethodMenuView.swift in Sources */,
 				1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */,
 				AD386C3B2CA391740038C27F /* VersionInfoView.swift in Sources */,
@@ -1135,6 +1139,19 @@
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		ADF7DBC62CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ADF7DBC72CB89ED3007170BE /* TodayWodCoreData.xcdatamodel */,
+			);
+			currentVersion = ADF7DBC72CB89ED3007170BE /* TodayWodCoreData.xcdatamodel */;
+			path = TodayWodCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 499B07472C8BD6B700C46FDD /* Project object */;
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A335" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="DayWorkoutEntity" representedClassName="DayWorkoutEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="type" attributeType="String"/>
+        <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodEntity"/>
+    </entity>
+    <entity name="ProgramsEntity" representedClassName="ProgramsEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="level" attributeType="String"/>
+        <attribute name="methodType" attributeType="String"/>
+        <relationship name="weeklyWorkouts" toMany="YES" deletionRule="Nullify" destinationEntity="WeeklyWorkoutEntity"/>
+    </entity>
+    <entity name="WeeklyWorkoutEntity" representedClassName="WeeklyWorkoutEntity" syncable="YES">
+        <attribute name="expectedMinutes" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="maxExpectedCalories" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="minExpectedCalories" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subTitle" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <relationship name="dayWorkouts" toMany="YES" deletionRule="Nullify" destinationEntity="DayWorkoutEntity"/>
+    </entity>
+    <entity name="WodEntity" representedClassName="WodEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="set" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subTitle" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="unit" attributeType="String"/>
+        <attribute name="unitValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="wodSet" toMany="YES" deletionRule="Nullify" destinationEntity="WodSetEntity"/>
+    </entity>
+    <entity name="WodSetEntity" representedClassName="WodSetEntity" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="unitValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+</model>
