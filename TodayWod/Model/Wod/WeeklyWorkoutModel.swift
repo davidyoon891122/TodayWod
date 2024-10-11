@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeeklyWorkoutModel: Equatable {
+struct WeeklyWorkoutModel: Equatable, Identifiable {
 
     let id: UUID
     let type: WorkOutDayTagType

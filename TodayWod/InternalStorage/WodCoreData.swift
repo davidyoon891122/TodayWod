@@ -46,7 +46,7 @@ extension WodCoreData {
     
     func fetchProgram() -> NSFetchRequest<ProgramsEntity> {
         let request = NSFetchRequest<ProgramsEntity>(entityName: "ProgramsEntity")
-        
+
         return request
     }
     

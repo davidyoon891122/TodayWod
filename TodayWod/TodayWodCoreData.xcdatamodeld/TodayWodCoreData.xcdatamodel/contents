@@ -3,7 +3,7 @@
     <entity name="DayWorkoutEntity" representedClassName="DayWorkoutEntity" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="String"/>
-        <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodEntityOrigin"/>
+        <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodEntity"/>
     </entity>
     <entity name="ProgramsEntity" representedClassName="ProgramsEntity" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
@@ -21,7 +21,7 @@
         <attribute name="type" attributeType="String"/>
         <relationship name="dayWorkouts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayWorkoutEntity"/>
     </entity>
-    <entity name="WodEntityOrigin" representedClassName="WodEntityOrigin" syncable="YES">
+    <entity name="WodEntity" representedClassName="WodEntity" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="set" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subTitle" attributeType="String"/>

@@ -55,6 +55,7 @@
 		49593C332C969126006105D1 /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C322C969126006105D1 /* CustomNavigationView.swift */; };
 		49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C352C969293006105D1 /* ButtonTextModifier.swift */; };
 		49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49593C392C969BC2006105D1 /* HeightInputFeature.swift */; };
+		496C3ABF2CB8E414005E9E08 /* WodClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C3ABE2CB8E414005E9E08 /* WodClient.swift */; };
 		497C0F032C9E463900F7444E /* LevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0EFE2C9E463900F7444E /* LevelType.swift */; };
 		497C0F052C9E463900F7444E /* GenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F002C9E463900F7444E /* GenderType.swift */; };
 		497C0F072C9E463900F7444E /* OnboardingUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */; };
@@ -167,6 +168,7 @@
 		49593C322C969126006105D1 /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
 		49593C352C969293006105D1 /* ButtonTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTextModifier.swift; sourceTree = "<group>"; };
 		49593C392C969BC2006105D1 /* HeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightInputFeature.swift; sourceTree = "<group>"; };
+		496C3ABE2CB8E414005E9E08 /* WodClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodClient.swift; sourceTree = "<group>"; };
 		497C0EFE2C9E463900F7444E /* LevelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelType.swift; sourceTree = "<group>"; };
 		497C0F002C9E463900F7444E /* GenderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderType.swift; sourceTree = "<group>"; };
 		497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingUserInfoModel.swift; sourceTree = "<group>"; };
@@ -776,6 +778,7 @@
 			children = (
 				ADF7DC312CB8BF03007170BE /* WodCoreData.swift */,
 				ADF7DC342CB8C0E7007170BE /* WodCoreDataProvider.swift */,
+				496C3ABE2CB8E414005E9E08 /* WodClient.swift */,
 			);
 			path = InternalStorage;
 			sourceTree = "<group>";
@@ -963,6 +966,7 @@
 				1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */,
 				49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */,
 				4987120B2CA2F48E00FB876E /* MyPageFeature.swift in Sources */,
+				496C3ABF2CB8E414005E9E08 /* WodClient.swift in Sources */,
 				ADF7DBC82CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld in Sources */,
 				AD1FE4372CB4AE2A0045CE57 /* MethodMenuView.swift in Sources */,
 				ADF7DC0F2CB8B3D2007170BE /* ProgramsEntity+CoreDataClass.swift in Sources */,
