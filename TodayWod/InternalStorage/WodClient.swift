@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct WodClient {
     var getWeeklyModels: () throws -> [WeeklyWorkoutModel]
-    var addWodProgram: () throws -> ProgramsModel
+    var addWodProgram: (ProgramsModel) throws -> ProgramsModel
     var removePrograms: () throws -> Void
 }
 
@@ -18,8 +18,8 @@ extension WodClient: DependencyKey {
 
     static let liveValue: WodClient = Self(getWeeklyModels: {
         try WodCoreDataProvider.shared.getWeeklyWorkoutEntities()
-    }, addWodProgram: {
-        try WodCoreDataProvider.shared.setProgram(model: .mock) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정
+    }, addWodProgram: { programsModel in
+        try WodCoreDataProvider.shared.setProgram(model: programsModel) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정
     }, removePrograms: {
         try WodCoreDataProvider.shared.removeProgram()
     })

@@ -23,14 +23,17 @@ final class WodCoreDataProvider {
     }
 
     func setProgram(model: ProgramsModel) throws -> ProgramsModel {
-        _ = ProgramsEntity.instance(with: self.context, model: .mock)
-
+        print(model.id)
+        _ = ProgramsEntity.instance(with: self.context, model: model)
+        
         try self.context.save()
 
         return model
     }
 
     func removeProgram() throws -> Void {
+        try context.reset()
+        
         let currentPrograms = try fetchPrograms()
 
         currentPrograms.forEach {
@@ -46,6 +49,7 @@ private extension WodCoreDataProvider {
 
     func fetchWodInfo() throws -> ProgramsEntity? {
         let wodInfo = try context.fetch(WodCoreData.shared.fetchProgram())
+        print(wodInfo.count)
         let firstWod = wodInfo.first
 
         return firstWod

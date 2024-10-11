@@ -41,7 +41,8 @@ struct WorkOutListFeature {
             case .didTapAddProgram:
                 return .run { send in
                     do {
-                        let result = try wodClient.addWodProgram()
+                        let programsModel = ProgramsModel(id: UUID(), methodType: .body, level: .advanced, weeklyWorkoutPrograms: [WeeklyWorkoutModel.preview])
+                        let result = try wodClient.addWodProgram(programsModel)
                         await send(.weeklyModelResult(.success(result.weeklyWorkouts)))
                     } catch {
                         await send(.weeklyModelResult(.failure(error)))
