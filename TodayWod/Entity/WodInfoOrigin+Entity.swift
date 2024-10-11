@@ -7,21 +7,21 @@
 
 import Foundation
 
-struct WodInfoEntity: Codable, Equatable {
+struct WodInfoEntityOrigin: Codable, Equatable {
     
     let methodType: ProgramMethodType
     let level: LevelType
-    let workOutDays: [WorkOutDayEntity]
+    let workOutDays: [WorkOutDayEntityOrigin]
     
 }
 
-extension WodInfoEntity {
+extension WodInfoEntityOrigin {
     
-    static var fake: Self = .init(methodType: .body, level: .beginner, workOutDays: WorkOutDayEntity.bodyBeginnerAlphaWeek)
+    static var fake: Self = .init(methodType: .body, level: .beginner, workOutDays: WorkOutDayEntityOrigin.bodyBeginnerAlphaWeek)
     
 }
 
-struct WorkOutDayEntity: Codable, Equatable {
+struct WorkOutDayEntityOrigin: Codable, Equatable {
     
     let type: WorkOutDayTagType
     let title: String
@@ -29,24 +29,24 @@ struct WorkOutDayEntity: Codable, Equatable {
     let expectedMinute: Int
     let estimatedMinCalorie: Int
     let estimatedMaxCalorie: Int
-    var workOuts: [WorkOutInfoEntity]
+    var workOuts: [WorkOutInfoEntityOrigin]
     
 }
 
-extension WorkOutDayEntity {
+extension WorkOutDayEntityOrigin {
     
-    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedMinCalorie: 400, estimatedMaxCalorie: 500, workOuts: WorkOutInfoEntity.bodyBeginnerAlphaDay1Info)
+    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, estimatedMinCalorie: 400, estimatedMaxCalorie: 500, workOuts: WorkOutInfoEntityOrigin.bodyBeginnerAlphaDay1Info)
 
 }
 
-struct WorkOutInfoEntity: Codable, Equatable {
+struct WorkOutInfoEntityOrigin: Codable, Equatable {
     
     let type: WorkOutType
-    var items: [WodEntity]
+    var items: [WodEntityOrigin]
     
 }
 
-struct WodEntity: Codable, Equatable {
+struct WodEntityOrigin: Codable, Equatable {
     
     let title: String
     let subTitle: String
@@ -64,7 +64,7 @@ struct WodEntity: Codable, Equatable {
     
 }
 
-extension WodEntity {
+extension WodEntityOrigin {
     
     static var fake: Self {
         .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3)

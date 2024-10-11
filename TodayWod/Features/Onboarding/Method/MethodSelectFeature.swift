@@ -62,11 +62,11 @@ struct MethodSelectFeature {
                     return .run { _ in await dismiss() }
                 }
             case .saveTargetPrograms:
-                var targetPrograms: [WodInfoEntity] = WodInfoEntity.bodyBeginners // TODO: 현재는 무조건 body, 입문 조건의 Program 셋팅
+                var targetPrograms: [WodInfoEntityOrigin] = WodInfoEntityOrigin.bodyBeginners // TODO: 현재는 무조건 body, 입문 조건의 Program 셋팅
                 if state.onboardingUserModel.method == .body {
                     switch state.onboardingUserModel.level {
                     case .beginner:
-                        targetPrograms = WodInfoEntity.bodyBeginners
+                        targetPrograms = WodInfoEntityOrigin.bodyBeginners
                     default:
                         break
                     }

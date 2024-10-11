@@ -13,7 +13,7 @@ struct WodInfo: Codable, Equatable, Identifiable {
     
     var workOutDays: [WorkOutDayModel]
     
-    init(data: WodInfoEntity) {
+    init(data: WodInfoEntityOrigin) {
         self.id = UUID()
         self.workOutDays = data.workOutDays.map { WorkOutDayModel(data: $0) }
     }
@@ -30,7 +30,7 @@ extension WodInfo {
 
 extension WodInfo {
     
-    static let bodyBeginners: [Self] = WodInfoEntity.bodyBeginners.map { WodInfo(data: $0) }
+    static let bodyBeginners: [Self] = WodInfoEntityOrigin.bodyBeginners.map { WodInfo(data: $0) }
 
 }
 
@@ -48,7 +48,7 @@ struct WorkOutDayModel: Codable, Equatable, Identifiable {
     let estimatedMaxCalorie: Int
     var workOuts: [WorkOutInfo]
     
-    init(data: WorkOutDayEntity) {
+    init(data: WorkOutDayEntityOrigin) {
         self.id = UUID()
         self.duration = 0
         self.completedInfo = .init()
@@ -94,7 +94,7 @@ extension WorkOutDayModel {
 
 extension WorkOutDayModel {
     
-    static let fake: Self = .init(data: WorkOutDayEntity.fake)
+    static let fake: Self = .init(data: WorkOutDayEntityOrigin.fake)
     
     static let completedFake: Self = {
         var item = WorkOutDayModel.fake
@@ -103,7 +103,7 @@ extension WorkOutDayModel {
     }()
     
     static var fakes: [Self] = {
-        return WorkOutDayEntity.bodyBeginnerAlphaWeek.map { fake -> WorkOutDayModel in
+        return WorkOutDayEntityOrigin.bodyBeginnerAlphaWeek.map { fake -> WorkOutDayModel in
             .init(data: fake)
         }
     }()

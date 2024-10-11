@@ -14,7 +14,7 @@ struct WorkOutInfo: Codable, Equatable, Identifiable {
     let type: WorkOutType
     var items: [WodModel]
     
-    init(data: WorkOutInfoEntity) {
+    init(data: WorkOutInfoEntityOrigin) {
         let id = UUID()
         self.id = id
         
@@ -43,7 +43,7 @@ struct WodModel: Codable, Equatable, Identifiable {
     var wodSet: [WodSet]
     let set: Int
     
-    init(data: WodEntity) {
+    init(data: WodEntityOrigin) {
         self.id = UUID()
         self.workOutInfoId = nil
         
@@ -95,6 +95,6 @@ extension WodModel {
 
 extension WodModel {
     
-    static let fake: Self = .init(data: WodEntity.fake)
+    static let fake: Self = .init(data: WodEntityOrigin.fake)
     
 }
