@@ -23,7 +23,6 @@ final class WodCoreDataProvider {
     }
 
     func setProgram(model: ProgramsModel) throws -> ProgramsModel {
-        print(model.id)
         _ = ProgramsEntity.instance(with: self.context, model: model)
         
         try self.context.save()
@@ -32,8 +31,6 @@ final class WodCoreDataProvider {
     }
 
     func removeProgram() throws -> Void {
-        try context.reset()
-        
         let currentPrograms = try fetchPrograms()
 
         currentPrograms.forEach {
