@@ -52,113 +52,113 @@ extension WorkOutInfoEntityOrigin {
     
     //MARK: - Alpha
     static let bodyBeginnerAlphaDay1Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp2]),
-        .init(type: .Main, items: [WodEntityOrigin.main1, WodEntityOrigin.main2, WodEntityOrigin.main3]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown2])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp2]),
+        .init(type: .main, items: [WodEntityOrigin.main1, WodEntityOrigin.main2, WodEntityOrigin.main3]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown2])
     ]
     
     static let bodyBeginnerAlphaDay2Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp4]),
-        .init(type: .Main, items: [WodEntityOrigin.main4, WodEntityOrigin.main5, WodEntityOrigin.main6]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown3, WodEntityOrigin.coolDown4])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp4]),
+        .init(type: .main, items: [WodEntityOrigin.main4, WodEntityOrigin.main5, WodEntityOrigin.main6]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown3, WodEntityOrigin.coolDown4])
     ]
     
     static let bodyBeginnerAlphaDay3Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp5]),
-        .init(type: .Main, items: [WodEntityOrigin.main7, WodEntityOrigin.main8, WodEntityOrigin.main9]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown5, WodEntityOrigin.coolDown6])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp5]),
+        .init(type: .main, items: [WodEntityOrigin.main7, WodEntityOrigin.main8, WodEntityOrigin.main9]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown5, WodEntityOrigin.coolDown6])
     ]
     
     static let bodyBeginnerAlphaDay4Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp6]),
-        .init(type: .Main, items: [WodEntityOrigin.main10, WodEntityOrigin.main1, WodEntityOrigin.main3]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown2])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp6]),
+        .init(type: .main, items: [WodEntityOrigin.main10, WodEntityOrigin.main1, WodEntityOrigin.main3]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown2])
     ]
     
     static let bodyBeginnerAlphaDay5Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp7, WodEntityOrigin.warmUp1]),
-        .init(type: .Main, items: [WodEntityOrigin.main11, WodEntityOrigin.main2, WodEntityOrigin.main12]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown7])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp7, WodEntityOrigin.warmUp1]),
+        .init(type: .main, items: [WodEntityOrigin.main11, WodEntityOrigin.main2, WodEntityOrigin.main12]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown7])
     ]
     
     static let bodyBeginnerAlphaDay6Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp2]),
-        .init(type: .Main, items: [WodEntityOrigin.main13, WodEntityOrigin.main5, WodEntityOrigin.main6]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown4, WodEntityOrigin.coolDown2])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp2]),
+        .init(type: .main, items: [WodEntityOrigin.main13, WodEntityOrigin.main5, WodEntityOrigin.main6]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown4, WodEntityOrigin.coolDown2])
     ]
     
     //MARK: - Beta
     static let bodyBeginnerBetaDay1Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp4, WodEntityOrigin.warmUp3]),
-        .init(type: .Main, items: [WodEntityOrigin.main4, WodEntityOrigin.main10, WodEntityOrigin.main3]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown2, WodEntityOrigin.coolDown1])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp4, WodEntityOrigin.warmUp3]),
+        .init(type: .main, items: [WodEntityOrigin.main4, WodEntityOrigin.main10, WodEntityOrigin.main3]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown2, WodEntityOrigin.coolDown1])
     ]
     
     static let bodyBeginnerBetaDay2Info: [Self] = [
-        .init(type: .WarmUp, items:  [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp1]),
-        .init(type: .Main, items: [WodEntityOrigin.main6, WodEntityOrigin.main13, WodEntityOrigin.main5]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown4, WodEntityOrigin.coolDown3])
+        .init(type: .warmUp, items:  [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp1]),
+        .init(type: .main, items: [WodEntityOrigin.main6, WodEntityOrigin.main13, WodEntityOrigin.main5]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown4, WodEntityOrigin.coolDown3])
     ]
     
     static let bodyBeginnerBetaDay3Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp5]),
-        .init(type: .Main, items: [WodEntityOrigin.main11, WodEntityOrigin.main2, WodEntityOrigin.main9]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown5, WodEntityOrigin.coolDown1])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp5]),
+        .init(type: .main, items: [WodEntityOrigin.main11, WodEntityOrigin.main2, WodEntityOrigin.main9]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown5, WodEntityOrigin.coolDown1])
     ]
     
     static let bodyBeginnerBetaDay4Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp6]),
-        .init(type: .Main, items: [WodEntityOrigin.main14, WodEntityOrigin.main1, WodEntityOrigin.main15]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown2, WodEntityOrigin.coolDown7])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp6]),
+        .init(type: .main, items: [WodEntityOrigin.main14, WodEntityOrigin.main1, WodEntityOrigin.main15]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown2, WodEntityOrigin.coolDown7])
     ]
     
     static let bodyBeginnerBetaDay5Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp1]),
-        .init(type: .Main, items: [WodEntityOrigin.main5, WodEntityOrigin.main13, WodEntityOrigin.main16]),
-        .init(type: .CoolDown, items:  [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown4])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp1]),
+        .init(type: .main, items: [WodEntityOrigin.main5, WodEntityOrigin.main13, WodEntityOrigin.main16]),
+        .init(type: .coolDown, items:  [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown4])
     ]
     
     static let bodyBeginnerBetaDay6Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp7, WodEntityOrigin.warmUp8]),
-        .init(type: .Main, items: [WodEntityOrigin.main11, WodEntityOrigin.main12, WodEntityOrigin.main2]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown7, WodEntityOrigin.coolDown1])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp7, WodEntityOrigin.warmUp8]),
+        .init(type: .main, items: [WodEntityOrigin.main11, WodEntityOrigin.main12, WodEntityOrigin.main2]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown7, WodEntityOrigin.coolDown1])
     ]
     
     //MARK: - Charlie
     static let bodyBeginnerCharlieDay1Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp9]),
-        .init(type: .Main, items: [WodEntityOrigin.main11, WodEntityOrigin.main2, WodEntityOrigin.main12]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown8])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp1, WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp9]),
+        .init(type: .main, items: [WodEntityOrigin.main11, WodEntityOrigin.main2, WodEntityOrigin.main12]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown8])
     ]
     
     static let bodyBeginnerCharlieDay2Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp4, WodEntityOrigin.warmUp3]),
-        .init(type: .Main, items: [WodEntityOrigin.main4, WodEntityOrigin.main5, WodEntityOrigin.main3, WodEntityOrigin.main16]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown3, WodEntityOrigin.coolDown9])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp4, WodEntityOrigin.warmUp3]),
+        .init(type: .main, items: [WodEntityOrigin.main4, WodEntityOrigin.main5, WodEntityOrigin.main3, WodEntityOrigin.main16]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown3, WodEntityOrigin.coolDown9])
     ]
     
     static let bodyBeginnerCharlieDay3Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp6]),
-        .init(type: .Main, items: [WodEntityOrigin.main10, WodEntityOrigin.main1, WodEntityOrigin.main15]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown8, WodEntityOrigin.coolDown9])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp6]),
+        .init(type: .main, items: [WodEntityOrigin.main10, WodEntityOrigin.main1, WodEntityOrigin.main15]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown8, WodEntityOrigin.coolDown9])
     ]
     
     static let bodyBeginnerCharlieDay4Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp7, WodEntityOrigin.warmUp1]),
-        .init(type: .Main, items: [WodEntityOrigin.main7, WodEntityOrigin.main11, WodEntityOrigin.main9]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown2])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp7, WodEntityOrigin.warmUp1]),
+        .init(type: .main, items: [WodEntityOrigin.main7, WodEntityOrigin.main11, WodEntityOrigin.main9]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown2])
     ]
     
     static let bodyBeginnerCharlieDay5Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp5]),
-        .init(type: .Main, items: [WodEntityOrigin.main13, WodEntityOrigin.main6, WodEntityOrigin.main5]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown4, WodEntityOrigin.coolDown3])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp3, WodEntityOrigin.warmUp5]),
+        .init(type: .main, items: [WodEntityOrigin.main13, WodEntityOrigin.main6, WodEntityOrigin.main5]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown4, WodEntityOrigin.coolDown3])
     ]
     
     static let bodyBeginnerCharlieDay6Info: [Self] = [
-        .init(type: .WarmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp1]),
-        .init(type: .Main, items: [WodEntityOrigin.main14, WodEntityOrigin.main1, WodEntityOrigin.main3]),
-        .init(type: .CoolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown10])
+        .init(type: .warmUp, items: [WodEntityOrigin.warmUp2, WodEntityOrigin.warmUp1]),
+        .init(type: .main, items: [WodEntityOrigin.main14, WodEntityOrigin.main1, WodEntityOrigin.main3]),
+        .init(type: .coolDown, items: [WodEntityOrigin.coolDown1, WodEntityOrigin.coolDown10])
     ]
 }
 

@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct WodView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    let model: WodModel
+    let model: WodModelOrigin
     
     var body: some View {
         WithPerceptionTracking {

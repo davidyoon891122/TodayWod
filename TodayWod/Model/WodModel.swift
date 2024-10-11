@@ -2,99 +2,39 @@
 //  WodModel.swift
 //  TodayWod
 //
-//  Created by 오지연 on 9/17/24.
+//  Created by Davidyoon on 10/11/24.
 //
 
 import Foundation
 
-struct WorkOutInfo: Codable, Equatable, Identifiable {
-    
-    var id: UUID
-    
-    let type: WorkOutType
-    var items: [WodModel]
-    
-    init(data: WorkOutInfoEntityOrigin) {
-        let id = UUID()
-        self.id = id
-        
-        self.type = data.type
-        self.items = data.items.map { WodModel(data: $0).createParentClassification(id: id) }
-    }
-    
-}
+struct WodModel: Equatable, Identifiable {
 
-extension WorkOutInfo {
-    
-    var completedSetCount: Int {
-        self.items.reduce(0) { $0 + $1.completedSetCount }
-    }
-    
-}
-
-struct WodModel: Codable, Equatable, Identifiable {
-    
-    var id: UUID
-    var workOutInfoId: UUID?
-    
+    let id: UUID
     let title: String
     let subTitle: String
     let unit: ExerciseUnit
-    var wodSet: [WodSet]
+    let unitValue: Int
     let set: Int
-    
-    init(data: WodEntityOrigin) {
-        self.id = UUID()
-        self.workOutInfoId = nil
-        
-        self.title = data.title
-        self.subTitle = data.subTitle
-        self.unit = data.unit
-        self.wodSet = WodSet(unitValue: data.unitValue).createNumbering(set: data.set, workOutInfoId: workOutInfoId, wodModelId: id)
-        self.set = data.set
-    }
-    
-}
+    var wodSet: [WodSetModel]
 
-extension WodModel {
-    
-    var completedSetCount: Int {
-        self.wodSet.count(where: { $0.isCompleted })
+    init(entity: WodEntity) {
+        self.id = entity.id
+        self.title = entity.title
+        self.subTitle = entity.subTitle
+        self.unit = ExerciseUnit(rawValue: entity.unit) ?? .seconds
+        self.unitValue = Int(entity.unitValue)
+        self.set = Int(entity.set)
+        self.wodSet = entity.wodSet.map { WodSetModel(entity: $0 as! WodSetEntity) }
     }
-    
-    var isSetVisible: Bool {
-        self.set > 1
-    }
-    
-    var displaySet: String {
-        "세트 (Set)"
-    }
-    
-    var displayCompletedSet: String {
-        if self.set > 1 {
-            return "\(self.set) 세트"
-        } else {
-            if let set = wodSet.first {
-                return set.displayUnitValue + self.unit.title
-            }
-            return "1 세트"
-        }
-    }
-    
-}
 
-extension WodModel {
-    
-    func createParentClassification(id: UUID) -> Self {
-        var updatedWod = self
-        updatedWod.workOutInfoId = id
-        return updatedWod
+    init(id: UUID, title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int, wodSet: [WodSetModel]) {
+        self.id = id
+        self.title = title
+        self.subTitle = subTitle
+        self.unit = unit
+        self.unitValue = unitValue
+        self.set = set
+        self.wodSet = wodSet
     }
-    
-}
 
-extension WodModel {
-    
-    static let fake: Self = .init(data: WodEntityOrigin.fake)
-    
 }

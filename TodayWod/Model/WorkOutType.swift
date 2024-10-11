@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum WorkOutType: Codable {
+enum WorkOutType: String, Codable {
     
-    case WarmUp
-    case Main
-    case CoolDown
+    case warmUp
+    case main
+    case coolDown
     
 }
 
@@ -19,11 +19,11 @@ extension WorkOutType {
     
     var title: String {
         switch self {
-        case .WarmUp:
+        case .warmUp:
             return "Warm-Up"
-        case .Main:
+        case .main:
             return "Main WOD"
-        case .CoolDown:
+        case .coolDown:
             return "Cool Down"
         }
     }
