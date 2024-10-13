@@ -13,10 +13,16 @@ protocol UserDefaultsManagerProtocol {
     func loadOnboardingUserInfo() -> OnboardingUserInfoModel?
     
     func saveOwnProgram(day: DayWorkOutModel)
-    func saveOwnProgram(with: ProgramModel?)
+    func saveOwnProgram(with data: ProgramModel?)
     func loadOwnProgram() -> ProgramModel?
     
-    func saveOfferedPrograms(data: [ProgramModel])
+    func saveRecentDayWorkOuts(with data: RecentDayWorkOutModel)
+    func loadRecentDayWorkOuts() -> [RecentDayWorkOutModel]
+    
+    func saveCompletedWods(with data: CompletedWodModel)
+    func loadCompletedWods() -> [CompletedWodModel]
+    
+    func saveOfferedPrograms(with data: [ProgramModel])
     func loadOfferedPrograms() -> [ProgramModel]
     
     var hasUserInfo: Bool { get }
@@ -76,10 +82,31 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return wodInfo
     }
     
-    // TODO: 최근 Day (3개 저장)
-    // TODO: Date만 저장하는 애가 필요.
+    func saveRecentDayWorkOuts(with data: RecentDayWorkOutModel) {
+        let encodedData = try? PropertyListEncoder().encode(data)
+        self.userDefaults.set(encodedData, forKey: Constants.recentDayWorkOuts)
+    }
     
-    func saveOfferedPrograms(data: [ProgramModel]) {
+    func loadRecentDayWorkOuts() -> [RecentDayWorkOutModel] {
+        guard let data = self.userDefaults.object(forKey: Constants.recentDayWorkOuts) as? Data,
+              let dayWorkOuts = try? PropertyListDecoder().decode([RecentDayWorkOutModel].self, from: data) else { return RecentDayWorkOutModel.fakes } // TODO: 저장 구현 필요. 현재는 초기에 Fake.
+
+        return dayWorkOuts
+    }
+    
+    func saveCompletedWods(with data: CompletedWodModel) {
+        let encodedData = try? PropertyListEncoder().encode(data)
+        self.userDefaults.set(encodedData, forKey: Constants.CompletedWods)
+    }
+    
+    func loadCompletedWods() -> [CompletedWodModel] {
+        guard let data = self.userDefaults.object(forKey: Constants.CompletedWods) as? Data,
+              let wods = try? PropertyListDecoder().decode([CompletedWodModel].self, from: data) else { return [] }
+
+        return wods
+    }
+    
+    func saveOfferedPrograms(with data: [ProgramModel]) {
         let encodedData = try? PropertyListEncoder().encode(data)
         self.userDefaults.set(encodedData, forKey: Constants.offeredPrograms)
     }
@@ -98,8 +125,10 @@ private extension UserDefaultsManager {
     enum Constants {
         static let userInfo: String = "UserInfo"
         static let onboardingUserInfo: String = "OnboardingUserInfo"
-        static let offeredPrograms = "OfferedPrograms"
         static let ownProgram = "OwnProgram"
+        static let recentDayWorkOuts = "RecentDayWorkOuts"
+        static let CompletedWods = "CompletedWods"
+        static let offeredPrograms = "OfferedPrograms"
     }
 
 }

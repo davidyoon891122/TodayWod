@@ -75,7 +75,7 @@ struct MethodSelectFeature {
                 }
                 
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOfferedPrograms(data: targetPrograms.map { ProgramModel(data: $0) })
+                userDefaultsManager.saveOfferedPrograms(with: targetPrograms.map { ProgramModel(data: $0) })
                 
                 return .none
             case let .setMethod(methodType):

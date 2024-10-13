@@ -38,6 +38,14 @@ struct RecentDayWorkOutModel: Codable, Equatable, Identifiable {
 }
 
 extension RecentDayWorkOutModel {
+    
+    var displayDate: String {
+        date?.toString ?? ""
+    }
+    
+}
+
+extension RecentDayWorkOutModel {
 
     static let fakes: [Self] = RecentDayWorkOutEntity.fakes.map { .init(data: $0) }
 

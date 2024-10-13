@@ -78,9 +78,6 @@ struct WorkOutFeature {
             case .updateOwnProgram:
                 let userDefaultsManager = UserDefaultsManager()
                 userDefaultsManager.saveOwnProgram(with: state.ownProgram)
-                
-                // TODO: 최근 활동 insert.
-                
                 return .none
             case .updateWeekCompleted:
                 let isCelebrate = state.weeklyWorkOuts.allSatisfy { $0.isCompleted }

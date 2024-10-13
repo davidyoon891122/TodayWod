@@ -62,6 +62,9 @@ struct WorkOutDetailFeature {
                 return .none
             case .didTapStartButton:
                 state.hasStart = true
+                
+                // TODO: 운동 시작 시, 최근 활동 저장 필요. (최근 활동 저장 기준 확인 필요.)
+                
                 return .run { send in
                     await send(.startTimer)
                 }
@@ -133,9 +136,8 @@ struct WorkOutDetailFeature {
                 }
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)):
-                state.item.date = Date() // TODO: 단순 "운동종료"일 경우엔 Date 저장 필요 없음. isCompleted false.
-                
-                // TODO: 운동 성공과 관계없이, 최근 활동 저장 필요.
+                state.item.date = Date()
+                // TODO: 단순 "운동종료"일 경우엔 Date 저장 필요 없음. isCompleted false.
                 // TODO: 운동 성공의 경우, Date 저장.
                 
                 return .concatenate(.send(.stopTimer),
