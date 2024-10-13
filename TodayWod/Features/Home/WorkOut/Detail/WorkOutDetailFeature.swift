@@ -103,12 +103,12 @@ struct WorkOutDetailFeature {
                     await send(.updateWodSet(wodSet))
                 }
             case let .updateWodSet(set):
-                outerLoop: for (index, workout) in state.item.dayWorkOuts.enumerated() {
+                outerLoop: for (index, workout) in state.item.workOuts.enumerated() {
                     for (wodIndex, wod) in workout.wods.enumerated() {
                         if let setIndex = wod.wodSets.firstIndex(where: { $0.id == set.id }) {
-                            state.item.dayWorkOuts[index].wods[wodIndex].wodSets[setIndex] = set
+                            state.item.workOuts[index].wods[wodIndex].wodSets[setIndex] = set
                             
-                            print("%%%%%% UpdateWodSet: \(state.item.dayWorkOuts)")
+                            print("%%%%%% UpdateWodSet: \(state.item.workOuts)")
                             
                             break outerLoop
                         }
@@ -121,7 +121,7 @@ struct WorkOutDetailFeature {
                 userDefaultsManager.saveOwnProgram(day: state.item)
                 return .none
             case .updateDayCompleted:
-                state.isDayCompleted = state.item.dayWorkOuts.flatMap {
+                state.isDayCompleted = state.item.workOuts.flatMap {
                     $0.wods.flatMap { $0.wodSets }
                 }.allSatisfy { wodSet in
                     wodSet.isCompleted
@@ -133,7 +133,10 @@ struct WorkOutDetailFeature {
                 }
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)):
-                state.item.completedInfo = .init(isCompleted: true, completedDate: Date())
+                state.item.date = Date() // TODO: 단순 "운동종료"일 경우엔 Date 저장 필요 없음. isCompleted false.
+                
+                // TODO: 운동 성공과 관계없이, 최근 활동 저장 필요.
+                // TODO: 운동 성공의 경우, Date 저장.
                 
                 return .concatenate(.send(.stopTimer),
                                     .send(.saveOwnProgram),
@@ -174,7 +177,7 @@ struct WorkOutDetailView: View {
                                 WorkOutDetailTitleView(item: store.item)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    ForEach(store.item.dayWorkOuts) { workOut in
+                                    ForEach(store.item.workOuts) { workOut in
                                         Text(workOut.type.title)
                                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                                             .foregroundStyle(Colors.grey100.swiftUIColor)

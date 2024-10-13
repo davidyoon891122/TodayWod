@@ -12,7 +12,7 @@ struct WorkOutCompletedProgramView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(item.dayWorkOuts) { workOut in
+            ForEach(item.workOuts) { workOut in
                 Text(workOut.type.title)
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                     .foregroundStyle(Colors.grey100.swiftUIColor)

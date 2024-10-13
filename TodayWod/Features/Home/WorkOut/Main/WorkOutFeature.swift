@@ -83,7 +83,7 @@ struct WorkOutFeature {
                 
                 return .none
             case .updateWeekCompleted:
-                let isCelebrate = state.weeklyWorkOuts.allSatisfy { $0.completedInfo.isCompleted }
+                let isCelebrate = state.weeklyWorkOuts.allSatisfy { $0.isCompleted }
                 if isCelebrate {
                     state.celebrateState = CelebrateFeature.State()
                 }

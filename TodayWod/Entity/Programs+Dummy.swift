@@ -20,30 +20,30 @@ extension ProgramEntity {
 extension DayWorkOutEntity {
     
     static let bodyBeginnerAlphaWeek: [Self] = [
-        .init(type: .start, title: "상체 근력", subTitle: "Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerAlphaDay1Info),
-        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerAlphaDay2Info),
-        .init(type: .default, title: "코어 강화", subTitle: "Core Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerAlphaDay3Info),
-        .init(type: .default, title: "전신 운동", subTitle: "Full Body Conditioning", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerAlphaDay4Info),
-        .init(type: .default, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerAlphaDay5Info),
-        .init(type: .end, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerAlphaDay6Info)
+        .init(type: .start, title: "상체 근력", subTitle: "Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay1Info),
+        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay2Info),
+        .init(type: .default, title: "코어 강화", subTitle: "Core Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay3Info),
+        .init(type: .default, title: "전신 운동", subTitle: "Full Body Conditioning", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay4Info),
+        .init(type: .default, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay5Info),
+        .init(type: .end, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay6Info)
     ]
     
     static let bodyBeginnerBetaWeek: [Self] = [
-        .init(type: .start, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerBetaDay1Info),
-        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerBetaDay2Info),
-        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerBetaDay3Info),
-        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerBetaDay4Info),
-        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerBetaDay5Info),
-        .init(type: .end, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerBetaDay6Info)
+        .init(type: .start, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay1Info),
+        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay2Info),
+        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay3Info),
+        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay4Info),
+        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay5Info),
+        .init(type: .end, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay6Info)
     ]
     
     static let bodyBeginnerCharlieWeek: [Self] = [
-        .init(type: .start, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerCharlieDay1Info),
-        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerCharlieDay2Info),
-        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerCharlieDay3Info),
-        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerCharlieDay4Info),
-        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerCharlieDay5Info),
-        .init(type: .end, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, dayWorkOuts: WorkOutEntity.bodyBeginnerCharlieDay6Info)
+        .init(type: .start, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay1Info),
+        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay2Info),
+        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay3Info),
+        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay4Info),
+        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay5Info),
+        .init(type: .end, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay6Info)
     ]
     
 }

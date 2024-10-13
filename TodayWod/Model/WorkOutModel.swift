@@ -42,7 +42,7 @@ struct WodModel: Codable, Equatable, Identifiable {
     let unit: ExerciseUnit
     let unitValue: Int
     let set: Int
-    var wodSets: [WodSet] = []// TODO: wodSets
+    var wodSets: [WodSet] = []
     
     init(workOutId: UUID, data: WodEntity) {
         self.id = UUID()

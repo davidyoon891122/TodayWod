@@ -37,8 +37,8 @@ extension ProgramModel {
 struct DayWorkOutModel: Codable, Equatable, Identifiable {
     
     var id: UUID
+    var date: Date? // 성공한 날짜.
     var duration: Int
-    var completedInfo: CompletedDayWorkOut
     
     let type: DayWorkOutTagType
     let title: String
@@ -46,12 +46,12 @@ struct DayWorkOutModel: Codable, Equatable, Identifiable {
     let expectedMinute: Int
     let minEstimatedCalorie: Int
     let maxEstimatedCalorie: Int
-    var dayWorkOuts: [WorkOutModel]
+    var workOuts: [WorkOutModel]
     
     init(data: DayWorkOutEntity) {
         self.id = UUID()
+        self.date = nil
         self.duration = 0
-        self.completedInfo = .init()
         
         self.type = data.type
         self.title = data.title
@@ -59,7 +59,7 @@ struct DayWorkOutModel: Codable, Equatable, Identifiable {
         self.expectedMinute = data.expectedMinute
         self.minEstimatedCalorie = data.minEstimatedCalorie
         self.maxEstimatedCalorie = data.maxEstimatedCalorie
-        self.dayWorkOuts = data.dayWorkOuts.map { WorkOutModel(data: $0) }
+        self.workOuts = data.workOuts.map { WorkOutModel(data: $0) }
     }
     
 }
@@ -67,7 +67,7 @@ struct DayWorkOutModel: Codable, Equatable, Identifiable {
 extension DayWorkOutModel {
     
     var isCompleted: Bool {
-        self.completedInfo.isCompleted
+        self.date != nil
     }
     
     var displayExpectedMinuteTitle: String {
@@ -87,7 +87,7 @@ extension DayWorkOutModel {
     }
     
     var completedSetCount: Int {
-        self.dayWorkOuts.reduce(0) { $0 + $1.completedSetCount }
+        self.workOuts.reduce(0) { $0 + $1.completedSetCount }
     }
     
 }
@@ -98,7 +98,7 @@ extension DayWorkOutModel {
     
     static let completedFake: Self = {
         var item = DayWorkOutModel.fake
-        item.completedInfo = .init(isCompleted: true, completedDate: Date())
+        item.date = Date()
         return item
     }()
     
@@ -107,17 +107,5 @@ extension DayWorkOutModel {
             .init(data: fake)
         }
     }()
-    
-}
-
-struct CompletedDayWorkOut: Codable, Equatable {
-    
-    var isCompleted: Bool
-    var completedDate: Date?
-    
-    init(isCompleted: Bool = false, completedDate: Date? = nil) {
-        self.isCompleted = isCompleted
-        self.completedDate = completedDate
-    }
     
 }

@@ -76,8 +76,8 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return wodInfo
     }
     
-    // TODO: 최근 프로그램 (3개 저장)
-    // TODO: Date만 저장하는 애가 필요?
+    // TODO: 최근 Day (3개 저장)
+    // TODO: Date만 저장하는 애가 필요.
     
     func saveOfferedPrograms(data: [ProgramModel]) {
         let encodedData = try? PropertyListEncoder().encode(data)

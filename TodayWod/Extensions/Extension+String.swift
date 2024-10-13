@@ -13,6 +13,13 @@ extension String {
         Int(self) ?? 0
     }
     
+    var toDate: Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+
+        return dateFormatter.date(from: self)
+    }
+    
     func isValidNickName() -> Bool {
         let regex = "^[a-zA-Z가-힣0-9]{2,10}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
