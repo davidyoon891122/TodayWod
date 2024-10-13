@@ -54,7 +54,7 @@ struct WodSetView: View {
 }
 
 #Preview {
-    WodSetView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake), reducer: {
+    WodSetView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkOutModel.fake), reducer: {
         WorkOutDetailFeature()
     }), model: WodSet.fake)
 }

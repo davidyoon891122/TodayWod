@@ -132,7 +132,7 @@ struct MyActivityView: View {
                             Spacer()
                         }
                         LazyVStack {
-                            ForEach(store.recentActivityModel.workOutDayModels) { model in
+                            ForEach(store.recentActivityModel.dayWorkOuts) { model in
                                 HStack(spacing: 8.0) {
                                     Images.genderMan.swiftUIImage
                                         .resizable()

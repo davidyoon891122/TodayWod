@@ -1,5 +1,5 @@
 //
-//  WodModel.swift
+//  WorkOutModel.swift
 //  TodayWod
 //
 //  Created by 오지연 on 9/17/24.
@@ -7,27 +7,27 @@
 
 import Foundation
 
-struct WorkOutInfo: Codable, Equatable, Identifiable {
+struct WorkOutModel: Codable, Equatable, Identifiable {
     
     var id: UUID
     
     let type: WorkOutType
-    var items: [WodModel]
+    var wods: [WodModel]
     
-    init(data: WorkOutInfoEntity) {
+    init(data: WorkOutEntity) {
         let id = UUID()
         self.id = id
         
         self.type = data.type
-        self.items = data.items.map { WodModel(data: $0).createParentClassification(id: id) }
+        self.wods = data.wods.map { WodModel(workOutId: id, data: $0) }
     }
     
 }
 
-extension WorkOutInfo {
+extension WorkOutModel {
     
     var completedSetCount: Int {
-        self.items.reduce(0) { $0 + $1.completedSetCount }
+        self.wods.reduce(0) { $0 + $1.completedSetCount }
     }
     
 }
@@ -35,23 +35,25 @@ extension WorkOutInfo {
 struct WodModel: Codable, Equatable, Identifiable {
     
     var id: UUID
-    var workOutInfoId: UUID?
+    var workOutId: UUID
     
     let title: String
     let subTitle: String
     let unit: ExerciseUnit
-    var wodSet: [WodSet]
+    let unitValue: Int
     let set: Int
+    var wodSets: [WodSet] = []// TODO: wodSets
     
-    init(data: WodEntity) {
+    init(workOutId: UUID, data: WodEntity) {
         self.id = UUID()
-        self.workOutInfoId = nil
+        self.workOutId = workOutId
         
         self.title = data.title
         self.subTitle = data.subTitle
         self.unit = data.unit
-        self.wodSet = WodSet(unitValue: data.unitValue).createNumbering(set: data.set, workOutInfoId: workOutInfoId, wodModelId: id)
+        self.unitValue = data.unitValue
         self.set = data.set
+        self.wodSets = data.wodSets.map { WodSet(workOutId: workOutId, wodModelId: id, data: $0) }
     }
     
 }
@@ -59,7 +61,7 @@ struct WodModel: Codable, Equatable, Identifiable {
 extension WodModel {
     
     var completedSetCount: Int {
-        self.wodSet.count(where: { $0.isCompleted })
+        self.wodSets.count(where: { $0.isCompleted })
     }
     
     var isSetVisible: Bool {
@@ -74,7 +76,7 @@ extension WodModel {
         if self.set > 1 {
             return "\(self.set) 세트"
         } else {
-            if let set = wodSet.first {
+            if let set = wodSets.first {
                 return set.displayUnitValue + self.unit.title
             }
             return "1 세트"
@@ -85,16 +87,6 @@ extension WodModel {
 
 extension WodModel {
     
-    func createParentClassification(id: UUID) -> Self {
-        var updatedWod = self
-        updatedWod.workOutInfoId = id
-        return updatedWod
-    }
-    
-}
-
-extension WodModel {
-    
-    static let fake: Self = .init(data: WodEntity.fake)
+    static let fake: Self = .init(workOutId: UUID(), data: WodEntity.fake)
     
 }

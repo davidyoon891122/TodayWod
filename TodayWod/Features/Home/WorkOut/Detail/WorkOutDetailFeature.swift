@@ -13,7 +13,7 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
-        var item: WorkOutDayModel
+        var item: DayWorkOutModel
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
@@ -21,7 +21,7 @@ struct WorkOutDetailFeature {
         @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
-        init(item: WorkOutDayModel) {
+        init(item: DayWorkOutModel) {
             self.item = item
             self.duration = item.duration
             self.hasStart = false
@@ -39,12 +39,12 @@ struct WorkOutDetailFeature {
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
-        case saveWodInfo
+        case saveOwnProgram
         case updateDayCompleted
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
-        case finishWorkOut(WorkOutDayModel)
+        case finishWorkOut(DayWorkOutModel)
     }
     
     enum CancelID { case timer }
@@ -80,7 +80,7 @@ struct WorkOutDetailFeature {
                 
                 state.item.duration = state.duration
                 return .run { send in
-                    await send(.saveWodInfo)
+                    await send(.saveOwnProgram)
                 }
             case let .setCompleted(set):
                 var updatedSet = set
@@ -103,26 +103,26 @@ struct WorkOutDetailFeature {
                     await send(.updateWodSet(wodSet))
                 }
             case let .updateWodSet(set):
-                outerLoop: for (index, workout) in state.item.workOuts.enumerated() {
-                    for (wodIndex, wod) in workout.items.enumerated() {
-                        if let setIndex = wod.wodSet.firstIndex(where: { $0.id == set.id }) {
-                            state.item.workOuts[index].items[wodIndex].wodSet[setIndex] = set
+                outerLoop: for (index, workout) in state.item.dayWorkOuts.enumerated() {
+                    for (wodIndex, wod) in workout.wods.enumerated() {
+                        if let setIndex = wod.wodSets.firstIndex(where: { $0.id == set.id }) {
+                            state.item.dayWorkOuts[index].wods[wodIndex].wodSets[setIndex] = set
                             
-                            print("%%%%%% UpdateWodSet: \(state.item.workOuts)")
+                            print("%%%%%% UpdateWodSet: \(state.item.dayWorkOuts)")
                             
                             break outerLoop
                         }
                     }
                 }
-                return .concatenate(.send(.saveWodInfo),
+                return .concatenate(.send(.saveOwnProgram),
                                     .send(.updateDayCompleted))
-            case .saveWodInfo:
+            case .saveOwnProgram:
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWodInfo(day: state.item)
+                userDefaultsManager.saveOwnProgram(day: state.item)
                 return .none
             case .updateDayCompleted:
-                state.isDayCompleted = state.item.workOuts.flatMap {
-                    $0.items.flatMap { $0.wodSet }
+                state.isDayCompleted = state.item.dayWorkOuts.flatMap {
+                    $0.wods.flatMap { $0.wodSets }
                 }.allSatisfy { wodSet in
                     wodSet.isCompleted
                 }
@@ -136,7 +136,7 @@ struct WorkOutDetailFeature {
                 state.item.completedInfo = .init(isCompleted: true, completedDate: Date())
                 
                 return .concatenate(.send(.stopTimer),
-                                    .send(.saveWodInfo),
+                                    .send(.saveOwnProgram),
                                     .send(.finishWorkOut(state.item)))
             default:
                 return .none
@@ -174,7 +174,7 @@ struct WorkOutDetailView: View {
                                 WorkOutDetailTitleView(item: store.item)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    ForEach(store.item.workOuts) { workOut in
+                                    ForEach(store.item.dayWorkOuts) { workOut in
                                         Text(workOut.type.title)
                                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                                             .foregroundStyle(Colors.grey100.swiftUIColor)
@@ -182,7 +182,7 @@ struct WorkOutDetailView: View {
                                             .padding(.top, 10)
                                         
                                         VStack(alignment: .leading, spacing: 10) {
-                                            ForEach(workOut.items) { item in
+                                            ForEach(workOut.wods) { item in
                                                 WodView(store: store, model: item)
                                             }
                                         }
@@ -233,7 +233,7 @@ private extension WorkOutDetailView {
 }
 
 #Preview {
-    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake)) {
+    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkOutModel.fake)) {
         WorkOutDetailFeature()
     })
 }

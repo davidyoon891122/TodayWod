@@ -19,8 +19,8 @@ struct WorkOutFeature {
     
     @ObservableState
     struct State: Equatable {
-        var wodInfo: WodInfo? = nil
-        var workOutDays: [WorkOutDayModel] = []
+        var ownProgram: ProgramModel? = nil
+        var weeklyWorkOuts: [DayWorkOutModel] = []
         var path = StackState<Path.State>()
         var dynamicHeight: CGFloat = .zero
 
@@ -31,10 +31,10 @@ struct WorkOutFeature {
         case onAppear
         case didTapNewChallengeButton
         case didTapResetButton
-        case setWorkOutDays
-        case updateWodInfo
+        case setWeeklyWorkOuts
+        case updateOwnProgram
         case updateWeekCompleted
-        case didTapDayView(item: WorkOutDayModel)
+        case didTapDayView(item: DayWorkOutModel)
         case path(StackActionOf<Path>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
         case setDynamicHeight(CGFloat)
@@ -45,45 +45,45 @@ struct WorkOutFeature {
             switch action {
             case .onAppear:
                 let userDefaultsManager = UserDefaultsManager()
-                let wodInfo = userDefaultsManager.loadWodInfo()
-                state.wodInfo = wodInfo
+                let ownProgram = userDefaultsManager.loadOwnProgram()
+                state.ownProgram = ownProgram
                 
-                return .concatenate(.send(.setWorkOutDays),
+                return .concatenate(.send(.setWeeklyWorkOuts),
                                     .send(.updateWeekCompleted))
             case .didTapNewChallengeButton:
                 let userDefaultsManager = UserDefaultsManager()
-                let wodPrograms = userDefaultsManager.loadWodPrograms()
+                let wodPrograms = userDefaultsManager.loadOfferedPrograms()
                 
-                if let id = state.wodInfo?.id, let currentWodIndex = wodPrograms.firstIndex(where: { $0.id == id }) {
+                if let id = state.ownProgram?.id, let currentWodIndex = wodPrograms.firstIndex(where: { $0.id == id }) {
                     let nextIndex = (currentWodIndex + 1) % wodPrograms.count
-                    state.wodInfo = wodPrograms[safe: nextIndex]
+                    state.ownProgram = wodPrograms[safe: nextIndex]
                 }
                 
-                return .merge(.send(.setWorkOutDays),
-                              .send(.updateWodInfo))
+                return .merge(.send(.setWeeklyWorkOuts),
+                              .send(.updateOwnProgram))
             case .didTapResetButton:
                 let userDefaultsManager = UserDefaultsManager()
-                let wodPrograms = userDefaultsManager.loadWodPrograms()
+                let wodPrograms = userDefaultsManager.loadOfferedPrograms()
                 
-                if let id = state.wodInfo?.id {
+                if let id = state.ownProgram?.id {
                     let resetWod = wodPrograms.first { $0.id == id }
-                    state.wodInfo = resetWod
+                    state.ownProgram = resetWod
                 }
                 
-                return .merge(.send(.setWorkOutDays),
-                              .send(.updateWodInfo))
-            case .setWorkOutDays:
-                state.workOutDays = state.wodInfo?.workOutDays ?? []
+                return .merge(.send(.setWeeklyWorkOuts),
+                              .send(.updateOwnProgram))
+            case .setWeeklyWorkOuts:
+                state.weeklyWorkOuts = state.ownProgram?.weeklyWorkOuts ?? []
                 return .none
-            case .updateWodInfo:
+            case .updateOwnProgram:
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWodInfo(data: state.wodInfo)
+                userDefaultsManager.saveOwnProgram(with: state.ownProgram)
                 
                 // TODO: 최근 활동 insert.
                 
                 return .none
             case .updateWeekCompleted:
-                let isCelebrate = state.workOutDays.allSatisfy { $0.completedInfo.isCompleted }
+                let isCelebrate = state.weeklyWorkOuts.allSatisfy { $0.completedInfo.isCompleted }
                 if isCelebrate {
                     state.celebrateState = CelebrateFeature.State()
                 }
@@ -131,7 +131,7 @@ struct WorkOutView: View {
                         WorkOutNewChallengeView(store: store)
                         WorkOutTitleView(store: store)
                         
-                        ForEach(Array(store.workOutDays.enumerated()), id: \.element.id) { index, item in
+                        ForEach(Array(store.weeklyWorkOuts.enumerated()), id: \.element.id) { index, item in
                             WorkOutDayView(index: index, item: item)
                                 .contentShape(Rectangle())
                                 .onTapGesture {

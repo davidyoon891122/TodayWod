@@ -9,12 +9,12 @@ import Foundation
 
 struct RecentActivityModel: Codable, Equatable {
 
-    var workOutDayModels: [WorkOutDayModel]
+    var dayWorkOuts: [DayWorkOutModel]
 
 }
 
 extension RecentActivityModel {
 
-    static let fake: Self = .init(workOutDayModels: WorkOutDayModel.fakes)
+    static let fake: Self = .init(dayWorkOuts: DayWorkOutModel.fakes)
 
 }
