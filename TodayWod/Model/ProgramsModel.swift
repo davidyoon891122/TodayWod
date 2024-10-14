@@ -11,11 +11,11 @@ struct ProgramModel: Codable, Equatable, Identifiable {
 
     var id: UUID
     
-    var weeklyWorkOuts: [DayWorkOutModel]
+    var dayWorkOuts: [DayWorkOutModel]
     
     init(data: ProgramEntity) {
         self.id = UUID()
-        self.weeklyWorkOuts = data.weeklyWorkOuts.map { DayWorkOutModel(data: $0) }
+        self.dayWorkOuts = data.dayWorkOuts.map { DayWorkOutModel(data: $0) }
     }
     
 }
@@ -23,7 +23,7 @@ struct ProgramModel: Codable, Equatable, Identifiable {
 extension ProgramModel {
     
     var hasOwnProgram: Bool {
-        self.weeklyWorkOuts.count != 0
+        self.dayWorkOuts.count != 0
     }
     
 }

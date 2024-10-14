@@ -16,7 +16,14 @@ struct CompletedWodModel: Codable, Equatable, Identifiable {
     init(data: CompletedWodEntity) {
         self.id = UUID()
         
-        self.date = data.date.toDate
+        self.date = data.date
         self.duration = data.duration
     }
+    
+}
+
+extension CompletedWodModel {
+
+    static let fake: Self = .init(data: CompletedWodEntity.fake)
+
 }

@@ -4,10 +4,11 @@
 //
 //  Created by 오지연 on 10/13/24.
 //
+import Foundation
 
 struct RecentDayWorkOutEntity: Codable, Equatable {
     
-    var date: String
+    var date: Date?
     var duration: Int
     let type: DayWorkOutTagType
     let title: String
@@ -22,8 +23,8 @@ struct RecentDayWorkOutEntity: Codable, Equatable {
 extension RecentDayWorkOutEntity {
     
     static var fakes: [Self] = [
-        .init(date: "20240930", duration: 120, type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay1Info),
-        .init(date: "20241002", duration: 120, type: .end, title: "히어로 데이", subTitle: "열정적인", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay2Info)
+        .init(date: "2024-09-30".toDate(), duration: 120, type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay1Info),
+        .init(date: "2024-10-02".toDate(), duration: 120, type: .end, title: "히어로 데이", subTitle: "열정적인", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay2Info)
     ]
 
 }

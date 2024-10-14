@@ -59,10 +59,10 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func saveOwnProgram(day: DayWorkOutModel) {
         if var wodInfo = loadOwnProgram() {
-            let weeklyWorkOuts: [DayWorkOutModel] = wodInfo.weeklyWorkOuts.map {
+            let dayWorkOuts: [DayWorkOutModel] = wodInfo.dayWorkOuts.map {
                 $0.id == day.id ? day : $0
             }
-            wodInfo.weeklyWorkOuts = weeklyWorkOuts
+            wodInfo.dayWorkOuts = dayWorkOuts
             
             self.saveOwnProgram(with: wodInfo)
         } else {

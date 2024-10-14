@@ -24,7 +24,7 @@ struct RecentDayWorkOutModel: Codable, Equatable, Identifiable {
     init(data: RecentDayWorkOutEntity) {
         self.id = UUID()
         
-        self.date = data.date.toDate
+        self.date = data.date
         self.duration = data.duration
         self.type = data.type
         self.title = data.title

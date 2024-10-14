@@ -20,7 +20,7 @@ struct WorkOutFeature {
     @ObservableState
     struct State: Equatable {
         var ownProgram: ProgramModel? = nil
-        var weeklyWorkOuts: [DayWorkOutModel] = []
+        var dayWorkOuts: [DayWorkOutModel] = []
         var path = StackState<Path.State>()
         var dynamicHeight: CGFloat = .zero
 
@@ -31,7 +31,7 @@ struct WorkOutFeature {
         case onAppear
         case didTapNewChallengeButton
         case didTapResetButton
-        case setWeeklyWorkOuts
+        case setDayWorkOuts
         case updateOwnProgram
         case updateWeekCompleted
         case didTapDayView(item: DayWorkOutModel)
@@ -48,7 +48,7 @@ struct WorkOutFeature {
                 let ownProgram = userDefaultsManager.loadOwnProgram()
                 state.ownProgram = ownProgram
                 
-                return .concatenate(.send(.setWeeklyWorkOuts),
+                return .concatenate(.send(.setDayWorkOuts),
                                     .send(.updateWeekCompleted))
             case .didTapNewChallengeButton:
                 let userDefaultsManager = UserDefaultsManager()
@@ -59,7 +59,7 @@ struct WorkOutFeature {
                     state.ownProgram = wodPrograms[safe: nextIndex]
                 }
                 
-                return .merge(.send(.setWeeklyWorkOuts),
+                return .merge(.send(.setDayWorkOuts),
                               .send(.updateOwnProgram))
             case .didTapResetButton:
                 let userDefaultsManager = UserDefaultsManager()
@@ -70,17 +70,17 @@ struct WorkOutFeature {
                     state.ownProgram = resetWod
                 }
                 
-                return .merge(.send(.setWeeklyWorkOuts),
+                return .merge(.send(.setDayWorkOuts),
                               .send(.updateOwnProgram))
-            case .setWeeklyWorkOuts:
-                state.weeklyWorkOuts = state.ownProgram?.weeklyWorkOuts ?? []
+            case .setDayWorkOuts:
+                state.dayWorkOuts = state.ownProgram?.dayWorkOuts ?? []
                 return .none
             case .updateOwnProgram:
                 let userDefaultsManager = UserDefaultsManager()
                 userDefaultsManager.saveOwnProgram(with: state.ownProgram)
                 return .none
             case .updateWeekCompleted:
-                let isCelebrate = state.weeklyWorkOuts.allSatisfy { $0.isCompleted }
+                let isCelebrate = state.dayWorkOuts.allSatisfy { $0.isCompleted }
                 if isCelebrate {
                     state.celebrateState = CelebrateFeature.State()
                 }
@@ -128,7 +128,7 @@ struct WorkOutView: View {
                         WorkOutNewChallengeView(store: store)
                         WorkOutTitleView(store: store)
                         
-                        ForEach(Array(store.weeklyWorkOuts.enumerated()), id: \.element.id) { index, item in
+                        ForEach(Array(store.dayWorkOuts.enumerated()), id: \.element.id) { index, item in
                             WorkOutDayView(index: index, item: item)
                                 .contentShape(Rectangle())
                                 .onTapGesture {

@@ -18,13 +18,13 @@ struct ProgramEntity: Codable, Equatable {
     
     let methodType: ProgramMethodType
     let level: LevelType
-    let weeklyWorkOuts: [DayWorkOutEntity]
+    let dayWorkOuts: [DayWorkOutEntity]
     
 }
 
 extension ProgramEntity {
     
-    static var fake: Self = .init(methodType: .body, level: .beginner, weeklyWorkOuts: DayWorkOutEntity.bodyBeginnerAlphaWeek)
+    static var fake: Self = .init(methodType: .body, level: .beginner, dayWorkOuts: DayWorkOutEntity.bodyBeginnerAlphaWeek)
     
 }
 
