@@ -42,7 +42,7 @@ extension ProgramModel {
               expectedMinutes: 60,
               minExpectedCalorie: 445,
               maxExpectedCalorie: 550,
-              workoutInfos: [
+              workouts: [
                 .init(id: UUID(), type: .warmUp, wods: [
                     .init(id: UUID(),
                           title: "트레드밀",
@@ -129,7 +129,7 @@ extension ProgramModel {
               expectedMinutes: 60,
               minExpectedCalorie: 445,
               maxExpectedCalorie: 550,
-              workoutInfos: [
+              workouts: [
                 .init(id: UUID(), type: .warmUp, wods: [
                     .init(id: UUID(),
                           title: "트레드밀",
@@ -216,7 +216,7 @@ extension ProgramModel {
               expectedMinutes: 60,
               minExpectedCalorie: 445,
               maxExpectedCalorie: 550,
-              workoutInfos: [
+              workouts: [
                 .init(id: UUID(), type: .warmUp, wods: [
                     .init(id: UUID(),
                           title: "트레드밀",
@@ -303,7 +303,7 @@ extension ProgramModel {
               expectedMinutes: 60,
               minExpectedCalorie: 445,
               maxExpectedCalorie: 550,
-              workoutInfos: [
+              workouts: [
                 .init(id: UUID(), type: .warmUp, wods: [
                     .init(id: UUID(),
                           title: "트레드밀",
@@ -390,7 +390,7 @@ extension ProgramModel {
               expectedMinutes: 60,
               minExpectedCalorie: 445,
               maxExpectedCalorie: 550,
-              workoutInfos: [
+              workouts: [
                 .init(id: UUID(), type: .warmUp, wods: [
                     .init(id: UUID(),
                           title: "트레드밀",
@@ -477,7 +477,7 @@ extension ProgramModel {
               expectedMinutes: 60,
               minExpectedCalorie: 445,
               maxExpectedCalorie: 550,
-              workoutInfos: [
+              workouts: [
                 .init(id: UUID(), type: .warmUp, wods: [
                     .init(id: UUID(),
                           title: "트레드밀",
