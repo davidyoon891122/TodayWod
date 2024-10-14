@@ -1,5 +1,5 @@
 //
-//  WorkOutType.swift
+//  WorkoutType.swift
 //  TodayWod
 //
 //  Created by 오지연 on 9/17/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkOutType: String, Codable {
+enum WorkoutType: String, Codable {
     
     case warmUp
     case main
@@ -15,7 +15,7 @@ enum WorkOutType: String, Codable {
     
 }
 
-extension WorkOutType {
+extension WorkoutType {
     
     var title: String {
         switch self {

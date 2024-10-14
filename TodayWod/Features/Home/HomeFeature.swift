@@ -13,7 +13,7 @@ struct HomeFeature {
     
     @ObservableState
     struct State: Equatable {
-        var hasWod: Bool = UserDefaultsManager().loadWodInfo() != nil
+        var hasWod: Bool = UserDefaultsManager().loadOwnProgram() != nil
 
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
@@ -46,9 +46,9 @@ struct HomeFeature {
             switch action {
             case .setWodInfo:
                 let userDefaultManager = UserDefaultsManager()
-                let wodPrograms = userDefaultManager.loadWodPrograms()
+                let wodPrograms = userDefaultManager.loadOfferedPrograms()
                 
-                userDefaultManager.saveWodInfo(data: wodPrograms.first)
+                userDefaultManager.saveOwnProgram(with: wodPrograms.first)
                 state.hasWod.toggle()
     
                 return .none

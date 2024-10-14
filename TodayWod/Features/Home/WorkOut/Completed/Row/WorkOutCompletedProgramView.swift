@@ -8,11 +8,11 @@ import SwiftUI
 
 struct WorkOutCompletedProgramView: View {
     
-    let item: WorkOutDayModel
+    let item: DayWorkoutModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(item.workOuts) { workOut in
+            ForEach(item.workouts) { workOut in
                 Text(workOut.type.title)
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
@@ -20,7 +20,7 @@ struct WorkOutCompletedProgramView: View {
                     .padding(.top, 10.0)
                 
                 LazyVStack(alignment: .leading) {
-                    ForEach(workOut.items) { item in
+                    ForEach(workOut.wods) { item in
                         HStack {
                             Text(item.title)
                                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 16))

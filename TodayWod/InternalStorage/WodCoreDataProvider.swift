@@ -13,19 +13,19 @@ final class WodCoreDataProvider {
 
     private let context = WodCoreData.shared.context
 
-    func getWeeklyWorkoutEntities() throws -> [TobeDayWorkoutModel] {
-        guard let programEntity = try self.fetchWodInfo() else { return [] }
-        let weeklyWorkOutEntities = programEntity.dayWorkouts.compactMap { $0 as? DayWorkoutEntity }
+    func getDayWorkoutEntities() throws -> [DayWorkoutModel] {
+        guard let programEntity = try self.fetchProgram() else { return [] }
+        let dayWorkOutEntities = programEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
 
-        return weeklyWorkOutEntities.map {
-            TobeDayWorkoutModel(entity: $0)
+        return dayWorkOutEntities.map {
+            DayWorkoutModel(coreData: $0)
         }
     }
 
-    func setProgram(model: TobeProgramModel) throws -> TobeProgramModel {
-        _ = ProgramEntity.instance(with: self.context, model: model)
+    func setProgram(model: ProgramModel) throws -> ProgramModel {
+        _ = ProgramCoreEntity.instance(with: self.context, model: model)
         
-        try self.context.save()
+        WodCoreData.shared.saveContext() // CHECKME: try self.context.save()
 
         return model
     }
@@ -44,7 +44,7 @@ final class WodCoreDataProvider {
 
 private extension WodCoreDataProvider {
 
-    func fetchWodInfo() throws -> ProgramEntity? {
+    func fetchProgram() throws -> ProgramCoreEntity? {
         let wodInfo = try context.fetch(WodCoreData.shared.fetchProgram())
         print(wodInfo.count)
         let firstWod = wodInfo.first
@@ -52,7 +52,7 @@ private extension WodCoreDataProvider {
         return firstWod
     }
 
-    func fetchPrograms() throws -> [ProgramEntity] {
+    func fetchPrograms() throws -> [ProgramCoreEntity] {
         return try context.fetch(WodCoreData.shared.fetchProgram())
     }
 

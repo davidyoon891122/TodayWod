@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct WodView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    let model: WodModelOrigin
+    let model: WodModel
     
     var body: some View {
         WithPerceptionTracking {
@@ -22,7 +22,7 @@ struct WodView: View {
                 headerView
                 
                 VStack(spacing: 10) {
-                    ForEach(model.wodSet) { set in
+                    ForEach(model.wodSets) { set in
                         HStack(spacing: 10) {
                             if model.isSetVisible {
                                 Text(set.displaySetNumber)
@@ -78,9 +78,9 @@ struct WodView: View {
 #Preview {
     VStack {
         Spacer()
-//        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake), reducer: {
-//            WorkOutDetailFeature()
-//        }), model: WodModel.fake)
+        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
+            WorkOutDetailFeature()
+        }), model: WodModel.fake)
         Spacer()
     }
     .background(.blue10)

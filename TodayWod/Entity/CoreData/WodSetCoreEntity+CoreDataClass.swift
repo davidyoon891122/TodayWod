@@ -1,5 +1,5 @@
 //
-//  WodSetEntity+CoreDataClass.swift
+//  WodSetCoreEntity+CoreDataClass.swift
 //  TodayWod
 //
 //  Created by Davidyoon on 10/11/24.
@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(WodSetEntity)
-public class WodSetEntity: NSManagedObject {
+@objc(WodSetCoreEntity)
+public class WodSetCoreEntity: NSManagedObject {
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -19,12 +19,14 @@ public class WodSetEntity: NSManagedObject {
     
 }
 
-extension WodSetEntity {
+extension WodSetCoreEntity {
 
-    static func createWodSetEntity(with context: NSManagedObjectContext, models: [TobeWodSetModel]) -> [WodSetEntity] {
+    static func createWodSetEntity(with context: NSManagedObjectContext, models: [WodSetModel]) -> [WodSetCoreEntity] {
         return models.map { model in
-            let newItem = WodSetEntity(context: context)
+            let newItem = WodSetCoreEntity(context: context)
             newItem.id = model.id
+            newItem.wodModelId = model.wodModelId
+            newItem.workoutId = model.workoutId
             newItem.unitValue = Int64(model.unitValue)
             newItem.isCompleted = model.isCompleted
 

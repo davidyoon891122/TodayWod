@@ -23,7 +23,7 @@ struct MyActivityFeature {
     @ObservableState
     struct State: Equatable {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
-        let recentActivityModel: RecentActivityModel = .fake
+        let recentDayWorkouts: [RecentDayWorkoutModel] = UserDefaultsManager().loadRecentDayWorkouts()
         var path = StackState<Path.State>()
     }
 
@@ -132,22 +132,22 @@ struct MyActivityView: View {
                             Spacer()
                         }
                         LazyVStack {
-                            ForEach(store.recentActivityModel.workOutDayModels) { model in
+                            ForEach(store.recentDayWorkouts) { dayWorkout in
                                 HStack(spacing: 8.0) {
                                     Images.genderMan.swiftUIImage
                                         .resizable()
                                         .frame(width: 48.0, height: 48.0)
                                     VStack(alignment: .leading, spacing: 6.0) {
                                         HStack {
-                                            Text("\(model.title)")
+                                            Text(dayWorkout.title)
                                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                                                 .foregroundStyle(.grey100)
                                             Spacer()
-                                            Text("01:42:10")
+                                            Text(dayWorkout.duration.timerFormatter)
                                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                                                 .foregroundStyle(.grey100)
                                         }
-                                        Text("2024년 9월 31일 화요일")
+                                        Text(dayWorkout.displayDate)
                                             .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
                                             .foregroundStyle(.grey70)
                                     }

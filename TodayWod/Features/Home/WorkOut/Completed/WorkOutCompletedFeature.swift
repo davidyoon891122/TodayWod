@@ -13,7 +13,7 @@ struct WorkOutCompletedFeature {
     
     @ObservableState
     struct State: Equatable {
-        let item: WorkOutDayModel
+        let item: DayWorkoutModel
     }
     
     enum Action {

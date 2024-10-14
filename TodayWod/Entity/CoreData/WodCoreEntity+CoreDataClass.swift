@@ -1,16 +1,16 @@
 //
-//  WodEntity+CoreDataClass.swift
+//  WodCoreEntity+CoreDataClass.swift
 //  TodayWod
 //
-//  Created by Davidyoon on 10/11/24.
+//  Created by D프로젝트노드_오지연 on 10/15/24.
 //
 //
 
 import Foundation
 import CoreData
 
-@objc(WodEntity)
-public class WodEntity: NSManagedObject {
+@objc(WodCoreEntity)
+public class WodCoreEntity: NSManagedObject {
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -19,32 +19,33 @@ public class WodEntity: NSManagedObject {
     
 }
 
-extension WodEntity {
+extension WodCoreEntity {
 
-    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [TobeWodModel]) -> [WodEntity] {
+    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WodModel]) -> [WodCoreEntity] {
         models.map { model in
-            let newItem = WodEntity(context: context)
+            let newItem = WodCoreEntity(context: context)
             newItem.id = model.id
+            newItem.workoutId = model.workoutId
             newItem.title = model.title
             newItem.subTitle = model.subTitle
             newItem.unit = model.unit.rawValue
             newItem.unitValue = Int64(model.unitValue)
             newItem.set = Int64(model.set)
-            let wodSets = WodSetEntity.createWodSetEntity(with: context, models: model.wodSets)
+            let wodSets = WodSetCoreEntity.createWodSetEntity(with: context, models: model.wodSets)
             newItem.wodSets = NSOrderedSet(array: wodSets)
             return newItem
         }
     }
 
-    static func convertModelToEntity(with context: NSManagedObjectContext, model: TobeWodModel) -> WodEntity {
-        let newItem = WodEntity(context: context)
+    static func convertModelToEntity(with context: NSManagedObjectContext, model: WodModel) -> WodCoreEntity {
+        let newItem = WodCoreEntity(context: context)
         newItem.id = model.id
         newItem.title = model.title
         newItem.subTitle = model.subTitle
         newItem.unit = model.unit.rawValue
         newItem.unitValue = Int64(model.unitValue)
         newItem.set = Int64(model.set)
-        newItem.wodSets = NSOrderedSet(array: WodSetEntity.createWodSetEntity(with: context, models: model.wodSets))
+        newItem.wodSets = NSOrderedSet(array: WodSetCoreEntity.createWodSetEntity(with: context, models: model.wodSets))
 
         return newItem
     }

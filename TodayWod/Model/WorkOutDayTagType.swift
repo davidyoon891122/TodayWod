@@ -1,5 +1,5 @@
 //
-//  WorkOutDayTagType.swift
+//  DayWorkoutTagType.swift
 //  TodayWod
 //
 //  Created by 오지연 on 9/17/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkOutDayTagType: String, Codable {
+enum DayWorkoutTagType: String, Codable {
     
     case start
     case end
@@ -15,7 +15,7 @@ enum WorkOutDayTagType: String, Codable {
     
 }
 
-extension WorkOutDayTagType {
+extension DayWorkoutTagType {
     
     var title: String? {
         switch self {
