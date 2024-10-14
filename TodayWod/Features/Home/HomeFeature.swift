@@ -17,16 +17,12 @@ struct HomeFeature {
 
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
-
-        var workOutList = WorkOutListFeature.State()
-
     }
 
     enum Action {
         case setWodInfo
         case workOutEmpty(WorkOutEmptyFeature.Action)
         case workOut(WorkOutFeature.Action)
-        case workOutList(WorkOutListFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
@@ -36,10 +32,6 @@ struct HomeFeature {
         
         Scope(state: \.workOut, action: \.workOut) {
             WorkOutFeature()
-        }
-
-        Scope(state: \.workOutList, action: \.workOutList) {
-            WorkOutListFeature()
         }
 
         Reduce { state, action in
@@ -58,8 +50,6 @@ struct HomeFeature {
                 })
             case .workOut:
                 return .none
-            case .workOutList:
-                return .none
             }
         }
     }
@@ -75,13 +65,12 @@ struct HomeView: View {
     var body: some View {
         WithPerceptionTracking {
             if store.hasWod {
-//                WorkOutView(
-//                    store: store.scope(
-//                        state: \.workOut,
-//                        action: \.workOut
-//                    )
-//                )
-                WorkOutListView(store: store.scope(state: \.workOutList, action: \.workOutList))
+                WorkOutView(
+                    store: store.scope(
+                        state: \.workOut,
+                        action: \.workOut
+                    )
+                )
             } else {
                 WorkOutEmptyView(
                     store: store.scope(
