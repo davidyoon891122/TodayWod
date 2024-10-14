@@ -62,11 +62,11 @@ struct MethodSelectFeature {
                     return .run { _ in await dismiss() }
                 }
             case .saveTargetPrograms:
-                var targetPrograms: [WodInfoEntity] = WodInfoEntity.bodyBeginners // TODO: 현재는 무조건 body, 입문 조건의 Program 셋팅
+                var targetPrograms: [ProgramEntity] = ProgramEntity.bodyBeginners // TODO: 현재는 무조건 body, 입문 조건의 Program 셋팅
                 if state.onboardingUserModel.method == .body {
                     switch state.onboardingUserModel.level {
                     case .beginner:
-                        targetPrograms = WodInfoEntity.bodyBeginners
+                        targetPrograms = ProgramEntity.bodyBeginners
                     default:
                         break
                     }
@@ -75,7 +75,7 @@ struct MethodSelectFeature {
                 }
                 
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWodPrograms(data: targetPrograms.map { WodInfo(data: $0) })
+                userDefaultsManager.saveOfferedPrograms(with: targetPrograms.map { ProgramModel(data: $0) })
                 
                 return .none
             case let .setMethod(methodType):

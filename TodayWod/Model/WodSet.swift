@@ -10,21 +10,21 @@ import Foundation
 struct WodSet: Codable, Equatable, Identifiable {
 
     var id: UUID
-    var workOutInfoId: UUID?
-    var wodModelId: UUID?
+    var workOutId: UUID
+    var wodModelId: UUID
     
+    let order: Int
     var unitValue: Int
-    var number: Int?
     var isCompleted: Bool
     
-    init(unitValue: Int, number: Int? = nil, isCompleted: Bool = false) {
+    init(workOutId: UUID, wodModelId: UUID, data: WodSetEntity) {
         self.id = UUID()
-        self.workOutInfoId = nil
-        self.wodModelId = nil
+        self.workOutId = workOutId
+        self.wodModelId = wodModelId
         
-        self.unitValue = unitValue
-        self.number = number
-        self.isCompleted = isCompleted
+        self.order = data.order
+        self.unitValue = data.unitValue
+        self.isCompleted = data.isCompleted
     }
     
 }
@@ -32,22 +32,11 @@ struct WodSet: Codable, Equatable, Identifiable {
 extension WodSet {
     
     var displaySetNumber: String {
-        String(self.number ?? 1)
+        String(self.order + 1)
     }
     
     var displayUnitValue: String {
         String(self.unitValue)
-    }
-    
-    func createNumbering(set: Int, workOutInfoId: UUID?, wodModelId: UUID) -> [WodSet] {
-        (0..<set).map { idx in
-            var updatedSet = self
-            updatedSet.id = UUID()
-            updatedSet.workOutInfoId = workOutInfoId
-            updatedSet.wodModelId = wodModelId
-            updatedSet.number = idx + 1
-            return updatedSet
-        }
     }
     
 }
@@ -55,7 +44,7 @@ extension WodSet {
 extension WodSet {
     
     static var fake: Self {
-        .init(unitValue: 2, isCompleted: true)
+        .init(workOutId: UUID(), wodModelId: UUID(), data: WodSetEntity.fake)
     }
     
 }

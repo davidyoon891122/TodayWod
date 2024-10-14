@@ -13,7 +13,7 @@ struct WorkOutDetailFeature {
     
     @ObservableState
     struct State: Equatable {
-        var item: WorkOutDayModel
+        var item: DayWorkOutModel
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
@@ -21,7 +21,7 @@ struct WorkOutDetailFeature {
         @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
-        init(item: WorkOutDayModel) {
+        init(item: DayWorkOutModel) {
             self.item = item
             self.duration = item.duration
             self.hasStart = false
@@ -39,12 +39,12 @@ struct WorkOutDetailFeature {
         case setCompleted(WodSet)
         case setUnitText(String, WodSet)
         case updateWodSet(WodSet)
-        case saveWodInfo
+        case saveOwnProgram
         case updateDayCompleted
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
-        case finishWorkOut(WorkOutDayModel)
+        case finishWorkOut(DayWorkOutModel)
     }
     
     enum CancelID { case timer }
@@ -62,6 +62,9 @@ struct WorkOutDetailFeature {
                 return .none
             case .didTapStartButton:
                 state.hasStart = true
+                
+                // TODO: 운동 시작 시, 최근 활동 저장 필요. (최근 활동 저장 기준 확인 필요.)
+                
                 return .run { send in
                     await send(.startTimer)
                 }
@@ -80,7 +83,7 @@ struct WorkOutDetailFeature {
                 
                 state.item.duration = state.duration
                 return .run { send in
-                    await send(.saveWodInfo)
+                    await send(.saveOwnProgram)
                 }
             case let .setCompleted(set):
                 var updatedSet = set
@@ -104,9 +107,9 @@ struct WorkOutDetailFeature {
                 }
             case let .updateWodSet(set):
                 outerLoop: for (index, workout) in state.item.workOuts.enumerated() {
-                    for (wodIndex, wod) in workout.items.enumerated() {
-                        if let setIndex = wod.wodSet.firstIndex(where: { $0.id == set.id }) {
-                            state.item.workOuts[index].items[wodIndex].wodSet[setIndex] = set
+                    for (wodIndex, wod) in workout.wods.enumerated() {
+                        if let setIndex = wod.wodSets.firstIndex(where: { $0.id == set.id }) {
+                            state.item.workOuts[index].wods[wodIndex].wodSets[setIndex] = set
                             
                             print("%%%%%% UpdateWodSet: \(state.item.workOuts)")
                             
@@ -114,15 +117,15 @@ struct WorkOutDetailFeature {
                         }
                     }
                 }
-                return .concatenate(.send(.saveWodInfo),
+                return .concatenate(.send(.saveOwnProgram),
                                     .send(.updateDayCompleted))
-            case .saveWodInfo:
+            case .saveOwnProgram:
                 let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveWodInfo(day: state.item)
+                userDefaultsManager.saveOwnProgram(day: state.item)
                 return .none
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.workOuts.flatMap {
-                    $0.items.flatMap { $0.wodSet }
+                    $0.wods.flatMap { $0.wodSets }
                 }.allSatisfy { wodSet in
                     wodSet.isCompleted
                 }
@@ -133,10 +136,12 @@ struct WorkOutDetailFeature {
                 }
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)):
-                state.item.completedInfo = .init(isCompleted: true, completedDate: Date())
+                state.item.date = Date()
+                // TODO: 단순 "운동종료"일 경우엔 Date 저장 필요 없음. isCompleted false.
+                // TODO: 운동 성공의 경우, Date 저장.
                 
                 return .concatenate(.send(.stopTimer),
-                                    .send(.saveWodInfo),
+                                    .send(.saveOwnProgram),
                                     .send(.finishWorkOut(state.item)))
             default:
                 return .none
@@ -182,7 +187,7 @@ struct WorkOutDetailView: View {
                                             .padding(.top, 10)
                                         
                                         VStack(alignment: .leading, spacing: 10) {
-                                            ForEach(workOut.items) { item in
+                                            ForEach(workOut.wods) { item in
                                                 WodView(store: store, model: item)
                                             }
                                         }
@@ -233,7 +238,7 @@ private extension WorkOutDetailView {
 }
 
 #Preview {
-    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: WorkOutDayModel.fake)) {
+    WorkOutDetailView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkOutModel.fake)) {
         WorkOutDetailFeature()
     })
 }

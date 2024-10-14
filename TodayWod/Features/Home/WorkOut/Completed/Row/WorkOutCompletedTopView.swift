@@ -8,7 +8,7 @@ import SwiftUI
 
 struct WorkOutCompletedTopView: View {
     
-    let item: WorkOutDayModel
+    let item: DayWorkOutModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {

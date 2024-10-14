@@ -11,7 +11,7 @@ import SwiftUI
 struct WorkOutDayView: View {
     
     let index: Int
-    let item: WorkOutDayModel
+    let item: DayWorkOutModel
     
     var body: some View {
         HStack(alignment: .top) {
@@ -95,5 +95,5 @@ private extension WorkOutDayView {
 }
 
 #Preview {
-    WorkOutDayView(index: 0, item: WorkOutDayModel.completedFake)
+    WorkOutDayView(index: 0, item: DayWorkOutModel.completedFake)
 }

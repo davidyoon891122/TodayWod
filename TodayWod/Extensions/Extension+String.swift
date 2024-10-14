@@ -7,10 +7,23 @@
 
 import Foundation
 
+enum DateFormat: String {
+    
+    case dash = "yyyy-MM-dd"
+    
+}
+
 extension String {
     
     var toInt: Int {
         Int(self) ?? 0
+    }
+    
+    func toDate(_ type: DateFormat = .dash) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = type.rawValue
+
+        return dateFormatter.date(from: self)
     }
     
     func isValidNickName() -> Bool {
