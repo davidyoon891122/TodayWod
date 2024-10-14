@@ -21,15 +21,34 @@ public class DayWorkoutEntity: NSManagedObject {
 
 extension DayWorkoutEntity {
 
-    static func createWorkoutInfoEntities(with context: NSManagedObjectContext, models: [DayWorkoutModel]) -> [DayWorkoutEntity] {
-        return models.map { model in
+    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [DayWorkoutModel]) -> [DayWorkoutEntity] {
+        programModel.map { model in
             let newItem = DayWorkoutEntity(context: context)
             newItem.id = model.id
             newItem.type = model.type.rawValue
-            let workOutItem = WodEntity.createWorkoutItemEntity(with: context, models: model.wods)
-            newItem.wods = NSOrderedSet(array: workOutItem)
+            newItem.title = model.title
+            newItem.subTitle = model.subTitle
+            newItem.expectedMinutes = Int64(model.expectedMinutes)
+            newItem.minExpectedCalorie = Int64(model.minExpectedCalorie)
+            newItem.maxExpectedCalorie = Int64(model.maxExpectedCalorie)
+            let workOutInfos = WorkoutEntity.createWorkoutInfoEntities(with: context, models: model.workouts)
+            newItem.workouts = NSOrderedSet(array: workOutInfos)
             return newItem
         }
+    }
+
+    static func convertToEntity(with context: NSManagedObjectContext, model: DayWorkoutModel) -> DayWorkoutEntity {
+        let newItem = DayWorkoutEntity(context: context)
+        newItem.id = model.id
+        newItem.title = model.title
+        newItem.subTitle = model.subTitle
+        newItem.expectedMinutes = Int64(model.expectedMinutes)
+        newItem.minExpectedCalorie = Int64(model.minExpectedCalorie)
+        newItem.maxExpectedCalorie = Int64(model.maxExpectedCalorie)
+        newItem.type = model.type.rawValue
+        newItem.workouts = NSOrderedSet(array: WorkoutEntity.createWorkoutInfoEntities(with: context, models: model.workouts))
+
+        return newItem
     }
 
 }

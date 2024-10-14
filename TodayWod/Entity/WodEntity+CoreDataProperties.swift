@@ -22,7 +22,7 @@ extension WodEntity {
     @NSManaged public var title: String
     @NSManaged public var unit: String
     @NSManaged public var unitValue: Int64
-    @NSManaged public var wodSet: NSOrderedSet
+    @NSManaged public var wodSets: NSOrderedSet
 
 }
 

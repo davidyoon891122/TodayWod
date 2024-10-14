@@ -30,8 +30,8 @@ extension WodEntity {
             newItem.unit = model.unit.rawValue
             newItem.unitValue = Int64(model.unitValue)
             newItem.set = Int64(model.set)
-            let wodSet = WodSetEntity.createWodSetEntity(with: context, models: model.wodSet)
-            newItem.wodSet = NSOrderedSet(array: wodSet)
+            let wodSets = WodSetEntity.createWodSetEntity(with: context, models: model.wodSets)
+            newItem.wodSets = NSOrderedSet(array: wodSets)
             return newItem
         }
     }
@@ -44,7 +44,7 @@ extension WodEntity {
         newItem.unit = model.unit.rawValue
         newItem.unitValue = Int64(model.unitValue)
         newItem.set = Int64(model.set)
-        newItem.wodSet = NSOrderedSet(array: WodSetEntity.createWodSetEntity(with: context, models: model.wodSet))
+        newItem.wodSets = NSOrderedSet(array: WodSetEntity.createWodSetEntity(with: context, models: model.wodSets))
 
         return newItem
     }

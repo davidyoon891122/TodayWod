@@ -98,19 +98,19 @@
 		ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */; };
 		ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */; };
 		ADF7DBC82CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DBC62CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld */; };
-		ADF7DC0F2CB8B3D2007170BE /* ProgramsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC072CB8B3D2007170BE /* ProgramsEntity+CoreDataClass.swift */; };
-		ADF7DC102CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC092CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataClass.swift */; };
+		ADF7DC0F2CB8B3D2007170BE /* ProgramEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC072CB8B3D2007170BE /* ProgramEntity+CoreDataClass.swift */; };
+		ADF7DC102CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC092CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift */; };
 		ADF7DC112CB8B3D2007170BE /* WodEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC0C2CB8B3D2007170BE /* WodEntity+CoreDataProperties.swift */; };
-		ADF7DC122CB8B3D2007170BE /* ProgramsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC082CB8B3D2007170BE /* ProgramsEntity+CoreDataProperties.swift */; };
-		ADF7DC132CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC052CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift */; };
-		ADF7DC142CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC062CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift */; };
+		ADF7DC122CB8B3D2007170BE /* ProgramEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC082CB8B3D2007170BE /* ProgramEntity+CoreDataProperties.swift */; };
+		ADF7DC132CB8B3D2007170BE /* WorkoutEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC052CB8B3D2007170BE /* WorkoutEntity+CoreDataClass.swift */; };
+		ADF7DC142CB8B3D2007170BE /* WorkoutEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC062CB8B3D2007170BE /* WorkoutEntity+CoreDataProperties.swift */; };
 		ADF7DC152CB8B3D2007170BE /* WodSetEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC0E2CB8B3D2007170BE /* WodSetEntity+CoreDataProperties.swift */; };
-		ADF7DC162CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC0A2CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataProperties.swift */; };
+		ADF7DC162CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC0A2CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift */; };
 		ADF7DC172CB8B3D2007170BE /* WodEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC0B2CB8B3D2007170BE /* WodEntity+CoreDataClass.swift */; };
 		ADF7DC182CB8B3D2007170BE /* WodSetEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC0D2CB8B3D2007170BE /* WodSetEntity+CoreDataClass.swift */; };
-		ADF7DC2B2CB8BA39007170BE /* DayWorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC262CB8BA39007170BE /* DayWorkoutModel.swift */; };
-		ADF7DC2C2CB8BA39007170BE /* ProgramsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC272CB8BA39007170BE /* ProgramsModel.swift */; };
-		ADF7DC2D2CB8BA39007170BE /* WeeklyWorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC282CB8BA39007170BE /* WeeklyWorkoutModel.swift */; };
+		ADF7DC2B2CB8BA39007170BE /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC262CB8BA39007170BE /* WorkoutModel.swift */; };
+		ADF7DC2C2CB8BA39007170BE /* ProgramModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC272CB8BA39007170BE /* ProgramModel.swift */; };
+		ADF7DC2D2CB8BA39007170BE /* DayWorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC282CB8BA39007170BE /* DayWorkoutModel.swift */; };
 		ADF7DC2E2CB8BA39007170BE /* WodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC292CB8BA39007170BE /* WodModel.swift */; };
 		ADF7DC2F2CB8BA39007170BE /* WodSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC2A2CB8BA39007170BE /* WodSetModel.swift */; };
 		ADF7DC322CB8BF03007170BE /* WodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF7DC312CB8BF03007170BE /* WodCoreData.swift */; };
@@ -211,19 +211,19 @@
 		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
 		ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
 		ADF7DBC72CB89ED3007170BE /* TodayWodCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodayWodCoreData.xcdatamodel; sourceTree = "<group>"; };
-		ADF7DC052CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		ADF7DC062CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		ADF7DC072CB8B3D2007170BE /* ProgramsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		ADF7DC082CB8B3D2007170BE /* ProgramsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		ADF7DC092CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeeklyWorkoutEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		ADF7DC0A2CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeeklyWorkoutEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		ADF7DC052CB8B3D2007170BE /* WorkoutEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		ADF7DC062CB8B3D2007170BE /* WorkoutEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		ADF7DC072CB8B3D2007170BE /* ProgramEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		ADF7DC082CB8B3D2007170BE /* ProgramEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		ADF7DC092CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		ADF7DC0A2CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		ADF7DC0B2CB8B3D2007170BE /* WodEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		ADF7DC0C2CB8B3D2007170BE /* WodEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		ADF7DC0D2CB8B3D2007170BE /* WodSetEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodSetEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		ADF7DC0E2CB8B3D2007170BE /* WodSetEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodSetEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		ADF7DC262CB8BA39007170BE /* DayWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWorkoutModel.swift; sourceTree = "<group>"; };
-		ADF7DC272CB8BA39007170BE /* ProgramsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramsModel.swift; sourceTree = "<group>"; };
-		ADF7DC282CB8BA39007170BE /* WeeklyWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutModel.swift; sourceTree = "<group>"; };
+		ADF7DC262CB8BA39007170BE /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
+		ADF7DC272CB8BA39007170BE /* ProgramModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramModel.swift; sourceTree = "<group>"; };
+		ADF7DC282CB8BA39007170BE /* DayWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWorkoutModel.swift; sourceTree = "<group>"; };
 		ADF7DC292CB8BA39007170BE /* WodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodModel.swift; sourceTree = "<group>"; };
 		ADF7DC2A2CB8BA39007170BE /* WodSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodSetModel.swift; sourceTree = "<group>"; };
 		ADF7DC312CB8BF03007170BE /* WodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodCoreData.swift; sourceTree = "<group>"; };
@@ -290,12 +290,12 @@
 		1C9C9F672CABA85900157001 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				ADF7DC052CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift */,
-				ADF7DC062CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift */,
-				ADF7DC072CB8B3D2007170BE /* ProgramsEntity+CoreDataClass.swift */,
-				ADF7DC082CB8B3D2007170BE /* ProgramsEntity+CoreDataProperties.swift */,
-				ADF7DC092CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataClass.swift */,
-				ADF7DC0A2CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataProperties.swift */,
+				ADF7DC052CB8B3D2007170BE /* WorkoutEntity+CoreDataClass.swift */,
+				ADF7DC062CB8B3D2007170BE /* WorkoutEntity+CoreDataProperties.swift */,
+				ADF7DC072CB8B3D2007170BE /* ProgramEntity+CoreDataClass.swift */,
+				ADF7DC082CB8B3D2007170BE /* ProgramEntity+CoreDataProperties.swift */,
+				ADF7DC092CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift */,
+				ADF7DC0A2CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift */,
 				ADF7DC0B2CB8B3D2007170BE /* WodEntity+CoreDataClass.swift */,
 				ADF7DC0C2CB8B3D2007170BE /* WodEntity+CoreDataProperties.swift */,
 				ADF7DC0D2CB8B3D2007170BE /* WodSetEntity+CoreDataClass.swift */,
@@ -764,9 +764,9 @@
 		ADF7DC302CB8BE91007170BE /* Wod */ = {
 			isa = PBXGroup;
 			children = (
-				ADF7DC262CB8BA39007170BE /* DayWorkoutModel.swift */,
-				ADF7DC272CB8BA39007170BE /* ProgramsModel.swift */,
-				ADF7DC282CB8BA39007170BE /* WeeklyWorkoutModel.swift */,
+				ADF7DC262CB8BA39007170BE /* WorkoutModel.swift */,
+				ADF7DC272CB8BA39007170BE /* ProgramModel.swift */,
+				ADF7DC282CB8BA39007170BE /* DayWorkoutModel.swift */,
 				ADF7DC292CB8BA39007170BE /* WodModel.swift */,
 				ADF7DC2A2CB8BA39007170BE /* WodSetModel.swift */,
 			);
@@ -920,9 +920,9 @@
 				497C0F1D2CA02E9000F7444E /* CalendarGridView.swift in Sources */,
 				1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
-				ADF7DC2B2CB8BA39007170BE /* DayWorkoutModel.swift in Sources */,
-				ADF7DC2C2CB8BA39007170BE /* ProgramsModel.swift in Sources */,
-				ADF7DC2D2CB8BA39007170BE /* WeeklyWorkoutModel.swift in Sources */,
+				ADF7DC2B2CB8BA39007170BE /* WorkoutModel.swift in Sources */,
+				ADF7DC2C2CB8BA39007170BE /* ProgramModel.swift in Sources */,
+				ADF7DC2D2CB8BA39007170BE /* DayWorkoutModel.swift in Sources */,
 				ADF7DC2E2CB8BA39007170BE /* WodModel.swift in Sources */,
 				ADF7DC2F2CB8BA39007170BE /* WodSetModel.swift in Sources */,
 				1C0B53712CAD34F300256FE2 /* BottomButton.swift in Sources */,
@@ -969,14 +969,14 @@
 				496C3ABF2CB8E414005E9E08 /* WodClient.swift in Sources */,
 				ADF7DBC82CB89ED3007170BE /* TodayWodCoreData.xcdatamodeld in Sources */,
 				AD1FE4372CB4AE2A0045CE57 /* MethodMenuView.swift in Sources */,
-				ADF7DC0F2CB8B3D2007170BE /* ProgramsEntity+CoreDataClass.swift in Sources */,
-				ADF7DC102CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataClass.swift in Sources */,
+				ADF7DC0F2CB8B3D2007170BE /* ProgramEntity+CoreDataClass.swift in Sources */,
+				ADF7DC102CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift in Sources */,
 				ADF7DC112CB8B3D2007170BE /* WodEntity+CoreDataProperties.swift in Sources */,
-				ADF7DC122CB8B3D2007170BE /* ProgramsEntity+CoreDataProperties.swift in Sources */,
-				ADF7DC132CB8B3D2007170BE /* DayWorkoutEntity+CoreDataClass.swift in Sources */,
-				ADF7DC142CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift in Sources */,
+				ADF7DC122CB8B3D2007170BE /* ProgramEntity+CoreDataProperties.swift in Sources */,
+				ADF7DC132CB8B3D2007170BE /* WorkoutEntity+CoreDataClass.swift in Sources */,
+				ADF7DC142CB8B3D2007170BE /* WorkoutEntity+CoreDataProperties.swift in Sources */,
 				ADF7DC152CB8B3D2007170BE /* WodSetEntity+CoreDataProperties.swift in Sources */,
-				ADF7DC162CB8B3D2007170BE /* WeeklyWorkoutEntity+CoreDataProperties.swift in Sources */,
+				ADF7DC162CB8B3D2007170BE /* DayWorkoutEntity+CoreDataProperties.swift in Sources */,
 				ADF7DC172CB8B3D2007170BE /* WodEntity+CoreDataClass.swift in Sources */,
 				ADF7DC182CB8B3D2007170BE /* WodSetEntity+CoreDataClass.swift in Sources */,
 				1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */,

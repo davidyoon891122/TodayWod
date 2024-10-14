@@ -9,8 +9,8 @@ import Foundation
 import ComposableArchitecture
 
 struct WodClient {
-    var getWeeklyModels: () throws -> [WeeklyWorkoutModel]
-    var addWodProgram: (ProgramsModel) throws -> ProgramsModel
+    var getWeeklyModels: () throws -> [DayWorkoutModel]
+    var addWodProgram: (ProgramModel) throws -> ProgramModel
     var removePrograms: () throws -> Void
 }
 

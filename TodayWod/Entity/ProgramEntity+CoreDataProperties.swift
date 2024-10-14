@@ -10,45 +10,45 @@ import Foundation
 import CoreData
 
 
-extension ProgramsEntity {
+extension ProgramEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<ProgramsEntity> {
-        return NSFetchRequest<ProgramsEntity>(entityName: "ProgramsEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ProgramEntity> {
+        return NSFetchRequest<ProgramEntity>(entityName: "ProgramsEntity")
     }
 
     @NSManaged public var id: UUID
     @NSManaged public var level: String
     @NSManaged public var methodType: String
-    @NSManaged public var weeklyWorkouts: NSOrderedSet
+    @NSManaged public var dayWorkouts: NSOrderedSet
 
 }
 
 // MARK: Generated accessors for weeklyWorkouts
-extension ProgramsEntity {
+extension ProgramEntity {
 
     @objc(insertObject:inWeeklyWorkoutsAtIndex:)
-    @NSManaged public func insertIntoWeeklyWorkouts(_ value: WeeklyWorkoutEntity, at idx: Int)
+    @NSManaged public func insertIntoWeeklyWorkouts(_ value: DayWorkoutEntity, at idx: Int)
 
     @objc(removeObjectFromWeeklyWorkoutsAtIndex:)
     @NSManaged public func removeFromWeeklyWorkouts(at idx: Int)
 
     @objc(insertWeeklyWorkouts:atIndexes:)
-    @NSManaged public func insertIntoWeeklyWorkouts(_ values: [WeeklyWorkoutEntity], at indexes: NSIndexSet)
+    @NSManaged public func insertIntoWeeklyWorkouts(_ values: [DayWorkoutEntity], at indexes: NSIndexSet)
 
     @objc(removeWeeklyWorkoutsAtIndexes:)
     @NSManaged public func removeFromWeeklyWorkouts(at indexes: NSIndexSet)
 
     @objc(replaceObjectInWeeklyWorkoutsAtIndex:withObject:)
-    @NSManaged public func replaceWeeklyWorkouts(at idx: Int, with value: WeeklyWorkoutEntity)
+    @NSManaged public func replaceWeeklyWorkouts(at idx: Int, with value: DayWorkoutEntity)
 
     @objc(replaceWeeklyWorkoutsAtIndexes:withWeeklyWorkouts:)
-    @NSManaged public func replaceWeeklyWorkouts(at indexes: NSIndexSet, with values: [WeeklyWorkoutEntity])
+    @NSManaged public func replaceWeeklyWorkouts(at indexes: NSIndexSet, with values: [DayWorkoutEntity])
 
     @objc(addWeeklyWorkoutsObject:)
-    @NSManaged public func addToWeeklyWorkouts(_ value: WeeklyWorkoutEntity)
+    @NSManaged public func addToWeeklyWorkouts(_ value: DayWorkoutEntity)
 
     @objc(removeWeeklyWorkoutsObject:)
-    @NSManaged public func removeFromWeeklyWorkouts(_ value: WeeklyWorkoutEntity)
+    @NSManaged public func removeFromWeeklyWorkouts(_ value: DayWorkoutEntity)
 
     @objc(addWeeklyWorkouts:)
     @NSManaged public func addToWeeklyWorkouts(_ values: NSOrderedSet)
@@ -58,6 +58,6 @@ extension ProgramsEntity {
 
 }
 
-extension ProgramsEntity : Identifiable {
+extension ProgramEntity : Identifiable {
 
 }

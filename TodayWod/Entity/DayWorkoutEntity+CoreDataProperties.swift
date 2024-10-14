@@ -13,47 +13,52 @@ import CoreData
 extension DayWorkoutEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<DayWorkoutEntity> {
-        return NSFetchRequest<DayWorkoutEntity>(entityName: "DayWorkoutEntity")
+        return NSFetchRequest<DayWorkoutEntity>(entityName: "WeeklyWorkoutEntity")
     }
 
     @NSManaged public var id: UUID
+    @NSManaged public var title: String
+    @NSManaged public var subTitle: String
     @NSManaged public var type: String
-    @NSManaged public var wods: NSOrderedSet
+    @NSManaged public var expectedMinutes: Int64
+    @NSManaged public var maxExpectedCalorie: Int64
+    @NSManaged public var minExpectedCalorie: Int64
+    @NSManaged public var workouts: NSOrderedSet
 
 }
 
-// MARK: Generated accessors for wods
+// MARK: Generated accessors for dayWorkouts
 extension DayWorkoutEntity {
 
-    @objc(insertObject:inWodsAtIndex:)
-    @NSManaged public func insertIntoWods(_ value: WodEntity, at idx: Int)
+    @objc(insertObject:inDayWorkoutsAtIndex:)
+    @NSManaged public func insertIntoDayWorkouts(_ value: WorkoutEntity, at idx: Int)
 
-    @objc(removeObjectFromWodsAtIndex:)
-    @NSManaged public func removeFromWods(at idx: Int)
+    @objc(removeObjectFromDayWorkoutsAtIndex:)
+    @NSManaged public func removeFromDayWorkouts(at idx: Int)
 
-    @objc(insertWods:atIndexes:)
-    @NSManaged public func insertIntoWods(_ values: [WodEntity], at indexes: NSIndexSet)
+    @objc(insertDayWorkouts:atIndexes:)
+    @NSManaged public func insertIntoDayWorkouts(_ values: [WorkoutEntity], at indexes: NSIndexSet)
 
-    @objc(removeWodsAtIndexes:)
-    @NSManaged public func removeFromWods(at indexes: NSIndexSet)
+    @objc(removeDayWorkoutsAtIndexes:)
+    @NSManaged public func removeFromDayWorkouts(at indexes: NSIndexSet)
 
-    @objc(replaceObjectInWodsAtIndex:withObject:)
-    @NSManaged public func replaceWods(at idx: Int, with value: WodEntity)
+    @objc(replaceObjectInDayWorkoutsAtIndex:withObject:)
+    @NSManaged public func replaceDayWorkouts(at idx: Int, with value: WorkoutEntity)
 
-    @objc(replaceWodsAtIndexes:withWods:)
-    @NSManaged public func replaceWods(at indexes: NSIndexSet, with values: [WodEntity])
+    @objc(replaceDayWorkoutsAtIndexes:withDayWorkouts:)
+    @NSManaged public func replaceDayWorkouts(at indexes: NSIndexSet, with values: [WorkoutEntity])
 
-    @objc(addWodsObject:)
-    @NSManaged public func addToWods(_ value: WodEntity)
+    @objc(addDayWorkoutsObject:)
+    @NSManaged public func addToDayWorkouts(_ value: WorkoutEntity)
 
-    @objc(removeWodsObject:)
-    @NSManaged public func removeFromWods(_ value: WodEntity)
+    @objc(removeDayWorkoutsObject:)
+    @NSManaged public func removeFromDayWorkouts(_ value: WorkoutEntity)
 
-    @objc(addWods:)
-    @NSManaged public func addToWods(_ values: NSOrderedSet)
+    @objc(addDayWorkouts:)
+    @NSManaged public func addToDayWorkouts(_ values: NSOrderedSet)
 
-    @objc(removeWods:)
-    @NSManaged public func removeFromWods(_ values: NSOrderedSet)
+    @objc(removeDayWorkouts:)
+    @NSManaged public func removeFromDayWorkouts(_ values: NSOrderedSet)
 
 }
 
