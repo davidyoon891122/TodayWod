@@ -26,8 +26,8 @@ extension WorkoutEntity {
             let newItem = WorkoutEntity(context: context)
             newItem.id = model.id
             newItem.type = model.type.rawValue
-            let workOutItem = WodEntity.createWorkoutItemEntity(with: context, models: model.wods)
-            newItem.wods = NSOrderedSet(array: workOutItem)
+            let wods = WodEntity.createWorkoutItemEntity(with: context, models: model.wods)
+            newItem.wods = NSOrderedSet(array: wods)
             return newItem
         }
     }

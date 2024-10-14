@@ -31,7 +31,7 @@ struct DayWorkoutModel: Equatable, Identifiable {
         }
     }
 
-    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalorie: Int, maxExpectedCalorie: Int, workoutInfos: [WorkoutModel]) {
+    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalorie: Int, maxExpectedCalorie: Int, workouts: [WorkoutModel]) {
         self.id = id
         self.type = type
         self.title = title
@@ -39,7 +39,7 @@ struct DayWorkoutModel: Equatable, Identifiable {
         self.expectedMinutes = expectedMinutes
         self.minExpectedCalorie = minExpectedCalorie
         self.maxExpectedCalorie = maxExpectedCalorie
-        self.workouts = workoutInfos
+        self.workouts = workouts
     }
 
 }
