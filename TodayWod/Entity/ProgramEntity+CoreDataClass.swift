@@ -21,7 +21,7 @@ public class ProgramEntity: NSManagedObject {
 
 extension ProgramEntity {
 
-    static func instance(with context: NSManagedObjectContext, model: ProgramModel) -> ProgramEntity {
+    static func instance(with context: NSManagedObjectContext, model: TobeProgramModel) -> ProgramEntity {
         let newWodInfoEntity = ProgramEntity(context: context)
         newWodInfoEntity.id = model.id
         newWodInfoEntity.level = model.level.rawValue

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DayWorkoutModel: Equatable, Identifiable {
+struct TobeDayWorkoutModel: Equatable, Identifiable {
 
     let id: UUID
     let type: WorkOutDayTagType
@@ -16,7 +16,7 @@ struct DayWorkoutModel: Equatable, Identifiable {
     let expectedMinutes: Int
     let minExpectedCalorie: Int
     let maxExpectedCalorie: Int
-    let workouts: [WorkoutModel]
+    let workouts: [TobeWorkoutModel]
 
     init(entity: DayWorkoutEntity) {
         self.id = entity.id
@@ -27,11 +27,11 @@ struct DayWorkoutModel: Equatable, Identifiable {
         self.minExpectedCalorie = Int(entity.minExpectedCalorie)
         self.maxExpectedCalorie = Int(entity.maxExpectedCalorie)
         self.workouts = entity.workouts.map {
-            WorkoutModel(entity: $0 as! WorkoutEntity)
+            TobeWorkoutModel(entity: $0 as! WorkoutEntity)
         }
     }
 
-    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalorie: Int, maxExpectedCalorie: Int, workouts: [WorkoutModel]) {
+    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalorie: Int, maxExpectedCalorie: Int, workouts: [TobeWorkoutModel]) {
         self.id = id
         self.type = type
         self.title = title
@@ -44,7 +44,7 @@ struct DayWorkoutModel: Equatable, Identifiable {
 
 }
 
-extension DayWorkoutModel {
+extension TobeDayWorkoutModel {
 
     var isCompleteAllItem: Bool {
         self.workouts.allSatisfy { $0.wods.allSatisfy { $0.wodSets.allSatisfy { $0.isCompleted }}}
@@ -52,7 +52,7 @@ extension DayWorkoutModel {
 
 }
 
-extension DayWorkoutModel {
+extension TobeDayWorkoutModel {
 
     static let preview: Self = .init(id: UUID(),
                                      type: .start,

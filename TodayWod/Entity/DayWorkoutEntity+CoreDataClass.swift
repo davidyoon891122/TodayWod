@@ -21,7 +21,7 @@ public class DayWorkoutEntity: NSManagedObject {
 
 extension DayWorkoutEntity {
 
-    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [DayWorkoutModel]) -> [DayWorkoutEntity] {
+    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [TobeDayWorkoutModel]) -> [DayWorkoutEntity] {
         programModel.map { model in
             let newItem = DayWorkoutEntity(context: context)
             newItem.id = model.id
@@ -37,7 +37,7 @@ extension DayWorkoutEntity {
         }
     }
 
-    static func convertToEntity(with context: NSManagedObjectContext, model: DayWorkoutModel) -> DayWorkoutEntity {
+    static func convertToEntity(with context: NSManagedObjectContext, model: TobeDayWorkoutModel) -> DayWorkoutEntity {
         let newItem = DayWorkoutEntity(context: context)
         newItem.id = model.id
         newItem.title = model.title

@@ -7,23 +7,23 @@
 
 import Foundation
 
-struct ProgramModel: Equatable {
+struct TobeProgramModel: Equatable {
 
     let id: UUID
     let methodType: ProgramMethodType
     let level: LevelType
-    let dayWorkouts: [DayWorkoutModel]
+    let dayWorkouts: [TobeDayWorkoutModel]
 
     init(entity: ProgramEntity) {
         self.id = entity.id
         self.methodType = ProgramMethodType(rawValue: entity.methodType) ?? .body
         self.level = LevelType(rawValue: entity.level) ?? .beginner
         self.dayWorkouts = entity.dayWorkouts.map {
-            DayWorkoutModel(entity: $0 as! DayWorkoutEntity)
+            TobeDayWorkoutModel(entity: $0 as! DayWorkoutEntity)
         }
     }
 
-    init(id: UUID, methodType: ProgramMethodType, level: LevelType, dayWorkouts: [DayWorkoutModel]) {
+    init(id: UUID, methodType: ProgramMethodType, level: LevelType, dayWorkouts: [TobeDayWorkoutModel]) {
         self.id = id
         self.methodType = methodType
         self.level = level
@@ -32,7 +32,7 @@ struct ProgramModel: Equatable {
 
 }
 
-extension ProgramModel {
+extension TobeProgramModel {
 
     static let mock: Self = .init(id: UUID(), methodType: .body, level: .beginner, dayWorkouts: [
         .init(id: UUID(),

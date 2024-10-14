@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WodSetModel: Equatable, Hashable {
+struct TobeWodSetModel: Equatable, Hashable {
 
     let id: UUID
     let order: Int

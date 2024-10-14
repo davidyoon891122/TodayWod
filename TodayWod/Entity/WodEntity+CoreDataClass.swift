@@ -21,7 +21,7 @@ public class WodEntity: NSManagedObject {
 
 extension WodEntity {
 
-    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WodModel]) -> [WodEntity] {
+    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [TobeWodModel]) -> [WodEntity] {
         models.map { model in
             let newItem = WodEntity(context: context)
             newItem.id = model.id
@@ -36,7 +36,7 @@ extension WodEntity {
         }
     }
 
-    static func convertModelToEntity(with context: NSManagedObjectContext, model: WodModel) -> WodEntity {
+    static func convertModelToEntity(with context: NSManagedObjectContext, model: TobeWodModel) -> WodEntity {
         let newItem = WodEntity(context: context)
         newItem.id = model.id
         newItem.title = model.title

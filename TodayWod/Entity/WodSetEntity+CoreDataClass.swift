@@ -21,7 +21,7 @@ public class WodSetEntity: NSManagedObject {
 
 extension WodSetEntity {
 
-    static func createWodSetEntity(with context: NSManagedObjectContext, models: [WodSetModel]) -> [WodSetEntity] {
+    static func createWodSetEntity(with context: NSManagedObjectContext, models: [TobeWodSetModel]) -> [WodSetEntity] {
         return models.map { model in
             let newItem = WodSetEntity(context: context)
             newItem.id = model.id

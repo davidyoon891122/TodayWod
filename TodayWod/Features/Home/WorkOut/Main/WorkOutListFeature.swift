@@ -13,13 +13,13 @@ struct WorkOutListFeature {
 
     @ObservableState
     struct State: Equatable {
-        var weeklyWorkouts: [DayWorkoutModel] = []
+        var weeklyWorkouts: [TobeDayWorkoutModel] = []
     }
     
     enum Action {
         case didTapAddProgram
         case didTapDeleteProgram
-        case weeklyModelResult(Result<[DayWorkoutModel], Error>)
+        case weeklyModelResult(Result<[TobeDayWorkoutModel], Error>)
         case onAppear
         case removeProgramResult(Result<Void, Error>)
     }
@@ -41,7 +41,7 @@ struct WorkOutListFeature {
             case .didTapAddProgram:
                 return .run { send in
                     do {
-                        let programsModel = ProgramModel(id: UUID(), methodType: .body, level: .advanced, dayWorkouts: [DayWorkoutModel.preview])
+                        let programsModel = TobeProgramModel(id: UUID(), methodType: .body, level: .advanced, dayWorkouts: [TobeDayWorkoutModel.preview])
                         let result = try wodClient.addWodProgram(programsModel)
                         await send(.weeklyModelResult(.success(result.dayWorkouts)))
                     } catch {

@@ -7,21 +7,21 @@
 
 import Foundation
 
-struct WorkoutModel: Equatable {
+struct TobeWorkoutModel: Equatable {
 
     let id: UUID
     let type: WorkOutType
-    var wods: [WodModel]
+    var wods: [TobeWodModel]
 
     init(entity: WorkoutEntity) {
         self.type = WorkOutType(rawValue: entity.type) ?? .coolDown
         self.wods = entity.wods.map {
-            WodModel(entity: $0 as! WodEntity)
+            TobeWodModel(entity: $0 as! WodEntity)
         }
         self.id = entity.id
     }
 
-    init(id: UUID, type: WorkOutType, wods: [WodModel]) {
+    init(id: UUID, type: WorkOutType, wods: [TobeWodModel]) {
         self.id = id
         self.type = type
         self.wods = wods
@@ -29,7 +29,7 @@ struct WorkoutModel: Equatable {
 
 }
 
-extension WorkoutModel {
+extension TobeWorkoutModel {
     
     var isCompleted: Bool {
         self.wods.allSatisfy { $0.wodSets.allSatisfy { $0.isCompleted } }
@@ -37,7 +37,7 @@ extension WorkoutModel {
     
 }
 
-extension WorkoutModel {
+extension TobeWorkoutModel {
 
     static let preview: Self = .init(id: UUID(), type: .warmUp, wods: [
         .init(id: UUID(), title: "트레드밀", subTitle: "lowing abc", unit: .minutes, unitValue: 5, set: 1, wodSets: [

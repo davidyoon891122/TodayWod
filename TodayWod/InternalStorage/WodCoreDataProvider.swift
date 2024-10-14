@@ -13,16 +13,16 @@ final class WodCoreDataProvider {
 
     private let context = WodCoreData.shared.context
 
-    func getWeeklyWorkoutEntities() throws -> [DayWorkoutModel] {
+    func getWeeklyWorkoutEntities() throws -> [TobeDayWorkoutModel] {
         guard let programEntity = try self.fetchWodInfo() else { return [] }
         let weeklyWorkOutEntities = programEntity.dayWorkouts.compactMap { $0 as? DayWorkoutEntity }
 
         return weeklyWorkOutEntities.map {
-            DayWorkoutModel(entity: $0)
+            TobeDayWorkoutModel(entity: $0)
         }
     }
 
-    func setProgram(model: ProgramModel) throws -> ProgramModel {
+    func setProgram(model: TobeProgramModel) throws -> TobeProgramModel {
         _ = ProgramEntity.instance(with: self.context, model: model)
         
         try self.context.save()

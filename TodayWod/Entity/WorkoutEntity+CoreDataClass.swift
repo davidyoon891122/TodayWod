@@ -21,7 +21,7 @@ public class WorkoutEntity: NSManagedObject {
 
 extension WorkoutEntity {
 
-    static func createWorkoutInfoEntities(with context: NSManagedObjectContext, models: [WorkoutModel]) -> [WorkoutEntity] {
+    static func createWorkoutInfoEntities(with context: NSManagedObjectContext, models: [TobeWorkoutModel]) -> [WorkoutEntity] {
         return models.map { model in
             let newItem = WorkoutEntity(context: context)
             newItem.id = model.id
