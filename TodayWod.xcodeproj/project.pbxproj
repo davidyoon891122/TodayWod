@@ -23,12 +23,12 @@
 		1C1D04FF2CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F52CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift */; };
 		1C1D05002CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F42CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift */; };
 		1C1D05022CBE2A1100BDA52D /* WodSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05012CBE2A1100BDA52D /* WodSetModel.swift */; };
-		1C1D05042CBE2AEA00BDA52D /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05032CBE2AE200BDA52D /* WorkoutModel.swift */; };
 		1C1D05062CBE2B7400BDA52D /* WorkOutListFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05052CBE2B7400BDA52D /* WorkOutListFeature.swift */; };
 		1C1D050B2CBE2C1800BDA52D /* WodClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05072CBE2C1800BDA52D /* WodClient.swift */; };
 		1C1D050C2CBE2C1800BDA52D /* WodCoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */; };
 		1C1D050D2CBE2C1800BDA52D /* WodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */; };
 		1C1D050F2CBE2D5600BDA52D /* RecentDayWorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */; };
+		1C1D05112CBE2ED800BDA52D /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */; };
 		1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */; };
 		1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A82CA18B630017F1D4 /* WodView.swift */; };
 		1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */; };
@@ -132,12 +132,12 @@
 		1C1D04F42CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1C1D04F52CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1C1D05012CBE2A1100BDA52D /* WodSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodSetModel.swift; sourceTree = "<group>"; };
-		1C1D05032CBE2AE200BDA52D /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		1C1D05052CBE2B7400BDA52D /* WorkOutListFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListFeature.swift; sourceTree = "<group>"; };
 		1C1D05072CBE2C1800BDA52D /* WodClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodClient.swift; sourceTree = "<group>"; };
 		1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodCoreData.swift; sourceTree = "<group>"; };
 		1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodCoreDataProvider.swift; sourceTree = "<group>"; };
 		1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDayWorkoutModel.swift; sourceTree = "<group>"; };
+		1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodSetView.swift; sourceTree = "<group>"; };
 		1C4EE0A82CA18B630017F1D4 /* WodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodView.swift; sourceTree = "<group>"; };
 		1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailTitleView.swift; sourceTree = "<group>"; };
@@ -438,7 +438,7 @@
 				1CFED2CC2C9B9C0D000A09E5 /* WorkoutType.swift */,
 				1CFED2CE2C9B9C0D000A09E5 /* DayWorkoutTagType.swift */,
 				1CFED2CD2C9B9C0D000A09E5 /* ProgramsModel.swift */,
-				1C1D05032CBE2AE200BDA52D /* WorkoutModel.swift */,
+				1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */,
 				1C1D05012CBE2A1100BDA52D /* WodSetModel.swift */,
 				1C6DCBB22CBC02F700ED56B2 /* CompletedWodModel.swift */,
 				1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */,
@@ -892,6 +892,7 @@
 				1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */,
 				49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */,
 				1C622DB92CABCBB20034834E /* Extension+Int.swift in Sources */,
+				1C1D05112CBE2ED800BDA52D /* WorkoutModel.swift in Sources */,
 				497C0F1F2CA0309100F7444E /* CalendarCellView.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
 				1CFED2D52C9B9C0D000A09E5 /* ExerciseUnit.swift in Sources */,
@@ -900,7 +901,6 @@
 				497C0F1B2CA02CD800F7444E /* Extension+Date.swift in Sources */,
 				1CFED2D12C9B9C0D000A09E5 /* WorkoutType.swift in Sources */,
 				49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */,
-				1C1D05042CBE2AEA00BDA52D /* WorkoutModel.swift in Sources */,
 				1C6DCBB12CBC028E00ED56B2 /* RecentDayWorkOut+Entity.swift in Sources */,
 				1C0B53762CAFA33A00256FE2 /* WorkoutConfirmationFeature.swift in Sources */,
 				AD386C342CA38FF20038C27F /* MyInfoView.swift in Sources */,
