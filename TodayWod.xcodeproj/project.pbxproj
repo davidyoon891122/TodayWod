@@ -29,6 +29,7 @@
 		1C1D050D2CBE2C1800BDA52D /* WodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */; };
 		1C1D050F2CBE2D5600BDA52D /* RecentDayWorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */; };
 		1C1D05112CBE2ED800BDA52D /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */; };
+		1C1D05172CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */; };
 		1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */; };
 		1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A82CA18B630017F1D4 /* WodView.swift */; };
 		1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */; };
@@ -138,6 +139,7 @@
 		1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodCoreDataProvider.swift; sourceTree = "<group>"; };
 		1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDayWorkoutModel.swift; sourceTree = "<group>"; };
 		1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
+		1C1D05162CBE421200BDA52D /* TodayWodCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodayWodCoreData.xcdatamodel; sourceTree = "<group>"; };
 		1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodSetView.swift; sourceTree = "<group>"; };
 		1C4EE0A82CA18B630017F1D4 /* WodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodView.swift; sourceTree = "<group>"; };
 		1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailTitleView.swift; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 				499B07672C8BEFC600C46FDD /* Resources */,
 				499B07582C8BD6B900C46FDD /* Preview Content */,
 				1C8708C02CACDB9D00967DFE /* info.plist */,
+				1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */,
 			);
 			path = TodayWod;
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C1D05172CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld in Sources */,
 				1CFED2E52C9B9C9B000A09E5 /* WorkOutDetailFeature.swift in Sources */,
 				49101A702C8D373D00FDB709 /* AppFeature.swift in Sources */,
 				ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */,
@@ -1219,6 +1223,19 @@
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1C1D05162CBE421200BDA52D /* TodayWodCoreData.xcdatamodel */,
+			);
+			currentVersion = 1C1D05162CBE421200BDA52D /* TodayWodCoreData.xcdatamodel */;
+			path = TodayWodCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 499B07472C8BD6B700C46FDD /* Project object */;
 }

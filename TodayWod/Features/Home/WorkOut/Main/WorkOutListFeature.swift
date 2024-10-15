@@ -13,13 +13,13 @@ struct WorkOutListFeature {
 
     @ObservableState
     struct State: Equatable {
-        var weeklyWorkouts: [DayWorkoutModel] = []
+        var dayWorkouts: [DayWorkoutModel] = []
     }
     
     enum Action {
         case didTapAddProgram
         case didTapDeleteProgram
-        case weeklyModelResult(Result<[DayWorkoutModel], Error>)
+        case dayModelsResult(Result<[DayWorkoutModel], Error>)
         case onAppear
         case removeProgramResult(Result<Void, Error>)
     }
@@ -32,10 +32,10 @@ struct WorkOutListFeature {
             case .onAppear:
                 return .run { send in
                     do {
-                        let weeklyModels = try wodClient.getWeeklyModels()
-                        await send(.weeklyModelResult(.success(weeklyModels)))
+                        let dayModels = try wodClient.getDayModels()
+                        await send(.dayModelsResult(.success(dayModels)))
                     } catch {
-                        await send(.weeklyModelResult(.failure(error)))
+                        await send(.dayModelsResult(.failure(error)))
                     }
                 }
             case .didTapAddProgram:
@@ -43,17 +43,17 @@ struct WorkOutListFeature {
                     do {
                         let programsModel = ProgramModel.bodyBeginner // TODO: Fake 대체 필요.
                         let result = try wodClient.addWodProgram(programsModel)
-                        await send(.weeklyModelResult(.success(result.dayWorkouts)))
+                        await send(.dayModelsResult(.success(result.dayWorkouts)))
                     } catch {
-                        await send(.weeklyModelResult(.failure(error)))
+                        await send(.dayModelsResult(.failure(error)))
                     }
                 }
-            case .weeklyModelResult(.success(let result)):
-                state.weeklyWorkouts = result
+            case .dayModelsResult(.success(let result)):
+                state.dayWorkouts = result
                 return .none
-            case .weeklyModelResult(.failure(let error)):
+            case .dayModelsResult(.failure(let error)):
                 // TODO: - 에러 표시 여기서
-                state.weeklyWorkouts = []
+                state.dayWorkouts = []
                 return .none
             case .didTapDeleteProgram:
                 // TODO: - 프로그램 제거  
@@ -66,7 +66,7 @@ struct WorkOutListFeature {
                     }
                 }
             case .removeProgramResult(.success(_)):
-                state.weeklyWorkouts = []
+                state.dayWorkouts = []
                 return .none
             case .removeProgramResult(.failure(let error)):
                 print("fail to delete programs : \(error.localizedDescription)")
@@ -108,10 +108,10 @@ struct WorkOutListView: View {
                 .padding()
 
                 LazyVStack {
-                    ForEach(store.state.weeklyWorkouts) { weeklyWorkout in
+                    ForEach(store.state.dayWorkouts) { dayWorkout in
                         HStack {
-                            Text(weeklyWorkout.title)
-                            Text(weeklyWorkout.subTitle)
+                            Text(dayWorkout.title)
+                            Text(dayWorkout.subTitle)
                         }
                     }
                 }
