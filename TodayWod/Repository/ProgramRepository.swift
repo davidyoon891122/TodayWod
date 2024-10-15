@@ -27,7 +27,7 @@ extension ProgramRepository: ProgramRepositoryProtocol {
                 .setPath("http://158.179.170.39:3000/wod") // TODO: - Base URL 분리
                 .setQuery(input.dict)
             
-            let entity = try await self.request(with: apiRequest, type: ProgramServerEntity.self)
+            let entity = try await self.request(with: apiRequest, type: ProgramEntity.self)
             print("Server data: \(entity)")
         } catch {
             print("Error: \(error.localizedDescription)")

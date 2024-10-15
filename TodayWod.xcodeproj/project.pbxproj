@@ -120,7 +120,6 @@
 		ADCEE1082CBDEC5000D71FEB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = ADCEE1072CBDEC5000D71FEB /* Alamofire */; };
 		ADCEE10A2CBDF53F00D71FEB /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1092CBDF53F00D71FEB /* BaseService.swift */; };
 		ADCEE10E2CBE202D00D71FEB /* ProgramRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE10D2CBE202D00D71FEB /* ProgramRepository.swift */; };
-		ADCEE1102CBE232700D71FEB /* ProgramServerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE10F2CBE232700D71FEB /* ProgramServerEntity.swift */; };
 		ADCEE1132CBE296600D71FEB /* ProgramRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1122CBE296600D71FEB /* ProgramRequestModel.swift */; };
 		ADCEE1152CBE2A3800D71FEB /* RequestBodyPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1142CBE2A3800D71FEB /* RequestBodyPresentable.swift */; };
 		ADCEE1172CBE2A8E00D71FEB /* DictPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */; };
@@ -241,7 +240,6 @@
 		ADCEE1042CBDE16700D71FEB /* HeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderField.swift; sourceTree = "<group>"; };
 		ADCEE1092CBDF53F00D71FEB /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		ADCEE10D2CBE202D00D71FEB /* ProgramRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramRepository.swift; sourceTree = "<group>"; };
-		ADCEE10F2CBE232700D71FEB /* ProgramServerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramServerEntity.swift; sourceTree = "<group>"; };
 		ADCEE1122CBE296600D71FEB /* ProgramRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramRequestModel.swift; sourceTree = "<group>"; };
 		ADCEE1142CBE2A3800D71FEB /* RequestBodyPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyPresentable.swift; sourceTree = "<group>"; };
 		ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictPresentable.swift; sourceTree = "<group>"; };
@@ -340,7 +338,6 @@
 				1C9C9F6C2CABB49B00157001 /* Programs+Dummy.swift */,
 				1C6DCBAE2CBBFF3000ED56B2 /* CompletedWod+Entity.swift */,
 				1C6DCBB02CBC028000ED56B2 /* RecentDayWorkOut+Entity.swift */,
-				ADCEE10F2CBE232700D71FEB /* ProgramServerEntity.swift */,
 				ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */,
 			);
 			path = Entity;
@@ -975,7 +972,6 @@
 				ADCEE1192CBE2DD800D71FEB /* APIClient.swift in Sources */,
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
 				497C0F0E2C9E6D7100F7444E /* BreakTimeFeature.swift in Sources */,
-				ADCEE1102CBE232700D71FEB /* ProgramServerEntity.swift in Sources */,
 				ADCEE10A2CBDF53F00D71FEB /* BaseService.swift in Sources */,
 				497C0F1D2CA02E9000F7444E /* CalendarGridView.swift in Sources */,
 				1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */,
@@ -1016,7 +1012,7 @@
 				49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */,
 				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,
 				ADCEE10E2CBE202D00D71FEB /* ProgramRepository.swift in Sources */,
-				1CFED2D32C9B9C0D000A09E5 /* WorkOutDayTagType.swift in Sources */,
+				1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */,
 				1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */,
 				1C9C9F682CABA85900157001 /* Programs+Entity.swift in Sources */,
 				1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */,

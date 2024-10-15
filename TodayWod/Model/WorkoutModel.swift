@@ -60,8 +60,8 @@ struct WodModel: Codable, Equatable, Identifiable {
         self.subTitle = data.subTitle
         self.unit = data.unit
         self.unitValue = data.unitValue
-        self.set = data.set
-        self.wodSets = data.wodSets.map { WodSetModel(workoutId: workoutId, wodModelId: id, data: $0) }
+        self.set = data.set ?? 0
+        self.wodSets = data.wodSets?.map { WodSetModel(workoutId: workoutId, wodModelId: id, data: $0) } ?? []
     }
     
     init(coreData: WodCoreEntity) {
