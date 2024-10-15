@@ -9,156 +9,160 @@ import Foundation
 
 extension ProgramEntity {
     
+    static var bodyBeginner: Self {
+        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
+    }
+    
     static let bodyBeginners: [Self] = [
-        .init(methodType: .body, level: .beginner, dayWorkOuts: DayWorkOutEntity.bodyBeginnerAlphaWeek),
-        .init(methodType: .body, level: .beginner, dayWorkOuts: DayWorkOutEntity.bodyBeginnerBetaWeek),
-        .init(methodType: .body, level: .beginner, dayWorkOuts: DayWorkOutEntity.bodyBeginnerCharlieWeek)
+        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek),
+        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerBetaWeek),
+        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerCharlieWeek)
     ]
     
 }
 
-extension DayWorkOutEntity {
+extension DayWorkoutEntity {
     
     static let bodyBeginnerAlphaWeek: [Self] = [
-        .init(type: .start, title: "상체 근력", subTitle: "Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay1Info),
-        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay2Info),
-        .init(type: .default, title: "코어 강화", subTitle: "Core Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay3Info),
-        .init(type: .default, title: "전신 운동", subTitle: "Full Body Conditioning", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay4Info),
-        .init(type: .default, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay5Info),
-        .init(type: .end, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay6Info)
+        .init(type: .start, title: "상체 근력", subTitle: "Upper Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay1Info),
+        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay2Info),
+        .init(type: .default, title: "코어 강화", subTitle: "Core Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay3Info),
+        .init(type: .default, title: "전신 운동", subTitle: "Full Body Conditioning", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay4Info),
+        .init(type: .default, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay5Info),
+        .init(type: .end, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay6Info)
     ]
     
     static let bodyBeginnerBetaWeek: [Self] = [
-        .init(type: .start, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay1Info),
-        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay2Info),
-        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay3Info),
-        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay4Info),
-        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay5Info),
-        .init(type: .end, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerBetaDay6Info)
+        .init(type: .start, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerBetaDay1Info),
+        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerBetaDay2Info),
+        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerBetaDay3Info),
+        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerBetaDay4Info),
+        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerBetaDay5Info),
+        .init(type: .end, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerBetaDay6Info)
     ]
     
     static let bodyBeginnerCharlieWeek: [Self] = [
-        .init(type: .start, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay1Info),
-        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay2Info),
-        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay3Info),
-        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay4Info),
-        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay5Info),
-        .init(type: .end, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerCharlieDay6Info)
+        .init(type: .start, title: "상체 지구력", subTitle: "Upper Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerCharlieDay1Info),
+        .init(type: .default, title: "하체 근력", subTitle: "Lower Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerCharlieDay2Info),
+        .init(type: .default, title: "전신 지구력", subTitle: "Full Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerCharlieDay3Info),
+        .init(type: .default, title: "코어 및 상체 근력", subTitle: "Core and Upper Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerCharlieDay4Info),
+        .init(type: .default, title: "하체 지구력", subTitle: "Lower Body Endurance", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerCharlieDay5Info),
+        .init(type: .end, title: "전신 근력", subTitle: "Full Body Strength", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerCharlieDay6Info)
     ]
     
 }
 
-extension WorkOutEntity {
+extension WorkoutEntity {
     
     //MARK: - Alpha
     static let bodyBeginnerAlphaDay1Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp2]),
-        .init(type: .Main, wods: [WodEntity.main1, WodEntity.main2, WodEntity.main3]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown2])
+        .init(type: .warmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp2]),
+        .init(type: .main, wods: [WodEntity.main1, WodEntity.main2, WodEntity.main3]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown2])
     ]
     
     static let bodyBeginnerAlphaDay2Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp4]),
-        .init(type: .Main, wods: [WodEntity.main4, WodEntity.main5, WodEntity.main6]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown3, WodEntity.coolDown4])
+        .init(type: .warmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp4]),
+        .init(type: .main, wods: [WodEntity.main4, WodEntity.main5, WodEntity.main6]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown3, WodEntity.coolDown4])
     ]
     
     static let bodyBeginnerAlphaDay3Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp5]),
-        .init(type: .Main, wods: [WodEntity.main7, WodEntity.main8, WodEntity.main9]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown5, WodEntity.coolDown6])
+        .init(type: .warmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp5]),
+        .init(type: .main, wods: [WodEntity.main7, WodEntity.main8, WodEntity.main9]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown5, WodEntity.coolDown6])
     ]
     
     static let bodyBeginnerAlphaDay4Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp6]),
-        .init(type: .Main, wods: [WodEntity.main10, WodEntity.main1, WodEntity.main3]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown2])
+        .init(type: .warmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp6]),
+        .init(type: .main, wods: [WodEntity.main10, WodEntity.main1, WodEntity.main3]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown2])
     ]
     
     static let bodyBeginnerAlphaDay5Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp7, WodEntity.warmUp1]),
-        .init(type: .Main, wods: [WodEntity.main11, WodEntity.main2, WodEntity.main12]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown7])
+        .init(type: .warmUp, wods: [WodEntity.warmUp7, WodEntity.warmUp1]),
+        .init(type: .main, wods: [WodEntity.main11, WodEntity.main2, WodEntity.main12]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown7])
     ]
     
     static let bodyBeginnerAlphaDay6Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp2]),
-        .init(type: .Main, wods: [WodEntity.main13, WodEntity.main5, WodEntity.main6]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown4, WodEntity.coolDown2])
+        .init(type: .warmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp2]),
+        .init(type: .main, wods: [WodEntity.main13, WodEntity.main5, WodEntity.main6]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown4, WodEntity.coolDown2])
     ]
     
     //MARK: - Beta
     static let bodyBeginnerBetaDay1Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp4, WodEntity.warmUp3]),
-        .init(type: .Main, wods: [WodEntity.main4, WodEntity.main10, WodEntity.main3]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown2, WodEntity.coolDown1])
+        .init(type: .warmUp, wods: [WodEntity.warmUp4, WodEntity.warmUp3]),
+        .init(type: .main, wods: [WodEntity.main4, WodEntity.main10, WodEntity.main3]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown2, WodEntity.coolDown1])
     ]
     
     static let bodyBeginnerBetaDay2Info: [Self] = [
-        .init(type: .WarmUp, wods:  [WodEntity.warmUp2, WodEntity.warmUp1]),
-        .init(type: .Main, wods: [WodEntity.main6, WodEntity.main13, WodEntity.main5]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown4, WodEntity.coolDown3])
+        .init(type: .warmUp, wods:  [WodEntity.warmUp2, WodEntity.warmUp1]),
+        .init(type: .main, wods: [WodEntity.main6, WodEntity.main13, WodEntity.main5]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown4, WodEntity.coolDown3])
     ]
     
     static let bodyBeginnerBetaDay3Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp5]),
-        .init(type: .Main, wods: [WodEntity.main11, WodEntity.main2, WodEntity.main9]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown5, WodEntity.coolDown1])
+        .init(type: .warmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp5]),
+        .init(type: .main, wods: [WodEntity.main11, WodEntity.main2, WodEntity.main9]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown5, WodEntity.coolDown1])
     ]
     
     static let bodyBeginnerBetaDay4Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp6]),
-        .init(type: .Main, wods: [WodEntity.main14, WodEntity.main1, WodEntity.main15]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown2, WodEntity.coolDown7])
+        .init(type: .warmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp6]),
+        .init(type: .main, wods: [WodEntity.main14, WodEntity.main1, WodEntity.main15]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown2, WodEntity.coolDown7])
     ]
     
     static let bodyBeginnerBetaDay5Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp1]),
-        .init(type: .Main, wods: [WodEntity.main5, WodEntity.main13, WodEntity.main16]),
-        .init(type: .CoolDown, wods:  [WodEntity.coolDown1, WodEntity.coolDown4])
+        .init(type: .warmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp1]),
+        .init(type: .main, wods: [WodEntity.main5, WodEntity.main13, WodEntity.main16]),
+        .init(type: .coolDown, wods:  [WodEntity.coolDown1, WodEntity.coolDown4])
     ]
     
     static let bodyBeginnerBetaDay6Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp7, WodEntity.warmUp8]),
-        .init(type: .Main, wods: [WodEntity.main11, WodEntity.main12, WodEntity.main2]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown7, WodEntity.coolDown1])
+        .init(type: .warmUp, wods: [WodEntity.warmUp7, WodEntity.warmUp8]),
+        .init(type: .main, wods: [WodEntity.main11, WodEntity.main12, WodEntity.main2]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown7, WodEntity.coolDown1])
     ]
     
     //MARK: - Charlie
     static let bodyBeginnerCharlieDay1Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp2, WodEntity.warmUp9]),
-        .init(type: .Main, wods: [WodEntity.main11, WodEntity.main2, WodEntity.main12]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown8])
+        .init(type: .warmUp, wods: [WodEntity.warmUp1, WodEntity.warmUp2, WodEntity.warmUp9]),
+        .init(type: .main, wods: [WodEntity.main11, WodEntity.main2, WodEntity.main12]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown8])
     ]
     
     static let bodyBeginnerCharlieDay2Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp4, WodEntity.warmUp3]),
-        .init(type: .Main, wods: [WodEntity.main4, WodEntity.main5, WodEntity.main3, WodEntity.main16]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown3, WodEntity.coolDown9])
+        .init(type: .warmUp, wods: [WodEntity.warmUp4, WodEntity.warmUp3]),
+        .init(type: .main, wods: [WodEntity.main4, WodEntity.main5, WodEntity.main3, WodEntity.main16]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown3, WodEntity.coolDown9])
     ]
     
     static let bodyBeginnerCharlieDay3Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp6]),
-        .init(type: .Main, wods: [WodEntity.main10, WodEntity.main1, WodEntity.main15]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown8, WodEntity.coolDown9])
+        .init(type: .warmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp6]),
+        .init(type: .main, wods: [WodEntity.main10, WodEntity.main1, WodEntity.main15]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown8, WodEntity.coolDown9])
     ]
     
     static let bodyBeginnerCharlieDay4Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp7, WodEntity.warmUp1]),
-        .init(type: .Main, wods: [WodEntity.main7, WodEntity.main11, WodEntity.main9]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown2])
+        .init(type: .warmUp, wods: [WodEntity.warmUp7, WodEntity.warmUp1]),
+        .init(type: .main, wods: [WodEntity.main7, WodEntity.main11, WodEntity.main9]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown2])
     ]
     
     static let bodyBeginnerCharlieDay5Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp5]),
-        .init(type: .Main, wods: [WodEntity.main13, WodEntity.main6, WodEntity.main5]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown4, WodEntity.coolDown3])
+        .init(type: .warmUp, wods: [WodEntity.warmUp3, WodEntity.warmUp5]),
+        .init(type: .main, wods: [WodEntity.main13, WodEntity.main6, WodEntity.main5]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown4, WodEntity.coolDown3])
     ]
     
     static let bodyBeginnerCharlieDay6Info: [Self] = [
-        .init(type: .WarmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp1]),
-        .init(type: .Main, wods: [WodEntity.main14, WodEntity.main1, WodEntity.main3]),
-        .init(type: .CoolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown10])
+        .init(type: .warmUp, wods: [WodEntity.warmUp2, WodEntity.warmUp1]),
+        .init(type: .main, wods: [WodEntity.main14, WodEntity.main1, WodEntity.main3]),
+        .init(type: .coolDown, wods: [WodEntity.coolDown1, WodEntity.coolDown10])
     ]
 }
 
@@ -174,7 +178,7 @@ extension WodEntity {
     static let warmUp8: Self = .init(title: "햄스트링 스트레치", subTitle: "lowing abc", unit: .minutes, unitValue: 2, wodSets: [.init(order: 0, unitValue: 2, isCompleted: false)])
     static let warmUp9: Self = .init(title: "러닝", subTitle: "lowing abc", unit: .minutes, unitValue: 2, wodSets: [.init(order: 0, unitValue: 2, isCompleted: false)])
     
-    //MARK: - Main WOD
+    //MARK: - main WOD
     static let main1: Self = .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, wodSets: (0..<3).map { .init(order: $0, unitValue: 8, isCompleted: false) })
     static let main2: Self = .init(title: "핸드 릴리즈 푸시업", subTitle: "lowing abc", unit: .repetitions, unitValue: 10, wodSets: (0..<3).map { .init(order: $0, unitValue: 10, isCompleted: false) })
     static let main3: Self = .init(title: "박스 점프", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, wodSets: (0..<3).map { .init(order: $0, unitValue: 8, isCompleted: false) })

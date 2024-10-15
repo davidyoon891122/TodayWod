@@ -11,11 +11,11 @@ import ComposableArchitecture
 struct WodSetView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    let model: WodSet
+    let model: WodSetModel
     
     @State private var unitText: String = ""
     
-    init(store: StoreOf<WorkOutDetailFeature>, model: WodSet) {
+    init(store: StoreOf<WorkOutDetailFeature>, model: WodSetModel) {
         self.store = store
         self.model = model
         
@@ -54,7 +54,7 @@ struct WodSetView: View {
 }
 
 #Preview {
-    WodSetView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkOutModel.fake), reducer: {
+    WodSetView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
         WorkOutDetailFeature()
-    }), model: WodSet.fake)
+    }), model: WodSetModel.fake)
 }

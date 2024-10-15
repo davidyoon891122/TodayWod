@@ -23,7 +23,7 @@ struct MyActivityFeature {
     @ObservableState
     struct State: Equatable {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
-        let recentDayWorkOuts: [RecentDayWorkOutModel] = UserDefaultsManager().loadRecentDayWorkOuts()
+        let recentDayWorkouts: [RecentDayWorkoutModel] = UserDefaultsManager().loadRecentDayWorkouts()
         var path = StackState<Path.State>()
     }
 
@@ -132,22 +132,22 @@ struct MyActivityView: View {
                             Spacer()
                         }
                         LazyVStack {
-                            ForEach(store.recentDayWorkOuts) { dayWorkOut in
+                            ForEach(store.recentDayWorkouts) { dayWorkout in
                                 HStack(spacing: 8.0) {
                                     Images.genderMan.swiftUIImage
                                         .resizable()
                                         .frame(width: 48.0, height: 48.0)
                                     VStack(alignment: .leading, spacing: 6.0) {
                                         HStack {
-                                            Text(dayWorkOut.title)
+                                            Text(dayWorkout.title)
                                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                                                 .foregroundStyle(.grey100)
                                             Spacer()
-                                            Text(dayWorkOut.duration.timerFormatter)
+                                            Text(dayWorkout.duration.timerFormatter)
                                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                                                 .foregroundStyle(.grey100)
                                         }
-                                        Text(dayWorkOut.displayDate)
+                                        Text(dayWorkout.displayDate)
                                             .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
                                             .foregroundStyle(.grey70)
                                     }

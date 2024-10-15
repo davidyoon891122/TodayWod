@@ -1,5 +1,5 @@
 //
-//  WorkOutModel.swift
+//  WorkoutModel.swift
 //  TodayWod
 //
 //  Created by 오지연 on 9/17/24.
@@ -7,24 +7,32 @@
 
 import Foundation
 
-struct WorkOutModel: Codable, Equatable, Identifiable {
+struct WorkoutModel: Codable, Equatable, Identifiable {
     
     var id: UUID
     
-    let type: WorkOutType
+    let type: WorkoutType
     var wods: [WodModel]
     
-    init(data: WorkOutEntity) {
+    init(data: WorkoutEntity) {
         let id = UUID()
         self.id = id
         
         self.type = data.type
-        self.wods = data.wods.map { WodModel(workOutId: id, data: $0) }
+        self.wods = data.wods.map { WodModel(workoutId: id, data: $0) }
+    }
+    
+    init(coreData: WorkoutCoreEntity) {
+        self.id = coreData.id
+        self.type = WorkoutType(rawValue: coreData.type) ?? .coolDown
+        self.wods = coreData.wods
+            .compactMap { $0 as? WodCoreEntity }
+            .map { WodModel(coreData: $0) }
     }
     
 }
 
-extension WorkOutModel {
+extension WorkoutModel {
     
     var completedSetCount: Int {
         self.wods.reduce(0) { $0 + $1.completedSetCount }
@@ -35,25 +43,38 @@ extension WorkOutModel {
 struct WodModel: Codable, Equatable, Identifiable {
     
     var id: UUID
-    var workOutId: UUID
+    var workoutId: UUID
     
     let title: String
     let subTitle: String
     let unit: ExerciseUnit
     let unitValue: Int
     let set: Int
-    var wodSets: [WodSet] = []
+    var wodSets: [WodSetModel] = []
     
-    init(workOutId: UUID, data: WodEntity) {
+    init(workoutId: UUID, data: WodEntity) {
         self.id = UUID()
-        self.workOutId = workOutId
+        self.workoutId = workoutId
         
         self.title = data.title
         self.subTitle = data.subTitle
         self.unit = data.unit
         self.unitValue = data.unitValue
         self.set = data.set
-        self.wodSets = data.wodSets.map { WodSet(workOutId: workOutId, wodModelId: id, data: $0) }
+        self.wodSets = data.wodSets.map { WodSetModel(workoutId: workoutId, wodModelId: id, data: $0) }
+    }
+    
+    init(coreData: WodCoreEntity) {
+        self.id = coreData.id
+        self.workoutId = coreData.workoutId
+        self.title = coreData.title
+        self.subTitle = coreData.subTitle
+        self.unit = ExerciseUnit(rawValue: coreData.unit) ?? .seconds
+        self.unitValue = Int(coreData.unitValue)
+        self.set = Int(coreData.set)
+        self.wodSets = coreData.wodSets
+            .compactMap { $0 as? WodSetCoreEntity }
+            .map { WodSetModel(coreData: $0) }
     }
     
 }
@@ -87,6 +108,6 @@ extension WodModel {
 
 extension WodModel {
     
-    static let fake: Self = .init(workOutId: UUID(), data: WodEntity.fake)
+    static let fake: Self = .init(workoutId: UUID(), data: WodEntity.fake)
     
 }

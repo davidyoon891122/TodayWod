@@ -8,11 +8,11 @@ import SwiftUI
 
 struct WorkOutCompletedProgramView: View {
     
-    let item: DayWorkOutModel
+    let item: DayWorkoutModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(item.workOuts) { workOut in
+            ForEach(item.workouts) { workOut in
                 Text(workOut.type.title)
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                     .foregroundStyle(Colors.grey100.swiftUIColor)

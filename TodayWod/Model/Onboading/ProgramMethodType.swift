@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ProgramMethodType: Codable {
+enum ProgramMethodType: String, Codable {
     case body
     case machine
 

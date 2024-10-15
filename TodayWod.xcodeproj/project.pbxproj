@@ -12,7 +12,24 @@
 		1C0B53782CAFA40C00256FE2 /* WorkOutCompletedFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B53772CAFA40900256FE2 /* WorkOutCompletedFeature.swift */; };
 		1C0B537D2CAFB97900256FE2 /* WorkOutCompletedTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B537C2CAFB97100256FE2 /* WorkOutCompletedTopView.swift */; };
 		1C0B537F2CAFBAD000256FE2 /* WorkOutCompletedProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B537E2CAFBAC500256FE2 /* WorkOutCompletedProgramView.swift */; };
-		1C22730C2CA2A955009CE95C /* WodSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C22730B2CA2A955009CE95C /* WodSet.swift */; };
+		1C1D04F72CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */; };
+		1C1D04F82CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EF2CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift */; };
+		1C1D04F92CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */; };
+		1C1D04FA2CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F32CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift */; };
+		1C1D04FB2CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F22CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift */; };
+		1C1D04FC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift */; };
+		1C1D04FD2CBE295900BDA52D /* WodCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F02CBE295900BDA52D /* WodCoreEntity+CoreDataClass.swift */; };
+		1C1D04FE2CBE295900BDA52D /* WodCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F12CBE295900BDA52D /* WodCoreEntity+CoreDataProperties.swift */; };
+		1C1D04FF2CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F52CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift */; };
+		1C1D05002CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04F42CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift */; };
+		1C1D05022CBE2A1100BDA52D /* WodSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05012CBE2A1100BDA52D /* WodSetModel.swift */; };
+		1C1D05062CBE2B7400BDA52D /* WorkOutListFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05052CBE2B7400BDA52D /* WorkOutListFeature.swift */; };
+		1C1D050B2CBE2C1800BDA52D /* WodClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05072CBE2C1800BDA52D /* WodClient.swift */; };
+		1C1D050C2CBE2C1800BDA52D /* WodCoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */; };
+		1C1D050D2CBE2C1800BDA52D /* WodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */; };
+		1C1D050F2CBE2D5600BDA52D /* RecentDayWorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */; };
+		1C1D05112CBE2ED800BDA52D /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */; };
+		1C1D05172CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */; };
 		1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */; };
 		1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A82CA18B630017F1D4 /* WodView.swift */; };
 		1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */; };
@@ -30,10 +47,9 @@
 		1C9C9F712CABB67300157001 /* WorkOutNewChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C9F6F2CABB67300157001 /* WorkOutNewChallengeView.swift */; };
 		1C9C9F732CABBA3A00157001 /* Extension+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C9F722CABBA3A00157001 /* Extension+Array.swift */; };
 		1CC1FCCD2C91C532005FC6A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC1FCCC2C91C532005FC6A2 /* Images.xcassets */; };
-		1CFED2D12C9B9C0D000A09E5 /* WorkOutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CC2C9B9C0D000A09E5 /* WorkOutType.swift */; };
+		1CFED2D12C9B9C0D000A09E5 /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CC2C9B9C0D000A09E5 /* WorkoutType.swift */; };
 		1CFED2D22C9B9C0D000A09E5 /* ProgramsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CD2C9B9C0D000A09E5 /* ProgramsModel.swift */; };
-		1CFED2D32C9B9C0D000A09E5 /* WorkOutDayTagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CE2C9B9C0D000A09E5 /* WorkOutDayTagType.swift */; };
-		1CFED2D42C9B9C0D000A09E5 /* WorkOutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CF2C9B9C0D000A09E5 /* WorkOutModel.swift */; };
+		1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CE2C9B9C0D000A09E5 /* DayWorkoutTagType.swift */; };
 		1CFED2D52C9B9C0D000A09E5 /* ExerciseUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */; };
 		1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyView.swift */; };
 		1CFED2E52C9B9C9B000A09E5 /* WorkOutDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */; };
@@ -62,7 +78,6 @@
 		497C0F052C9E463900F7444E /* GenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F002C9E463900F7444E /* GenderType.swift */; };
 		497C0F072C9E463900F7444E /* OnboardingUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */; };
 		497C0F092C9E466500F7444E /* TabMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F082C9E466500F7444E /* TabMenuItem.swift */; };
-		497C0F0B2C9E4EE000F7444E /* RecentDayWorkOutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0A2C9E4EE000F7444E /* RecentDayWorkOutModel.swift */; };
 		497C0F0E2C9E6D7100F7444E /* BreakTimeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0D2C9E6D7100F7444E /* BreakTimeFeature.swift */; };
 		497C0F102C9ECDBC00F7444E /* BottomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0F2C9ECDBC00F7444E /* BottomSheetModifier.swift */; };
 		497C0F142CA02A6400F7444E /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F132CA02A6400F7444E /* CalendarHeaderView.swift */; };
@@ -118,7 +133,24 @@
 		1C0B53772CAFA40900256FE2 /* WorkOutCompletedFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutCompletedFeature.swift; sourceTree = "<group>"; };
 		1C0B537C2CAFB97100256FE2 /* WorkOutCompletedTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutCompletedTopView.swift; sourceTree = "<group>"; };
 		1C0B537E2CAFBAC500256FE2 /* WorkOutCompletedProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutCompletedProgramView.swift; sourceTree = "<group>"; };
-		1C22730B2CA2A955009CE95C /* WodSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodSet.swift; sourceTree = "<group>"; };
+		1C1D04EC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1C1D04EF2CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1C1D04F02CBE295900BDA52D /* WodCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1C1D04F12CBE295900BDA52D /* WodCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1C1D04F22CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodSetCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1C1D04F32CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WodSetCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1C1D04F42CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1C1D04F52CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1C1D05012CBE2A1100BDA52D /* WodSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodSetModel.swift; sourceTree = "<group>"; };
+		1C1D05052CBE2B7400BDA52D /* WorkOutListFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListFeature.swift; sourceTree = "<group>"; };
+		1C1D05072CBE2C1800BDA52D /* WodClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodClient.swift; sourceTree = "<group>"; };
+		1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodCoreData.swift; sourceTree = "<group>"; };
+		1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodCoreDataProvider.swift; sourceTree = "<group>"; };
+		1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDayWorkoutModel.swift; sourceTree = "<group>"; };
+		1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
+		1C1D05162CBE421200BDA52D /* TodayWodCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodayWodCoreData.xcdatamodel; sourceTree = "<group>"; };
 		1C4EE0A72CA18B630017F1D4 /* WodSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodSetView.swift; sourceTree = "<group>"; };
 		1C4EE0A82CA18B630017F1D4 /* WodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WodView.swift; sourceTree = "<group>"; };
 		1C4EE0A92CA18B630017F1D4 /* WorkOutDetailTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailTitleView.swift; sourceTree = "<group>"; };
@@ -137,10 +169,9 @@
 		1C9C9F6F2CABB67300157001 /* WorkOutNewChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutNewChallengeView.swift; sourceTree = "<group>"; };
 		1C9C9F722CABBA3A00157001 /* Extension+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Array.swift"; sourceTree = "<group>"; };
 		1CC1FCCC2C91C532005FC6A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		1CFED2CC2C9B9C0D000A09E5 /* WorkOutType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutType.swift; sourceTree = "<group>"; };
+		1CFED2CC2C9B9C0D000A09E5 /* WorkoutType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		1CFED2CD2C9B9C0D000A09E5 /* ProgramsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramsModel.swift; sourceTree = "<group>"; };
-		1CFED2CE2C9B9C0D000A09E5 /* WorkOutDayTagType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDayTagType.swift; sourceTree = "<group>"; };
-		1CFED2CF2C9B9C0D000A09E5 /* WorkOutModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutModel.swift; sourceTree = "<group>"; };
+		1CFED2CE2C9B9C0D000A09E5 /* DayWorkoutTagType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayWorkoutTagType.swift; sourceTree = "<group>"; };
 		1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseUnit.swift; sourceTree = "<group>"; };
 		1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutEmptyView.swift; sourceTree = "<group>"; };
 		1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailFeature.swift; sourceTree = "<group>"; };
@@ -169,7 +200,6 @@
 		497C0F002C9E463900F7444E /* GenderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderType.swift; sourceTree = "<group>"; };
 		497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingUserInfoModel.swift; sourceTree = "<group>"; };
 		497C0F082C9E466500F7444E /* TabMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuItem.swift; sourceTree = "<group>"; };
-		497C0F0A2C9E4EE000F7444E /* RecentDayWorkOutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDayWorkOutModel.swift; sourceTree = "<group>"; };
 		497C0F0D2C9E6D7100F7444E /* BreakTimeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakTimeFeature.swift; sourceTree = "<group>"; };
 		497C0F0F2C9ECDBC00F7444E /* BottomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModifier.swift; sourceTree = "<group>"; };
 		497C0F132CA02A6400F7444E /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
@@ -249,6 +279,33 @@
 			path = Row;
 			sourceTree = "<group>";
 		};
+		1C1D04F62CBE295900BDA52D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */,
+				1C1D04EF2CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift */,
+				1C1D04EC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift */,
+				1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */,
+				1C1D04F42CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift */,
+				1C1D04F52CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift */,
+				1C1D04F02CBE295900BDA52D /* WodCoreEntity+CoreDataClass.swift */,
+				1C1D04F12CBE295900BDA52D /* WodCoreEntity+CoreDataProperties.swift */,
+				1C1D04F22CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift */,
+				1C1D04F32CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		1C1D050A2CBE2C1800BDA52D /* InternalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				1C1D05072CBE2C1800BDA52D /* WodClient.swift */,
+				1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */,
+				1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */,
+			);
+			path = InternalStorage;
+			sourceTree = "<group>";
+		};
 		1C4EE0AA2CA18B630017F1D4 /* Row */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +335,7 @@
 		1C9C9F672CABA85900157001 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				1C1D04F62CBE295900BDA52D /* CoreData */,
 				1C9C9F662CABA85900157001 /* Programs+Entity.swift */,
 				1C9C9F6C2CABB49B00157001 /* Programs+Dummy.swift */,
 				1C6DCBAE2CBBFF3000ED56B2 /* CompletedWod+Entity.swift */,
@@ -332,6 +390,7 @@
 			children = (
 				1CFED2E02C9B9C9B000A09E5 /* Row */,
 				1CFED2DF2C9B9C9B000A09E5 /* WorkOutFeature.swift */,
+				1C1D05052CBE2B7400BDA52D /* WorkOutListFeature.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -402,13 +461,13 @@
 				4992E6952C9E448C001A1375 /* Onboading */,
 				4992E6962C9E4497001A1375 /* Tab */,
 				1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */,
-				1CFED2CC2C9B9C0D000A09E5 /* WorkOutType.swift */,
-				1CFED2CE2C9B9C0D000A09E5 /* WorkOutDayTagType.swift */,
-				1C22730B2CA2A955009CE95C /* WodSet.swift */,
-				1CFED2CF2C9B9C0D000A09E5 /* WorkOutModel.swift */,
+				1CFED2CC2C9B9C0D000A09E5 /* WorkoutType.swift */,
+				1CFED2CE2C9B9C0D000A09E5 /* DayWorkoutTagType.swift */,
 				1CFED2CD2C9B9C0D000A09E5 /* ProgramsModel.swift */,
+				1C1D05102CBE2ED800BDA52D /* WorkoutModel.swift */,
+				1C1D05012CBE2A1100BDA52D /* WodSetModel.swift */,
 				1C6DCBB22CBC02F700ED56B2 /* CompletedWodModel.swift */,
-				497C0F0A2C9E4EE000F7444E /* RecentDayWorkOutModel.swift */,
+				1C1D050E2CBE2D4E00BDA52D /* RecentDayWorkoutModel.swift */,
 				498712132CA7997800FB876E /* EntryType.swift */,
 			);
 			path = Model;
@@ -582,6 +641,7 @@
 			children = (
 				499B07522C8BD6B700C46FDD /* TodayWodApp.swift */,
 				1C9C9F672CABA85900157001 /* Entity */,
+				1C1D050A2CBE2C1800BDA52D /* InternalStorage */,
 				49101A812C90871600FDB709 /* Manager */,
 				497C0F202CA0369900F7444E /* Extensions */,
 				1C8708BE2CACDB8A00967DFE /* Common */,
@@ -593,6 +653,7 @@
 				ADCEE11A2CBE3D9D00D71FEB /* APIClient */,
 				ADCEE1112CBE25E300D71FEB /* Repository */,
 				ADCEE1002CBDDD1900D71FEB /* Network */,
+				1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */,
 			);
 			path = TodayWod;
 			sourceTree = "<group>";
@@ -883,17 +944,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C1D05172CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld in Sources */,
 				1CFED2E52C9B9C9B000A09E5 /* WorkOutDetailFeature.swift in Sources */,
 				49101A702C8D373D00FDB709 /* AppFeature.swift in Sources */,
 				ADCEE1032CBDE03D00D71FEB /* HTTPMethodType.swift in Sources */,
 				ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */,
 				498712142CA7997800FB876E /* EntryType.swift in Sources */,
-				1CFED2D42C9B9C0D000A09E5 /* WorkOutModel.swift in Sources */,
 				1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */,
 				1C0B537D2CAFB97900256FE2 /* WorkOutCompletedTopView.swift in Sources */,
 				1C4EE0AD2CA18B630017F1D4 /* WorkOutDetailTitleView.swift in Sources */,
 				49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */,
 				1C622DB92CABCBB20034834E /* Extension+Int.swift in Sources */,
+				1C1D05112CBE2ED800BDA52D /* WorkoutModel.swift in Sources */,
 				497C0F1F2CA0309100F7444E /* CalendarCellView.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
 				1CFED2D52C9B9C0D000A09E5 /* ExerciseUnit.swift in Sources */,
@@ -902,7 +964,7 @@
 				4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */,
 				ADCEE1052CBDE16700D71FEB /* HeaderField.swift in Sources */,
 				497C0F1B2CA02CD800F7444E /* Extension+Date.swift in Sources */,
-				1CFED2D12C9B9C0D000A09E5 /* WorkOutType.swift in Sources */,
+				1CFED2D12C9B9C0D000A09E5 /* WorkoutType.swift in Sources */,
 				49593C362C969294006105D1 /* ButtonTextModifier.swift in Sources */,
 				1C6DCBB12CBC028E00ED56B2 /* RecentDayWorkOut+Entity.swift in Sources */,
 				1C0B53762CAFA33A00256FE2 /* WorkoutConfirmationFeature.swift in Sources */,
@@ -917,6 +979,10 @@
 				ADCEE10A2CBDF53F00D71FEB /* BaseService.swift in Sources */,
 				497C0F1D2CA02E9000F7444E /* CalendarGridView.swift in Sources */,
 				1C4EE0AC2CA18B630017F1D4 /* WodView.swift in Sources */,
+				1C1D050B2CBE2C1800BDA52D /* WodClient.swift in Sources */,
+				1C1D050F2CBE2D5600BDA52D /* RecentDayWorkoutModel.swift in Sources */,
+				1C1D050C2CBE2C1800BDA52D /* WodCoreDataProvider.swift in Sources */,
+				1C1D050D2CBE2C1800BDA52D /* WodCoreData.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
 				1C0B53712CAD34F300256FE2 /* BottomButton.swift in Sources */,
 				1C8708BF2CACDB8A00967DFE /* AppEnvironment.swift in Sources */,
@@ -926,9 +992,18 @@
 				1C9C9F6D2CABB49B00157001 /* Programs+Dummy.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
 				4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */,
-				497C0F0B2C9E4EE000F7444E /* RecentDayWorkOutModel.swift in Sources */,
 				49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */,
 				497C0F052C9E463900F7444E /* GenderType.swift in Sources */,
+				1C1D04F72CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift in Sources */,
+				1C1D04F82CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift in Sources */,
+				1C1D04F92CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift in Sources */,
+				1C1D04FA2CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift in Sources */,
+				1C1D04FB2CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift in Sources */,
+				1C1D04FC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift in Sources */,
+				1C1D04FD2CBE295900BDA52D /* WodCoreEntity+CoreDataClass.swift in Sources */,
+				1C1D04FE2CBE295900BDA52D /* WodCoreEntity+CoreDataProperties.swift in Sources */,
+				1C1D04FF2CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift in Sources */,
+				1C1D05002CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift in Sources */,
 				1CFED2D22C9B9C0D000A09E5 /* ProgramsModel.swift in Sources */,
 				ADCEE1132CBE296600D71FEB /* ProgramRequestModel.swift in Sources */,
 				1C9C9F712CABB67300157001 /* WorkOutNewChallengeView.swift in Sources */,
@@ -937,10 +1012,12 @@
 				49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */,
 				1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */,
 				49101A752C8D37A500FDB709 /* MyActivityFeature.swift in Sources */,
+				1C1D05062CBE2B7400BDA52D /* WorkOutListFeature.swift in Sources */,
 				49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */,
 				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,
 				ADCEE10E2CBE202D00D71FEB /* ProgramRepository.swift in Sources */,
 				1CFED2D32C9B9C0D000A09E5 /* WorkOutDayTagType.swift in Sources */,
+				1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */,
 				1C9C9F682CABA85900157001 /* Programs+Entity.swift in Sources */,
 				1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */,
 				ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */,
@@ -964,9 +1041,9 @@
 				ADCEE1172CBE2A8E00D71FEB /* DictPresentable.swift in Sources */,
 				4987120B2CA2F48E00FB876E /* MyPageFeature.swift in Sources */,
 				AD1FE4372CB4AE2A0045CE57 /* MethodMenuView.swift in Sources */,
+				1C1D05022CBE2A1100BDA52D /* WodSetModel.swift in Sources */,
 				1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */,
 				AD386C3B2CA391740038C27F /* VersionInfoView.swift in Sources */,
-				1C22730C2CA2A955009CE95C /* WodSet.swift in Sources */,
 				1C9C9F6B2CABA89600157001 /* WorkOutNavigationView.swift in Sources */,
 				4987120F2CA447C700FB876E /* CelebrateFeature.swift in Sources */,
 				49593C332C969126006105D1 /* CustomNavigationView.swift in Sources */,
@@ -1228,6 +1305,19 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1C1D05162CBE421200BDA52D /* TodayWodCoreData.xcdatamodel */,
+			);
+			currentVersion = 1C1D05162CBE421200BDA52D /* TodayWodCoreData.xcdatamodel */;
+			path = TodayWodCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 499B07472C8BD6B700C46FDD /* Project object */;
 }
