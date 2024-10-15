@@ -25,7 +25,7 @@ final class WodCoreDataProvider {
     func setProgram(model: ProgramModel) throws -> ProgramModel {
         _ = ProgramCoreEntity.instance(with: self.context, model: model)
         
-        WodCoreData.shared.saveContext() // CHECKME: try self.context.save()
+        WodCoreData.shared.saveContext()
 
         return model
     }
