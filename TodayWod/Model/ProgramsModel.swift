@@ -11,11 +11,25 @@ struct ProgramModel: Codable, Equatable, Identifiable {
 
     var id: UUID
     
-    var dayWorkOuts: [DayWorkOutModel]
+    let methodType: ProgramMethodType
+    let level: LevelType
+    var dayWorkouts: [DayWorkoutModel]
     
     init(data: ProgramEntity) {
         self.id = UUID()
-        self.dayWorkOuts = data.dayWorkOuts.map { DayWorkOutModel(data: $0) }
+        
+        self.methodType = data.methodType
+        self.level = data.level
+        self.dayWorkouts = data.dayWorkouts.map { DayWorkoutModel(data: $0) }
+    }
+    
+    init(coreData: ProgramCoreEntity) {
+        self.id = coreData.id
+        self.methodType = ProgramMethodType(rawValue: coreData.methodType) ?? .body
+        self.level = LevelType(rawValue: coreData.level) ?? .beginner
+        self.dayWorkouts = coreData.dayWorkouts
+            .compactMap { $0 as? DayWorkoutCoreEntity}
+            .map { DayWorkoutModel(coreData: $0) }
     }
     
 }
@@ -23,32 +37,34 @@ struct ProgramModel: Codable, Equatable, Identifiable {
 extension ProgramModel {
     
     var hasOwnProgram: Bool {
-        self.dayWorkOuts.count != 0
+        self.dayWorkouts.count != 0
     }
     
 }
 
 extension ProgramModel {
     
+    static let bodyBeginner: Self = .init(data: ProgramEntity.bodyBeginner)
+    
     static let bodyBeginners: [Self] = ProgramEntity.bodyBeginners.map { ProgramModel(data: $0) }
 
 }
 
-struct DayWorkOutModel: Codable, Equatable, Identifiable {
+struct DayWorkoutModel: Codable, Equatable, Identifiable {
     
     var id: UUID
     var date: Date? // 성공한 날짜.
     var duration: Int
     
-    let type: DayWorkOutTagType
+    let type: DayWorkoutTagType
     let title: String
     let subTitle: String
     let expectedMinute: Int
-    let minEstimatedCalorie: Int
-    let maxEstimatedCalorie: Int
-    var workOuts: [WorkOutModel]
+    let minExpectedCalorie: Int
+    let maxExpectedCalorie: Int
+    var workouts: [WorkoutModel]
     
-    init(data: DayWorkOutEntity) {
+    init(data: DayWorkoutEntity) {
         self.id = UUID()
         self.date = nil
         self.duration = 0
@@ -57,17 +73,35 @@ struct DayWorkOutModel: Codable, Equatable, Identifiable {
         self.title = data.title
         self.subTitle = data.subTitle
         self.expectedMinute = data.expectedMinute
-        self.minEstimatedCalorie = data.minEstimatedCalorie
-        self.maxEstimatedCalorie = data.maxEstimatedCalorie
-        self.workOuts = data.workOuts.map { WorkOutModel(data: $0) }
+        self.minExpectedCalorie = data.minExpectedCalorie
+        self.maxExpectedCalorie = data.maxExpectedCalorie
+        self.workouts = data.workouts.map { WorkoutModel(data: $0) }
+    }
+    
+    init(coreData: DayWorkoutCoreEntity) {
+        self.id = coreData.id
+        self.date = coreData.date
+        self.duration = Int(coreData.duration)
+        
+        self.type = DayWorkoutTagType(rawValue: coreData.type) ?? .default
+        self.title = coreData.title
+        self.subTitle = coreData.subTitle
+        self.expectedMinute = Int(coreData.expectedMinute)
+        self.minExpectedCalorie = Int(coreData.minExpectedCalorie)
+        self.maxExpectedCalorie = Int(coreData.maxExpectedCalorie)
+        self.workouts = coreData.workouts
+            .compactMap { $0 as? WorkoutCoreEntity}
+            .map { WorkoutModel(coreData: $0) }
     }
     
 }
 
-extension DayWorkOutModel {
+extension DayWorkoutModel {
     
     var isCompleted: Bool {
-        self.date != nil
+        workouts.flatMap {
+            $0.wods.flatMap { $0.wodSets }
+        }.allSatisfy { $0.isCompleted }
     }
     
     var displayExpectedMinuteTitle: String {
@@ -83,27 +117,27 @@ extension DayWorkOutModel {
     }
     
     var displayEstimatedCalorie: String {
-        "약 \(minEstimatedCalorie)~\(maxEstimatedCalorie) Kcal"
+        "약 \(minExpectedCalorie)~\(maxExpectedCalorie) Kcal"
     }
     
     var completedSetCount: Int {
-        self.workOuts.reduce(0) { $0 + $1.completedSetCount }
+        self.workouts.reduce(0) { $0 + $1.completedSetCount }
     }
     
 }
 
-extension DayWorkOutModel {
+extension DayWorkoutModel {
     
-    static let fake: Self = .init(data: DayWorkOutEntity.fake)
+    static let fake: Self = .init(data: DayWorkoutEntity.fake)
     
     static let completedFake: Self = {
-        var item = DayWorkOutModel.fake
+        var item = DayWorkoutModel.fake
         item.date = Date()
         return item
     }()
     
     static var fakes: [Self] = {
-        return DayWorkOutEntity.bodyBeginnerAlphaWeek.map { fake -> DayWorkOutModel in
+        return DayWorkoutEntity.bodyBeginnerAlphaWeek.map { fake -> DayWorkoutModel in
             .init(data: fake)
         }
     }()

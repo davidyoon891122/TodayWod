@@ -18,37 +18,37 @@ struct ProgramEntity: Codable, Equatable {
     
     let methodType: ProgramMethodType
     let level: LevelType
-    let dayWorkOuts: [DayWorkOutEntity]
+    let dayWorkouts: [DayWorkoutEntity]
     
 }
 
 extension ProgramEntity {
     
-    static var fake: Self = .init(methodType: .body, level: .beginner, dayWorkOuts: DayWorkOutEntity.bodyBeginnerAlphaWeek)
+    static var fake: Self = .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
     
 }
 
-struct DayWorkOutEntity: Codable, Equatable {
+struct DayWorkoutEntity: Codable, Equatable {
     
-    let type: DayWorkOutTagType
+    let type: DayWorkoutTagType
     let title: String
     let subTitle: String
     let expectedMinute: Int
-    let minEstimatedCalorie: Int
-    let maxEstimatedCalorie: Int
-    var workOuts: [WorkOutEntity]
+    let minExpectedCalorie: Int
+    let maxExpectedCalorie: Int
+    var workouts: [WorkoutEntity]
     
 }
 
-extension DayWorkOutEntity {
+extension DayWorkoutEntity {
     
-    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minEstimatedCalorie: 400, maxEstimatedCalorie: 500, workOuts: WorkOutEntity.bodyBeginnerAlphaDay1Info)
+    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay1Info)
 
 }
 
-struct WorkOutEntity: Codable, Equatable {
+struct WorkoutEntity: Codable, Equatable {
     
-    let type: WorkOutType
+    let type: WorkoutType
     var wods: [WodEntity]
     
 }

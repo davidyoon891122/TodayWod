@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LevelType: Codable, CaseIterable {
+enum LevelType: String, Codable, CaseIterable {
     
     case beginner
     case elementary

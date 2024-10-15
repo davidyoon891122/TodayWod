@@ -78,7 +78,7 @@ struct WodView: View {
 #Preview {
     VStack {
         Spacer()
-        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkOutModel.fake), reducer: {
+        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
             WorkOutDetailFeature()
         }), model: WodModel.fake)
         Spacer()

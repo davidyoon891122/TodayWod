@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkOutDetailTitleView: View {
     
-    let item: DayWorkOutModel
+    let item: DayWorkoutModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -48,7 +48,7 @@ struct WorkOutDetailTitleView: View {
 #Preview {
     VStack {
         Spacer()
-        WorkOutDetailTitleView(item: DayWorkOutModel.fake)
+        WorkOutDetailTitleView(item: DayWorkoutModel.fake)
         Spacer()
     }
     .background(.blue10)

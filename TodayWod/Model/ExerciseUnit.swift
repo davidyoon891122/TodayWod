@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ExerciseUnit: Codable {
+enum ExerciseUnit: String, Codable {
     
     case seconds
     case minutes
