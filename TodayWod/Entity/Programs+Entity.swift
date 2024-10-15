@@ -59,8 +59,8 @@ struct WodEntity: Codable, Equatable {
     let subTitle: String
     let unit: ExerciseUnit
     let unitValue: Int
-    let set: Int
-    let wodSets: [WodSetEntity]
+    let set: Int?
+    let wodSets: [WodSetEntity]?
     
     init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int = 1, wodSets: [WodSetEntity]) {
         self.title = title
