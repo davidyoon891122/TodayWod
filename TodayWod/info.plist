@@ -2,32 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Bundle identifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>Bundle name</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>Bundle version</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>Bundle display name</key>
-	<string>TodayWod</string>
-	<key>Bundle OS Type code</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<key>Default localization</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>Bundle version string (short)</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>Executable file</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>Supported interface orientations</key>
-	<array>
-		<string>Portrait (bottom home button)</string>
-		<string>Landscape (left home button)</string>
-		<string>Landscape (right home button)</string>
-	</array>
-	<key>Application requires iPhone environment</key>
-	<true/>
-	<key>Application supports indirect input events</key>
-	<true/>
 	<key>Appearance</key>
 	<string>Light</string>
 	<key>Application Scene Manifest</key>
@@ -35,10 +9,41 @@
 		<key>Enable Multiple Windows</key>
 		<true/>
 	</dict>
+	<key>Application requires iPhone environment</key>
+	<true/>
+	<key>Application supports indirect input events</key>
+	<true/>
+	<key>Bundle OS Type code</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>Bundle display name</key>
+	<string>TodayWod</string>
+	<key>Bundle identifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>Bundle name</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>Bundle version</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>Bundle version string (short)</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>Default localization</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>Executable file</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>Launch Screen</key>
 	<dict>
 		<key>UILaunchScreen</key>
 		<dict/>
 	</dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>Supported interface orientations</key>
+	<array>
+		<string>Portrait (bottom home button)</string>
+		<string>Landscape (left home button)</string>
+		<string>Landscape (right home button)</string>
+	</array>
 </dict>
 </plist>
