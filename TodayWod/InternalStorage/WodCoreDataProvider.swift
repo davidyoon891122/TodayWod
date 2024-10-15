@@ -22,10 +22,18 @@ final class WodCoreDataProvider {
         }
     }
 
-    func setProgram(model: ProgramModel) throws -> ProgramModel {
-        _ = ProgramCoreEntity.instance(with: self.context, model: model)
-        
-        WodCoreData.shared.saveContext()
+    func setProgram(model: ProgramModel) async throws -> ProgramModel {
+        try await context.perform {
+            do {
+                try self.removeProgram()
+            } catch {
+                throw error
+            }
+            
+            _ = ProgramCoreEntity.instance(with: self.context, model: model)
+            
+            WodCoreData.shared.saveContext()
+        }
 
         return model
     }
