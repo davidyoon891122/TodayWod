@@ -13,6 +13,16 @@ final class WodCoreDataProvider {
 
     private let context = WodCoreData.shared.context
 
+    func getCurrentProgram() throws -> ProgramModel {
+        do {
+            guard let result = try fetchProgram() else { throw CoreDataError.emptyData }
+            
+            return ProgramModel(coreData: result)
+        } catch {
+            throw error
+        }
+    }
+    
     func getDayWorkoutEntities() throws -> [DayWorkoutModel] {
         guard let programEntity = try self.fetchProgram() else { return [] }
         let dayWorkOutEntities = programEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
@@ -64,4 +74,9 @@ private extension WodCoreDataProvider {
         return try context.fetch(WodCoreData.shared.fetchProgram())
     }
 
+}
+
+
+enum CoreDataError: Error {
+    case emptyData
 }

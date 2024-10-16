@@ -75,13 +75,13 @@ struct HomeView: View {
     var body: some View {
         WithPerceptionTracking {
             if store.hasWod {
-//                WorkOutView(
-//                    store: store.scope(
-//                        state: \.workOut,
-//                        action: \.workOut
-//                    )
-//                )
-                WorkOutListView(store: store.scope(state: \.workOutList, action: \.workOutList))
+                WorkOutView(
+                    store: store.scope(
+                        state: \.workOut,
+                        action: \.workOut
+                    )
+                )
+//                WorkOutListView(store: store.scope(state: \.workOutList, action: \.workOutList))
             } else {
                 WorkOutEmptyView(
                     store: store.scope(

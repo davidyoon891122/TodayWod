@@ -9,14 +9,14 @@ import Foundation
 import ComposableArchitecture
 
 struct APIClient {
-    var requestProgram: @Sendable (ProgramRequestModel) async -> Void
+    var requestProgram: @Sendable (ProgramRequestModel) async throws -> ProgramEntity
 }
 
 extension APIClient: DependencyKey {
     
     static let liveValue = Self(requestProgram: { requestModel in
         let repository = ProgramRepository()
-        await repository.requestProgram(input: requestModel)
+        return try await repository.requestProgram(input: requestModel)
     })
     
 }
