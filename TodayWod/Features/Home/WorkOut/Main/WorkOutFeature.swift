@@ -92,7 +92,7 @@ struct WorkOutFeature {
                 state.ownProgram = programModel
                 return .merge(.run { send in
                     do {
-                        let _ = try wodClient.addWodProgram(programModel)
+                        let _ = try await wodClient.addWodProgram(programModel)
                     } catch {
                         print(error.localizedDescription)
                     }

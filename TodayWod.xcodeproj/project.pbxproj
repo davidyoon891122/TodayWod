@@ -37,6 +37,7 @@
 		1C6DCBAF2CBBFF4700ED56B2 /* CompletedWod+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBAE2CBBFF3000ED56B2 /* CompletedWod+Entity.swift */; };
 		1C6DCBB12CBC028E00ED56B2 /* RecentDayWorkOut+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB02CBC028000ED56B2 /* RecentDayWorkOut+Entity.swift */; };
 		1C6DCBB32CBC02FF00ED56B2 /* CompletedWodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB22CBC02F700ED56B2 /* CompletedWodModel.swift */; };
+		1C6DCBB52CC0049B00ED56B2 /* WorkoutConfirmationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB42CC0049800ED56B2 /* WorkoutConfirmationType.swift */; };
 		1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */; };
 		1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */; };
 		1C8708BF2CACDB8A00967DFE /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8708BD2CACDB8A00967DFE /* AppEnvironment.swift */; };
@@ -158,6 +159,7 @@
 		1C6DCBAE2CBBFF3000ED56B2 /* CompletedWod+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedWod+Entity.swift"; sourceTree = "<group>"; };
 		1C6DCBB02CBC028000ED56B2 /* RecentDayWorkOut+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentDayWorkOut+Entity.swift"; sourceTree = "<group>"; };
 		1C6DCBB22CBC02F700ED56B2 /* CompletedWodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedWodModel.swift; sourceTree = "<group>"; };
+		1C6DCBB42CC0049800ED56B2 /* WorkoutConfirmationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutConfirmationType.swift; sourceTree = "<group>"; };
 		1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C8708BD2CACDB8A00967DFE /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		1C622DBA2CAC23360034834E /* Confirm */ = {
 			isa = PBXGroup;
 			children = (
+				1C6DCBB42CC0049800ED56B2 /* WorkoutConfirmationType.swift */,
 				1C0B53752CAFA33A00256FE2 /* WorkoutConfirmationFeature.swift */,
 			);
 			path = Confirm;
@@ -1003,6 +1006,7 @@
 				497C0F052C9E463900F7444E /* GenderType.swift in Sources */,
 				1C1D04F72CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift in Sources */,
 				1C1D04F82CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift in Sources */,
+				1C6DCBB52CC0049B00ED56B2 /* WorkoutConfirmationType.swift in Sources */,
 				1C1D04F92CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift in Sources */,
 				1C1D04FA2CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift in Sources */,
 				1C1D04FB2CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift in Sources */,
