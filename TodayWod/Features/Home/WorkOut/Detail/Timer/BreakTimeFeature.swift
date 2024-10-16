@@ -13,7 +13,7 @@ struct BreakTimeFeature {
 
     @ObservableState
     struct State: Equatable {
-        var currentSeconds: Int = 10
+        var currentSeconds: Int = 60
         var buttonState: ButtonState = .pause
     }
 
@@ -52,18 +52,20 @@ struct BreakTimeFeature {
                 }
 
                 state.currentSeconds -= 1
-                print(state.currentSeconds)
                 return .none
             case .didTapReset:
                 state.currentSeconds = 60
                 state.buttonState = .pause
-                return .run { send in
-                    while true {
-                        try await Task.sleep(for: .seconds(1))
-                        await send(.timerTick)
+                return .concatenate(
+                    .cancel(id: CancelID.timer),
+                    .run { send in
+                        while true {
+                            try await Task.sleep(for: .seconds(1))
+                            await send(.timerTick)
+                        }
                     }
-                }
-                .cancellable(id: CancelID.timer)
+                    .cancellable(id: CancelID.timer)
+                )
             case .didTapPause:
                 return .cancel(id: CancelID.timer)
             case .didTapResume:
