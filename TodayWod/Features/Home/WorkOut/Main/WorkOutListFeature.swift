@@ -42,7 +42,7 @@ struct WorkOutListFeature {
                 return .run { send in
                     do {
                         let programsModel = ProgramModel.bodyBeginner // TODO: Fake 대체 필요.
-                        let result = try wodClient.addWodProgram(programsModel)
+                        let result = try await wodClient.addWodProgram(programsModel)
                         await send(.dayModelsResult(.success(result.dayWorkouts)))
                     } catch {
                         await send(.dayModelsResult(.failure(error)))
