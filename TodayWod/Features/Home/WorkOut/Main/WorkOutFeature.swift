@@ -51,7 +51,7 @@ struct WorkOutFeature {
             case .onAppear:
                 return .run { send in
                     do {
-                        let currentProgram = try wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
+                        let currentProgram = try await wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
                         await send(.loadSuccess(currentProgram))
                     } catch {
                         // TODO: - Load 에러 처리
@@ -92,7 +92,7 @@ struct WorkOutFeature {
                 state.ownProgram = programModel
                 return .merge(.run { send in
                     do {
-                        let _ = try wodClient.addWodProgram(programModel)
+                        let _ = try await wodClient.addWodProgram(programModel)
                     } catch {
                         print(error.localizedDescription)
                     }
