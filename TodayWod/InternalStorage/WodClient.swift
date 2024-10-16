@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 struct WodClient {
+    var getCurrentProgram: () throws -> ProgramModel
     var getDayModels: () throws -> [DayWorkoutModel]
     var addWodProgram: (ProgramModel) throws -> ProgramModel
     var removePrograms: () throws -> Void
@@ -16,7 +17,9 @@ struct WodClient {
 
 extension WodClient: DependencyKey {
 
-    static let liveValue: WodClient = Self(getDayModels: {
+    static let liveValue: WodClient = Self(getCurrentProgram: {
+        try WodCoreDataProvider.shared.getCurrentProgram()
+    }, getDayModels: {
         try WodCoreDataProvider.shared.getDayWorkoutEntities()
     }, addWodProgram: { programsModel in
         try WodCoreDataProvider.shared.setProgram(model: programsModel) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정

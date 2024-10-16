@@ -26,41 +26,52 @@ struct WorkOutFeature {
 
         @Presents var celebrateState: CelebrateFeature.State?
     }
+    
+    @Dependency(\.apiClient) var apiClient
+    @Dependency(\.wodClient) var wodClient
 
     enum Action {
         case onAppear
         case didTapNewChallengeButton
         case didTapResetButton
         case setDayWorkouts
-        case updateOwnProgram
+        case updateOwnProgram(ProgramEntity?)
         case updateWeekCompleted
         case didTapDayView(item: DayWorkoutModel)
         case path(StackActionOf<Path>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
         case setDynamicHeight(CGFloat)
+        case loadSuccess(ProgramModel)
+        case fetchProgramError(Error)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                let userDefaultsManager = UserDefaultsManager()
-                let ownProgram = userDefaultsManager.loadOwnProgram()
-                state.ownProgram = ownProgram
+                return .run { send in
+                    do {
+                        let currentProgram = try wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
+                        await send(.loadSuccess(currentProgram))
+                    } catch {
+                        // TODO: - Load 에러 처리
+                        print("error: \(error.localizedDescription)")
+                    }
+                }
+            case .loadSuccess(let programModel):
+                state.ownProgram = programModel // 코어데이터에서 가져온 데이터 현재 ownProgram에 set
                 
                 return .concatenate(.send(.setDayWorkouts),
                                     .send(.updateWeekCompleted))
             case .didTapNewChallengeButton:
-                let userDefaultsManager = UserDefaultsManager()
-                let wodPrograms = userDefaultsManager.loadOfferedPrograms()
-                
-                if let id = state.ownProgram?.id, let currentWodIndex = wodPrograms.firstIndex(where: { $0.id == id }) {
-                    let nextIndex = (currentWodIndex + 1) % wodPrograms.count
-                    state.ownProgram = wodPrograms[safe: nextIndex]
+                return .run { send in
+                    do {
+                        let programEntity = try await apiClient.requestProgram(.init(methodType: "machine", level: "advanced"))
+                        await send(.updateOwnProgram(programEntity))
+                    } catch {
+                        await send(.fetchProgramError(error))
+                    }
                 }
-                
-                return .merge(.send(.setDayWorkouts),
-                              .send(.updateOwnProgram))
             case .didTapResetButton:
                 let userDefaultsManager = UserDefaultsManager()
                 let wodPrograms = userDefaultsManager.loadOfferedPrograms()
@@ -71,14 +82,21 @@ struct WorkOutFeature {
                 }
                 
                 return .merge(.send(.setDayWorkouts),
-                              .send(.updateOwnProgram))
+                              .send(.updateOwnProgram(nil)))
             case .setDayWorkouts:
                 state.dayWorkouts = state.ownProgram?.dayWorkouts ?? []
                 return .none
-            case .updateOwnProgram:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOwnProgram(with: state.ownProgram)
-                return .none
+            case .updateOwnProgram(let programEntity):
+                guard let programEntity = programEntity else { return .none }
+                let programModel = ProgramModel(data: programEntity)
+                state.ownProgram = programModel
+                return .merge(.run { send in
+                    do {
+                        let _ = try wodClient.addWodProgram(programModel)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }, .send(.setDayWorkouts))
             case .updateWeekCompleted:
                 let isCelebrate = state.dayWorkouts.allSatisfy { $0.isCompleted }
                 if isCelebrate {
@@ -103,6 +121,9 @@ struct WorkOutFeature {
                 return .none
             case let .setDynamicHeight(height):
                 state.dynamicHeight = height
+                return .none
+            case .fetchProgramError(let error):
+                print("Fetch error : \(error.localizedDescription)")
                 return .none
             }
         }
