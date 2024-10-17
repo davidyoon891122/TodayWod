@@ -29,6 +29,8 @@ struct WorkOutDetailFeature {
         }
     }
     
+    @Dependency(\.wodClient) var wodClient
+    
     enum Action: BindableAction {
         case didTapBackButton
         case didTapDoneButton
@@ -120,9 +122,14 @@ struct WorkOutDetailFeature {
                 return .concatenate(.send(.saveOwnProgram),
                                     .send(.updateDayCompleted))
             case .saveOwnProgram:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOwnProgram(day: state.item)
-                return .none
+                let dayWorkOut = state.item
+                return .run { send in
+                    do {
+                        let _ = try await wodClient.updateWodProgram(dayWorkOut)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.isCompleted
                 
