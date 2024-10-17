@@ -24,13 +24,11 @@ struct WodView: View {
                 VStack(spacing: 10) {
                     ForEach(model.wodSets) { set in
                         HStack(spacing: 10) {
-                            if model.isSetVisible {
-                                Text(set.displaySetNumber)
-                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
-                                    .foregroundStyle(Colors.grey100.swiftUIColor)
-                                    .frame(width: 48)
+                            if model.isOrderSetVisible { // 세트 반복.
+                                WodSetView(store: store, model: set)
+                            } else {
+                                WodSetDefaultView(store: store, model: set)
                             }
-                            WodSetView(store: store, model: set)
                         }
                     }
                 }
@@ -56,7 +54,7 @@ struct WodView: View {
     
     var headerView: some View {
         HStack(spacing: 10) {
-            if model.isSetVisible {
+            if model.isOrderSetVisible {
                 Text(model.displaySet)
                     .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                     .foregroundStyle(Colors.grey100.swiftUIColor)

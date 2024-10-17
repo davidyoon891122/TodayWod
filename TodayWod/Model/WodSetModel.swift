@@ -17,6 +17,16 @@ struct WodSetModel: Codable, Equatable, Identifiable {
     var unitValue: Int
     var isCompleted: Bool
     
+    init(workoutId: UUID, wodModelId: UUID, unitValue: Int) {
+        self.id = UUID()
+        self.workoutId = workoutId
+        self.wodModelId = wodModelId
+        
+        self.unitValue = unitValue
+        self.order = 1
+        self.isCompleted = false
+    }
+    
     init(workoutId: UUID, wodModelId: UUID, data: WodSetEntity) {
         self.id = UUID()
         self.workoutId = workoutId
@@ -42,7 +52,7 @@ struct WodSetModel: Codable, Equatable, Identifiable {
 extension WodSetModel {
     
     var displaySetNumber: String {
-        String(self.order + 1)
+        String(self.order)
     }
     
     var displayUnitValue: String {
