@@ -53,6 +53,9 @@ struct WorkOutEmptyFeature {
             case .requestResult(.failure(let error)):
                 // TODO: - reqeust 에러 처리
                 return .none
+            case .setProgramResult(.success):
+                UserDefaultsManager().saveIsLaunchProgram(isLaunch: true)
+                return .none
             case .setProgramResult:
                 return .none
             }

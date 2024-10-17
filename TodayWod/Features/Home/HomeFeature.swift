@@ -13,7 +13,7 @@ struct HomeFeature {
     
     @ObservableState
     struct State: Equatable {
-        var hasWod: Bool = ((try? WodClient.liveValue.getCurrentProgram()) != nil) // TODO: - 이렇게 해도 되는지 고민... 초기에 값을 확이하는 방법을 찾아야 함
+        var hasWod: Bool = UserDefaultsManager().isLaunchProgram
 
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
@@ -47,7 +47,7 @@ struct HomeFeature {
         Reduce { state, action in
             switch action {
             case .setWodInfo:
-                state.hasWod.toggle()
+                state.hasWod = true
                 return .none
             case .workOutEmpty(.setProgramResult(.success(let model))):
                 return .run(operation: { send in
@@ -89,6 +89,9 @@ struct HomeView: View {
                     )
                 )
             }
+        }
+        .onAppear {
+            DLog.d(UserDefaultsManager().isLaunchProgram)
         }
     }
     
