@@ -1,14 +1,14 @@
 //
-//  WodSetView.swift
+//  WodSetDefaultView.swift
 //  TodayWod
 //
-//  Created by 오지연 on 9/22/24.
+//  Created by D프로젝트노드_오지연 on 10/17/24.
 //
 
 import SwiftUI
 import ComposableArchitecture
 
-struct WodSetView: View {
+struct WodSetDefaultView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
     let model: WodSetModel
@@ -24,11 +24,7 @@ struct WodSetView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            HStack(spacing: 10) {
-                Text(model.displaySetNumber)
-                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
-                    .foregroundStyle(Colors.grey100.swiftUIColor)
-                    .frame(width: 48)
+            HStack {
                 TextField("", text: $unitText)
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 18.0))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
@@ -58,7 +54,7 @@ struct WodSetView: View {
 }
 
 #Preview {
-    WodSetView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
+    WodSetDefaultView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
         WorkOutDetailFeature()
     }), model: WodSetModel.fake)
 }

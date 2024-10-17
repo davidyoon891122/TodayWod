@@ -60,8 +60,9 @@ struct WodModel: Codable, Equatable, Identifiable {
         self.subTitle = data.subTitle
         self.unit = data.unit
         self.unitValue = data.unitValue
-        self.set = data.set ?? 0
-        self.wodSets = data.wodSets?.map { WodSetModel(workoutId: workoutId, wodModelId: id, data: $0) } ?? []
+        self.set = data.set ?? 1
+        let defaultWodSet = WodSetModel(workoutId: workoutId, wodModelId: id, unitValue: data.unitValue)
+        self.wodSets = data.wodSets?.map { WodSetModel(workoutId: workoutId, wodModelId: id, data: $0) } ?? [defaultWodSet]
     }
     
     init(coreData: WodCoreEntity) {
@@ -85,8 +86,8 @@ extension WodModel {
         self.wodSets.count(where: { $0.isCompleted })
     }
     
-    var isSetVisible: Bool {
-        self.set > 1
+    var isOrderSetVisible: Bool {
+        self.set > 1 && self.wodSets.count > 0
     }
     
     var displaySet: String {
