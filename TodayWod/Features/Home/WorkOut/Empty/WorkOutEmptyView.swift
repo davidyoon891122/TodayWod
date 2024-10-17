@@ -18,12 +18,42 @@ struct WorkOutEmptyFeature {
     
     enum Action {
         case didTapStartButton
+        case requestResult(Result<ProgramEntity, Error>)
+        case setProgramResult(Result<ProgramModel, Error>)
     }
-    
+
+    @Dependency(\.apiClient) var apiClient
+    @Dependency(\.wodClient) var wodClient
+
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapStartButton:
+                guard let method = state.onboardingUserModel?.method,
+                        let level = state.onboardingUserModel?.level else { return .none }
+
+                return .run { send in
+                    do {
+                        let result = try await apiClient.requestProgram(.init(methodType: method.rawValue, level: level.rawValue))
+
+                        await send(.requestResult(.success(result)))
+                    } catch {
+                        await send(.requestResult(.failure(error)))
+                    }
+                }
+            case .requestResult(.success(let entity)):
+                return .run { send in
+                    do {
+                        let result = try await wodClient.addWodProgram(ProgramModel(data: entity))
+                        await send(.setProgramResult(.success(result)))
+                    } catch {
+                        await send(.setProgramResult(.failure(error)))
+                    }
+                }
+            case .requestResult(.failure(let error)):
+                // TODO: - reqeust 에러 처리
+                return .none
+            case .setProgramResult:
                 return .none
             }
         }

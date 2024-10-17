@@ -13,7 +13,7 @@ struct HomeFeature {
     
     @ObservableState
     struct State: Equatable {
-        var hasWod: Bool = UserDefaultsManager().loadOwnProgram() != nil
+        var hasWod: Bool = ((try? WodClient.liveValue.getCurrentProgram()) != nil) // TODO: - 이렇게 해도 되는지 고민... 초기에 값을 확이하는 방법을 찾아야 함
 
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
@@ -28,6 +28,8 @@ struct HomeFeature {
         case workOut(WorkOutFeature.Action)
         case workOutList(WorkOutListFeature.Action)
     }
+
+    @Dependency(\.wodClient) var wodClient
 
     var body: some ReducerOf<Self> {
         Scope(state: \.workOutEmpty, action: \.workOutEmpty) {
@@ -45,17 +47,14 @@ struct HomeFeature {
         Reduce { state, action in
             switch action {
             case .setWodInfo:
-                let userDefaultManager = UserDefaultsManager()
-                let wodPrograms = userDefaultManager.loadOfferedPrograms()
-                
-                userDefaultManager.saveOwnProgram(with: wodPrograms.first)
                 state.hasWod.toggle()
-    
                 return .none
-            case .workOutEmpty(.didTapStartButton):
+            case .workOutEmpty(.setProgramResult(.success(let model))):
                 return .run(operation: { send in
                     await send(.setWodInfo)
                 })
+            case .workOutEmpty:
+                return .none
             case .workOut:
                 return .none
             case .workOutList:
