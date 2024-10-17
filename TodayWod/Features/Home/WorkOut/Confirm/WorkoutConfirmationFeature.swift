@@ -13,7 +13,7 @@ struct WorkoutConfirmationFeature {
     
     @ObservableState
     struct State: Equatable {
-        
+        let type: WorkoutConfirmationType
     }
     
     enum Action {
@@ -44,11 +44,11 @@ struct WorkoutConfirmationView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("운동을 완료할까요?")
+            Text(store.type.title)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
                 .foregroundStyle(.grey100)
             
-            Text("아직 완료하지 않은 운동이 있어요.\n체크한 운동만 기록돼요.")
+            Text(store.type.description)
                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
                 .foregroundStyle(.grey80)
                 .padding(.top, 10.0)
@@ -57,7 +57,7 @@ struct WorkoutConfirmationView: View {
                 Button(action: {
                     store.send(.didTapCloseButton)
                 }, label: {
-                    Text("취소")
+                    Text(store.type.cancelButtonTitle)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                         .foregroundStyle(.grey100)
                         .frame(maxWidth: .infinity, minHeight: 56.0)
@@ -68,7 +68,7 @@ struct WorkoutConfirmationView: View {
                 Button(action: {
                     store.send(.didTapDoneButton)
                 }, label: {
-                    Text("운동 완료")
+                    Text(store.type.doneButtonTitle)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity, minHeight: 56.0)
@@ -87,7 +87,13 @@ struct WorkoutConfirmationView: View {
 }
 
 #Preview {
-    WorkoutConfirmationView(store: Store(initialState: WorkoutConfirmationFeature.State()) {
+    WorkoutConfirmationView(store: Store(initialState: WorkoutConfirmationFeature.State(type: .quit)) {
+        WorkoutConfirmationFeature()
+    })
+}
+
+#Preview {
+    WorkoutConfirmationView(store: Store(initialState: WorkoutConfirmationFeature.State(type: .completed)) {
         WorkoutConfirmationFeature()
     })
 }

@@ -58,7 +58,7 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
-                state.confirmState = WorkoutConfirmationFeature.State() // 운동 종료 재확인.
+                state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
                 return .none
             case .didTapStartButton:
                 state.hasStart = true
@@ -127,7 +127,7 @@ struct WorkOutDetailFeature {
                 state.isDayCompleted = state.item.isCompleted
                 
                 if state.isDayCompleted {
-                    state.confirmState = WorkoutConfirmationFeature.State() // 운동 완료 재확인.
+                    state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
                     state.timerState = BreakTimeFeature.State()
                 }
                 return .none
