@@ -47,6 +47,28 @@ final class WodCoreDataProvider {
 
         return model
     }
+    
+    func updateProgram(day: DayWorkoutModel) async throws {
+        try await context.perform {
+            guard let programEntity = try self.fetchProgram() else { return }
+            var currentProgram = ProgramModel(coreData: programEntity)
+            
+            let dayWorkouts: [DayWorkoutModel] = currentProgram.dayWorkouts.map {
+                $0.id == day.id ? day : $0
+            }
+            currentProgram.dayWorkouts = dayWorkouts
+            
+            do {
+                try self.removeProgram()
+            } catch {
+                throw error
+            }
+            
+            _ = ProgramCoreEntity.instance(with: self.context, model: currentProgram)
+            
+            WodCoreData.shared.saveContext()
+        }
+    }
 
     func removeProgram() throws -> Void {
         let currentPrograms = try fetchPrograms()
