@@ -97,8 +97,3 @@ private extension WodCoreDataProvider {
     }
 
 }
-
-
-enum CoreDataError: Error {
-    case emptyData
-}

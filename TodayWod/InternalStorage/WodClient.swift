@@ -14,6 +14,9 @@ struct WodClient {
     var addWodProgram: (ProgramModel) async throws -> ProgramModel
     var updateWodProgram: (DayWorkoutModel) async throws -> Void
     var removePrograms: () throws -> Void
+    var getRecentDayWorkouts: () throws -> [DayWorkoutModel]
+    var addRecentDayWorkouts: (DayWorkoutModel) async throws -> Void
+    
 }
 
 extension WodClient: DependencyKey {
@@ -24,10 +27,14 @@ extension WodClient: DependencyKey {
         try WodCoreDataProvider.shared.getDayWorkoutEntities()
     }, addWodProgram: { programsModel in
         try await WodCoreDataProvider.shared.setProgram(model: programsModel) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정
-    }, updateWodProgram: { dayWorkOut in
-        try await WodCoreDataProvider.shared.updateProgram(day: dayWorkOut)
+    }, updateWodProgram: { dayWorkout in
+        try await WodCoreDataProvider.shared.updateProgram(day: dayWorkout)
     }, removePrograms: {
         try WodCoreDataProvider.shared.removeProgram()
+    }, getRecentDayWorkouts: {
+        try RecentWodCoreDataProvider.shared.getRecentActivities()
+    }, addRecentDayWorkouts: { dayWorkout in
+        try await RecentWodCoreDataProvider.shared.setRecentActivities(model: dayWorkout)
     })
 
 }

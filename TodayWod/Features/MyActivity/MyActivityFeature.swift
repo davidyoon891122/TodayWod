@@ -23,7 +23,7 @@ struct MyActivityFeature {
     @ObservableState
     struct State: Equatable {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
-        let recentDayWorkouts: [RecentDayWorkoutModel] = UserDefaultsManager().loadRecentDayWorkouts()
+        let recentDayWorkouts: [DayWorkoutModel] = [] // TODO: 최근 활동 CoreData 호출로 변경.
         var path = StackState<Path.State>()
     }
 
