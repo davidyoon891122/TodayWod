@@ -85,7 +85,7 @@ final class WodCoreDataProvider {
 private extension WodCoreDataProvider {
 
     func fetchProgram() throws -> ProgramCoreEntity? {
-        let wodInfo = try context.fetch(WodCoreData.shared.fetchProgram())
+        let wodInfo = try context.fetch(WodCoreData.shared.programFetchRequest)
         print(wodInfo.count)
         let firstWod = wodInfo.first
 
@@ -93,7 +93,7 @@ private extension WodCoreDataProvider {
     }
 
     func fetchPrograms() throws -> [ProgramCoreEntity] {
-        return try context.fetch(WodCoreData.shared.fetchProgram())
+        return try context.fetch(WodCoreData.shared.programFetchRequest)
     }
 
 }

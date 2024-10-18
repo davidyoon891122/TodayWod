@@ -5,11 +5,17 @@
 //  Created by 오지연 on 10/17/24.
 //
 
+import CoreData
+
 final class RecentWodCoreDataProvider {
     
     static let shared = RecentWodCoreDataProvider()
     
-    private let context = RecentWodCoreData.shared.context
+    private let coreData = WodCoreData.shared
+    
+    private var context: NSManagedObjectContext {
+        self.coreData.context
+    }
     
     func getRecentActivities() throws -> [DayWorkoutModel] {
         guard let recentActivitiesEntity = try self.fetchRecentActivities() else { return [] }
@@ -43,7 +49,7 @@ final class RecentWodCoreDataProvider {
             
             _ = RecentActivitiesCoreEntity.instance(with: self.context, model: recentActivities)
             
-            RecentWodCoreData.shared.saveContext()
+            self.coreData.saveContext()
         }
     }
 }
@@ -51,12 +57,12 @@ final class RecentWodCoreDataProvider {
 private extension RecentWodCoreDataProvider {
 
     func fetchRecentActivities() throws -> RecentActivitiesCoreEntity? {
-        let recentActivities = try context.fetch(RecentWodCoreData.shared.fetchRecentActivities())
+        let recentActivities = try context.fetch(self.coreData.recentActivitiesFetchRequest)
         return recentActivities.first
     }
     
     func removeRecentActivities() throws -> Void {
-        let recentActivities = try context.fetch(RecentWodCoreData.shared.fetchRecentActivities())
+        let recentActivities = try context.fetch(self.coreData.recentActivitiesFetchRequest)
 
         recentActivities.forEach {
             context.delete($0)

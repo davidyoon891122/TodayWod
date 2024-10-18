@@ -23,12 +23,15 @@ struct MyActivityFeature {
     @ObservableState
     struct State: Equatable {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
-        let recentDayWorkouts: [DayWorkoutModel] = [] // TODO: 최근 활동 CoreData 호출로 변경.
+        var recentDayWorkouts: [DayWorkoutModel] = []
         var path = StackState<Path.State>()
     }
+    
+    @Dependency(\.wodClient) var wodClient
 
     enum Action {
         case onAppear
+        case recentDayWorkoutsResponse([DayWorkoutModel])
         case path(StackActionOf<Path>)
         case didTapMyPage
     }
@@ -40,6 +43,18 @@ struct MyActivityFeature {
                 if let onbarodingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() {
                     state.onboardingUserInfoModel = onbarodingUserInfoModel
                 }
+                
+                return .run { send in
+                    do {
+                        let recentDayWorkouts = try wodClient.getRecentDayWorkouts()
+                        await send(.recentDayWorkoutsResponse(recentDayWorkouts))
+                    } catch {
+                        // TODO: - Load 에러 처리
+                        print("error: \(error.localizedDescription)")
+                    }
+                }
+            case let .recentDayWorkoutsResponse(dayWorkouts):
+                state.recentDayWorkouts = dayWorkouts
                 return .none
             case let .path(action):
                 switch action {
@@ -160,6 +175,7 @@ struct MyActivityView: View {
                             }
                         }
                     }
+                    .padding(.bottom, 40)
                 }
                 .onAppear {
                     store.send(.onAppear)

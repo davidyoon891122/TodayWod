@@ -37,7 +37,6 @@
 		1C6DCBB12CBC028E00ED56B2 /* RecentDayWorkOut+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB02CBC028000ED56B2 /* RecentDayWorkOut+Entity.swift */; };
 		1C6DCBB32CBC02FF00ED56B2 /* CompletedWodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB22CBC02F700ED56B2 /* CompletedWodModel.swift */; };
 		1C6DCBB52CC0049B00ED56B2 /* WorkoutConfirmationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB42CC0049800ED56B2 /* WorkoutConfirmationType.swift */; };
-		1C6DCBB72CC1476200ED56B2 /* RecentWodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB62CC1475500ED56B2 /* RecentWodCoreData.swift */; };
 		1C6DCBB92CC1488800ED56B2 /* RecentWodCoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBB82CC1488800ED56B2 /* RecentWodCoreDataProvider.swift */; };
 		1C6DCBCE2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBCC2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataClass.swift */; };
 		1C6DCBCF2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBCD2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift */; };
@@ -165,7 +164,6 @@
 		1C6DCBB02CBC028000ED56B2 /* RecentDayWorkOut+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentDayWorkOut+Entity.swift"; sourceTree = "<group>"; };
 		1C6DCBB22CBC02F700ED56B2 /* CompletedWodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedWodModel.swift; sourceTree = "<group>"; };
 		1C6DCBB42CC0049800ED56B2 /* WorkoutConfirmationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutConfirmationType.swift; sourceTree = "<group>"; };
-		1C6DCBB62CC1475500ED56B2 /* RecentWodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWodCoreData.swift; sourceTree = "<group>"; };
 		1C6DCBB82CC1488800ED56B2 /* RecentWodCoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWodCoreDataProvider.swift; sourceTree = "<group>"; };
 		1C6DCBCC2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentActivitiesCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1C6DCBCD2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentActivitiesCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 				1C1D05072CBE2C1800BDA52D /* WodClient.swift */,
 				1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */,
 				1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */,
-				1C6DCBB62CC1475500ED56B2 /* RecentWodCoreData.swift */,
 				1C6DCBB82CC1488800ED56B2 /* RecentWodCoreDataProvider.swift */,
 			);
 			path = InternalStorage;
@@ -1078,7 +1075,6 @@
 				AD1FE4372CB4AE2A0045CE57 /* MethodMenuView.swift in Sources */,
 				1C1D05022CBE2A1100BDA52D /* WodSetModel.swift in Sources */,
 				1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */,
-				1C6DCBB72CC1476200ED56B2 /* RecentWodCoreData.swift in Sources */,
 				AD386C3B2CA391740038C27F /* VersionInfoView.swift in Sources */,
 				1C9C9F6B2CABA89600157001 /* WorkOutNavigationView.swift in Sources */,
 				4987120F2CA447C700FB876E /* CelebrateFeature.swift in Sources */,

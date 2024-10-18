@@ -44,10 +44,12 @@ final class WodCoreData {
 
 extension WodCoreData {
     
-    func fetchProgram() -> NSFetchRequest<ProgramCoreEntity> {
-        let request = NSFetchRequest<ProgramCoreEntity>(entityName: "ProgramCoreEntity")
-
-        return request
+    var programFetchRequest: NSFetchRequest<ProgramCoreEntity> {
+        NSFetchRequest<ProgramCoreEntity>(entityName: "ProgramCoreEntity")
+    }
+    
+    var recentActivitiesFetchRequest: NSFetchRequest<RecentActivitiesCoreEntity> {
+        NSFetchRequest<RecentActivitiesCoreEntity>(entityName: "RecentActivitiesCoreEntity")
     }
     
 }
