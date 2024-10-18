@@ -16,9 +16,6 @@ protocol UserDefaultsManagerProtocol {
     func saveOwnProgram(with data: ProgramModel?)
     func loadOwnProgram() -> ProgramModel?
     
-    func saveRecentDayWorkouts(with data: RecentDayWorkoutModel)
-    func loadRecentDayWorkouts() -> [RecentDayWorkoutModel]
-    
     func saveCompletedWods(with data: CompletedWodModel)
     func loadCompletedWods() -> [CompletedWodModel]
     
@@ -88,18 +85,6 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
               let wodInfo = try? PropertyListDecoder().decode(ProgramModel.self, from: data) else { return nil }
 
         return wodInfo
-    }
-    
-    func saveRecentDayWorkouts(with data: RecentDayWorkoutModel) {
-        let encodedData = try? PropertyListEncoder().encode(data)
-        self.userDefaults.set(encodedData, forKey: Constants.recentDayWorkouts)
-    }
-    
-    func loadRecentDayWorkouts() -> [RecentDayWorkoutModel] {
-        guard let data = self.userDefaults.object(forKey: Constants.recentDayWorkouts) as? Data,
-              let dayWorkouts = try? PropertyListDecoder().decode([RecentDayWorkoutModel].self, from: data) else { return RecentDayWorkoutModel.fakes } // TODO: 저장 구현 필요. 현재는 초기에 Fake.
-
-        return dayWorkouts
     }
     
     func saveCompletedWods(with data: CompletedWodModel) {
