@@ -42,6 +42,7 @@ struct WorkOutDetailFeature {
         case setUnitText(String, WodSetModel)
         case updateWodSet(WodSetModel)
         case saveOwnProgram
+        case saveRecentActivity
         case updateDayCompleted
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
@@ -64,12 +65,7 @@ struct WorkOutDetailFeature {
                 return .none
             case .didTapStartButton:
                 state.hasStart = true
-                
-                // TODO: 운동 시작 시, 최근 활동 저장 필요. (최근 활동 저장 기준 확인 필요.)
-                
-                return .run { send in
-                    await send(.startTimer)
-                }
+                return .send(.startTimer)
             case .startTimer:
                 return .run { send in
                     while true {
@@ -130,6 +126,15 @@ struct WorkOutDetailFeature {
                         print(error.localizedDescription)
                     }
                 }
+            case .saveRecentActivity:
+                let dayWorkouts = state.item
+                return .run { send in
+                    do {
+                        try await wodClient.addRecentDayWorkouts(dayWorkouts)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.isCompleted
                 
@@ -145,6 +150,7 @@ struct WorkOutDetailFeature {
                 
                 return .concatenate(.send(.stopTimer),
                                     .send(.saveOwnProgram),
+                                    .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
             default:
                 return .none
