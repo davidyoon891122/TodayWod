@@ -6,12 +6,19 @@
 //
 
 import Foundation
+import CoreData
 
 final class WodCoreDataProvider {
 
-    static let shared = WodCoreDataProvider()
-
-    private let context = WodCoreData.shared.context
+    private let coreData: WodCoreData
+    
+    init(coreData: WodCoreData) {
+        self.coreData = coreData
+    }
+    
+    private var context: NSManagedObjectContext {
+        self.coreData.context
+    }
 
     func getCurrentProgram() throws -> ProgramModel {
         do {
@@ -42,7 +49,7 @@ final class WodCoreDataProvider {
             
             _ = ProgramCoreEntity.instance(with: self.context, model: model)
             
-            WodCoreData.shared.saveContext()
+            self.coreData.saveContext()
         }
 
         return model
@@ -66,7 +73,7 @@ final class WodCoreDataProvider {
             
             _ = ProgramCoreEntity.instance(with: self.context, model: currentProgram)
             
-            WodCoreData.shared.saveContext()
+            self.coreData.saveContext()
         }
     }
 
@@ -85,7 +92,7 @@ final class WodCoreDataProvider {
 private extension WodCoreDataProvider {
 
     func fetchProgram() throws -> ProgramCoreEntity? {
-        let wodInfo = try context.fetch(WodCoreData.shared.programFetchRequest)
+        let wodInfo = try context.fetch(self.coreData.programFetchRequest)
         print(wodInfo.count)
         let firstWod = wodInfo.first
 
@@ -93,7 +100,7 @@ private extension WodCoreDataProvider {
     }
 
     func fetchPrograms() throws -> [ProgramCoreEntity] {
-        return try context.fetch(WodCoreData.shared.programFetchRequest)
+        return try context.fetch(self.coreData.programFetchRequest)
     }
 
 }

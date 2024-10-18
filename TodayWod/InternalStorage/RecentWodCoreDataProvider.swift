@@ -9,9 +9,11 @@ import CoreData
 
 final class RecentWodCoreDataProvider {
     
-    static let shared = RecentWodCoreDataProvider()
+    private let coreData: WodCoreData
     
-    private let coreData = WodCoreData.shared
+    init(coreData: WodCoreData) {
+        self.coreData = coreData
+    }
     
     private var context: NSManagedObjectContext {
         self.coreData.context
@@ -35,9 +37,14 @@ final class RecentWodCoreDataProvider {
             }
             
             if dayWorkouts.count >= 3 { // 최대 3개 저장.
-                dayWorkouts.removeFirst()
+                dayWorkouts.removeLast()
             }
-            dayWorkouts.append(model)
+            
+            var updatedModel = model
+            if dayWorkouts.contains(where: { $0.id == model.id }) { // 중복 데이터를 구분 처리.
+                updatedModel.id = UUID()
+            }
+            dayWorkouts.insert(updatedModel, at: 0)
             
             let recentActivities = RecentActivitiesModel(dayWorkouts: dayWorkouts)
             

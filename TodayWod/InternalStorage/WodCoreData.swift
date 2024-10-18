@@ -10,8 +10,6 @@ import CoreData
 
 final class WodCoreData {
     
-    static let shared = WodCoreData()
-    
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TodayWodCoreData")
         

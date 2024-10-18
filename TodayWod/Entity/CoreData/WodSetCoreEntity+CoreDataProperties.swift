@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension WodSetCoreEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WodSetCoreEntity> {

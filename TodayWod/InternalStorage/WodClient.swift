@@ -9,6 +9,9 @@ import Foundation
 import ComposableArchitecture
 
 struct WodClient {
+    
+    static let coreData = WodCoreData()
+    
     var getCurrentProgram: () throws -> ProgramModel
     var getDayModels: () throws -> [DayWorkoutModel]
     var addWodProgram: (ProgramModel) async throws -> ProgramModel
@@ -20,21 +23,29 @@ struct WodClient {
 }
 
 extension WodClient: DependencyKey {
+    
+    static var wodProvider: WodCoreDataProvider {
+        .init(coreData: WodClient.coreData)
+    }
+    
+    static var recentWodProvider: RecentWodCoreDataProvider {
+        .init(coreData: WodClient.coreData)
+    }
 
     static let liveValue: WodClient = Self(getCurrentProgram: {
-        try WodCoreDataProvider.shared.getCurrentProgram()
+        try WodClient.wodProvider.getCurrentProgram()
     }, getDayModels: {
-        try WodCoreDataProvider.shared.getDayWorkoutEntities()
+        try WodClient.wodProvider.getDayWorkoutEntities()
     }, addWodProgram: { programsModel in
-        try await WodCoreDataProvider.shared.setProgram(model: programsModel) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정
+        try await WodClient.wodProvider.setProgram(model: programsModel) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정
     }, updateWodProgram: { dayWorkout in
-        try await WodCoreDataProvider.shared.updateProgram(day: dayWorkout)
+        try await WodClient.wodProvider.updateProgram(day: dayWorkout)
     }, removePrograms: {
-        try WodCoreDataProvider.shared.removeProgram()
+        try WodClient.wodProvider.removeProgram()
     }, getRecentDayWorkouts: {
-        try RecentWodCoreDataProvider.shared.getRecentActivities()
+        try WodClient.recentWodProvider.getRecentActivities()
     }, addRecentDayWorkouts: { dayWorkout in
-        try await RecentWodCoreDataProvider.shared.setRecentActivities(model: dayWorkout)
+        try await WodClient.recentWodProvider.setRecentActivities(model: dayWorkout)
     })
 
 }
