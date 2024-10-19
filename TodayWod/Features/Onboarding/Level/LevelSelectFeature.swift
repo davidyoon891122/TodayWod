@@ -18,6 +18,8 @@ struct LevelSelectFeature {
 
         var isValidLevel: Bool = false
         var entryType: EntryType = .onBoarding
+
+        @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
     }
 
     enum Action {
@@ -28,6 +30,7 @@ struct LevelSelectFeature {
     }
 
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.wodClient) var wodClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -46,7 +49,11 @@ struct LevelSelectFeature {
                     onboardingUserModel.level = state.level
                     userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
 
-                    return .run { _ in await dismiss() }
+                    state.isLaunchProgram = false
+                    return .run { send in
+                        try await wodClient.removePrograms()
+                        await dismiss()
+                    }
                 }
 
             case let .setLevel(level):
