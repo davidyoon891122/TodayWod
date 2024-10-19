@@ -43,11 +43,20 @@ final class WodCoreData {
 extension WodCoreData {
     
     var programFetchRequest: NSFetchRequest<ProgramCoreEntity> {
-        NSFetchRequest<ProgramCoreEntity>(entityName: "ProgramCoreEntity")
+        NSFetchRequest<ProgramCoreEntity>(entityName: Constants.programCoreEntity)
     }
     
     var recentActivitiesFetchRequest: NSFetchRequest<RecentActivitiesCoreEntity> {
-        NSFetchRequest<RecentActivitiesCoreEntity>(entityName: "RecentActivitiesCoreEntity")
+        NSFetchRequest<RecentActivitiesCoreEntity>(entityName: Constants.recentActivitiesCoreEntity)
+    }
+    
+}
+
+private extension WodCoreData {
+    
+    enum Constants {
+        static let programCoreEntity = "ProgramCoreEntity"
+        static let recentActivitiesCoreEntity = "RecentActivitiesCoreEntity"
     }
     
 }
