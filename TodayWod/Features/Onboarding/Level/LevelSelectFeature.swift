@@ -50,7 +50,7 @@ struct LevelSelectFeature {
                     userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
 
                     state.isLaunchProgram = false
-                    return .run { send in
+                    return .run { _ in
                         try await wodClient.removePrograms()
                         await dismiss()
                     }
