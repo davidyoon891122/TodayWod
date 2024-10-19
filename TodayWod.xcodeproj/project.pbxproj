@@ -42,6 +42,7 @@
 		1C6DCBCF2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBCD2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift */; };
 		1C6DCBD52CC1522300ED56B2 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBD42CC1522000ED56B2 /* CoreDataError.swift */; };
 		1C6DCBD72CC158E600ED56B2 /* RecentActivitesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBD62CC158DE00ED56B2 /* RecentActivitesModel.swift */; };
+		1C6DCBDA2CC4032500ED56B2 /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBD92CC4032500ED56B2 /* SettingFeature.swift */; };
 		1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */; };
 		1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */; };
 		1C8708BF2CACDB8A00967DFE /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8708BD2CACDB8A00967DFE /* AppEnvironment.swift */; };
@@ -63,7 +64,6 @@
 		1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2E12C9B9C9B000A09E5 /* WorkOutDayFeature.swift */; };
 		49101A702C8D373D00FDB709 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A6F2C8D373D00FDB709 /* AppFeature.swift */; };
 		49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A712C8D374400FDB709 /* HomeFeature.swift */; };
-		49101A752C8D37A500FDB709 /* MyActivityFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A742C8D37A500FDB709 /* MyActivityFeature.swift */; };
 		49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A792C8D3DE800FDB709 /* TodayWod.swift */; };
 		49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */; };
 		49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */; };
@@ -169,6 +169,7 @@
 		1C6DCBCD2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentActivitiesCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1C6DCBD42CC1522000ED56B2 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		1C6DCBD62CC158DE00ED56B2 /* RecentActivitesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivitesModel.swift; sourceTree = "<group>"; };
+		1C6DCBD92CC4032500ED56B2 /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
 		1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C8708BD2CACDB8A00967DFE /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -191,7 +192,6 @@
 		1CFED2E12C9B9C9B000A09E5 /* WorkOutDayFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDayFeature.swift; sourceTree = "<group>"; };
 		49101A6F2C8D373D00FDB709 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		49101A712C8D374400FDB709 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
-		49101A742C8D37A500FDB709 /* MyActivityFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityFeature.swift; sourceTree = "<group>"; };
 		49101A792C8D3DE800FDB709 /* TodayWod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWod.swift; sourceTree = "<group>"; };
 		49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginFeature.swift; sourceTree = "<group>"; };
 		49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -432,13 +432,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		49101A762C8D384700FDB709 /* MyActivity */ = {
+		49101A762C8D384700FDB709 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				49101A742C8D37A500FDB709 /* MyActivityFeature.swift */,
 				AD386C392CA390610038C27F /* MyPage */,
+				1C6DCBD92CC4032500ED56B2 /* SettingFeature.swift */,
 			);
-			path = MyActivity;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		49101A7D2C8F3D3800FDB709 /* Onboarding */ = {
@@ -705,7 +705,7 @@
 				ADBACAA02C92BBC300BED61C /* Tab */,
 				49101A7D2C8F3D3800FDB709 /* Onboarding */,
 				49101A732C8D379C00FDB709 /* Home */,
-				49101A762C8D384700FDB709 /* MyActivity */,
+				49101A762C8D384700FDB709 /* Setting */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -1019,6 +1019,7 @@
 				1C9C9F6D2CABB49B00157001 /* Programs+Dummy.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
 				4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */,
+				1C6DCBDA2CC4032500ED56B2 /* SettingFeature.swift in Sources */,
 				49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */,
 				497C0F052C9E463900F7444E /* GenderType.swift in Sources */,
 				1C1D04F72CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift in Sources */,
@@ -1039,7 +1040,6 @@
 				AD386C4A2CAA90ED0038C27F /* Extension+String.swift in Sources */,
 				49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */,
 				1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */,
-				49101A752C8D37A500FDB709 /* MyActivityFeature.swift in Sources */,
 				1C1D05062CBE2B7400BDA52D /* WorkOutListFeature.swift in Sources */,
 				49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */,
 				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,

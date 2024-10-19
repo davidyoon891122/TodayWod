@@ -1,5 +1,5 @@
 //
-//  MyActivityFeature.swift
+//  SettingFeature.swift
 //  TodayWod
 //
 //  Created by Jiwon Yoon on 9/8/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct MyActivityFeature {
+struct SettingFeature {
     
     @Reducer(state: .equatable)
     enum Path {
@@ -18,6 +18,7 @@ struct MyActivityFeature {
         case modifyWeight(ModifyWeightFeature)
         case modifyLevel(LevelSelectFeature)
         case modifyMethod(MethodSelectFeature)
+        case completed(WorkOutCompletedFeature)
     }
 
     @ObservableState
@@ -34,6 +35,7 @@ struct MyActivityFeature {
         case recentDayWorkoutsResponse([DayWorkoutModel])
         case path(StackActionOf<Path>)
         case didTapMyPage
+        case didTapMyActivity(DayWorkoutModel)
     }
 
     var body: some ReducerOf<Self> {
@@ -85,6 +87,10 @@ struct MyActivityFeature {
             case .didTapMyPage:
                 state.path.append(.myPage(MyPageFeature.State()))
                 return .none
+            case let .didTapMyActivity(workout):
+                state.path.append(.completed(WorkOutCompletedFeature.State(item: workout)
+))
+                return .none
             }
         }
         .forEach(\.path, action: \.path)
@@ -94,9 +100,9 @@ struct MyActivityFeature {
 
 import SwiftUI
 
-struct MyActivityView: View {
+struct SettingView: View {
 
-    @Perception.Bindable var store: StoreOf<MyActivityFeature>
+    @Perception.Bindable var store: StoreOf<SettingFeature>
 
     var body: some View {
         WithPerceptionTracking {
@@ -172,6 +178,9 @@ struct MyActivityView: View {
                                 .background(.grey10)
                                 .clipShape(.rect(cornerRadius: 12.0))
                                 .padding(.horizontal, 20.0)
+                                .onTapGesture {
+                                    store.send(.didTapMyActivity(dayWorkout))
+                                }
                             }
                         }
                     }
@@ -192,6 +201,8 @@ struct MyActivityView: View {
                     LevelSelectView(store: store)
                 case let .modifyMethod(store):
                     MethodSelectView(store: store)
+                case let .completed(store):
+                    WorkOutCompletedView(store: store)
                 }
             }
         }
@@ -201,7 +212,7 @@ struct MyActivityView: View {
 }
 
 #Preview {
-    MyActivityView(store: Store(initialState: MyActivityFeature.State()){
-        MyActivityFeature()
+    SettingView(store: Store(initialState: SettingFeature.State()){
+        SettingFeature()
     })
 }
