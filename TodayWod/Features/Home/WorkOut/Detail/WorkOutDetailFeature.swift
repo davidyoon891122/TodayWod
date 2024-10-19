@@ -17,7 +17,9 @@ struct WorkOutDetailFeature {
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
-        
+
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+
         @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
@@ -32,6 +34,7 @@ struct WorkOutDetailFeature {
     @Dependency(\.wodClient) var wodClient
     
     enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
@@ -57,6 +60,9 @@ struct WorkOutDetailFeature {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.hideTabBar = true
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
@@ -227,6 +233,9 @@ struct WorkOutDetailView: View {
                                 }
                         }
                     }
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }
