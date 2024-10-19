@@ -207,6 +207,7 @@ struct WorkOutDetailView: View {
                             .padding(.bottom, 149)
                         }
                     }
+                    .scrollDismissesKeyboard(.immediately)
                 }
                 .background(Colors.blue10.swiftUIColor)
                 
