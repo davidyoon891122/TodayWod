@@ -10,8 +10,6 @@ import CoreData
 
 final class WodCoreData {
     
-    static let shared = WodCoreData()
-    
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TodayWodCoreData")
         
@@ -44,10 +42,21 @@ final class WodCoreData {
 
 extension WodCoreData {
     
-    func fetchProgram() -> NSFetchRequest<ProgramCoreEntity> {
-        let request = NSFetchRequest<ProgramCoreEntity>(entityName: "ProgramCoreEntity")
+    var programFetchRequest: NSFetchRequest<ProgramCoreEntity> {
+        NSFetchRequest<ProgramCoreEntity>(entityName: Constants.programCoreEntity)
+    }
+    
+    var recentActivitiesFetchRequest: NSFetchRequest<RecentActivitiesCoreEntity> {
+        NSFetchRequest<RecentActivitiesCoreEntity>(entityName: Constants.recentActivitiesCoreEntity)
+    }
+    
+}
 
-        return request
+private extension WodCoreData {
+    
+    enum Constants {
+        static let programCoreEntity = "ProgramCoreEntity"
+        static let recentActivitiesCoreEntity = "RecentActivitiesCoreEntity"
     }
     
 }
