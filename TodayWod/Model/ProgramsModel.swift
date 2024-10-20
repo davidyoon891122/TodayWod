@@ -126,6 +126,15 @@ extension DayWorkoutModel {
     
 }
 
+// 최근 활동.
+extension DayWorkoutModel {
+    
+    var displayDate: String {
+        date?.toString ?? ""
+    }
+    
+}
+
 extension DayWorkoutModel {
     
     static let fake: Self = .init(data: DayWorkoutEntity.fake)

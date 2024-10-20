@@ -17,7 +17,9 @@ struct WorkOutDetailFeature {
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
-        
+
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+
         @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
@@ -32,6 +34,7 @@ struct WorkOutDetailFeature {
     @Dependency(\.wodClient) var wodClient
     
     enum Action: BindableAction {
+        case onAppear
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
@@ -42,6 +45,7 @@ struct WorkOutDetailFeature {
         case setUnitText(String, WodSetModel)
         case updateWodSet(WodSetModel)
         case saveOwnProgram
+        case saveRecentActivity
         case updateDayCompleted
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
@@ -57,6 +61,9 @@ struct WorkOutDetailFeature {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.hideTabBar = true
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
@@ -64,12 +71,7 @@ struct WorkOutDetailFeature {
                 return .none
             case .didTapStartButton:
                 state.hasStart = true
-                
-                // TODO: 운동 시작 시, 최근 활동 저장 필요. (최근 활동 저장 기준 확인 필요.)
-                
-                return .run { send in
-                    await send(.startTimer)
-                }
+                return .send(.startTimer)
             case .startTimer:
                 return .run { send in
                     while true {
@@ -130,6 +132,15 @@ struct WorkOutDetailFeature {
                         print(error.localizedDescription)
                     }
                 }
+            case .saveRecentActivity:
+                let dayWorkouts = state.item
+                return .run { send in
+                    do {
+                        try await wodClient.addRecentDayWorkouts(dayWorkouts)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             case .updateDayCompleted:
                 state.isDayCompleted = state.item.isCompleted
                 
@@ -145,6 +156,7 @@ struct WorkOutDetailFeature {
                 
                 return .concatenate(.send(.stopTimer),
                                     .send(.saveOwnProgram),
+                                    .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
             default:
                 return .none
@@ -201,6 +213,7 @@ struct WorkOutDetailView: View {
                             .padding(.bottom, 149)
                         }
                     }
+                    .scrollDismissesKeyboard(.immediately)
                 }
                 .background(Colors.blue10.swiftUIColor)
                 
@@ -227,6 +240,9 @@ struct WorkOutDetailView: View {
                                 }
                         }
                     }
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }
