@@ -19,6 +19,7 @@ struct MethodSelectFeature {
         var entryType: EntryType = .onBoarding
 
         var dynamicHeight: CGFloat = .zero
+        @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
 
         @Presents var methodDescription: MethodDescriptionFeature.State?
     }
@@ -36,6 +37,7 @@ struct MethodSelectFeature {
     }
 
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.wodClient) var wodClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -57,7 +59,11 @@ struct MethodSelectFeature {
                     onboadingUserModel.method = state.methodType
                     userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
 
-                    return .run { _ in await dismiss() }
+                    state.isLaunchProgram = false
+                    return .run { _ in
+                        try await wodClient.removePrograms()
+                        await dismiss()
+                    }
                 }
             case let .setMethod(methodType):
                 state.methodType = methodType
