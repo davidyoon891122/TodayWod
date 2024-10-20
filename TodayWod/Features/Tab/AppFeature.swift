@@ -16,6 +16,7 @@ struct AppFeature {
         var homeTab = HomeFeature.State()
         var settingsTab = MyActivityFeature.State()
         var selectedItem: TabMenuItem = .home
+
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
     }
 

@@ -22,11 +22,7 @@ protocol UserDefaultsManagerProtocol {
     func saveOfferedPrograms(with data: [ProgramModel])
     func loadOfferedPrograms() -> [ProgramModel]
 
-    func saveIsLaunchProgram(isLaunch: Bool)
-    func loadIsLaunchProgram() -> Bool
-
     var hasUserInfo: Bool { get }
-    var isLaunchProgram: Bool { get }
 
 }
 
@@ -38,9 +34,6 @@ final class UserDefaultsManager {
         return self.loadOnboardingUserInfo() != nil
     }
 
-    var isLaunchProgram: Bool {
-        return self.loadIsLaunchProgram()
-    }
 
     init(userDefaults: UserDefaults = UserDefaults.standard) {
         self.userDefaults = userDefaults
@@ -111,14 +104,6 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
         return programs
     }
 
-    func saveIsLaunchProgram(isLaunch: Bool) {
-        self.userDefaults.set(isLaunch, forKey: Constants.isLaunchProgram)
-    }
-
-    func loadIsLaunchProgram() -> Bool {
-        return self.userDefaults.bool(forKey: Constants.isLaunchProgram)
-    }
-
 }
 
 private extension UserDefaultsManager {
@@ -130,7 +115,6 @@ private extension UserDefaultsManager {
         static let recentDayWorkouts = "RecentDayWorkouts"
         static let CompletedWods = "CompletedWods"
         static let offeredPrograms = "OfferedPrograms"
-        static let isLaunchProgram = "isLaunchProgram"
     }
 
 }

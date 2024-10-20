@@ -14,6 +14,7 @@ struct WorkOutEmptyFeature {
     @ObservableState
     struct State: Equatable {
         let onboardingUserModel = UserDefaultsManager().loadOnboardingUserInfo()
+        @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
     }
     
     enum Action {
@@ -54,7 +55,7 @@ struct WorkOutEmptyFeature {
                 // TODO: - reqeust 에러 처리
                 return .none
             case .setProgramResult(.success):
-                UserDefaultsManager().saveIsLaunchProgram(isLaunch: true)
+                state.isLaunchProgram = true
                 return .none
             case .setProgramResult:
                 return .none
