@@ -7,23 +7,29 @@
 
 import Foundation
 
-struct CompletedWodModel: Codable, Equatable, Identifiable {
+struct CompletedDayWorkoutModel: Codable, Equatable, Identifiable {
     
     var id: UUID
     let date: Date?
     let duration: Int
     
-    init(data: CompletedWodEntity) {
+    init(data: CompletedDayWorkoutEntity) {
         self.id = UUID()
         
         self.date = data.date
         self.duration = data.duration
     }
     
+    init(coreData: CompletedDayWorkoutCoreEntity) {
+        self.id = coreData.id
+        self.date = coreData.date
+        self.duration = Int(coreData.duration)
+    }
+    
 }
 
-extension CompletedWodModel {
+extension CompletedDayWorkoutModel {
 
-    static let fake: Self = .init(data: CompletedWodEntity.fake)
+    static let fake: Self = .init(data: CompletedDayWorkoutEntity.fake)
 
 }

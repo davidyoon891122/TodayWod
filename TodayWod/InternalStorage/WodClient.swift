@@ -19,6 +19,8 @@ struct WodClient {
     var removePrograms: () throws -> Void
     var getRecentDayWorkouts: () throws -> [DayWorkoutModel]
     var addRecentDayWorkouts: (DayWorkoutModel) async throws -> Void
+    var getCompletedDayWorkouts: () throws -> [CompletedDayWorkoutModel]
+    var addCompletedDayWorkouts: (CompletedDayWorkoutModel) async throws -> Void
     
 }
 
@@ -29,6 +31,10 @@ extension WodClient: DependencyKey {
     }
     
     static var recentWodProvider: RecentWodCoreDataProvider {
+        .init(coreData: WodClient.coreData)
+    }
+    
+    static var completedWodProvider: CompletedWodCoreDataProvider {
         .init(coreData: WodClient.coreData)
     }
 
@@ -46,6 +52,10 @@ extension WodClient: DependencyKey {
         try WodClient.recentWodProvider.getRecentActivities()
     }, addRecentDayWorkouts: { dayWorkout in
         try await WodClient.recentWodProvider.setRecentActivities(model: dayWorkout)
+    }, getCompletedDayWorkouts: {
+        try WodClient.completedWodProvider.getCompletedDates()
+    }, addCompletedDayWorkouts: { dayWorkout in
+        try await WodClient.completedWodProvider.setCompletedDates(model: dayWorkout)
     })
 
 }
