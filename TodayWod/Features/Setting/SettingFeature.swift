@@ -18,7 +18,6 @@ struct SettingFeature {
         case modifyWeight(ModifyWeightFeature)
         case modifyLevel(LevelSelectFeature)
         case modifyMethod(MethodSelectFeature)
-        case completed(WorkOutCompletedFeature)
     }
 
     @ObservableState
@@ -26,6 +25,8 @@ struct SettingFeature {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
         var recentDayWorkouts: [DayWorkoutModel] = []
         var path = StackState<Path.State>()
+        
+        @Presents var completedState: WorkoutCompletedFeature.State?
     }
     
     @Dependency(\.wodClient) var wodClient
@@ -36,6 +37,7 @@ struct SettingFeature {
         case path(StackActionOf<Path>)
         case didTapMyPage
         case didTapMyActivity(DayWorkoutModel)
+        case completedAction(PresentationAction<WorkoutCompletedFeature.Action>)
     }
 
     var body: some ReducerOf<Self> {
@@ -88,12 +90,18 @@ struct SettingFeature {
                 state.path.append(.myPage(MyPageFeature.State()))
                 return .none
             case let .didTapMyActivity(workout):
-                state.path.append(.completed(WorkOutCompletedFeature.State(item: workout)
-))
+                state.completedState = WorkoutCompletedFeature.State(item: workout)
+                return .none
+            case .completedAction(.presented(.didTapCloseButton)):
+                return .none
+            default:
                 return .none
             }
         }
         .forEach(\.path, action: \.path)
+        .ifLet(\.$completedState, action: \.completedAction) {
+            WorkoutCompletedFeature()
+        }
     }
 
 }
@@ -156,9 +164,10 @@ struct SettingView: View {
                     LevelSelectView(store: store)
                 case let .modifyMethod(store):
                     MethodSelectView(store: store)
-                case let .completed(store):
-                    WorkOutCompletedView(store: store)
                 }
+            }
+            .sheet(item: $store.scope(state: \.completedState, action: \.completedAction)) { store in
+                WorkoutCompletedView(store: store)
             }
         }
 

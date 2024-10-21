@@ -13,8 +13,7 @@ struct HomeFeature {
     
     @ObservableState
     struct State: Equatable {
-        var hasWod: Bool = UserDefaultsManager().isLaunchProgram
-
+        @Shared(.appStorage("IsLaunchProgram")) var hasWod = false
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
 
@@ -89,9 +88,6 @@ struct HomeView: View {
                     )
                 )
             }
-        }
-        .onAppear {
-            DLog.d(UserDefaultsManager().isLaunchProgram)
         }
     }
     

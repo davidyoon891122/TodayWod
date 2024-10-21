@@ -43,45 +43,47 @@ struct WorkoutConfirmationView: View {
     let store: StoreOf<WorkoutConfirmationFeature>
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(store.type.title)
-                .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                .foregroundStyle(.grey100)
-            
-            Text(store.type.description)
-                .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
-                .foregroundStyle(.grey80)
-                .padding(.top, 10.0)
-            
-            HStack {
-                Button(action: {
-                    store.send(.didTapCloseButton)
-                }, label: {
-                    Text(store.type.cancelButtonTitle)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
-                        .foregroundStyle(.grey100)
-                        .frame(maxWidth: .infinity, minHeight: 56.0)
-                        .background(.grey20)
-                        .clipShape(.rect(cornerRadius: 300.0))
-                })
+        WithPerceptionTracking {
+            VStack(alignment: .leading) {
+                Text(store.type.title)
+                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
+                    .foregroundStyle(.grey100)
 
-                Button(action: {
-                    store.send(.didTapDoneButton)
-                }, label: {
-                    Text(store.type.doneButtonTitle)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity, minHeight: 56.0)
-                        .background(.blue60)
-                        .clipShape(.rect(cornerRadius: 300.0))
-                })
+                Text(store.type.description)
+                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
+                    .foregroundStyle(.grey80)
+                    .padding(.top, 10.0)
+
+                HStack {
+                    Button(action: {
+                        store.send(.didTapCloseButton)
+                    }, label: {
+                        Text(store.type.cancelButtonTitle)
+                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
+                            .foregroundStyle(.grey100)
+                            .frame(maxWidth: .infinity, minHeight: 56.0)
+                            .background(.grey20)
+                            .clipShape(.rect(cornerRadius: 300.0))
+                    })
+
+                    Button(action: {
+                        store.send(.didTapDoneButton)
+                    }, label: {
+                        Text(store.type.doneButtonTitle)
+                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity, minHeight: 56.0)
+                            .background(.blue60)
+                            .clipShape(.rect(cornerRadius: 300.0))
+                    })
+                }
+                .padding(.top, 40.0)
             }
-            .padding(.top, 40.0)
+            .padding(.top, 30.0)
+            .padding(.horizontal, 20.0)
+            .padding(.bottom, 20.0)
+            .background(.white)
         }
-        .padding(.top, 30.0)
-        .padding(.horizontal, 20.0)
-        .padding(.bottom, 20.0)
-        .background(.white)
     }
     
 }

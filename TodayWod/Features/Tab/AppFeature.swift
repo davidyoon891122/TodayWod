@@ -16,6 +16,8 @@ struct AppFeature {
         var homeTab = HomeFeature.State()
         var settingsTab = SettingFeature.State()
         var selectedItem: TabMenuItem = .home
+
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
     }
 
     enum Action: BindableAction {
@@ -73,8 +75,10 @@ struct AppTabView: View {
                 case .settings:
                     SettingView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
-                CustomTabView(selectedItem: $selectedItem)
-                    .bind($store.state.selectedItem, to: $selectedItem)
+                if !store.state.hideTabBar {
+                    CustomTabView(selectedItem: $selectedItem)
+                        .bind($store.state.selectedItem, to: $selectedItem)
+                }
             }
             .edgesIgnoringSafeArea(.bottom)
         }

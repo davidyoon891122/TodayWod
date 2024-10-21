@@ -14,7 +14,7 @@ struct WorkOutFeature {
     @Reducer(state: .equatable)
     enum Path {
         case detail(WorkOutDetailFeature)
-        case completed(WorkOutCompletedFeature)
+        case completed(WorkoutCompletedFeature)
     }
     
     @ObservableState
@@ -23,6 +23,8 @@ struct WorkOutFeature {
         var dayWorkouts: [DayWorkoutModel] = []
         var path = StackState<Path.State>()
         var dynamicHeight: CGFloat = .zero
+
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
 
         @Presents var celebrateState: CelebrateFeature.State?
     }
@@ -49,6 +51,7 @@ struct WorkOutFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.hideTabBar = false
                 return .run { send in
                     do {
                         let currentProgram = try wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
@@ -109,7 +112,7 @@ struct WorkOutFeature {
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .detail(.finishWorkOut(let item))):
-                    state.path.append(.completed(WorkOutCompletedFeature.State(item: item)))
+                    state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
                     return .none
                 case .element(id: _, action: .completed(.didTapCloseButton)):
                     state.path.removeAll()
@@ -168,7 +171,7 @@ struct WorkOutView: View {
                 case let .detail(store):
                     WorkOutDetailView(store: store)
                 case let .completed(store):
-                    WorkOutCompletedView(store: store)
+                    WorkoutCompletedView(store: store)
                 }
                 
             }
