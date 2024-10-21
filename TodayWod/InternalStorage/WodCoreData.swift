@@ -50,6 +50,10 @@ extension WodCoreData {
         NSFetchRequest<RecentActivitiesCoreEntity>(entityName: Constants.recentActivitiesCoreEntity)
     }
     
+    var completedDayWorkoutFetchRequest: NSFetchRequest<CompletedDayWorkoutCoreEntity> {
+        NSFetchRequest<CompletedDayWorkoutCoreEntity>(entityName: Constants.completedDayWorkoutCoreEntity)
+    }
+    
 }
 
 private extension WodCoreData {
@@ -57,6 +61,7 @@ private extension WodCoreData {
     enum Constants {
         static let programCoreEntity = "ProgramCoreEntity"
         static let recentActivitiesCoreEntity = "RecentActivitiesCoreEntity"
+        static let completedDayWorkoutCoreEntity = "CompletedDayWorkoutCoreEntity"
     }
     
 }

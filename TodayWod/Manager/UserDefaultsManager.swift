@@ -16,9 +16,6 @@ protocol UserDefaultsManagerProtocol {
     func saveOwnProgram(with data: ProgramModel?)
     func loadOwnProgram() -> ProgramModel?
     
-    func saveCompletedWods(with data: CompletedWodModel)
-    func loadCompletedWods() -> [CompletedWodModel]
-    
     func saveOfferedPrograms(with data: [ProgramModel])
     func loadOfferedPrograms() -> [ProgramModel]
 
@@ -78,18 +75,6 @@ extension UserDefaultsManager: UserDefaultsManagerProtocol {
               let wodInfo = try? PropertyListDecoder().decode(ProgramModel.self, from: data) else { return nil }
 
         return wodInfo
-    }
-    
-    func saveCompletedWods(with data: CompletedWodModel) {
-        let encodedData = try? PropertyListEncoder().encode(data)
-        self.userDefaults.set(encodedData, forKey: Constants.CompletedWods)
-    }
-    
-    func loadCompletedWods() -> [CompletedWodModel] {
-        guard let data = self.userDefaults.object(forKey: Constants.CompletedWods) as? Data,
-              let wods = try? PropertyListDecoder().decode([CompletedWodModel].self, from: data) else { return [] }
-
-        return wods
     }
     
     func saveOfferedPrograms(with data: [ProgramModel]) {

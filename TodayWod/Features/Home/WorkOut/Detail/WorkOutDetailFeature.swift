@@ -47,6 +47,7 @@ struct WorkOutDetailFeature {
         case saveOwnProgram
         case saveRecentActivity
         case updateDayCompleted
+        case saveCompletedDate
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case binding(BindingAction<State>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
@@ -147,13 +148,19 @@ struct WorkOutDetailFeature {
                 if state.isDayCompleted {
                     state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
                     state.timerState = BreakTimeFeature.State()
+                    return .send(.saveCompletedDate)
                 }
                 return .none
+            case .saveCompletedDate:
+                let completedDate = CompletedDateModel(date: Date(), duration: state.duration)
+                return .run { send in
+                    do {
+                        try await wodClient.addCompletedDates(completedDate)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             case .confirmAction(.presented(.didTapDoneButton)):
-                state.item.date = Date()
-                // TODO: 단순 "운동종료"일 경우엔 Date 저장 필요 없음. isCompleted false.
-                // TODO: 운동 성공의 경우, Date 저장.
-                
                 return .concatenate(.send(.stopTimer),
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
