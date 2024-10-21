@@ -1,5 +1,5 @@
 //
-//  MyActivityFeature.swift
+//  SettingFeature.swift
 //  TodayWod
 //
 //  Created by Jiwon Yoon on 9/8/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct MyActivityFeature {
+struct SettingFeature {
     
     @Reducer(state: .equatable)
     enum Path {
@@ -25,6 +25,8 @@ struct MyActivityFeature {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
         var recentDayWorkouts: [DayWorkoutModel] = []
         var path = StackState<Path.State>()
+        
+        @Presents var completedState: WorkOutCompletedFeature.State?
     }
     
     @Dependency(\.wodClient) var wodClient
@@ -34,6 +36,8 @@ struct MyActivityFeature {
         case recentDayWorkoutsResponse([DayWorkoutModel])
         case path(StackActionOf<Path>)
         case didTapMyPage
+        case didTapMyActivity(DayWorkoutModel)
+        case completedAction(PresentationAction<WorkOutCompletedFeature.Action>)
     }
 
     var body: some ReducerOf<Self> {
@@ -85,18 +89,28 @@ struct MyActivityFeature {
             case .didTapMyPage:
                 state.path.append(.myPage(MyPageFeature.State()))
                 return .none
+            case let .didTapMyActivity(workout):
+                state.completedState = WorkOutCompletedFeature.State(item: workout)
+                return .none
+            case .completedAction(.presented(.didTapCloseButton)):
+                return .none
+            default:
+                return .none
             }
         }
         .forEach(\.path, action: \.path)
+        .ifLet(\.$completedState, action: \.completedAction) {
+            WorkOutCompletedFeature()
+        }
     }
 
 }
 
 import SwiftUI
 
-struct MyActivityView: View {
+struct SettingView: View {
 
-    @Perception.Bindable var store: StoreOf<MyActivityFeature>
+    @Perception.Bindable var store: StoreOf<SettingFeature>
 
     var body: some View {
         WithPerceptionTracking {
@@ -172,6 +186,9 @@ struct MyActivityView: View {
                                 .background(.grey10)
                                 .clipShape(.rect(cornerRadius: 12.0))
                                 .padding(.horizontal, 20.0)
+                                .onTapGesture {
+                                    store.send(.didTapMyActivity(dayWorkout))
+                                }
                             }
                         }
                     }
@@ -194,6 +211,9 @@ struct MyActivityView: View {
                     MethodSelectView(store: store)
                 }
             }
+            .sheet(item: $store.scope(state: \.completedState, action: \.completedAction)) { store in
+                WorkOutCompletedView(store: store)
+            }
         }
 
     }
@@ -201,7 +221,7 @@ struct MyActivityView: View {
 }
 
 #Preview {
-    MyActivityView(store: Store(initialState: MyActivityFeature.State()){
-        MyActivityFeature()
+    SettingView(store: Store(initialState: SettingFeature.State()){
+        SettingFeature()
     })
 }
