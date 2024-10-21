@@ -43,6 +43,9 @@
 		1C6DCBD52CC1522300ED56B2 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBD42CC1522000ED56B2 /* CoreDataError.swift */; };
 		1C6DCBD72CC158E600ED56B2 /* RecentActivitesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBD62CC158DE00ED56B2 /* RecentActivitesModel.swift */; };
 		1C6DCBDA2CC4032500ED56B2 /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCBD92CC4032500ED56B2 /* SettingFeature.swift */; };
+		1C6DCCA32CC6697100ED56B2 /* MyActivityEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCC9F2CC6697100ED56B2 /* MyActivityEmptyView.swift */; };
+		1C6DCCA42CC6697100ED56B2 /* MyActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCCA02CC6697100ED56B2 /* MyActivityView.swift */; };
+		1C6DCCA52CC6697100ED56B2 /* MyPageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6DCCA12CC6697100ED56B2 /* MyPageInfoView.swift */; };
 		1C78C2D72C9BA0B60053E9AA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */; };
 		1C78C2D82C9BA0B60053E9AA /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */; };
 		1C8708BF2CACDB8A00967DFE /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8708BD2CACDB8A00967DFE /* AppEnvironment.swift */; };
@@ -170,6 +173,9 @@
 		1C6DCBD42CC1522000ED56B2 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		1C6DCBD62CC158DE00ED56B2 /* RecentActivitesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivitesModel.swift; sourceTree = "<group>"; };
 		1C6DCBD92CC4032500ED56B2 /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
+		1C6DCC9F2CC6697100ED56B2 /* MyActivityEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityEmptyView.swift; sourceTree = "<group>"; };
+		1C6DCCA02CC6697100ED56B2 /* MyActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityView.swift; sourceTree = "<group>"; };
+		1C6DCCA12CC6697100ED56B2 /* MyPageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageInfoView.swift; sourceTree = "<group>"; };
 		1C78C2D52C9BA0B60053E9AA /* CustomDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		1C78C2D62C9BA0B60053E9AA /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		1C8708BD2CACDB8A00967DFE /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -342,6 +348,16 @@
 			path = Confirm;
 			sourceTree = "<group>";
 		};
+		1C6DCCA22CC6697100ED56B2 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				1C6DCCA12CC6697100ED56B2 /* MyPageInfoView.swift */,
+				1C6DCC9F2CC6697100ED56B2 /* MyActivityEmptyView.swift */,
+				1C6DCCA02CC6697100ED56B2 /* MyActivityView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
 		1C8708BE2CACDB8A00967DFE /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +451,7 @@
 		49101A762C8D384700FDB709 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				1C6DCCA22CC6697100ED56B2 /* Row */,
 				AD386C392CA390610038C27F /* MyPage */,
 				1C6DCBD92CC4032500ED56B2 /* SettingFeature.swift */,
 			);
@@ -1017,6 +1034,9 @@
 				4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */,
 				497C0F102C9ECDBC00F7444E /* BottomSheetModifier.swift in Sources */,
 				1C9C9F6D2CABB49B00157001 /* Programs+Dummy.swift in Sources */,
+				1C6DCCA32CC6697100ED56B2 /* MyActivityEmptyView.swift in Sources */,
+				1C6DCCA42CC6697100ED56B2 /* MyActivityView.swift in Sources */,
+				1C6DCCA52CC6697100ED56B2 /* MyPageInfoView.swift in Sources */,
 				49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */,
 				4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */,
 				1C6DCBDA2CC4032500ED56B2 /* SettingFeature.swift in Sources */,
