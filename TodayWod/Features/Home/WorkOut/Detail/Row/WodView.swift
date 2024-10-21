@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct WodView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    let model: WodModel
+    @Binding var model: WodModel
     
     var body: some View {
         WithPerceptionTracking {
@@ -22,16 +22,43 @@ struct WodView: View {
                 headerView
                 
                 VStack(spacing: 10) {
-                    ForEach(model.wodSets) { set in
+                    ForEach($model.wodSets) { set in
                         HStack(spacing: 10) {
-                            if model.isOrderSetVisible { // 세트 반복.
+                            if self.model.isOrderSetVisible { // 세트 반복.
                                 WodSetView(store: store, model: set)
                             } else {
                                 WodSetDefaultView(store: store, model: set)
                             }
                         }
                     }
+                    
+                    if self.model.isOrderSetVisible { // 세트 추가 삭제.
+                        HStack {
+                            Button {
+                                self.model.wodSets.append(self.model.newWodSet)
+                            } label: {
+                                Text("+ 세트 추가")
+                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                    .foregroundStyle(Colors.grey60.swiftUIColor)
+                            }
+                            Spacer()
+                            Button {
+                                if self.model.canRemoveSet {
+                                    self.model.wodSets.removeLast()
+                                }
+                            } label: {
+                                Text("- 세트 삭제")
+                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                    .foregroundStyle(Colors.grey60.swiftUIColor)
+                            }
+                        }
+                        .frame(height: 44.0)
+                        .padding(.horizontal, 10)
+                    }
                 }
+            }
+            .onChange(of: self.model.wodSets) { _ in
+                self.store.send(.updateWodSet)
             }
             .padding(20)
             .background(.white)
@@ -41,11 +68,11 @@ struct WodView: View {
     
     var titleView: some View {
         VStack(alignment: .leading) {
-            Text(model.title)
+            Text(self.model.title)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
                 .frame(height: 28)
-            Text(model.subTitle)
+            Text(self.model.subTitle)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                 .foregroundStyle(Colors.grey70.swiftUIColor)
         }
@@ -54,12 +81,12 @@ struct WodView: View {
     
     var headerView: some View {
         HStack(spacing: 10) {
-            if model.isOrderSetVisible {
+            if self.model.isOrderSetVisible {
                 Text(model.displaySet)
                     .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
             }
-            Text(model.unit.displayTitle)
+            Text(self.model.unit.displayTitle)
                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
             Spacer()
@@ -78,7 +105,7 @@ struct WodView: View {
         Spacer()
         WodView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
             WorkOutDetailFeature()
-        }), model: WodModel.fake)
+        }), model: .constant(WodModel.fake))
         Spacer()
     }
     .background(.blue10)

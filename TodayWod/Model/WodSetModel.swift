@@ -17,13 +17,13 @@ struct WodSetModel: Codable, Equatable, Identifiable {
     var unitValue: Int
     var isCompleted: Bool
     
-    init(workoutId: UUID, wodModelId: UUID, unitValue: Int) {
+    init(workoutId: UUID, wodModelId: UUID, unitValue: Int, order: Int = 1) {
         self.id = UUID()
         self.workoutId = workoutId
         self.wodModelId = wodModelId
         
         self.unitValue = unitValue
-        self.order = 1
+        self.order = order
         self.isCompleted = false
     }
     

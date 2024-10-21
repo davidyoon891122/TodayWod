@@ -82,12 +82,20 @@ struct WodModel: Codable, Equatable, Identifiable {
 
 extension WodModel {
     
+    var newWodSet: WodSetModel {
+        .init(workoutId: self.workoutId, wodModelId: self.id, unitValue: unitValue, order: self.wodSets.count+1)
+    }
+    
     var completedSetCount: Int {
         self.wodSets.count(where: { $0.isCompleted })
     }
     
     var isOrderSetVisible: Bool {
-        self.set > 1 && self.wodSets.count > 0
+        self.set > 1
+    }
+    
+    var canRemoveSet: Bool {
+        self.wodSets.count > 1
     }
     
     var displaySet: String {
