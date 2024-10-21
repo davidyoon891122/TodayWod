@@ -66,8 +66,12 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
-                state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
-                return .none
+                if state.hasStart {
+                    state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
+                    return .none
+                } else {
+                    return .run { _ in await dismiss() }
+                }
             case .didTapStartButton:
                 state.hasStart = true
                 return .send(.startTimer)

@@ -14,7 +14,7 @@ struct AppFeature {
     @ObservableState
     struct State: Equatable, Sendable {
         var homeTab = HomeFeature.State()
-        var settingsTab = MyActivityFeature.State()
+        var settingsTab = SettingFeature.State()
         var selectedItem: TabMenuItem = .home
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
@@ -22,7 +22,7 @@ struct AppFeature {
 
     enum Action: BindableAction {
         case homeTab(HomeFeature.Action)
-        case settingsTab(MyActivityFeature.Action)
+        case settingsTab(SettingFeature.Action)
         case resetOnboarding
         case binding(BindingAction<State>)
 
@@ -34,7 +34,7 @@ struct AppFeature {
         }
 
         Scope(state: \.settingsTab, action: \.settingsTab) {
-            MyActivityFeature()
+            SettingFeature()
         }
 
         BindingReducer()
@@ -73,7 +73,7 @@ struct AppTabView: View {
                 case .home:
                     HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
                 case .settings:
-                    MyActivityView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
+                    SettingView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
                 if !store.state.hideTabBar {
                     CustomTabView(selectedItem: $selectedItem)

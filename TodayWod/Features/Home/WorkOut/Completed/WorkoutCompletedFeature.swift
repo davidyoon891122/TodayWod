@@ -1,5 +1,5 @@
 //
-//  WorkOutCompletedFeature.swift
+//  WorkoutCompletedFeature.swift
 //  TodayWod
 //
 //  Created by 오지연 on 10/4/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct WorkOutCompletedFeature {
+struct WorkoutCompletedFeature {
     
     @ObservableState
     struct State: Equatable {
@@ -35,9 +35,9 @@ struct WorkOutCompletedFeature {
 
 import SwiftUI
 
-struct WorkOutCompletedView: View {
+struct WorkoutCompletedView: View {
     
-    var store: StoreOf<WorkOutCompletedFeature>
+    var store: StoreOf<WorkoutCompletedFeature>
     
     var body: some View {
         WithPerceptionTracking {
@@ -48,7 +48,7 @@ struct WorkOutCompletedView: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        WorkOutCompletedTopView(item: store.item)
+                        WorkoutCompletedTopView(item: store.item)
                         
                         Text(Constants.programTitle)
                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 20.0))
@@ -56,7 +56,7 @@ struct WorkOutCompletedView: View {
                             .padding(.top, 40.0)
                             .padding(.bottom, 20.0)
                         
-                        WorkOutCompletedProgramView(item: store.item)
+                        WorkoutCompletedProgramView(item: store.item)
                     }
                     .padding(.horizontal, 20.0)
                     .padding(.bottom, 73.0)
@@ -76,7 +76,7 @@ struct WorkOutCompletedView: View {
     
 }
 
-private extension WorkOutCompletedView {
+private extension WorkoutCompletedView {
     
     enum Constants {
         static let programTitle = "프로그램"
@@ -86,7 +86,7 @@ private extension WorkOutCompletedView {
 }
 
 #Preview {
-    WorkOutCompletedView(store: .init(initialState: WorkOutCompletedFeature.State(item: .completedFake), reducer: {
-        WorkOutCompletedFeature()
+    WorkoutCompletedView(store: .init(initialState: WorkoutCompletedFeature.State(item: .completedFake), reducer: {
+        WorkoutCompletedFeature()
     }))
 }
