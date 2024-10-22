@@ -11,16 +11,9 @@ import ComposableArchitecture
 struct WodSetDefaultView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    let model: WodSetModel
+    @Binding var model: WodSetModel
     
     @State private var unitText: String = ""
-    
-    init(store: StoreOf<WorkOutDetailFeature>, model: WodSetModel) {
-        self.store = store
-        self.model = model
-        
-        self._unitText = State(initialValue: model.displayUnitValue)
-    }
     
     var body: some View {
         WithPerceptionTracking {
@@ -34,20 +27,23 @@ struct WodSetDefaultView: View {
                     .keyboardType(.numberPad)
                 Spacer()
                 Button {
-                    store.send(.setCompleted(model))
+                    self.model.isCompleted.toggle()
                 } label: {
-                    if store.hasStart {
-                        model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
+                    if self.store.hasStart {
+                        self.model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
                     }
                 }
                 .frame(width: 48, height: 48)
                 .background(Colors.grey20.swiftUIColor)
                 .clipShape(.rect(cornerRadius: 8.0))
                 .roundedBorder(radius: 8.0, color: Colors.grey40)
-                .disabled(!store.hasStart)
+                .disabled(!self.store.hasStart)
+            }
+            .onAppear {
+                self.unitText = self.model.displayUnitValue
             }
             .onChange(of: unitText) { text in
-                store.send(.setUnitText(text, model))
+                self.model.unitValue = text.toInt
             }
         }
     }
@@ -56,5 +52,5 @@ struct WodSetDefaultView: View {
 #Preview {
     WodSetDefaultView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
         WorkOutDetailFeature()
-    }), model: WodSetModel.fake)
+    }), model: .constant(WodSetModel.fake))
 }

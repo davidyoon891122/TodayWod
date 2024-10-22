@@ -41,16 +41,15 @@ struct WorkOutDetailFeature {
         case startTimer
         case stopTimer
         case timerTick
-        case setCompleted(WodSetModel)
-        case setUnitText(String, WodSetModel)
-        case updateWodSet(WodSetModel)
+        case setCompleted(Bool)
+        case updateWodSet
         case saveOwnProgram
         case saveRecentActivity
         case updateDayCompleted
         case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
-        case binding(BindingAction<State>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case finishWorkOut(DayWorkoutModel)
+        case binding(BindingAction<State>)
     }
     
     enum CancelID { case timer }
@@ -93,38 +92,12 @@ struct WorkOutDetailFeature {
                 return .run { send in
                     await send(.saveOwnProgram)
                 }
-            case let .setCompleted(set):
-                var updatedSet = set
-                updatedSet.isCompleted.toggle()
-                
-                if updatedSet.isCompleted {
+            case let .setCompleted(isCompleted):
+                if isCompleted {
                     state.timerState = BreakTimeFeature.State()
                 }
-                
-                let wodSet = updatedSet
-                return .run { send in
-                    await send(.updateWodSet(wodSet))
-                }
-            case let .setUnitText(unitText, set):
-                var updatedSet = set
-                updatedSet.unitValue = unitText.toInt
-                
-                let wodSet = updatedSet
-                return .run { send in
-                    await send(.updateWodSet(wodSet))
-                }
-            case let .updateWodSet(set):
-                outerLoop: for (index, workout) in state.item.workouts.enumerated() {
-                    for (wodIndex, wod) in workout.wods.enumerated() {
-                        if let setIndex = wod.wodSets.firstIndex(where: { $0.id == set.id }) {
-                            state.item.workouts[index].wods[wodIndex].wodSets[setIndex] = set
-                            
-                            print("%%%%%% UpdateWodSet: \(state.item.workouts)")
-                            
-                            break outerLoop
-                        }
-                    }
-                }
+                return .send(.updateWodSet)
+            case .updateWodSet:
                 return .concatenate(.send(.saveOwnProgram),
                                     .send(.updateDayCompleted))
             case .saveOwnProgram:
@@ -198,15 +171,18 @@ struct WorkOutDetailView: View {
                                 WorkOutDetailTitleView(item: store.item)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    ForEach(store.item.workouts) { workOut in
-                                        Text(workOut.type.title)
+                                    ForEach($store.item.workouts, id: \.self.id) { workout in
+                                        
+                                        let workoutValue = workout.wrappedValue
+                                        
+                                        Text(workoutValue.type.title)
                                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                                             .foregroundStyle(Colors.grey100.swiftUIColor)
                                             .frame(height: 40)
                                             .padding(.top, 10)
                                         
                                         VStack(alignment: .leading, spacing: 10) {
-                                            ForEach(workOut.wods) { item in
+                                            ForEach(workout.wods) { item in
                                                 WodView(store: store, model: item)
                                             }
                                         }

@@ -412,8 +412,8 @@
 			isa = PBXGroup;
 			children = (
 				1C4EE0AA2CA18B630017F1D4 /* Row */,
-				1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */,
 				498712322CA7FA5000FB876E /* Timer */,
+				1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
