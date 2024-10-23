@@ -24,7 +24,7 @@ struct SettingFeature {
     struct State: Equatable {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
         var recentDayWorkouts: [DayWorkoutModel] = []
-        var completedDates: [Date] = []
+        var completedDates: Set<Date> = []
         var path = StackState<Path.State>()
         
         @Presents var completedState: WorkoutCompletedFeature.State?
@@ -32,7 +32,7 @@ struct SettingFeature {
     
     @Dependency(\.wodClient) var wodClient
 
-    enum Action {
+    enum Action: BindableAction {
         case onAppear
         case getRecentDayWorkouts
         case recentDayWorkoutsResponse([DayWorkoutModel])
@@ -42,9 +42,11 @@ struct SettingFeature {
         case didTapMyPage
         case didTapMyActivity(DayWorkoutModel)
         case completedAction(PresentationAction<WorkoutCompletedFeature.Action>)
+        case binding(BindingAction<State>)
     }
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -78,7 +80,7 @@ struct SettingFeature {
                     }
                 }
             case let .completedDatesResponse(dates):
-                state.completedDates = dates.map { $0.date }
+                state.completedDates = Set(dates.map { $0.date })
                 return .none
             case let .path(action):
                 switch action {
@@ -142,7 +144,7 @@ struct SettingView: View {
                                 store.send(.didTapMyPage)
                             }
 
-                        CalendarView(month: Date(), markedDates: Set(store.state.completedDates))
+                        CalendarView(month: Date(), markedDates: $store.completedDates)
                             .padding(.horizontal, 19)
                             .padding(.vertical, 24.0)
 

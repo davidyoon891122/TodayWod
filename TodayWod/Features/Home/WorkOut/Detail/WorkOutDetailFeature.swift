@@ -107,7 +107,7 @@ struct WorkOutDetailFeature {
                     do {
                         let _ = try await wodClient.updateWodProgram(dayWorkOut)
                     } catch {
-                        print(error.localizedDescription)
+                        DLog.d(error.localizedDescription)
                     }
                 }
             case .saveRecentActivity:
@@ -116,7 +116,7 @@ struct WorkOutDetailFeature {
                     do {
                         try await wodClient.addRecentDayWorkouts(dayWorkouts)
                     } catch {
-                        print(error.localizedDescription)
+                        DLog.d(error.localizedDescription)
                     }
                 }
             case .updateDayCompleted:
@@ -134,7 +134,7 @@ struct WorkOutDetailFeature {
                     do {
                         try await wodClient.addCompletedDates(completedDate)
                     } catch {
-                        print(error.localizedDescription)
+                        DLog.d(error.localizedDescription)
                     }
                 }
             case .confirmAction(.presented(.didTapDoneButton)):
