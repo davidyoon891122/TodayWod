@@ -80,7 +80,7 @@
 		497C0F052C9E463900F7444E /* GenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F002C9E463900F7444E /* GenderType.swift */; };
 		497C0F072C9E463900F7444E /* OnboardingUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */; };
 		497C0F092C9E466500F7444E /* TabMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F082C9E466500F7444E /* TabMenuItem.swift */; };
-		497C0F0E2C9E6D7100F7444E /* BreakTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0D2C9E6D7100F7444E /* BreakTimerView.swift */; };
+		497C0F0E2C9E6D7100F7444E /* BreakTimerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0D2C9E6D7100F7444E /* BreakTimerFeature.swift */; };
 		497C0F102C9ECDBC00F7444E /* BottomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F0F2C9ECDBC00F7444E /* BottomSheetModifier.swift */; };
 		497C0F142CA02A6400F7444E /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F132CA02A6400F7444E /* CalendarHeaderView.swift */; };
 		497C0F1B2CA02CD800F7444E /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C0F1A2CA02CD800F7444E /* Extension+Date.swift */; };
@@ -204,7 +204,7 @@
 		497C0F002C9E463900F7444E /* GenderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderType.swift; sourceTree = "<group>"; };
 		497C0F022C9E463900F7444E /* OnboardingUserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingUserInfoModel.swift; sourceTree = "<group>"; };
 		497C0F082C9E466500F7444E /* TabMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuItem.swift; sourceTree = "<group>"; };
-		497C0F0D2C9E6D7100F7444E /* BreakTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakTimerView.swift; sourceTree = "<group>"; };
+		497C0F0D2C9E6D7100F7444E /* BreakTimerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakTimerFeature.swift; sourceTree = "<group>"; };
 		497C0F0F2C9ECDBC00F7444E /* BottomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModifier.swift; sourceTree = "<group>"; };
 		497C0F132CA02A6400F7444E /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
 		497C0F1A2CA02CD800F7444E /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
@@ -550,7 +550,7 @@
 		498712322CA7FA5000FB876E /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				497C0F0D2C9E6D7100F7444E /* BreakTimerView.swift */,
+				497C0F0D2C9E6D7100F7444E /* BreakTimerFeature.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -988,7 +988,7 @@
 				497C0F072C9E463900F7444E /* OnboardingUserInfoModel.swift in Sources */,
 				ADCEE1192CBE2DD800D71FEB /* APIClient.swift in Sources */,
 				499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */,
-				497C0F0E2C9E6D7100F7444E /* BreakTimerView.swift in Sources */,
+				497C0F0E2C9E6D7100F7444E /* BreakTimerFeature.swift in Sources */,
 				ADCEE10A2CBDF53F00D71FEB /* BaseService.swift in Sources */,
 				1CBE5C112CC0855600B6FD2D /* WodSetDefaultView.swift in Sources */,
 				497C0F1D2CA02E9000F7444E /* CalendarGridView.swift in Sources */,

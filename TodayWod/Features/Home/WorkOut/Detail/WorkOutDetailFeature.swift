@@ -17,9 +17,8 @@ struct WorkOutDetailFeature {
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
-
-        var currentSeconds: Int = 0
-        var buttonState: ButtonState = .pause
+        
+        var breakTimerState: BreakTimerFeature.State = BreakTimerFeature.State()
 
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
@@ -29,6 +28,7 @@ struct WorkOutDetailFeature {
             self.hasStart = false
             self.isDayCompleted = false
         }
+        
     }
     
     @Dependency(\.wodClient) var wodClient
@@ -48,27 +48,20 @@ struct WorkOutDetailFeature {
         case binding(BindingAction<State>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case finishWorkOut(DayWorkoutModel)
-
-        case breakTimerTick
-        case didTapReset
-        case didTapPause
-        case didTapResume
-        case setButtonState
-    }
-
-    enum ButtonState {
-        case pause
-        case resume
+        case breakTimerAction(BreakTimerFeature.Action)
     }
 
     enum CancelID {
         case timer
-        case breakTimer
     }
 
     @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.breakTimerState, action: \.breakTimerAction) {
+            BreakTimerFeature()
+        }
+        
         BindingReducer()
         Reduce { state, action in
             switch action {
@@ -110,7 +103,9 @@ struct WorkOutDetailFeature {
                 return updatedSet.isCompleted
                 ? .merge(.run { send in
                     await send(.updateWodSet(wodSet))
-                }, .send(.didTapReset))
+                }, .run { send in
+                    await send(.breakTimerAction(.didTapReset))
+                })
                 : .run { send in
                     await send(.updateWodSet(wodSet))
                 }
@@ -169,44 +164,8 @@ struct WorkOutDetailFeature {
                 return .none
             case .finishWorkOut:
                 return .none
-            case .breakTimerTick:
-                if state.currentSeconds <= 0 {
-                    return .cancel(id: CancelID.breakTimer)
-                }
-                state.currentSeconds -= 1
+            case .breakTimerAction:
                 return .none
-            case .didTapReset:
-                state.currentSeconds = 60
-                state.buttonState = .pause
-                return .concatenate(
-                    .cancel(id: CancelID.breakTimer),
-                    .run { send in
-                        while true {
-                            try await Task.sleep(for: .seconds(1))
-                            await send(.breakTimerTick)
-                        }
-                    }
-                    .cancellable(id: CancelID.breakTimer)
-                )
-            case .didTapPause:
-                return .cancel(id: CancelID.breakTimer)
-            case .didTapResume:
-                return .run { send in
-                    while true {
-                        try await Task.sleep(for: .seconds(1))
-                        await send(.breakTimerTick)
-                    }
-                }
-                .cancellable(id: CancelID.breakTimer)
-            case .setButtonState:
-                switch state.buttonState {
-                case .pause:
-                    state.buttonState = .resume
-                    return .send(.didTapPause)
-                case .resume:
-                    state.buttonState = .pause
-                    return .send(.didTapResume)
-                }
             }
         }
         .ifLet(\.$confirmState, action: \.confirmAction) {
@@ -267,7 +226,7 @@ struct WorkOutDetailView: View {
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
                 } else {
-                    BreakTimerView(store: store)
+                    BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
                 }
             }
             .toolbar(.hidden, for: .navigationBar)

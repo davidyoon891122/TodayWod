@@ -86,7 +86,6 @@ private extension WodCoreDataProvider {
 
     func fetchProgram() throws -> ProgramCoreEntity? {
         let wodInfo = try context.fetch(WodCoreData.shared.fetchProgram())
-        print(wodInfo.count)
         let firstWod = wodInfo.first
 
         return firstWod
