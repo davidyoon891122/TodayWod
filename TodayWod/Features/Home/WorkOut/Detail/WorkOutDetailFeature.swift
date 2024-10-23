@@ -214,7 +214,6 @@ struct WorkOutDetailView: View {
                     .padding(.bottom, 20)
                 } else {
                     BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
-                        .padding(.bottom, 20)
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
