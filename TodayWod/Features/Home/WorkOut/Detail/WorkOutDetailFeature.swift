@@ -17,6 +17,8 @@ struct WorkOutDetailFeature {
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
+        
+        var breakTimerState: BreakTimeFeature.State = BreakTimeFeature.State()
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
 
@@ -46,10 +48,10 @@ struct WorkOutDetailFeature {
         case saveOwnProgram
         case saveRecentActivity
         case updateDayCompleted
-        case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case finishWorkOut(DayWorkoutModel)
         case binding(BindingAction<State>)
+        case breakTimerAction(BreakTimeFeature.Action)
     }
     
     enum CancelID { case timer }
@@ -57,6 +59,11 @@ struct WorkOutDetailFeature {
     @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
+        
+        Scope(state: \.breakTimerState, action: \.breakTimerAction) {
+            BreakTimeFeature()
+        }
+        
         BindingReducer()
         Reduce { state, action in
             switch action {
@@ -135,12 +142,11 @@ struct WorkOutDetailFeature {
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
+            case .breakTimerAction:
+                return .none
             default:
                 return .none
             }
-        }
-        .ifLet(\.$timerState, action: \.breakTimerAction) {
-            BreakTimeFeature()
         }
         .ifLet(\.$confirmState, action: \.confirmAction) {
             WorkoutConfirmationFeature()
@@ -203,12 +209,12 @@ struct WorkOutDetailView: View {
                     }
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
+                } else {
+                    BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
+                        .padding(.bottom, 20)
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .bottomSheet(item: $store.scope(state: \.timerState, action: \.breakTimerAction)) { breakStore in
-                BreakTimerView(store: breakStore)
-            }
             .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { store in
                 WorkoutConfirmationView(store: store)
                     .presentationDetents([.height(dynamicHeight + 20.0)])
