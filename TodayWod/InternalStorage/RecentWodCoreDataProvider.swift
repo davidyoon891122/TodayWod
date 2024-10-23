@@ -36,7 +36,7 @@ final class RecentWodCoreDataProvider {
                 dayWorkouts = RecentActivitiesModel(coreData: currentActivityEntity).dayWorkouts
             }
             
-            if dayWorkouts.count >= 3 { // 최대 3개 저장.
+            if dayWorkouts.count >= 10 { // 최대 10개 저장.
                 dayWorkouts.removeLast()
             }
             

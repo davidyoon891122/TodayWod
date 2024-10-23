@@ -34,8 +34,16 @@ struct WorkoutModel: Codable, Equatable, Identifiable {
 
 extension WorkoutModel {
     
+    var hasCompletedWods: Bool {
+        self.completedSetCount > 0
+    }
+    
     var completedSetCount: Int {
         self.wods.reduce(0) { $0 + $1.completedSetCount }
+    }
+    
+    var completedWods: [WodModel] {
+        self.wods.filter { $0.isCompletedSet }
     }
     
 }
@@ -82,12 +90,24 @@ struct WodModel: Codable, Equatable, Identifiable {
 
 extension WodModel {
     
+    var newWodSet: WodSetModel {
+        .init(workoutId: self.workoutId, wodModelId: self.id, unitValue: unitValue, order: self.wodSets.count+1)
+    }
+    
+    var isCompletedSet: Bool {
+        self.wodSets.allSatisfy { $0.isCompleted }
+    }
+    
     var completedSetCount: Int {
-        self.wodSets.count(where: { $0.isCompleted })
+        self.isCompletedSet ? 1 : 0
     }
     
     var isOrderSetVisible: Bool {
-        self.set > 1 && self.wodSets.count > 0
+        self.set > 1
+    }
+    
+    var canRemoveSet: Bool {
+        self.wodSets.count > 1
     }
     
     var displaySet: String {

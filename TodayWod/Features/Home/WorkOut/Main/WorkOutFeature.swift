@@ -14,7 +14,7 @@ struct WorkOutFeature {
     @Reducer(state: .equatable)
     enum Path {
         case detail(WorkOutDetailFeature)
-        case completed(WorkOutCompletedFeature)
+        case completed(WorkoutCompletedFeature)
     }
     
     @ObservableState
@@ -112,7 +112,7 @@ struct WorkOutFeature {
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .detail(.finishWorkOut(let item))):
-                    state.path.append(.completed(WorkOutCompletedFeature.State(item: item)))
+                    state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
                     return .none
                 case .element(id: _, action: .completed(.didTapCloseButton)):
                     state.path.removeAll()
@@ -171,7 +171,7 @@ struct WorkOutView: View {
                 case let .detail(store):
                     WorkOutDetailView(store: store)
                 case let .completed(store):
-                    WorkOutCompletedView(store: store)
+                    WorkoutCompletedView(store: store)
                 }
                 
             }

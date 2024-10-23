@@ -1,12 +1,12 @@
 //
-//  WorkOutCompletedTopView.swift
+//  WorkoutCompletedTopView.swift
 //  TodayWod
 //
 //  Created by D프로젝트노드_오지연 on 10/4/24.
 //
 import SwiftUI
 
-struct WorkOutCompletedTopView: View {
+struct WorkoutCompletedTopView: View {
     
     let item: DayWorkoutModel
     
@@ -46,7 +46,7 @@ struct WorkOutCompletedTopView: View {
     
 }
 
-private extension WorkOutCompletedTopView {
+private extension WorkoutCompletedTopView {
     
     enum Constants {
         static let totalDuration = "운동 시간"
@@ -58,7 +58,7 @@ private extension WorkOutCompletedTopView {
 
 #Preview {
     VStack {
-        WorkOutCompletedTopView(item: .completedFake)
+        WorkoutCompletedTopView(item: .completedFake)
     }
     .padding(20)
     .background(Colors.blue10.swiftUIColor)

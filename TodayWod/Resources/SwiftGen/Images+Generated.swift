@@ -65,6 +65,7 @@ internal enum Images {
   internal static let icWeek7 = ImageAsset(name: "ic_week_7")
   internal static let icWeek8 = ImageAsset(name: "ic_week_8")
   internal static let icWeek9 = ImageAsset(name: "ic_week_9")
+  internal static let imgEmptyActivity = ImageAsset(name: "img_empty_activity")
   internal static let machineManWeight = ImageAsset(name: "machine_man_weight")
   internal static let machineWomanWeight = ImageAsset(name: "machine_woman_weight")
   internal static let trophy = ImageAsset(name: "trophy")
