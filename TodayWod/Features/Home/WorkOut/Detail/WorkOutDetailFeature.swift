@@ -21,8 +21,6 @@ struct WorkOutDetailFeature {
         var breakTimerState: BreakTimeFeature.State = BreakTimeFeature.State()
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
-
-        @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
         init(item: DayWorkoutModel) {
@@ -52,6 +50,7 @@ struct WorkOutDetailFeature {
         case finishWorkOut(DayWorkoutModel)
         case binding(BindingAction<State>)
         case breakTimerAction(BreakTimeFeature.Action)
+        case resetTimer
     }
     
     enum CancelID { case timer }
@@ -86,7 +85,7 @@ struct WorkOutDetailFeature {
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
-                        await send(.timerTick)
+                        //await send(.timerTick)
                     }
                 }
                 .cancellable(id: CancelID.timer)
@@ -101,7 +100,7 @@ struct WorkOutDetailFeature {
                 }
             case let .setCompleted(isCompleted):
                 if isCompleted {
-                    state.timerState = BreakTimeFeature.State()
+                    // timerState 리셋 해야 할 이유가 있는지 확인 필요
                 }
                 return .send(.updateWodSet)
             case .updateWodSet:
@@ -130,7 +129,7 @@ struct WorkOutDetailFeature {
                 
                 if state.isDayCompleted {
                     state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
-                    state.timerState = BreakTimeFeature.State()
+                    // timerState 리셋 해야 할 이유가 있는지 확인 필요
                 }
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)):
@@ -144,6 +143,10 @@ struct WorkOutDetailFeature {
                                     .send(.finishWorkOut(state.item)))
             case .breakTimerAction:
                 return .none
+            case .resetTimer:
+                return .run { send in
+                    await send(.breakTimerAction(.didTapReset))
+                }
             default:
                 return .none
             }

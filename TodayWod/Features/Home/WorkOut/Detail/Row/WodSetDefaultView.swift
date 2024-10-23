@@ -28,6 +28,10 @@ struct WodSetDefaultView: View {
                 Spacer()
                 Button {
                     self.model.isCompleted.toggle()
+                    // TODO: - 모델을 뷰에서 직접 변경하여, Action에서 상태 파악 불가
+                    if self.model.isCompleted {
+                        store.send(.resetTimer)
+                    }
                 } label: {
                     if self.store.hasStart {
                         self.model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
