@@ -9,33 +9,20 @@ import SwiftUI
 
 struct CalendarView: View {
     
-    @State var month: Date
-    @State var markedDates: Set<Date>
-    @State var offset: CGSize = CGSize()
+    @State private var offset: CGSize = CGSize()
+    
+    var month: Date
+    @Binding var markedDates: Set<Date>
     
     var body: some View {
         VStack {
             CalendarHeaderView(month: month)
-            CalendarGridView(month: month, markedDates: markedDates)
+            CalendarGridView(month: month, markedDates: $markedDates)
         }
-        .gesture(
-            DragGesture()
-                .onChanged { gesture in
-                    self.offset = gesture.translation
-                }
-                .onEnded { gesture in
-                    if gesture.translation.width < -100 {
-                        month = month.changeMonth(by: 1)
-                    } else if gesture.translation.width > 100 {
-                        month = month.changeMonth(by: -1)
-                    }
-                    self.offset = CGSize()
-                }
-        )
     }
 
 }
 
 #Preview {
-    CalendarView(month: Date(), markedDates: [Date()])
+    CalendarView(month: Date(), markedDates: .constant([Date()]))
 }

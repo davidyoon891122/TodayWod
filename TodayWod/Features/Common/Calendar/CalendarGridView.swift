@@ -10,7 +10,7 @@ import SwiftUI
 struct CalendarGridView: View {
 
     let month: Date
-    let markedDates: Set<Date>
+    @Binding var markedDates: Set<Date>
 
     var body: some View {
 
@@ -63,5 +63,5 @@ extension CalendarGridView {
 
 
 #Preview {
-    CalendarGridView(month: Date(), markedDates: [Date()])
+    CalendarGridView(month: Date(), markedDates: .constant([Date()]))
 }
