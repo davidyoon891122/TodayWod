@@ -24,6 +24,7 @@ struct SettingFeature {
     struct State: Equatable {
         var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
         var recentDayWorkouts: [DayWorkoutModel] = []
+        var completedDates: [Date] = []
         var path = StackState<Path.State>()
         
         @Presents var completedState: WorkoutCompletedFeature.State?
@@ -33,7 +34,10 @@ struct SettingFeature {
 
     enum Action {
         case onAppear
+        case getRecentDayWorkouts
         case recentDayWorkoutsResponse([DayWorkoutModel])
+        case getCompletedDates
+        case completedDatesResponse([CompletedDateModel])
         case path(StackActionOf<Path>)
         case didTapMyPage
         case didTapMyActivity(DayWorkoutModel)
@@ -48,6 +52,9 @@ struct SettingFeature {
                     state.onboardingUserInfoModel = onbarodingUserInfoModel
                 }
                 
+                return .merge(.send(.getRecentDayWorkouts),
+                              .send(.getCompletedDates))
+            case .getRecentDayWorkouts:
                 return .run { send in
                     do {
                         let recentDayWorkouts = try wodClient.getRecentDayWorkouts()
@@ -59,6 +66,19 @@ struct SettingFeature {
                 }
             case let .recentDayWorkoutsResponse(dayWorkouts):
                 state.recentDayWorkouts = dayWorkouts
+                return .none
+            case .getCompletedDates:
+                return .run { send in
+                    do {
+                        let dates = try wodClient.getCompletedDates()
+                        await send(.completedDatesResponse(dates))
+                    } catch {
+                        // TODO: - Load 에러 처리
+                        print("error: \(error.localizedDescription)")
+                    }
+                }
+            case let .completedDatesResponse(dates):
+                state.completedDates = dates.map { $0.date }
                 return .none
             case let .path(action):
                 switch action {
@@ -122,7 +142,7 @@ struct SettingView: View {
                                 store.send(.didTapMyPage)
                             }
 
-                        CalendarView(month: Date(), markedDates: [Date()])
+                        CalendarView(month: Date(), markedDates: Set(store.state.completedDates))
                             .padding(.horizontal, 19)
                             .padding(.vertical, 24.0)
 
