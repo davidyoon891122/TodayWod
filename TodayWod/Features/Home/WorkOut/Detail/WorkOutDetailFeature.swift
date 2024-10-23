@@ -211,15 +211,10 @@ struct WorkOutDetailView: View {
             }
             .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { store in
                 WorkoutConfirmationView(store: store)
-                    .presentationDetents([.height(dynamicHeight + 20.0)])
-                    .background {
-                        GeometryReader { proxy in
-                            Color.clear
-                                .onAppear {
-                                    dynamicHeight = proxy.size.height
-                                }
-                        }
+                    .measureHeight { height in
+                        dynamicHeight = height
                     }
+                    .presentationDetents([.height(dynamicHeight + 20.0)])
             }
             .onAppear {
                 store.send(.onAppear)

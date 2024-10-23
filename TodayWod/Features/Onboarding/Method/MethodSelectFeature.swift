@@ -150,15 +150,11 @@ struct MethodSelectView: View {
             .sheet(item: $store.scope(state: \.methodDescription, action: \.methodDescriptionTap)) { descriptionStore in
                 WithPerceptionTracking {
                     MethodDescriptionView(store: descriptionStore)
-                        .background {
-                            GeometryReader { proxy in
-                                Color.clear
-                                    .onAppear {
-                                        store.send(.setDynamicHeight(proxy.size.height))
-                                    }
-                            }
+                        .measureHeight { height in
+                            store.send(.setDynamicHeight(height))
                         }
                         .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
+
                 }
             }
         }

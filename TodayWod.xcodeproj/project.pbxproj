@@ -96,6 +96,8 @@
 		4987120B2CA2F48E00FB876E /* MyPageFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4987120A2CA2F48E00FB876E /* MyPageFeature.swift */; };
 		4987120F2CA447C700FB876E /* CelebrateFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4987120E2CA447C700FB876E /* CelebrateFeature.swift */; };
 		498712142CA7997800FB876E /* EntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498712132CA7997800FB876E /* EntryType.swift */; };
+		498B92A72CC9334600B51910 /* HeightPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B92A62CC9334600B51910 /* HeightPreferenceKey.swift */; };
+		498B92A92CC9339C00B51910 /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B92A82CC9339C00B51910 /* Extension+View.swift */; };
 		4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6812C97E068001A1375 /* WeightInputFeature.swift */; };
 		4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6842C980A04001A1375 /* LevelSelectFeature.swift */; };
 		4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */; };
@@ -227,6 +229,8 @@
 		4987120A2CA2F48E00FB876E /* MyPageFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFeature.swift; sourceTree = "<group>"; };
 		4987120E2CA447C700FB876E /* CelebrateFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrateFeature.swift; sourceTree = "<group>"; };
 		498712132CA7997800FB876E /* EntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryType.swift; sourceTree = "<group>"; };
+		498B92A62CC9334600B51910 /* HeightPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightPreferenceKey.swift; sourceTree = "<group>"; };
+		498B92A82CC9339C00B51910 /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		4992E6812C97E068001A1375 /* WeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputFeature.swift; sourceTree = "<group>"; };
 		4992E6842C980A04001A1375 /* LevelSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectFeature.swift; sourceTree = "<group>"; };
 		4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectFeature.swift; sourceTree = "<group>"; };
@@ -513,6 +517,8 @@
 				49593C372C969370006105D1 /* CustomView */,
 				49593C382C969378006105D1 /* Modifier */,
 				497C0F0C2C9E5F8300F7444E /* Calendar */,
+				498B92AC2CC933EE00B51910 /* Preference */,
+				498B92AB2CC933E800B51910 /* Extension */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -590,6 +596,22 @@
 				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
 			);
 			path = Celebrate;
+			sourceTree = "<group>";
+		};
+		498B92AB2CC933E800B51910 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				498B92A82CC9339C00B51910 /* Extension+View.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		498B92AC2CC933EE00B51910 /* Preference */ = {
+			isa = PBXGroup;
+			children = (
+				498B92A62CC9334600B51910 /* HeightPreferenceKey.swift */,
+			);
+			path = Preference;
 			sourceTree = "<group>";
 		};
 		4992E6832C97E076001A1375 /* Weight */ = {
@@ -1034,6 +1056,7 @@
 				4992E68B2C98601B001A1375 /* MethodDescriptionFeature.swift in Sources */,
 				497C0F102C9ECDBC00F7444E /* BottomSheetModifier.swift in Sources */,
 				1C9C9F6D2CABB49B00157001 /* Programs+Dummy.swift in Sources */,
+				498B92A92CC9339C00B51910 /* Extension+View.swift in Sources */,
 				1C6DCCA32CC6697100ED56B2 /* MyActivityEmptyView.swift in Sources */,
 				1C6DCCA42CC6697100ED56B2 /* MyActivityView.swift in Sources */,
 				1C6DCCA52CC6697100ED56B2 /* MyPageInfoView.swift in Sources */,
@@ -1086,6 +1109,7 @@
 				1C9C9F702CABB67300157001 /* WorkOutTitleView.swift in Sources */,
 				AD386C432CA66F460038C27F /* ModifyProfileFeature.swift in Sources */,
 				497C0F032C9E463900F7444E /* LevelType.swift in Sources */,
+				498B92A72CC9334600B51910 /* HeightPreferenceKey.swift in Sources */,
 				AD386C322CA387750038C27F /* ProfileView.swift in Sources */,
 				1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */,
 				1C6DCBD72CC158E600ED56B2 /* RecentActivitesModel.swift in Sources */,
