@@ -15,8 +15,8 @@ struct AppFeature {
     struct State: Equatable, Sendable {
         var homeTab = HomeFeature.State()
         var settingsTab = SettingFeature.State()
-        var selectedItem: TabMenuItem = .home
 
+        @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
     }
 
@@ -58,7 +58,7 @@ import SwiftUI
 struct AppTabView: View {
 
     @Perception.Bindable var store: StoreOf<AppFeature>
-    @State private var selectedItem: TabMenuItem = .home
+    @State private var tabType: TabMenuType = .home
 
     var body: some View {
         WithPerceptionTracking {
@@ -69,15 +69,15 @@ struct AppTabView: View {
                 Text("Back to onBoarding")
             })
             VStack(spacing: 0) {
-                switch store.state.selectedItem {
+                switch store.state.tabType {
                 case .home:
                     HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
                 case .settings:
                     SettingView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
                 if !store.state.hideTabBar {
-                    CustomTabView(selectedItem: $selectedItem)
-                        .bind($store.state.selectedItem, to: $selectedItem)
+                    CustomTabView(tabType: $tabType)
+                        .bind($store.state.tabType, to: $tabType)
                 }
             }
             .edgesIgnoringSafeArea(.bottom)
