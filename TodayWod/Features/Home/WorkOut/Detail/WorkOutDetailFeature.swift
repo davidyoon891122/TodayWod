@@ -85,7 +85,7 @@ struct WorkOutDetailFeature {
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
-                        //await send(.timerTick)
+                        await send(.timerTick)
                     }
                 }
                 .cancellable(id: CancelID.timer)
@@ -99,9 +99,6 @@ struct WorkOutDetailFeature {
                     await send(.saveOwnProgram)
                 }
             case let .setCompleted(isCompleted):
-                if isCompleted {
-                    // timerState 리셋 해야 할 이유가 있는지 확인 필요
-                }
                 return .send(.updateWodSet)
             case .updateWodSet:
                 return .concatenate(.send(.saveOwnProgram),
@@ -129,7 +126,6 @@ struct WorkOutDetailFeature {
                 
                 if state.isDayCompleted {
                     state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
-                    // timerState 리셋 해야 할 이유가 있는지 확인 필요
                 }
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)):
