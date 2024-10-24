@@ -25,7 +25,6 @@ struct AppFeature {
         case settingsTab(SettingFeature.Action)
         case resetOnboarding
         case binding(BindingAction<State>)
-
     }
 
     var body: some ReducerOf<Self> {
@@ -42,9 +41,9 @@ struct AppFeature {
             switch action {
             case .resetOnboarding:
                 return .none
-            case .binding:
-                return .none
             case .homeTab, .settingsTab:
+                return .none
+            case .binding:
                 return .none
             }
         }
@@ -58,7 +57,6 @@ import SwiftUI
 struct AppTabView: View {
 
     @Perception.Bindable var store: StoreOf<AppFeature>
-    @State private var tabType: TabMenuType = .home
 
     var body: some View {
         WithPerceptionTracking {
@@ -69,15 +67,14 @@ struct AppTabView: View {
                 Text("Back to onBoarding")
             })
             VStack(spacing: 0) {
-                switch store.state.tabType {
+                switch store.tabType {
                 case .home:
                     HomeView(store: store.scope(state: \.homeTab, action: \.homeTab))
                 case .settings:
                     SettingView(store: store.scope(state: \.settingsTab, action: \.settingsTab))
                 }
-                if !store.state.hideTabBar {
-                    CustomTabView(tabType: $tabType)
-                        .bind($store.state.tabType, to: $tabType)
+                if !store.hideTabBar {
+                    CustomTabView(tabType: $store.tabType)
                 }
             }
             .edgesIgnoringSafeArea(.bottom)
