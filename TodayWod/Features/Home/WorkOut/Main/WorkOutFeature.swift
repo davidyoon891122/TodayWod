@@ -177,15 +177,10 @@ struct WorkOutView: View {
             }
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { celebrateStore in
                 CelebrateView(store: celebrateStore)
-                    .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
-                    .background {
-                        GeometryReader { proxy in
-                            Color.clear
-                                .onAppear {
-                                    store.send(.setDynamicHeight(proxy.size.height))
-                                }
-                        }
+                    .measureHeight { height in
+                        store.send(.setDynamicHeight(height))
                     }
+                    .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
             }
         }
     }
