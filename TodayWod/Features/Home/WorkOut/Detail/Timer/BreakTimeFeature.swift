@@ -13,7 +13,7 @@ struct BreakTimeFeature {
 
     @ObservableState
     struct State: Equatable {
-        var currentSeconds: Int = 60
+        var currentSeconds: Int = 0
         var buttonState: ButtonState = .pause
     }
 

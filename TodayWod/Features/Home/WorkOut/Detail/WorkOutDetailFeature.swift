@@ -17,10 +17,10 @@ struct WorkOutDetailFeature {
         var duration: Int
         var hasStart: Bool
         var isDayCompleted: Bool
+        
+        var breakTimerState: BreakTimeFeature.State = BreakTimeFeature.State()
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
-
-        @Presents var timerState: BreakTimeFeature.State?
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         
         init(item: DayWorkoutModel) {
@@ -47,10 +47,11 @@ struct WorkOutDetailFeature {
         case saveRecentActivity
         case updateDayCompleted
         case saveCompletedDate
-        case breakTimerAction(PresentationAction<BreakTimeFeature.Action>)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case finishWorkOut(DayWorkoutModel)
         case binding(BindingAction<State>)
+        case breakTimerAction(BreakTimeFeature.Action)
+        case resetTimer
     }
     
     enum CancelID { case timer }
@@ -58,6 +59,11 @@ struct WorkOutDetailFeature {
     @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
+        
+        Scope(state: \.breakTimerState, action: \.breakTimerAction) {
+            BreakTimeFeature()
+        }
+        
         BindingReducer()
         Reduce { state, action in
             switch action {
@@ -94,9 +100,6 @@ struct WorkOutDetailFeature {
                     await send(.saveOwnProgram)
                 }
             case let .setCompleted(isCompleted):
-                if isCompleted {
-                    state.timerState = BreakTimeFeature.State()
-                }
                 return .send(.updateWodSet)
             case .updateWodSet:
                 return .concatenate(.send(.saveOwnProgram),
@@ -124,7 +127,6 @@ struct WorkOutDetailFeature {
                 
                 if state.isDayCompleted {
                     state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
-                    state.timerState = BreakTimeFeature.State()
                     return .send(.saveCompletedDate)
                 }
                 return .none
@@ -142,12 +144,15 @@ struct WorkOutDetailFeature {
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
+            case .breakTimerAction:
+                return .none
+            case .resetTimer:
+                return .run { send in
+                    await send(.breakTimerAction(.didTapReset))
+                }
             default:
                 return .none
             }
-        }
-        .ifLet(\.$timerState, action: \.breakTimerAction) {
-            BreakTimeFeature()
         }
         .ifLet(\.$confirmState, action: \.confirmAction) {
             WorkoutConfirmationFeature()
@@ -210,12 +215,11 @@ struct WorkOutDetailView: View {
                     }
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
+                } else {
+                    BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .bottomSheet(item: $store.scope(state: \.timerState, action: \.breakTimerAction)) { breakStore in
-                BreakTimerView(store: breakStore)
-            }
             .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { store in
                 WorkoutConfirmationView(store: store)
                     .presentationDetents([.height(dynamicHeight + 20.0)])
