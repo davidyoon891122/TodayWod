@@ -34,16 +34,24 @@ struct WorkoutModel: Codable, Equatable, Identifiable {
 
 extension WorkoutModel {
     
-    var hasCompletedWods: Bool {
-        self.completedSetCount > 0
+    var isCompleted: Bool {
+        self.wods.allSatisfy { $0.isContainCompleted } // Wod 세트 중 하나라도 완료했다면 성공. (기획)
     }
     
-    var completedSetCount: Int {
-        self.wods.reduce(0) { $0 + $1.completedSetCount }
+    var isContainCompleted: Bool {
+        self.wods.contains { $0.isContainCompleted }
+    }
+    
+    var hasCompletedWods: Bool {
+        self.completedWodsCount > 0
+    }
+    
+    var completedWodsCount: Int {
+        self.wods.reduce(0) { $0 + ($1.isContainCompleted ? 1 : 0) }
     }
     
     var completedWods: [WodModel] {
-        self.wods.filter { $0.isCompletedSet }
+        self.wods.filter { $0.isContainCompleted }
     }
     
 }
@@ -94,12 +102,8 @@ extension WodModel {
         .init(workoutId: self.workoutId, wodModelId: self.id, unitValue: unitValue, order: self.wodSets.count+1)
     }
     
-    var isCompletedSet: Bool {
-        self.wodSets.allSatisfy { $0.isCompleted }
-    }
-    
-    var completedSetCount: Int {
-        self.isCompletedSet ? 1 : 0
+    var isContainCompleted: Bool {
+        self.wodSets.contains { $0.isCompleted }
     }
     
     var isOrderSetVisible: Bool {
@@ -116,7 +120,8 @@ extension WodModel {
     
     var displayCompletedSet: String {
         if self.set > 1 {
-            return "\(self.set) 세트"
+            let completedSetCount = wodSets.count { $0.isCompleted }
+            return "\(completedSetCount) 세트"
         } else {
             if let set = wodSets.first {
                 return set.displayUnitValue + self.unit.title

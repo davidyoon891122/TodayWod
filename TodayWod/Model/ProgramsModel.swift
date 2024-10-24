@@ -98,10 +98,12 @@ struct DayWorkoutModel: Codable, Equatable, Identifiable {
 
 extension DayWorkoutModel {
     
+    var isContainCompleted: Bool {
+        workouts.contains { $0.isContainCompleted }
+    }
+    
     var isCompleted: Bool {
-        workouts.flatMap {
-            $0.wods.flatMap { $0.wodSets }
-        }.allSatisfy { $0.isCompleted }
+        workouts.allSatisfy { $0.isCompleted } || date != nil // 운동 완료 or 운동 종료 모두 성공 처리.
     }
     
     var displayExpectedMinuteTitle: String {
@@ -120,8 +122,8 @@ extension DayWorkoutModel {
         "약 \(minExpectedCalorie)~\(maxExpectedCalorie) Kcal"
     }
     
-    var completedSetCount: Int {
-        self.workouts.reduce(0) { $0 + $1.completedSetCount }
+    var completedWodsCount: Int {
+        self.workouts.reduce(0) { $0 + $1.completedWodsCount }
     }
     
 }
