@@ -1,5 +1,5 @@
 //
-//  TabMenuItem.swift
+//  TabMenuType.swift
 //  TodayWod
 //
 //  Created by Jiwon Yoon on 9/18/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum TabMenuItem: CaseIterable {
+enum TabMenuType: CaseIterable {
     case home
     case settings
 

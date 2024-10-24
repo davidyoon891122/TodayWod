@@ -25,6 +25,7 @@ struct WorkOutFeature {
         var dynamicHeight: CGFloat = .zero
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
+        @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
 
         @Presents var celebrateState: CelebrateFeature.State?
     }
@@ -115,6 +116,7 @@ struct WorkOutFeature {
                     state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
                     return .none
                 case .element(id: _, action: .completed(.didTapCloseButton)):
+                    state.tabType = .settings
                     state.path.removeAll()
                     return .none
                 default:

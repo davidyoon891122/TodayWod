@@ -9,20 +9,20 @@ import SwiftUI
 
 struct CustomTabView: View {
 
-    @Binding var selectedItem: TabMenuItem
+    @Binding var tabType: TabMenuType
 
     var body: some View {
         HStack {
-            ForEach(TabMenuItem.allCases, id: \.self) { type in
+            ForEach(TabMenuType.allCases, id: \.self) { type in
                 Button(action: {
-                    selectedItem = type
+                    tabType = type
                 }, label: {
                     VStack {
-                        Color(selectedItem == type ? .white : .blue10)
+                        Color(tabType == type ? .white : .blue10)
                             .frame(width: 48.0, height: 38.0)
                             .clipShape(.rect(cornerRadius: 40))
                             .overlay {
-                                selectedItem == type ? type.selectedImage : type.deactivatedImage
+                                tabType == type ? type.selectedImage : type.deactivatedImage
                             }
                     }
                     .frame(maxWidth: .infinity)
@@ -39,7 +39,7 @@ struct CustomTabView: View {
 #Preview {
     VStack {
         Text("Hello")
-        CustomTabView(selectedItem: .constant(.home))
+        CustomTabView(tabType: .constant(.home))
     }
     .background(.black)
 }
