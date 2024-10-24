@@ -101,7 +101,6 @@ struct HeightInputView: View {
                         HStack(spacing: 8) {
                             TextField(Constants.placeHolder, text: $store.height.sending(\.setHeight))
                                 .focused($focusedField, equals: .height)
-                                .multilineTextAlignment(.trailing)
                                 .autocorrectionDisabled()
                                 .keyboardType(.numberPad)
                                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))

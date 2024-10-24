@@ -80,7 +80,6 @@ struct ModifyWeightView: View {
                     HStack(spacing: 8) {
                         TextField(store.placeHolder, text: $store.weight.sending(\.setWeight))
                             .focused($focusedField, equals: .weight)
-                            .multilineTextAlignment(.trailing)
                             .autocorrectionDisabled()
                             .keyboardType(.numberPad)
                             .font(Fonts.Pretendard.medium.swiftUIFont(size: 56.0))
