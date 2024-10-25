@@ -28,7 +28,7 @@ struct WorkoutCompletedTopView: View {
                         .foregroundStyle(.grey80)
                 }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("\(item.completedSetCount)")
+                    Text("\(item.completedWodsCount)")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
                         .foregroundStyle(.grey100)
                     Text(Constants.workoutTitle)

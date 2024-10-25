@@ -73,7 +73,7 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapDoneButton:
-                if state.hasStart {
+                if state.hasStart && state.item.isContainCompleted { // 최소 한 개 이상 성공 시.
                     state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
                     return .none
                 } else {
@@ -127,10 +127,11 @@ struct WorkOutDetailFeature {
                 
                 if state.isDayCompleted {
                     state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
-                    return .send(.saveCompletedDate)
                 }
                 return .none
             case .saveCompletedDate:
+                state.item.date = Date()
+                
                 let completedDate = CompletedDateModel(date: Date(), duration: state.duration)
                 return .run { send in
                     do {
@@ -139,8 +140,9 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case .confirmAction(.presented(.didTapDoneButton)):
+            case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
                 return .concatenate(.send(.stopTimer),
+                                    .send(.saveCompletedDate),
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
