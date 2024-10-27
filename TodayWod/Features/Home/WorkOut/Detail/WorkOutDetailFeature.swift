@@ -18,7 +18,7 @@ struct WorkOutDetailFeature {
         var hasStart: Bool
         var isDayCompleted: Bool
         
-        var breakTimerState: BreakTimeFeature.State = BreakTimeFeature.State()
+        var breakTimerState: BreakTimerFeature.State = BreakTimerFeature.State()
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
@@ -50,7 +50,7 @@ struct WorkOutDetailFeature {
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case finishWorkOut(DayWorkoutModel)
         case binding(BindingAction<State>)
-        case breakTimerAction(BreakTimeFeature.Action)
+        case breakTimerAction(BreakTimerFeature.Action)
         case resetTimer
     }
     
@@ -61,7 +61,7 @@ struct WorkOutDetailFeature {
     var body: some ReducerOf<Self> {
         
         Scope(state: \.breakTimerState, action: \.breakTimerAction) {
-            BreakTimeFeature()
+            BreakTimerFeature()
         }
         
         BindingReducer()

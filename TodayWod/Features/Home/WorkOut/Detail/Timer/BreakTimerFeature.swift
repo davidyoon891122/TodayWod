@@ -1,5 +1,5 @@
 //
-//  BreakTimeFeature.swift
+//  BreakTimerFeature.swift
 //  TodayWod
 //
 //  Created by Jiwon Yoon on 9/21/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct BreakTimeFeature {
+struct BreakTimerFeature {
 
     @ObservableState
     struct State: Equatable {
@@ -94,7 +94,7 @@ struct BreakTimeFeature {
 import SwiftUI
 struct BreakTimerView: View {
 
-    let store: StoreOf<BreakTimeFeature>
+    let store: StoreOf<BreakTimerFeature>
 
     var body: some View {
         WithPerceptionTracking {
@@ -141,7 +141,7 @@ struct BreakTimerView: View {
 }
 
 #Preview {
-    BreakTimerView(store: Store(initialState: BreakTimeFeature.State()) {
-        BreakTimeFeature()
+    BreakTimerView(store: Store(initialState: BreakTimerFeature.State()) {
+        BreakTimerFeature()
     })
 }
