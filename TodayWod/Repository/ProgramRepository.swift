@@ -29,7 +29,9 @@ extension ProgramRepository: ProgramRepositoryProtocol {
                 .setPath(RequestAPIType.program.url)
                 .setQuery(input.dict)
 
-            return try await self.request(with: apiRequest, type: ProgramEntity.self)
+            let result = try await self.request(with: apiRequest, type: ProgramEntity.self)
+            DLog.d(result.id)
+            return result
         } catch {
             DLog.e("Error: \(error.localizedDescription)")
             throw error

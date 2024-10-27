@@ -55,7 +55,9 @@ public final class APIRequest {
         url = components.url!
         
         var request = URLRequest(url: url)
-        
+
+        DLog.d(url.absoluteString)
+
         // Set Header fields
         for field in self.headerFields {
             request.addValue(field.value, forHTTPHeaderField: field.name)

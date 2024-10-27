@@ -15,7 +15,8 @@ import Foundation
  - WodSet : User Custom 가능한 Wod 하위의 운동 낱개 배열의 정보.
  */
 struct ProgramEntity: Codable, Equatable {
-    
+
+    let id: String
     let methodType: ProgramMethodType
     let level: LevelType
     let dayWorkouts: [DayWorkoutEntity]
@@ -24,8 +25,8 @@ struct ProgramEntity: Codable, Equatable {
 
 extension ProgramEntity {
     
-    static var fake: Self = .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
-    
+    static var fake: Self = .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
+
 }
 
 struct DayWorkoutEntity: Codable, Equatable {

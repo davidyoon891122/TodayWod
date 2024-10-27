@@ -18,7 +18,7 @@
         <relationship name="workouts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WorkoutCoreEntity"/>
     </entity>
     <entity name="ProgramCoreEntity" representedClassName="ProgramCoreEntity" syncable="YES">
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="level" attributeType="String"/>
         <attribute name="methodType" attributeType="String"/>
         <relationship name="dayWorkouts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayWorkoutCoreEntity"/>

@@ -68,25 +68,32 @@ struct WorkOutFeature {
                 return .concatenate(.send(.setDayWorkouts),
                                     .send(.updateWeekCompleted))
             case .didTapNewChallengeButton:
+                guard let method = state.ownProgram?.methodType,
+                        let level = state.ownProgram?.level,
+                        let id = state.ownProgram?.id
+                else { return .none }
                 return .run { send in
                     do {
-                        let programEntity = try await apiClient.requestProgram(.init(methodType: "machine", level: "advanced"))
+                        let programEntity = try await apiClient.requestOtherRandomProgram(.init(methodType: method.rawValue, level: level.rawValue, id: id))
                         await send(.updateOwnProgram(programEntity))
                     } catch {
                         await send(.fetchProgramError(error))
                     }
                 }
             case .didTapResetButton:
-                let userDefaultsManager = UserDefaultsManager()
-                let wodPrograms = userDefaultsManager.loadOfferedPrograms()
-                
-                if let id = state.ownProgram?.id {
-                    let resetWod = wodPrograms.first { $0.id == id }
-                    state.ownProgram = resetWod
+                guard let method = state.ownProgram?.methodType,
+                        let level = state.ownProgram?.level,
+                        let id = state.ownProgram?.id
+                else { return .none }
+
+                return .run { send in
+                    do {
+                        let programEntity = try await apiClient.requestCurrentProgram(.init(methodType: method.rawValue, level: level.rawValue), "\(id)")
+                        await send(.updateOwnProgram(programEntity))
+                    } catch {
+                        await send(.fetchProgramError(error))
+                    }
                 }
-                
-                return .merge(.send(.setDayWorkouts),
-                              .send(.updateOwnProgram(nil)))
             case .setDayWorkouts:
                 state.dayWorkouts = state.ownProgram?.dayWorkouts ?? []
                 return .none
