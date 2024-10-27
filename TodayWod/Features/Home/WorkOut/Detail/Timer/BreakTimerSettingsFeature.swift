@@ -27,12 +27,12 @@ struct BreakTimerSettingsFeature {
         Reduce { state, action in
             switch action {
             case .didTapMinusButton:
-                if state.currentTime >= 10 {
+                if state.currentTime >= 10 { // min 값 확인필요
                     state.currentTime -= 10
                 }
                 return .none
             case .didTapPlusButton:
-                state.currentTime += 10
+                state.currentTime += 10 // max 값 확인필요
                 return .none
             case .didTapRecommend(let time):
                 state.currentTime = time
