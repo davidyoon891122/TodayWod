@@ -20,9 +20,13 @@ struct WorkOutDetailFeature {
         
         var breakTimerState: BreakTimerFeature.State = BreakTimerFeature.State()
 
+        var confirmationViewDynamicHeight: CGFloat = 0
+        var breakTimerSettingsViewDynamicHeight: CGFloat = 0
+
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
-        
+        @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
+
         init(item: DayWorkoutModel) {
             self.item = item
             self.duration = item.duration
@@ -52,6 +56,10 @@ struct WorkOutDetailFeature {
         case binding(BindingAction<State>)
         case breakTimerAction(BreakTimerFeature.Action)
         case resetTimer
+        case didTapBreakTimer
+        case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
+        case setConfirmationViewDynamicHeight(CGFloat)
+        case setBreakTimerSettingsViewDynamicHeight(CGFloat)
     }
     
     enum CancelID { case timer }
@@ -152,12 +160,36 @@ struct WorkOutDetailFeature {
                 return .run { send in
                     await send(.breakTimerAction(.didTapReset))
                 }
-            default:
+            case .didTapBreakTimer:
+                state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
+                return .none
+            case .breakTimerSettingsAction(.presented(.didTapMinusButton)):
+                return .concatenate(.send(.breakTimerAction(.setDefaultTime)),.send(.breakTimerAction(.didTapResume)))
+            case .breakTimerSettingsAction(.presented(.didTapPlusButton)):
+                return .concatenate(.send(.breakTimerAction(.setDefaultTime)),.send(.breakTimerAction(.didTapResume)))
+            case .breakTimerSettingsAction(.presented(.didTapRecommend)):
+                return .concatenate(.send(.breakTimerAction(.setDefaultTime)),.send(.breakTimerAction(.didTapResume)))
+            case .breakTimerSettingsAction:
+                return .none
+            case .setConfirmationViewDynamicHeight(let height):
+                state.confirmationViewDynamicHeight = height
+                return .none
+            case .setBreakTimerSettingsViewDynamicHeight(let height):
+                state.breakTimerSettingsViewDynamicHeight = height
+                return .none
+            case .confirmAction:
+                return .none
+            case .finishWorkOut:
+                return .none
+            case .binding:
                 return .none
             }
         }
         .ifLet(\.$confirmState, action: \.confirmAction) {
             WorkoutConfirmationFeature()
+        }
+        .ifLet(\.$breakTimerSettingsState, action: \.breakTimerSettingsAction) {
+            BreakTimerSettingsFeature()
         }
     }
     
@@ -166,8 +198,6 @@ struct WorkOutDetailFeature {
 struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    
-    @State private var dynamicHeight: CGFloat = .zero
     
     var body: some View {
         WithPerceptionTracking {
@@ -219,15 +249,25 @@ struct WorkOutDetailView: View {
                     .padding(.bottom, 20)
                 } else {
                     BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
+                        .onTapGesture {
+                            store.send(.didTapBreakTimer)
+                        }
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { store in
-                WorkoutConfirmationView(store: store)
+            .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { conirmationStore in
+                WorkoutConfirmationView(store: conirmationStore)
                     .measureHeight { height in
-                        dynamicHeight = height
+                        store.send(.setConfirmationViewDynamicHeight(height))
                     }
-                    .presentationDetents([.height(dynamicHeight + 20.0)])
+                    .presentationDetents([.height(store.state.confirmationViewDynamicHeight + 20.0)])
+            }
+            .sheet(item: $store.scope(state: \.breakTimerSettingsState, action: \.breakTimerSettingsAction)) { breakTimerSettingsStore in
+                BreakTimerSettingsView(store: breakTimerSettingsStore)
+                    .measureHeight { height in
+                        store.send(.setBreakTimerSettingsViewDynamicHeight(height))
+                    }
+                    .presentationDetents([.height(store.state.breakTimerSettingsViewDynamicHeight)])
             }
             .onAppear {
                 store.send(.onAppear)

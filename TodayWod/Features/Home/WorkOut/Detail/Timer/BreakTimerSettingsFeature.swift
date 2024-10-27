@@ -13,7 +13,7 @@ struct BreakTimerSettingsFeature {
 
     @ObservableState
     struct State: Equatable {
-        var currentTime: Int = 60
+        @Shared(.appStorage("BreakTime")) var currentTime: Int = 60
         let recommendTimes: [Int] = [30, 60, 90, 120]
     }
 

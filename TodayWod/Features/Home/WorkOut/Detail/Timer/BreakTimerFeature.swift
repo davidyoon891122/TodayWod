@@ -13,6 +13,7 @@ struct BreakTimerFeature {
 
     @ObservableState
     struct State: Equatable {
+        @Shared(.appStorage("BreakTime")) var defaultTime: Int = 0
         var currentSeconds: Int = 0
         var buttonState: ButtonState = .pause
     }
@@ -24,6 +25,7 @@ struct BreakTimerFeature {
         case didTapPause
         case didTapResume
         case setButtonState
+        case setDefaultTime
     }
 
     enum CancelID { case timer }
@@ -39,6 +41,7 @@ struct BreakTimerFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.currentSeconds = state.defaultTime
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
@@ -54,7 +57,7 @@ struct BreakTimerFeature {
                 state.currentSeconds -= 1
                 return .none
             case .didTapReset:
-                state.currentSeconds = 60
+                state.currentSeconds = state.defaultTime
                 state.buttonState = .pause
                 return .concatenate(
                     .cancel(id: CancelID.timer),
@@ -85,6 +88,9 @@ struct BreakTimerFeature {
                     state.buttonState = .pause
                     return .send(.didTapResume)
                 }
+            case .setDefaultTime:
+                state.currentSeconds = state.defaultTime
+                return .cancel(id: CancelID.timer)
             }
         }
     }
