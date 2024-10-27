@@ -101,6 +101,10 @@
 		498712142CA7997800FB876E /* EntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498712132CA7997800FB876E /* EntryType.swift */; };
 		498B92A72CC9334600B51910 /* HeightPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B92A62CC9334600B51910 /* HeightPreferenceKey.swift */; };
 		498B92A92CC9339C00B51910 /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B92A82CC9339C00B51910 /* Extension+View.swift */; };
+		498B934A2CCE59FE00B51910 /* RequestAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B93492CCE59FE00B51910 /* RequestAPIType.swift */; };
+		498B934C2CCE5D2900B51910 /* ServerEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B934B2CCE5D2900B51910 /* ServerEnvironment.swift */; };
+		498B934F2CCE5DD100B51910 /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B934E2CCE5DD100B51910 /* EnvironmentConfiguration.swift */; };
+		498B93512CCE5FFD00B51910 /* OtherProgramRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B93502CCE5FFD00B51910 /* OtherProgramRequestModel.swift */; };
 		4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6812C97E068001A1375 /* WeightInputFeature.swift */; };
 		4992E6852C980A04001A1375 /* LevelSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6842C980A04001A1375 /* LevelSelectFeature.swift */; };
 		4992E6882C983DF6001A1375 /* MethodSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */; };
@@ -237,6 +241,10 @@
 		498712132CA7997800FB876E /* EntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryType.swift; sourceTree = "<group>"; };
 		498B92A62CC9334600B51910 /* HeightPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightPreferenceKey.swift; sourceTree = "<group>"; };
 		498B92A82CC9339C00B51910 /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
+		498B93492CCE59FE00B51910 /* RequestAPIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAPIType.swift; sourceTree = "<group>"; };
+		498B934B2CCE5D2900B51910 /* ServerEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironment.swift; sourceTree = "<group>"; };
+		498B934E2CCE5DD100B51910 /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
+		498B93502CCE5FFD00B51910 /* OtherProgramRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProgramRequestModel.swift; sourceTree = "<group>"; };
 		4992E6812C97E068001A1375 /* WeightInputFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputFeature.swift; sourceTree = "<group>"; };
 		4992E6842C980A04001A1375 /* LevelSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectFeature.swift; sourceTree = "<group>"; };
 		4992E6872C983DF6001A1375 /* MethodSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectFeature.swift; sourceTree = "<group>"; };
@@ -623,6 +631,15 @@
 			path = Preference;
 			sourceTree = "<group>";
 		};
+		498B934D2CCE5DC000B51910 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				498B934B2CCE5D2900B51910 /* ServerEnvironment.swift */,
+				498B934E2CCE5DD100B51910 /* EnvironmentConfiguration.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
 		4992E6832C97E076001A1375 /* Weight */ = {
 			isa = PBXGroup;
 			children = (
@@ -878,6 +895,8 @@
 				ADCEE1042CBDE16700D71FEB /* HeaderField.swift */,
 				ADCEE1092CBDF53F00D71FEB /* BaseService.swift */,
 				ADCEE1142CBE2A3800D71FEB /* RequestBodyPresentable.swift */,
+				498B93492CCE59FE00B51910 /* RequestAPIType.swift */,
+				498B934D2CCE5DC000B51910 /* Environment */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -887,6 +906,7 @@
 			children = (
 				ADCEE10D2CBE202D00D71FEB /* ProgramRepository.swift */,
 				ADCEE1122CBE296600D71FEB /* ProgramRequestModel.swift */,
+				498B93502CCE5FFD00B51910 /* OtherProgramRequestModel.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1080,8 +1100,10 @@
 				1C6DCBB52CC0049B00ED56B2 /* WorkoutConfirmationType.swift in Sources */,
 				1C1D04F92CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift in Sources */,
 				1C1D04FA2CBE295900BDA52D /* WodSetCoreEntity+CoreDataProperties.swift in Sources */,
+				498B934A2CCE59FE00B51910 /* RequestAPIType.swift in Sources */,
 				1C1D04FB2CBE295900BDA52D /* WodSetCoreEntity+CoreDataClass.swift in Sources */,
 				1C1D04FC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift in Sources */,
+				498B93512CCE5FFD00B51910 /* OtherProgramRequestModel.swift in Sources */,
 				1C1D04FD2CBE295900BDA52D /* WodCoreEntity+CoreDataClass.swift in Sources */,
 				1C1D04FE2CBE295900BDA52D /* WodCoreEntity+CoreDataProperties.swift in Sources */,
 				1C1D04FF2CBE295900BDA52D /* WorkoutCoreEntity+CoreDataProperties.swift in Sources */,
@@ -1103,6 +1125,7 @@
 				1C9C9F682CABA85900157001 /* Programs+Entity.swift in Sources */,
 				1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */,
 				ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */,
+				498B934F2CCE5DD100B51910 /* EnvironmentConfiguration.swift in Sources */,
 				499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */,
 				AD386C302C9D3A470038C27F /* CalendarView.swift in Sources */,
 				1C0B53782CAFA40C00256FE2 /* WorkoutCompletedFeature.swift in Sources */,
@@ -1118,6 +1141,7 @@
 				1C9C9F702CABB67300157001 /* WorkOutTitleView.swift in Sources */,
 				AD386C432CA66F460038C27F /* ModifyProfileFeature.swift in Sources */,
 				497C0F032C9E463900F7444E /* LevelType.swift in Sources */,
+				498B934C2CCE5D2900B51910 /* ServerEnvironment.swift in Sources */,
 				498B92A72CC9334600B51910 /* HeightPreferenceKey.swift in Sources */,
 				AD386C322CA387750038C27F /* ProfileView.swift in Sources */,
 				1C4EE0AB2CA18B630017F1D4 /* WodSetView.swift in Sources */,
