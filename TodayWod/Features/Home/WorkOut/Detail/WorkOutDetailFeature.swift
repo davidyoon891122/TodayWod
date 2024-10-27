@@ -164,11 +164,11 @@ struct WorkOutDetailFeature {
                 state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
                 return .none
             case .breakTimerSettingsAction(.presented(.didTapMinusButton)):
-                return .concatenate(.send(.breakTimerAction(.setDefaultTime)),.send(.breakTimerAction(.didTapResume)))
+                return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction(.presented(.didTapPlusButton)):
-                return .concatenate(.send(.breakTimerAction(.setDefaultTime)),.send(.breakTimerAction(.didTapResume)))
+                return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction(.presented(.didTapRecommend)):
-                return .concatenate(.send(.breakTimerAction(.setDefaultTime)),.send(.breakTimerAction(.didTapResume)))
+                return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
                 return .none
             case .setConfirmationViewDynamicHeight(let height):
