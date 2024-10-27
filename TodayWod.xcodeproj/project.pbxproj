@@ -640,6 +640,15 @@
 			path = Environment;
 			sourceTree = "<group>";
 		};
+		498B93522CCE61A700B51910 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ADCEE1122CBE296600D71FEB /* ProgramRequestModel.swift */,
+				498B93502CCE5FFD00B51910 /* OtherProgramRequestModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4992E6832C97E076001A1375 /* Weight */ = {
 			isa = PBXGroup;
 			children = (
@@ -905,8 +914,7 @@
 			isa = PBXGroup;
 			children = (
 				ADCEE10D2CBE202D00D71FEB /* ProgramRepository.swift */,
-				ADCEE1122CBE296600D71FEB /* ProgramRequestModel.swift */,
-				498B93502CCE5FFD00B51910 /* OtherProgramRequestModel.swift */,
+				498B93522CCE61A700B51910 /* Model */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
