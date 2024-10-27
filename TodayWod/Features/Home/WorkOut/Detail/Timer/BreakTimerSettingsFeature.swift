@@ -13,18 +13,30 @@ struct BreakTimerSettingsFeature {
 
     @ObservableState
     struct State: Equatable {
-        var time: Int = 60
+        var currentTime: Int = 60
         let recommendTimes: [Int] = [30, 60, 90, 120]
     }
 
     enum Action {
-
+        case didTapMinusButton
+        case didTapPlusButton
+        case didTapRecommend(Int)
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-
+            case .didTapMinusButton:
+                if state.currentTime >= 10 {
+                    state.currentTime -= 10
+                }
+                return .none
+            case .didTapPlusButton:
+                state.currentTime += 10
+                return .none
+            case .didTapRecommend(let time):
+                state.currentTime = time
+                return .none
             }
         }
     }
@@ -51,12 +63,12 @@ struct BreakTimerSettingsView: View {
                     .padding(.leading, 20.0)
 
                 HStack(spacing: 10.0) {
-                    Text("\(store.state.time)초")
+                    Text("\(store.state.currentTime)초")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
                     Spacer()
 
                     Button(action: {
-                        // TODO: - 시간 줄이는 액션
+                        store.send(.didTapMinusButton)
                     }, label: {
                         Text("-10초")
                             .font(Fonts.Pretendard.bold.swiftUIFont(size: 13.0))
@@ -69,9 +81,10 @@ struct BreakTimerSettingsView: View {
                     })
 
                     Button(action: {
-                        // TODO: - 시간 늘리는 액션
+                        store.send(.didTapPlusButton)
                     }, label: {
-                        Text("+10초").font(Fonts.Pretendard.bold.swiftUIFont(size: 13.0))
+                        Text("+10초")
+                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 13.0))
                             .frame(width: 64.0, height: 38.0)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 4.0)
@@ -89,7 +102,7 @@ struct BreakTimerSettingsView: View {
                     HStack(spacing: 17.0) {
                         ForEach(store.state.recommendTimes, id: \.self) { time in
                             Button(action: {
-                                // TODO: - 디폴트 값 변경 액션
+                                store.send(.didTapRecommend(time))
                             }, label: {
                                 Text("\(time)초")
                                     .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
