@@ -56,6 +56,12 @@ extension WorkoutModel {
     
 }
 
+extension WorkoutModel {
+    
+    static let fake: Self = .init(data: WorkoutEntity.fake)
+    
+}
+
 struct WodModel: Codable, Equatable, Identifiable {
     
     var id: UUID

@@ -18,6 +18,8 @@ struct WorkOutDetailFeature {
         var hasStart: Bool
         var isDayCompleted: Bool
         
+        var workoutStates: IdentifiedArrayOf<WorkoutDetailContentFeature.State> = []
+        
         var breakTimerState: BreakTimerFeature.State = BreakTimerFeature.State()
 
         var confirmationViewDynamicHeight: CGFloat = 0
@@ -39,13 +41,13 @@ struct WorkOutDetailFeature {
     
     enum Action: BindableAction {
         case onAppear
+        case setWorkoutStates
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
         case startTimer
         case stopTimer
         case timerTick
-        case setCompleted(Bool)
         case updateWodSet
         case saveOwnProgram
         case saveRecentActivity
@@ -54,6 +56,8 @@ struct WorkOutDetailFeature {
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case finishWorkOut(DayWorkoutModel)
         case binding(BindingAction<State>)
+        case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
+        case synchronizeModel(UUID)
         case breakTimerAction(BreakTimerFeature.Action)
         case resetTimer
         case didTapBreakTimer
@@ -77,6 +81,10 @@ struct WorkOutDetailFeature {
             switch action {
             case .onAppear:
                 state.hideTabBar = true
+                return .send(.setWorkoutStates)
+            case .setWorkoutStates:
+                let states = state.item.workouts.map { WorkoutDetailContentFeature.State(hasStart: state.hasStart, model: $0) }
+                state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
                 return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
@@ -89,7 +97,8 @@ struct WorkOutDetailFeature {
                 }
             case .didTapStartButton:
                 state.hasStart = true
-                return .send(.startTimer)
+                return .merge(.send(.setWorkoutStates),
+                              .send(.startTimer))
             case .startTimer:
                 return .run { send in
                     while true {
@@ -107,8 +116,6 @@ struct WorkOutDetailFeature {
                 return .run { send in
                     await send(.saveOwnProgram)
                 }
-            case let .setCompleted(isCompleted):
-                return .send(.updateWodSet)
             case .updateWodSet:
                 return .concatenate(.send(.saveOwnProgram),
                                     .send(.updateDayCompleted))
@@ -183,6 +190,35 @@ struct WorkOutDetailFeature {
                 return .none
             case .binding:
                 return .none
+            case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
+                if isCompleted {
+                    // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
+                    return .merge(.send(.resetTimer),
+                                  .send(.synchronizeModel(id)))
+                } else {
+                    state.item.date = nil // WodSet 완료 취소 시 운동성공 취소 처리.
+                    return .send(.synchronizeModel(id))
+                }
+            case let .workoutActions(.element(id: id, action: .updateUnitText(_))):
+                return .send(.synchronizeModel(id))
+            case let .workoutActions(.element(id: id, action: .addWodSet)):
+                return .send(.synchronizeModel(id))
+            case let .workoutActions(.element(id: id, action: .removeWodSet(canRemove))):
+                
+                // TODO
+                if !canRemove {
+                    print("최소 세트가 남아있기 때문에 삭제가 불가합니다 팝업")
+                }
+                
+                return .send(.synchronizeModel(id))
+            case let .synchronizeModel(id):
+                if let index = state.item.workouts.firstIndex(where: { $0.id == id }),
+                let model = state.workoutStates[id: id]?.model {
+                    state.item.workouts[index] = model
+                }
+                return .send(.updateWodSet)
+            case .workoutActions(_):
+                return .none
             }
         }
         .ifLet(\.$confirmState, action: \.confirmAction) {
@@ -190,6 +226,9 @@ struct WorkOutDetailFeature {
         }
         .ifLet(\.$breakTimerSettingsState, action: \.breakTimerSettingsAction) {
             BreakTimerSettingsFeature()
+        }
+        .forEach(\.workoutStates, action: \.workoutActions) {
+            WorkoutDetailContentFeature()
         }
     }
     
@@ -215,21 +254,8 @@ struct WorkOutDetailView: View {
                                 WorkOutDetailTitleView(item: store.item)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    ForEach($store.item.workouts, id: \.self.id) { workout in
-                                        
-                                        let workoutValue = workout.wrappedValue
-                                        
-                                        Text(workoutValue.type.title)
-                                            .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                            .foregroundStyle(Colors.grey100.swiftUIColor)
-                                            .frame(height: 40)
-                                            .padding(.top, 10)
-                                        
-                                        VStack(alignment: .leading, spacing: 10) {
-                                            ForEach(workout.wods) { item in
-                                                WodView(store: store, model: item)
-                                            }
-                                        }
+                                    ForEach(store.scope(state: \.workoutStates, action: \.workoutActions)) { store in
+                                        WorkoutDetailContentView(store: store)
                                     }
                                 }
                             }

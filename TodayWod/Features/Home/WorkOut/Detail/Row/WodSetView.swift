@@ -8,21 +8,67 @@
 import SwiftUI
 import ComposableArchitecture
 
+@Reducer
+struct WodSetFeature {
+    
+    @ObservableState
+    struct State: Equatable, Identifiable {
+        var unitText: String = ""
+        
+        let id: UUID
+        let hasStart: Bool
+        let isOrderSetVisible: Bool
+        var model: WodSetModel
+        
+        init(hasStart: Bool, isOrderSetVisible: Bool, model: WodSetModel) {
+            self.id = model.id
+            self.hasStart = hasStart
+            self.isOrderSetVisible = isOrderSetVisible
+            self.model = model
+            
+            self.unitText = model.displayUnitValue
+        }
+    }
+    
+    enum Action {
+        case setCompleted
+        case updateCompleted(Bool)
+        case setUnitText(String)
+        case updateUnitText(String)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .setCompleted:
+                state.model.isCompleted.toggle()
+                return .send(.updateCompleted(state.model.isCompleted))
+            case .updateCompleted(_):
+                return .none
+            case let .setUnitText(text):
+                state.unitText = text
+                return .send(.updateUnitText(state.unitText))
+            case .updateUnitText(_):
+                return .none
+            }
+        }
+    }
+}
+
 struct WodSetView: View {
     
-    @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    @Binding var model: WodSetModel
-    
-    @State private var unitText: String = ""
+    @Perception.Bindable var store: StoreOf<WodSetFeature>
     
     var body: some View {
         WithPerceptionTracking {
             HStack(spacing: 10) {
-                Text(self.model.displaySetNumber)
-                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
-                    .foregroundStyle(Colors.grey100.swiftUIColor)
-                    .frame(width: 48)
-                TextField("", text: $unitText)
+                if store.isOrderSetVisible {
+                    Text(store.model.displaySetNumber)
+                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
+                        .foregroundStyle(Colors.grey100.swiftUIColor)
+                        .frame(width: 48)
+                }
+                TextField("", text: $store.unitText.sending(\.setUnitText))
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 18.0))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
                     .frame(width: 48, height: 48)
@@ -31,35 +77,24 @@ struct WodSetView: View {
                     .keyboardType(.numberPad)
                 Spacer()
                 Button {
-                    self.model.isCompleted.toggle()
-                    // TODO: - 모델을 뷰에서 직접 변경하여, Action에서 상태 파악 불가
-                    // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
-                    if self.model.isCompleted {
-                        store.send(.resetTimer)
-                    }
+                    store.send(.setCompleted)
                 } label: {
-                    if self.store.hasStart {
-                        self.model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
+                    if store.hasStart {
+                        store.model.isCompleted ? Images.icCheckBox.swiftUIImage : Images.icCheckEmpty.swiftUIImage
                     }
                 }
                 .frame(width: 48, height: 48)
                 .background(Colors.grey20.swiftUIColor)
                 .clipShape(.rect(cornerRadius: 8.0))
                 .roundedBorder(radius: 8.0, color: Colors.grey40)
-                .disabled(!self.store.hasStart)
-            }
-            .onAppear {
-                self.unitText = self.model.displayUnitValue
-            }
-            .onChange(of: unitText) { text in
-                self.model.unitValue = text.toInt
+                .disabled(!store.hasStart)
             }
         }
     }
 }
 
 #Preview {
-    WodSetView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
-        WorkOutDetailFeature()
-    }), model: .constant(WodSetModel.fake))
+    WodSetView(store: Store(initialState: WodSetFeature.State(hasStart: true, isOrderSetVisible: true, model: WodSetModel.fake), reducer: {
+        WodSetFeature()
+    }))
 }

@@ -9,10 +9,81 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 
+@Reducer
+struct WodFeature {
+    
+    @ObservableState
+    struct State: Equatable, Identifiable {
+        let id: UUID
+        let hasStart: Bool
+        var model: WodModel
+        
+        var wodSetStates: IdentifiedArrayOf<WodSetFeature.State> = []
+        
+        init(hasStart: Bool, model: WodModel) {
+            self.id = model.id
+            self.hasStart = hasStart
+            self.model = model
+            
+            let states = model.wodSets.map { WodSetFeature.State(hasStart: hasStart, isOrderSetVisible: model.isOrderSetVisible, model: $0) }
+            self.wodSetStates = IdentifiedArrayOf(uniqueElements: states)
+        }
+    }
+    
+    enum Action {
+        case updateCompleted(Bool)
+        case updateUnitText(String)
+        case addWodSet
+        case removeWodSetOf(canRemove: Bool)
+        case removeWodSet
+        case wodSetActions(IdentifiedActionOf<WodSetFeature>)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case let .wodSetActions(.element(id: id, action: .updateCompleted(isCompleted))):
+                if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
+                    state.model.wodSets[index].isCompleted = isCompleted
+                }
+                return .send(.updateCompleted(isCompleted))
+            case let .wodSetActions(.element(id: id, action: .updateUnitText(unit))):
+                if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
+                    state.model.wodSets[index].unitValue = unit.toInt
+                }
+                return .send(.updateUnitText(unit))
+            case .addWodSet:
+                let wodSetState = WodSetFeature.State(hasStart: state.hasStart, isOrderSetVisible: state.model.isOrderSetVisible, model: state.model.newWodSet)
+                state.wodSetStates.append(wodSetState)
+                
+                state.model.wodSets.append(state.model.newWodSet) // local newWodSet order을 위한 처리.
+                
+                return .none
+            case .removeWodSet:
+                if state.model.canRemoveSet {
+                    state.wodSetStates.removeLast()
+                }
+                return .send(.removeWodSetOf(canRemove: state.model.canRemoveSet))
+            case .updateCompleted(_):
+                return .none
+            case .updateUnitText(_):
+                return .none
+            case .removeWodSetOf(_):
+                return .none
+            case .wodSetActions(_):
+                return .none
+            }
+        }
+        .forEach(\.wodSetStates, action: \.wodSetActions) {
+            WodSetFeature()
+        }
+    }
+    
+}
+
 struct WodView: View {
     
-    @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
-    @Binding var model: WodModel
+    @Perception.Bindable var store: StoreOf<WodFeature>
     
     var body: some View {
         WithPerceptionTracking {
@@ -22,20 +93,14 @@ struct WodView: View {
                 headerView
                 
                 VStack(spacing: 10) {
-                    ForEach($model.wodSets) { set in
-                        HStack(spacing: 10) {
-                            if self.model.isOrderSetVisible { // 세트 반복.
-                                WodSetView(store: store, model: set)
-                            } else {
-                                WodSetDefaultView(store: store, model: set)
-                            }
-                        }
+                    ForEach(store.scope(state: \.wodSetStates, action: \.wodSetActions)) { store in
+                        WodSetView(store: store)
                     }
                     
-                    if self.model.isOrderSetVisible { // 세트 추가 삭제.
+                    if store.model.isOrderSetVisible { // 세트 추가 삭제.
                         HStack {
                             Button {
-                                self.model.wodSets.append(self.model.newWodSet)
+                                store.send(.addWodSet)
                             } label: {
                                 Text("+ 세트 추가")
                                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
@@ -43,9 +108,7 @@ struct WodView: View {
                             }
                             Spacer()
                             Button {
-                                if self.model.canRemoveSet {
-                                    self.model.wodSets.removeLast()
-                                }
+                                store.send(.removeWodSet)
                             } label: {
                                 Text("- 세트 삭제")
                                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
@@ -57,9 +120,6 @@ struct WodView: View {
                     }
                 }
             }
-            .onChange(of: self.model.wodSets) { _ in
-                self.store.send(.updateWodSet)
-            }
             .padding(20)
             .background(.white)
             .cornerRadius(12, corners: .allCorners)
@@ -68,11 +128,11 @@ struct WodView: View {
     
     var titleView: some View {
         VStack(alignment: .leading) {
-            Text(self.model.title)
+            Text(store.model.title)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
                 .frame(height: 28)
-            Text(self.model.subTitle)
+            Text(store.model.subTitle)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                 .foregroundStyle(Colors.grey70.swiftUIColor)
         }
@@ -81,12 +141,12 @@ struct WodView: View {
     
     var headerView: some View {
         HStack(spacing: 10) {
-            if self.model.isOrderSetVisible {
-                Text(model.displaySet)
+            if store.model.isOrderSetVisible {
+                Text(store.model.displaySet)
                     .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                     .foregroundStyle(Colors.grey100.swiftUIColor)
             }
-            Text(self.model.unit.displayTitle)
+            Text(store.model.unit.displayTitle)
                 .font(Fonts.Pretendard.medium.swiftUIFont(size: 12))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
             Spacer()
@@ -103,9 +163,9 @@ struct WodView: View {
 #Preview {
     VStack {
         Spacer()
-        WodView(store: Store(initialState: WorkOutDetailFeature.State(item: DayWorkoutModel.fake), reducer: {
-            WorkOutDetailFeature()
-        }), model: .constant(WodModel.fake))
+        WodView(store: Store(initialState: WodFeature.State(hasStart: true, model: WodModel.fake), reducer: {
+            WodFeature()
+        }))
         Spacer()
     }
     .background(.blue10)
