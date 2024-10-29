@@ -1,5 +1,5 @@
 //
-//  WodSetView.swift
+//  WodSetFeature.swift
 //  TodayWod
 //
 //  Created by 오지연 on 9/22/24.
