@@ -22,7 +22,6 @@ extension WodCoreEntity {
     @NSManaged public var title: String
     @NSManaged public var unit: String
     @NSManaged public var unitValue: Int64
-    @NSManaged public var workoutId: UUID
     @NSManaged public var wodSets: NSOrderedSet
 
 }

@@ -33,6 +33,7 @@ struct WodFeature {
     enum Action {
         case updateCompleted(Bool)
         case updateUnitText(String)
+        case addWodSetOf(WodSetModel)
         case addWodSet
         case removeWodSetOf(canRemove: Bool)
         case removeWodSet
@@ -53,15 +54,19 @@ struct WodFeature {
                 }
                 return .send(.updateUnitText(unit))
             case .addWodSet:
-                let wodSetState = WodSetFeature.State(hasStart: state.hasStart, isOrderSetVisible: state.model.isOrderSetVisible, model: state.model.newWodSet)
+                let newWodSet = state.model.newWodSet
+                
+                let wodSetState = WodSetFeature.State(hasStart: state.hasStart, isOrderSetVisible: state.model.isOrderSetVisible, model: newWodSet)
                 state.wodSetStates.append(wodSetState)
                 
-                state.model.wodSets.append(state.model.newWodSet) // local newWodSet order을 위한 처리.
+                state.model.wodSets.append(newWodSet) // local newWodSet order을 위한 처리.
                 
-                return .none
+                return .send(.addWodSetOf(newWodSet))
             case .removeWodSet:
                 if state.model.canRemoveSet {
                     state.wodSetStates.removeLast()
+                    
+                    state.model.wodSets.removeLast() // local newWodSet order을 위한 처리.
                 }
                 return .send(.removeWodSetOf(canRemove: state.model.canRemoveSet))
             case .updateCompleted(_):
@@ -69,6 +74,8 @@ struct WodFeature {
             case .updateUnitText(_):
                 return .none
             case .removeWodSetOf(_):
+                return .none
+            case .addWodSetOf(_):
                 return .none
             case .wodSetActions(_):
                 return .none

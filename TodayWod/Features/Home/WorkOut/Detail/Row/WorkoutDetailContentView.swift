@@ -39,9 +39,9 @@ struct WorkoutDetailContentFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .wodActions(.element(id: id, action: .addWodSet)):
+            case let .wodActions(.element(id: id, action: .addWodSetOf(newWodSet))):
                 if let index = state.model.wods.firstIndex(where: { $0.id == id }) {
-                    state.model.wods[index].wodSets.append(state.model.wods[index].newWodSet)
+                    state.model.wods[index].wodSets.append(newWodSet)
                 }
                 return .send(.addWodSet)
             case let .wodActions(.element(id: id, action: .removeWodSetOf(canRemove))):

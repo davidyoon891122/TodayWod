@@ -196,7 +196,7 @@ struct WorkOutDetailFeature {
                     return .merge(.send(.resetTimer),
                                   .send(.synchronizeModel(id)))
                 } else {
-                    state.item.date = nil // WodSet 완료 취소 시 운동성공 취소 처리.
+                    state.item.date = nil // WodSet 완료 취소 시 운동성공 초기화.
                     return .send(.synchronizeModel(id))
                 }
             case let .workoutActions(.element(id: id, action: .updateUnitText(_))):

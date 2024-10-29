@@ -25,7 +25,6 @@ extension WodCoreEntity {
         models.map { model in
             let newItem = WodCoreEntity(context: context)
             newItem.id = model.id
-            newItem.workoutId = model.workoutId
             newItem.title = model.title
             newItem.subTitle = model.subTitle
             newItem.unit = model.unit.rawValue

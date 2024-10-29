@@ -26,8 +26,6 @@ extension WodSetCoreEntity {
             let newItem = WodSetCoreEntity(context: context)
             newItem.id = model.id
             newItem.order = Int64(model.order)
-            newItem.wodModelId = model.wodModelId
-            newItem.workoutId = model.workoutId
             newItem.unitValue = Int64(model.unitValue)
             newItem.isCompleted = model.isCompleted
 
