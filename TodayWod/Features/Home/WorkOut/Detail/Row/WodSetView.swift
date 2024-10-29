@@ -33,6 +33,7 @@ struct WodSetView: View {
                 Button {
                     self.model.isCompleted.toggle()
                     // TODO: - 모델을 뷰에서 직접 변경하여, Action에서 상태 파악 불가
+                    // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
                     if self.model.isCompleted {
                         store.send(.resetTimer)
                     }
