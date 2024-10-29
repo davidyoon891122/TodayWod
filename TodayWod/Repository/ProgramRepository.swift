@@ -12,7 +12,9 @@ import Foundation
 protocol ProgramRepositoryProtocol {
     
     func requestProgram(input: ProgramRequestModel) async throws -> ProgramEntity
-    
+    func requestCurrentProgram(input: ProgramRequestModel, id: String) async throws -> ProgramEntity
+    func requestOtherRandomProgram(input: OtherProgramRequestModel) async throws -> ProgramEntity
+
 }
 
 final class ProgramRepository: BaseService {
@@ -24,19 +26,44 @@ extension ProgramRepository: ProgramRepositoryProtocol {
     func requestProgram(input: ProgramRequestModel) async throws -> ProgramEntity {
         do {
             let apiRequest = APIRequest()
-                .setPath("http://158.179.170.39:3000/wod") // TODO: - Base URL 분리
+                .setPath(RequestAPIType.program.url)
                 .setQuery(input.dict)
-            
-            let entity = try await self.request(with: apiRequest, type: ProgramEntity.self)
-            print("Server data: \(entity)")
-            
-            return entity
+
+            let result = try await self.request(with: apiRequest, type: ProgramEntity.self)
+            DLog.d(result.id)
+            return result
         } catch {
-            print("Error: \(error.localizedDescription)")
+            DLog.e("Error: \(error.localizedDescription)")
             throw error
         }
     }
-    
+
+    func requestCurrentProgram(input: ProgramRequestModel, id: String) async throws -> ProgramEntity {
+        do {
+            let apiRequest = APIRequest()
+                .setPath(RequestAPIType.sameProgram(id).url)
+                .setQuery(input.dict)
+
+            return try await self.request(with: apiRequest, type: ProgramEntity.self)
+        } catch {
+            DLog.e("Error: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    func requestOtherRandomProgram(input: OtherProgramRequestModel) async throws -> ProgramEntity {
+        do {
+            let apiRequest = APIRequest()
+                .setPath(RequestAPIType.program.url)
+                .setQuery(input.dict)
+
+            return try await self.request(with: apiRequest, type: ProgramEntity.self)
+        } catch {
+            DLog.e("Error: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
 }
 
 

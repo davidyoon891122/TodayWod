@@ -16,7 +16,7 @@ extension ProgramCoreEntity {
         return NSFetchRequest<ProgramCoreEntity>(entityName: "ProgramCoreEntity")
     }
 
-    @NSManaged public var id: UUID
+    @NSManaged public var id: String
     @NSManaged public var level: String
     @NSManaged public var methodType: String
     @NSManaged public var dayWorkouts: NSOrderedSet

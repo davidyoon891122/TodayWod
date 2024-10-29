@@ -12,11 +12,6 @@ import CoreData
 @objc(ProgramCoreEntity)
 public class ProgramCoreEntity: NSManagedObject {
     
-    public override func awakeFromInsert() {
-        super.awakeFromInsert()
-        self.id = UUID()
-    }
-    
 }
 
 extension ProgramCoreEntity {
