@@ -28,6 +28,7 @@ struct WorkOutDetailFeature {
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
+        @Presents var alert: AlertState<Action.Alert>?
 
         init(item: DayWorkoutModel) {
             self.item = item
@@ -64,6 +65,12 @@ struct WorkOutDetailFeature {
         case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
         case setConfirmationViewDynamicHeight(CGFloat)
         case setBreakTimerSettingsViewDynamicHeight(CGFloat)
+        case alert(PresentationAction<Alert>)
+        
+        @CasePathable
+        enum Alert: Equatable {
+            case didTapUnRemovable
+        }
     }
     
     enum CancelID { case timer }
@@ -205,9 +212,14 @@ struct WorkOutDetailFeature {
                 return .send(.synchronizeModel(id))
             case let .workoutActions(.element(id: id, action: .removeWodSet(canRemove))):
                 
-                // TODO
                 if !canRemove {
-                    print("최소 세트가 남아있기 때문에 삭제가 불가합니다 팝업")
+                    state.alert = AlertState {
+                        TextState("최소 1세트 이상 진행해야 해요")
+                    } actions: {
+                        ButtonState(role: .cancel, action: .send(.didTapUnRemovable)) {
+                            TextState("확인")
+                        }
+                    }
                 }
                 
                 return .send(.synchronizeModel(id))
@@ -218,6 +230,8 @@ struct WorkOutDetailFeature {
                 }
                 return .send(.updateWodSet)
             case .workoutActions(_):
+                return .none
+            case .alert:
                 return .none
             }
         }
@@ -230,6 +244,7 @@ struct WorkOutDetailFeature {
         .forEach(\.workoutStates, action: \.workoutActions) {
             WorkoutDetailContentFeature()
         }
+        .ifLet(\.$alert, action: \.alert)
     }
     
 }
@@ -295,6 +310,7 @@ struct WorkOutDetailView: View {
                     }
                     .presentationDetents([.height(store.state.breakTimerSettingsViewDynamicHeight)])
             }
+            .alert($store.scope(state: \.alert, action: \.alert))
             .onAppear {
                 store.send(.onAppear)
             }
