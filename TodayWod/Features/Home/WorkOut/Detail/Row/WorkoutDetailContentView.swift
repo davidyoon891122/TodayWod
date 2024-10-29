@@ -46,7 +46,7 @@ struct WorkoutDetailContentFeature {
                 return .send(.addWodSet)
             case let .wodActions(.element(id: id, action: .removeWodSetOf(canRemove))):
                 if let index = state.model.wods.firstIndex(where: { $0.id == id }) {
-                    if state.model.wods[index].canRemoveSet {
+                    if canRemove {
                         state.model.wods[index].wodSets.removeLast()
                     }
                 }
