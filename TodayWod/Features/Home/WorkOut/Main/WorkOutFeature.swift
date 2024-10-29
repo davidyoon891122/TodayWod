@@ -68,27 +68,21 @@ struct WorkOutFeature {
                 return .concatenate(.send(.setDayWorkouts),
                                     .send(.updateWeekCompleted))
             case .didTapNewChallengeButton:
-                guard let method = state.ownProgram?.methodType,
-                        let level = state.ownProgram?.level,
-                        let id = state.ownProgram?.id
-                else { return .none }
+                guard let program = state.ownProgram else { return .none }
                 return .run { send in
                     do {
-                        let programEntity = try await apiClient.requestOtherRandomProgram(.init(methodType: method.rawValue, level: level.rawValue, id: id))
+                        let programEntity = try await apiClient.requestOtherRandomProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue, id: program.id))
                         await send(.updateOwnProgram(programEntity))
                     } catch {
                         await send(.fetchProgramError(error))
                     }
                 }
             case .didTapResetButton:
-                guard let method = state.ownProgram?.methodType,
-                        let level = state.ownProgram?.level,
-                        let id = state.ownProgram?.id
-                else { return .none }
+                guard let program = state.ownProgram else { return .none }
 
                 return .run { send in
                     do {
-                        let programEntity = try await apiClient.requestCurrentProgram(.init(methodType: method.rawValue, level: level.rawValue), "\(id)")
+                        let programEntity = try await apiClient.requestCurrentProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue), "\(program.id)")
                         await send(.updateOwnProgram(programEntity))
                     } catch {
                         await send(.fetchProgramError(error))
