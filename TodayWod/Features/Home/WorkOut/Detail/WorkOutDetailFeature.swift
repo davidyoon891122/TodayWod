@@ -241,10 +241,10 @@ struct WorkOutDetailFeature {
         .ifLet(\.$breakTimerSettingsState, action: \.breakTimerSettingsAction) {
             BreakTimerSettingsFeature()
         }
+        .ifLet(\.$alert, action: \.alert)
         .forEach(\.workoutStates, action: \.workoutActions) {
             WorkoutDetailContentFeature()
         }
-        .ifLet(\.$alert, action: \.alert)
     }
     
 }

@@ -10,13 +10,13 @@ import Foundation
 extension ProgramEntity {
     
     static var bodyBeginner: Self {
-        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
+        .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
     }
     
     static let bodyBeginners: [Self] = [
-        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek),
-        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerBetaWeek),
-        .init(methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerCharlieWeek)
+        .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek),
+        .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerBetaWeek),
+        .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerCharlieWeek)
     ]
     
 }

@@ -9,15 +9,14 @@ import Foundation
 
 struct ProgramModel: Codable, Equatable, Identifiable {
 
-    var id: UUID
+    var id: String
     
     let methodType: ProgramMethodType
     let level: LevelType
     var dayWorkouts: [DayWorkoutModel]
     
     init(data: ProgramEntity) {
-        self.id = UUID()
-        
+        self.id = data.id
         self.methodType = data.methodType
         self.level = data.level
         self.dayWorkouts = data.dayWorkouts.map { DayWorkoutModel(data: $0) }
