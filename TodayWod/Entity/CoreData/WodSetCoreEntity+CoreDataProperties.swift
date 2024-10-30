@@ -19,8 +19,6 @@ extension WodSetCoreEntity {
     @NSManaged public var isCompleted: Bool
     @NSManaged public var order: Int64
     @NSManaged public var unitValue: Int64
-    @NSManaged public var workoutId: UUID
-    @NSManaged public var wodModelId: UUID
 
 }
 

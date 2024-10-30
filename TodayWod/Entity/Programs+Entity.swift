@@ -54,6 +54,14 @@ struct WorkoutEntity: Codable, Equatable {
     
 }
 
+extension WorkoutEntity {
+    
+    static var fake: Self {
+        .init(type: .main, wods: [WodEntity.main1, WodEntity.main2, WodEntity.main3])
+    }
+
+}
+
 struct WodEntity: Codable, Equatable {
     
     let title: String

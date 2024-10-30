@@ -34,7 +34,6 @@
         <attribute name="title" attributeType="String"/>
         <attribute name="unit" attributeType="String"/>
         <attribute name="unitValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="workoutId" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="wodSets" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodSetCoreEntity"/>
     </entity>
     <entity name="WodSetCoreEntity" representedClassName="WodSetCoreEntity" syncable="YES">
@@ -42,8 +41,6 @@
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="unitValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="wodModelId" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="workoutId" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="WorkoutCoreEntity" representedClassName="WorkoutCoreEntity" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>

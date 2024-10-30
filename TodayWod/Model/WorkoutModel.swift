@@ -19,7 +19,7 @@ struct WorkoutModel: Codable, Equatable, Identifiable {
         self.id = id
         
         self.type = data.type
-        self.wods = data.wods.map { WodModel(workoutId: id, data: $0) }
+        self.wods = data.wods.map { WodModel(data: $0) }
     }
     
     init(coreData: WorkoutCoreEntity) {
@@ -56,10 +56,15 @@ extension WorkoutModel {
     
 }
 
+extension WorkoutModel {
+    
+    static let fake: Self = .init(data: WorkoutEntity.fake)
+    
+}
+
 struct WodModel: Codable, Equatable, Identifiable {
     
     var id: UUID
-    var workoutId: UUID
     
     let title: String
     let subTitle: String
@@ -68,22 +73,19 @@ struct WodModel: Codable, Equatable, Identifiable {
     let set: Int
     var wodSets: [WodSetModel] = []
     
-    init(workoutId: UUID, data: WodEntity) {
+    init(data: WodEntity) {
         self.id = UUID()
-        self.workoutId = workoutId
         
         self.title = data.title
         self.subTitle = data.subTitle
         self.unit = data.unit
         self.unitValue = data.unitValue
         self.set = data.set ?? 1
-        let defaultWodSet = WodSetModel(workoutId: workoutId, wodModelId: id, unitValue: data.unitValue)
-        self.wodSets = data.wodSets?.map { WodSetModel(workoutId: workoutId, wodModelId: id, data: $0) } ?? [defaultWodSet]
+        self.wodSets = data.wodSets?.map { WodSetModel(data: $0) } ?? [WodSetModel(unitValue: data.unitValue)]
     }
     
     init(coreData: WodCoreEntity) {
         self.id = coreData.id
-        self.workoutId = coreData.workoutId
         self.title = coreData.title
         self.subTitle = coreData.subTitle
         self.unit = ExerciseUnit(rawValue: coreData.unit) ?? .seconds
@@ -99,7 +101,7 @@ struct WodModel: Codable, Equatable, Identifiable {
 extension WodModel {
     
     var newWodSet: WodSetModel {
-        .init(workoutId: self.workoutId, wodModelId: self.id, unitValue: unitValue, order: self.wodSets.count+1)
+        .init(unitValue: unitValue, order: self.wodSets.count+1)
     }
     
     var isContainCompleted: Bool {
@@ -134,6 +136,6 @@ extension WodModel {
 
 extension WodModel {
     
-    static let fake: Self = .init(workoutId: UUID(), data: WodEntity.fake)
+    static let fake: Self = .init(data: WodEntity.fake)
     
 }
