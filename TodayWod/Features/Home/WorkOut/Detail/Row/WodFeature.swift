@@ -106,21 +106,19 @@ struct WodView: View {
                     
                     if store.model.isOrderSetVisible { // 세트 추가 삭제.
                         HStack {
-                            Button {
-                                store.send(.addWodSet)
-                            } label: {
-                                Text("+ 세트 추가")
-                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                    .foregroundStyle(Colors.grey60.swiftUIColor)
-                            }
+                            Text("+ 세트 추가")
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                .foregroundStyle(Colors.grey60.swiftUIColor)
+                                .onTapGesture {
+                                    store.send(.addWodSet)
+                                }
                             Spacer()
-                            Button {
-                                store.send(.removeWodSet)
-                            } label: {
-                                Text("- 세트 삭제")
-                                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
-                                    .foregroundStyle(Colors.grey60.swiftUIColor)
-                            }
+                            Text("- 세트 삭제")
+                                .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
+                                .foregroundStyle(Colors.grey60.swiftUIColor)
+                                .onTapGesture {
+                                    store.send(.removeWodSet)
+                                }
                         }
                         .frame(height: 44.0)
                         .padding(.horizontal, 10)
