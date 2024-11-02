@@ -16,6 +16,7 @@ struct WorkOutDetailFeature {
         var item: DayWorkoutModel
         var duration: Int
         var hasStart: Bool
+        var isDoneEnabled: Bool
         var isDayCompleted: Bool
         
         var workoutStates: IdentifiedArrayOf<WorkoutDetailContentFeature.State> = []
@@ -34,6 +35,7 @@ struct WorkOutDetailFeature {
             self.item = item
             self.duration = item.duration
             self.hasStart = false
+            self.isDoneEnabled = false
             self.isDayCompleted = false
         }
     }
@@ -49,22 +51,21 @@ struct WorkOutDetailFeature {
         case startTimer
         case stopTimer
         case timerTick
-        case updateWodSet
         case saveOwnProgram
         case saveRecentActivity
-        case updateDayCompleted
         case saveCompletedDate
+        case onConfirm
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
-        case finishWorkOut(DayWorkoutModel)
-        case binding(BindingAction<State>)
-        case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
-        case synchronizeModel(UUID)
-        case breakTimerAction(BreakTimerFeature.Action)
-        case resetTimer
         case didTapBreakTimer
         case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
+        case resetTimer
+        case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
+        case synchronizeModel(UUID)
+        case binding(BindingAction<State>)
         case setConfirmationViewDynamicHeight(CGFloat)
         case setBreakTimerSettingsViewDynamicHeight(CGFloat)
+        case finishWorkOut(DayWorkoutModel)
+        case breakTimerAction(BreakTimerFeature.Action)
         case alert(PresentationAction<Alert>)
         
         @CasePathable
@@ -94,16 +95,13 @@ struct WorkOutDetailFeature {
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
                 return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                return state.isDoneEnabled ? .send(.onConfirm) : .run { _ in await dismiss() }
             case .didTapDoneButton:
-                if state.hasStart && state.item.isContainCompleted { // 최소 한 개 이상 성공 시.
-                    state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
-                    return .none
-                } else {
-                    return .run { _ in await dismiss() }
-                }
+                return .send(.onConfirm)
             case .didTapStartButton:
                 state.hasStart = true
+                state.isDoneEnabled = state.item.isContainCompleted
+                
                 return .merge(.send(.setWorkoutStates),
                               .send(.startTimer))
             case .startTimer:
@@ -120,12 +118,7 @@ struct WorkOutDetailFeature {
                 state.duration += 1
                 
                 state.item.duration = state.duration
-                return .run { send in
-                    await send(.saveOwnProgram)
-                }
-            case .updateWodSet:
-                return .concatenate(.send(.saveOwnProgram),
-                                    .send(.updateDayCompleted))
+                return .none
             case .saveOwnProgram:
                 let dayWorkOut = state.item
                 return .run { send in
@@ -144,36 +137,27 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case .updateDayCompleted:
-                state.isDayCompleted = state.item.isCompleted
-                
-                if state.isDayCompleted {
-                    state.confirmState = WorkoutConfirmationFeature.State(type: .completed) // 운동 완료 재확인.
-                }
-                return .none
             case .saveCompletedDate:
-                state.item.date = Date()
-                
-                let completedDate = CompletedDateModel(date: Date(), duration: state.duration)
+                guard let completedDate = state.item.date else { return .none }
+                let model = CompletedDateModel(date: completedDate, duration: state.duration)
                 return .run { send in
                     do {
-                        try await wodClient.addCompletedDates(completedDate)
+                        try await wodClient.addCompletedDates(model)
                     } catch {
                         DLog.d(error.localizedDescription)
                     }
                 }
+            case .onConfirm:
+                state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
+                return .none
             case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
+                state.item.date = Date() // 운동 완료 Date 저장.
+                
                 return .concatenate(.send(.stopTimer),
                                     .send(.saveCompletedDate),
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
-            case .breakTimerAction:
-                return .none
-            case .resetTimer:
-                return .run { send in
-                    await send(.breakTimerAction(.didTapReset))
-                }
             case .didTapBreakTimer:
                 state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
                 return .none
@@ -185,18 +169,10 @@ struct WorkOutDetailFeature {
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
                 return .none
-            case .setConfirmationViewDynamicHeight(let height):
-                state.confirmationViewDynamicHeight = height
-                return .none
-            case .setBreakTimerSettingsViewDynamicHeight(let height):
-                state.breakTimerSettingsViewDynamicHeight = height
-                return .none
-            case .confirmAction:
-                return .none
-            case .finishWorkOut:
-                return .none
-            case .binding:
-                return .none
+            case .resetTimer:
+                return .run { send in
+                    await send(.breakTimerAction(.didTapReset))
+                }
             case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 if isCompleted {
                     // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
@@ -211,7 +187,6 @@ struct WorkOutDetailFeature {
             case let .workoutActions(.element(id: id, action: .addWodSet)):
                 return .send(.synchronizeModel(id))
             case let .workoutActions(.element(id: id, action: .removeWodSet(canRemove))):
-                
                 if !canRemove {
                     state.alert = AlertState {
                         TextState("최소 1세트 이상 진행해야 해요")
@@ -221,14 +196,32 @@ struct WorkOutDetailFeature {
                         }
                     }
                 }
-                
                 return .send(.synchronizeModel(id))
             case let .synchronizeModel(id):
+                // update local item from states
                 if let index = state.item.workouts.firstIndex(where: { $0.id == id }),
                 let model = state.workoutStates[id: id]?.model {
                     state.item.workouts[index] = model
                 }
-                return .send(.updateWodSet)
+                // update doneButton state
+                state.isEnableDone = state.hasStart && state.item.isContainCompleted
+                // update day completed
+                state.isDayCompleted = state.item.isCompleted
+                return state.isDayCompleted ? .send(.onConfirm) : .none
+            case .setConfirmationViewDynamicHeight(let height):
+                state.confirmationViewDynamicHeight = height
+                return .none
+            case .setBreakTimerSettingsViewDynamicHeight(let height):
+                state.breakTimerSettingsViewDynamicHeight = height
+                return .none
+            case .confirmAction:
+                return .none
+            case .breakTimerAction:
+                return .none
+            case .finishWorkOut:
+                return .none
+            case .binding:
+                return .none
             case .workoutActions(_):
                 return .none
             case .alert:
@@ -257,7 +250,7 @@ struct WorkOutDetailView: View {
         WithPerceptionTracking {
             ZStack(alignment: .bottom) {
                 VStack {
-                    WorkOutNavigationView(duration: store.duration) {
+                    WorkOutNavigationView(duration: store.duration, isEnabled: store.isDoneEnabled) {
                         store.send(.didTapBackButton)
                     } doneAction: {
                         store.send(.didTapDoneButton)
