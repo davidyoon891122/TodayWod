@@ -185,8 +185,8 @@ struct WorkOutDetailFeature {
                 return .send(.synchronizeModel(id))
             case let .workoutActions(.element(id: id, action: .addWodSet)):
                 return .send(.synchronizeModel(id))
-            case let .workoutActions(.element(id: id, action: .removeWodSet(canRemove))):
-                if !canRemove {
+            case let .workoutActions(.element(id: id, action: .removeWodSet(disableRemove))):
+                if disableRemove {
                     state.alert = AlertState {
                         TextState("최소 1세트 이상 진행해야 해요")
                     } actions: {

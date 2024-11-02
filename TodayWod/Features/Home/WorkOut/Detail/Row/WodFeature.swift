@@ -35,7 +35,7 @@ struct WodFeature {
         case updateUnitText(String)
         case addWodSetOf(WodSetModel)
         case addWodSet
-        case removeWodSetOf(canRemove: Bool)
+        case removeWodSetOf(disableRemove: Bool)
         case removeWodSet
         case wodSetActions(IdentifiedActionOf<WodSetFeature>)
     }
@@ -63,12 +63,13 @@ struct WodFeature {
                 
                 return .send(.addWodSetOf(newWodSet))
             case .removeWodSet:
+                let disableRemove = !state.model.canRemoveSet
                 if state.model.canRemoveSet {
                     state.wodSetStates.removeLast()
                     
                     state.model.wodSets.removeLast() // local newWodSet order을 위한 처리.
                 }
-                return .send(.removeWodSetOf(canRemove: state.model.canRemoveSet))
+                return .send(.removeWodSetOf(disableRemove: disableRemove))
             case .updateCompleted(_):
                 return .none
             case .updateUnitText(_):

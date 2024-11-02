@@ -44,13 +44,13 @@ struct WorkoutDetailContentFeature {
                     state.model.wods[index].wodSets.append(newWodSet)
                 }
                 return .send(.addWodSet)
-            case let .wodActions(.element(id: id, action: .removeWodSetOf(canRemove))):
+            case let .wodActions(.element(id: id, action: .removeWodSetOf(disableRemove))):
                 if let index = state.model.wods.firstIndex(where: { $0.id == id }) {
-                    if canRemove {
+                    if state.model.wods[index].canRemoveSet {
                         state.model.wods[index].wodSets.removeLast()
                     }
                 }
-                return .send(.removeWodSet(canRemove))
+                return .send(.removeWodSet(disableRemove))
             case let .wodActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 return .concatenate(.send(.synchronizeModel(id)),
                                     .send(.updateCompleted(isCompleted)))
