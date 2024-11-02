@@ -10,6 +10,7 @@ import SwiftUI
 struct WorkOutNavigationView: View {
 
     let duration: Int
+    let isEnabled: Bool
     
     let backAction: (() -> Void)
     let doneAction: (() -> Void)
@@ -33,9 +34,10 @@ struct WorkOutNavigationView: View {
             }, label: {
                 Text("운동종료")
                     .font(Fonts.Pretendard.regular.swiftUIFont(size: 13))
-                    .foregroundStyle(Colors.grey100.swiftUIColor)
+                    .foregroundStyle(isEnabled ? Colors.grey100.swiftUIColor : Colors.grey60.swiftUIColor)
             })
             .frame(width: 80, height: 40)
+            .disabled(!isEnabled)
         }
         .padding(.horizontal, 12.0)
         .frame(height: 48.0)
@@ -44,7 +46,7 @@ struct WorkOutNavigationView: View {
 
 
 #Preview {
-    WorkOutNavigationView(duration: 0, backAction: {
+    WorkOutNavigationView(duration: 0, isEnabled: true, backAction: {
         print("didTapBackButton")
     }, doneAction: {
         print("didTapDoneButton")
