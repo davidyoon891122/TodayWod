@@ -35,7 +35,7 @@ struct WorkoutModel: Codable, Equatable, Identifiable {
 extension WorkoutModel {
     
     var isCompleted: Bool {
-        self.wods.allSatisfy { $0.isContainCompleted } // Wod 세트 중 하나라도 완료했다면 성공. (기획)
+        self.wods.allSatisfy { $0.isCompleted }
     }
     
     var isContainCompleted: Bool {
@@ -50,7 +50,7 @@ extension WorkoutModel {
         self.wods.reduce(0) { $0 + ($1.isContainCompleted ? 1 : 0) }
     }
     
-    var completedWods: [WodModel] {
+    var completedWods: [WodModel] { // 세트 중 하나라도 성공 시 Record에 노출. (기획)
         self.wods.filter { $0.isContainCompleted }
     }
     
@@ -102,6 +102,10 @@ extension WodModel {
     
     var newWodSet: WodSetModel {
         .init(unitValue: unitValue, order: self.wodSets.count+1)
+    }
+    
+    var isCompleted: Bool {
+        self.wodSets.allSatisfy { $0.isCompleted }
     }
     
     var isContainCompleted: Bool {

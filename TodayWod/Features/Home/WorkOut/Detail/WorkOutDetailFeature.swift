@@ -179,7 +179,6 @@ struct WorkOutDetailFeature {
                     return .merge(.send(.resetTimer),
                                   .send(.synchronizeModel(id)))
                 } else {
-                    state.item.date = nil // WodSet 완료 취소 시 운동성공 초기화.
                     return .send(.synchronizeModel(id))
                 }
             case let .workoutActions(.element(id: id, action: .updateUnitText(_))):
@@ -204,7 +203,7 @@ struct WorkOutDetailFeature {
                     state.item.workouts[index] = model
                 }
                 // update doneButton state
-                state.isEnableDone = state.hasStart && state.item.isContainCompleted
+                state.isDoneEnabled = state.hasStart && state.item.isContainCompleted
                 // update day completed
                 state.isDayCompleted = state.item.isCompleted
                 return state.isDayCompleted ? .send(.onConfirm) : .none
