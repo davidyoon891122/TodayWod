@@ -28,6 +28,7 @@ struct WorkOutFeature {
         @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
 
         @Presents var celebrateState: CelebrateFeature.State?
+        @Presents var alert: AlertState<Action.Alert>?
     }
     
     @Dependency(\.apiClient) var apiClient
@@ -46,6 +47,12 @@ struct WorkOutFeature {
         case setDynamicHeight(CGFloat)
         case loadSuccess(ProgramModel)
         case fetchProgramError(Error)
+        case alert(PresentationAction<Alert>)
+        
+        @CasePathable
+        enum Alert: Equatable {
+            case setNewChallenge
+        }
     }
 
     var body: some ReducerOf<Self> {
@@ -68,6 +75,20 @@ struct WorkOutFeature {
                 return .concatenate(.send(.setDayWorkouts),
                                     .send(.updateWeekCompleted))
             case .didTapNewChallengeButton:
+                state.alert = AlertState {
+                    TextState("새로운 도전")
+                } actions: {
+                    ButtonState(role: .destructive) {
+                        TextState("취소")
+                    }
+                    ButtonState(role: .cancel, action: .send(.setNewChallenge)) {
+                        TextState("확인")
+                    }
+                } message: {
+                    TextState("새로운 운동 루틴을 만들어요")
+                }
+                return .none
+            case .alert(.presented(.setNewChallenge)):
                 guard let program = state.ownProgram else { return .none }
                 return .run { send in
                     do {
@@ -131,11 +152,14 @@ struct WorkOutFeature {
             case .fetchProgramError(let error):
                 print("Fetch error : \(error.localizedDescription)")
                 return .none
+            case .alert:
+                return .none
             }
         }
         .ifLet(\.$celebrateState, action: \.celebrateAction) {
             CelebrateFeature()
         }
+        .ifLet(\.alert, action: \.alert)
         .forEach(\.path, action: \.path)
     }
     
@@ -185,6 +209,7 @@ struct WorkOutView: View {
                     }
                     .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
             }
+            .alert($store.scope(state: \.alert, action: \.alert))
         }
     }
     
