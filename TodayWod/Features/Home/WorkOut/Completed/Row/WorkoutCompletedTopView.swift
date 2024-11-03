@@ -18,15 +18,17 @@ struct WorkoutCompletedTopView: View {
             Text(Constants.totalDuration)
                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 13))
                 .foregroundStyle(.grey80)
-            HStack(spacing: 40) {
+            HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(item.displayEstimatedCalorie)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
                         .foregroundStyle(.grey100)
-                    Text(Constants.totalKcal)
+                    Text(item.displayEstimatedCalorieTitle)
                         .font(Fonts.Pretendard.regular.swiftUIFont(size: 13))
                         .foregroundStyle(.grey80)
                 }
+                .padding(.trailing, 40)
+            
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\(item.completedWodsCount)")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 18))
@@ -50,7 +52,6 @@ private extension WorkoutCompletedTopView {
     
     enum Constants {
         static let totalDuration = "운동 시간"
-        static let totalKcal = "소모 Kcal"
         static let workoutTitle = "진행한 운동"
     }
     
