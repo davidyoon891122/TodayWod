@@ -109,7 +109,11 @@ struct WorkOutFeature {
                 }
                 return .none
             case let .didTapDayView(item):
-                state.path.append(.detail(WorkOutDetailFeature.State(item: item)))
+                if item.isCompleted {
+                    state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
+                } else {
+                    state.path.append(.detail(WorkOutDetailFeature.State(item: item)))
+                }
                 return .none
             case let .path(action):
                 switch action {
