@@ -39,6 +39,10 @@ extension ProgramModel {
         self.dayWorkouts.count != 0
     }
     
+    var isEnabledReset: Bool {
+        dayWorkouts.contains { $0.isCompleted }
+    }
+    
 }
 
 extension ProgramModel {
