@@ -52,6 +52,7 @@ struct WorkOutFeature {
         @CasePathable
         enum Alert: Equatable {
             case setNewChallenge
+            case resetProgram
         }
     }
 
@@ -99,6 +100,20 @@ struct WorkOutFeature {
                     }
                 }
             case .didTapResetButton:
+                state.alert = AlertState {
+                    TextState("운동 초기화")
+                } actions: {
+                    ButtonState(role: .destructive) {
+                        TextState("취소")
+                    }
+                    ButtonState(role: .cancel, action: .send(.resetProgram)) {
+                        TextState("확인")
+                    }
+                } message: {
+                    TextState("완료한 운동을 초기화 해요")
+                }
+                return .none
+            case .alert(.presented(.resetProgram)):
                 guard let program = state.ownProgram else { return .none }
 
                 return .run { send in
