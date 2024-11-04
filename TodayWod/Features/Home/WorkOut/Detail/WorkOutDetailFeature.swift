@@ -54,6 +54,7 @@ struct WorkOutDetailFeature {
         case saveOwnProgram
         case saveRecentActivity
         case saveCompletedDate
+        case doneWorkout
         case onConfirm
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case didTapBreakTimer
@@ -97,7 +98,7 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return state.isDoneEnabled ? .send(.onConfirm) : .run { _ in await dismiss() }
             case .didTapDoneButton:
-                return .send(.onConfirm)
+                return state.isDayCompleted ? .send(.doneWorkout) : .send(.onConfirm)
             case .didTapStartButton:
                 state.hasStart = true
                 state.isDoneEnabled = state.item.isContainCompleted
@@ -150,7 +151,7 @@ struct WorkOutDetailFeature {
             case .onConfirm:
                 state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
                 return .none
-            case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
+            case .doneWorkout:
                 state.item.date = Date() // 운동 완료 Date 저장.
                 
                 return .concatenate(.send(.stopTimer),
@@ -158,6 +159,8 @@ struct WorkOutDetailFeature {
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
+            case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
+                return .send(.doneWorkout)
             case .didTapBreakTimer:
                 state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
                 return .none
