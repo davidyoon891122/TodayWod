@@ -23,6 +23,7 @@ struct WorkOutFeature {
         var dayWorkouts: [DayWorkoutModel] = []
         var path = StackState<Path.State>()
         var dynamicHeight: CGFloat = .zero
+        var isEnabledReset: Bool = false
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
         @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
@@ -72,6 +73,7 @@ struct WorkOutFeature {
                 }
             case .loadSuccess(let programModel):
                 state.ownProgram = programModel // 코어데이터에서 가져온 데이터 현재 ownProgram에 set
+                state.isEnabledReset = programModel.isEnabledReset
                 
                 return .concatenate(.send(.setDayWorkouts),
                                     .send(.updateWeekCompleted))

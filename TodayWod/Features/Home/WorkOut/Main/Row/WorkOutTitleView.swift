@@ -22,14 +22,15 @@ struct WorkOutTitleView: View {
                 store.send(.didTapResetButton)
             } label: {
                 HStack {
-                    Images.icRefreshGray16.swiftUIImage
+                    store.isEnabledReset ? Images.icRefresh16.swiftUIImage : Images.icRefreshGray16.swiftUIImage
                     Text(Constants.resetTitle)
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
-                        .foregroundStyle(Colors.grey60.swiftUIColor)
+                        .foregroundStyle(store.isEnabledReset ? Colors.grey100.swiftUIColor : Colors.grey60.swiftUIColor)
                 }
             }
             .frame(width: 86, height: 38)
             .roundedBorder(radius: 4.0, color: Colors.grey40)
+            .disabled(!store.isEnabledReset)
         }
         .frame(height: 54)
         .padding(.horizontal, 20)
