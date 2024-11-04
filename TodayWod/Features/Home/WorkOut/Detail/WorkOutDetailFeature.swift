@@ -54,6 +54,7 @@ struct WorkOutDetailFeature {
         case saveOwnProgram
         case saveRecentActivity
         case saveCompletedDate
+        case doneWorkout
         case onConfirm(WorkoutConfirmationType)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case didTapBreakTimer
@@ -97,7 +98,7 @@ struct WorkOutDetailFeature {
             case .didTapBackButton:
                 return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .run { _ in await dismiss() }
             case .didTapDoneButton:
-                return .send(.onConfirm(.quit))
+                return state.isDayCompleted ? .send(.doneWorkout) : .send(.onConfirm(.quit))
             case .didTapStartButton:
                 state.hasStart = true
                 state.isDoneEnabled = state.item.isContainCompleted
@@ -147,10 +148,7 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case let .onConfirm(type):
-                state.confirmState = WorkoutConfirmationFeature.State(type: type) // 운동 종료 재확인.
-                return .none
-            case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
+            case .doneWorkout:
                 state.item.date = Date() // 운동 완료 Date 저장.
                 
                 return .concatenate(.send(.stopTimer),
@@ -158,6 +156,11 @@ struct WorkOutDetailFeature {
                                     .send(.saveOwnProgram),
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
+            case let .onConfirm(type):
+                state.confirmState = WorkoutConfirmationFeature.State(type: type) // 운동 종료 재확인.
+                return .none
+            case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
+                return .send(.doneWorkout)
             case .didTapBreakTimer:
                 state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
                 return .none
