@@ -54,7 +54,7 @@ struct WorkOutDetailFeature {
         case saveOwnProgram
         case saveRecentActivity
         case saveCompletedDate
-        case onConfirm
+        case onConfirm(WorkoutConfirmationType)
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case didTapBreakTimer
         case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
@@ -95,9 +95,9 @@ struct WorkOutDetailFeature {
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
                 return .none
             case .didTapBackButton:
-                return state.isDoneEnabled ? .send(.onConfirm) : .run { _ in await dismiss() }
+                return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .run { _ in await dismiss() }
             case .didTapDoneButton:
-                return .send(.onConfirm)
+                return .send(.onConfirm(.quit))
             case .didTapStartButton:
                 state.hasStart = true
                 state.isDoneEnabled = state.item.isContainCompleted
@@ -147,8 +147,8 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case .onConfirm:
-                state.confirmState = WorkoutConfirmationFeature.State(type: .quit) // 운동 종료 재확인.
+            case let .onConfirm(type):
+                state.confirmState = WorkoutConfirmationFeature.State(type: type) // 운동 종료 재확인.
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
                 state.item.date = Date() // 운동 완료 Date 저장.
@@ -206,7 +206,7 @@ struct WorkOutDetailFeature {
                 state.isDoneEnabled = state.hasStart && state.item.isContainCompleted
                 // update day completed
                 state.isDayCompleted = state.item.isCompleted
-                return state.isDayCompleted ? .send(.onConfirm) : .none
+                return state.isDayCompleted ? .send(.onConfirm(.completed)) : .none
             case .setConfirmationViewDynamicHeight(let height):
                 state.confirmationViewDynamicHeight = height
                 return .none
