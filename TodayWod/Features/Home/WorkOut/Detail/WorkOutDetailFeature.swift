@@ -44,6 +44,8 @@ struct WorkOutDetailFeature {
     
     enum Action: BindableAction {
         case onAppear
+        case didEnterBackground
+        case willEnterForeground
         case setWorkoutStates
         case didTapBackButton
         case didTapDoneButton
@@ -59,7 +61,9 @@ struct WorkOutDetailFeature {
         case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
         case didTapBreakTimer
         case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
-        case resetTimer
+        case resetBreakTimer
+        case pauseBreakTimer
+        case resumeBreakTimer
         case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
         case synchronizeModel(UUID)
         case binding(BindingAction<State>)
@@ -91,6 +95,14 @@ struct WorkOutDetailFeature {
             case .onAppear:
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
+            case .didEnterBackground:
+                DLog.d("didEnterBackground")
+                return .merge(.send(.stopTimer),
+                              .send(.pauseBreakTimer))
+            case .willEnterForeground:
+                DLog.d("willEnterForeground")
+                return .merge(.send(.startTimer),
+                              .send(.resumeBreakTimer))
             case .setWorkoutStates:
                 let states = state.item.workouts.map { WorkoutDetailContentFeature.State(hasStart: state.hasStart, model: $0) }
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
@@ -117,6 +129,7 @@ struct WorkOutDetailFeature {
                 return .cancel(id: CancelID.timer)
             case .timerTick:
                 state.duration += 1
+                print("duration : \(state.duration)")
                 
                 state.item.duration = state.duration
                 return .none
@@ -172,14 +185,22 @@ struct WorkOutDetailFeature {
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
                 return .none
-            case .resetTimer:
+            case .resetBreakTimer:
                 return .run { send in
                     await send(.breakTimerAction(.didTapReset))
+                }
+            case .pauseBreakTimer:
+                return .run { send in
+                    await send(.breakTimerAction(.didTapPause))
+                }
+            case .resumeBreakTimer:
+                return .run { send in
+                    await send(.breakTimerAction(.didTapResume))
                 }
             case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 if isCompleted {
                     // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
-                    return .merge(.send(.resetTimer),
+                    return .merge(.send(.resetBreakTimer),
                                   .send(.synchronizeModel(id)))
                 } else {
                     return .send(.synchronizeModel(id))
@@ -247,6 +268,7 @@ struct WorkOutDetailFeature {
 struct WorkOutDetailView: View {
     
     @Perception.Bindable var store: StoreOf<WorkOutDetailFeature>
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         WithPerceptionTracking {
@@ -308,6 +330,16 @@ struct WorkOutDetailView: View {
             .alert($store.scope(state: \.alert, action: \.alert))
             .onAppear {
                 store.send(.onAppear)
+            }
+            .onChange(of: scenePhase) { phase in
+                switch phase {
+                case .active:
+                    store.send(.willEnterForeground)
+                case .background:
+                    store.send(.didEnterBackground)
+                default:
+                    break
+                }
             }
         }
     }

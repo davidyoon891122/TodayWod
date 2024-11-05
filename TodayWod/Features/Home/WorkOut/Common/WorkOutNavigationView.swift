@@ -33,7 +33,7 @@ struct WorkOutNavigationView: View {
                 doneAction()
             }, label: {
                 Text("운동종료")
-                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 13))
+                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 13))
                     .foregroundStyle(isEnabled ? Colors.grey100.swiftUIColor : Colors.grey60.swiftUIColor)
             })
             .frame(width: 80, height: 40)
