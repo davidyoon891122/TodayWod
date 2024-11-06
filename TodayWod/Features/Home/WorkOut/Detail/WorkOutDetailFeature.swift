@@ -175,6 +175,10 @@ struct WorkOutDetailFeature {
             case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
                 return .send(.doneWorkout)
             case .didTapBreakTimer:
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.prepare()
+                generator.impactOccurred()
+                
                 state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
                 return .none
             case .breakTimerSettingsAction(.presented(.didTapMinusButton)):
