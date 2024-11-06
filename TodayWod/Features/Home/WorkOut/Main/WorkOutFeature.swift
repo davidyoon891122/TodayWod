@@ -38,6 +38,7 @@ struct WorkOutFeature {
     enum Action {
         case onAppear
         case didTapNewChallengeButton
+        case setNewChallenge
         case didTapResetButton
         case setDayWorkouts
         case updateOwnProgram(ProgramEntity?)
@@ -92,6 +93,8 @@ struct WorkOutFeature {
                 }
                 return .none
             case .alert(.presented(.setNewChallenge)):
+                return .send(.setNewChallenge)
+            case .setNewChallenge:
                 guard let program = state.ownProgram else { return .none }
                 return .run { send in
                     do {
@@ -146,6 +149,8 @@ struct WorkOutFeature {
                     state.celebrateState = CelebrateFeature.State()
                 }
                 return .none
+            case .celebrateAction(.presented(.didTapNewChallengeButton)):
+                return .send(.setNewChallenge)
             case let .didTapDayView(item):
                 if item.isCompleted {
                     state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
