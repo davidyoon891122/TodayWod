@@ -25,6 +25,7 @@ struct MethodSelectFeature {
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapStartButton
         case saveUserInfo
@@ -34,6 +35,7 @@ struct MethodSelectFeature {
         case didTapMachineDescriptionButton
         case finishOnboarding
         case setDynamicHeight(CGFloat)
+        case saveDataBeforeDismiss(ProgramMethodType)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -42,8 +44,19 @@ struct MethodSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.methodType = state.onboardingUserModel.method
+                state.isValidMethod = state.methodType != nil
+                return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                if let method = state.methodType {
+                    return .merge(
+                        .send(.saveDataBeforeDismiss(method)),
+                        .run { _ in await dismiss() }
+                    )
+                } else {
+                    return .run { _ in await dismiss() }
+                }
             case .didTapStartButton:
                 return .send(.saveUserInfo)
             case .saveUserInfo:
@@ -89,6 +102,8 @@ struct MethodSelectFeature {
                 return .none
             case let .setDynamicHeight(height):
                 state.dynamicHeight = height
+                return .none
+            case .saveDataBeforeDismiss:
                 return .none
             }
         }
@@ -156,6 +171,9 @@ struct MethodSelectView: View {
                         .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
 
                 }
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }

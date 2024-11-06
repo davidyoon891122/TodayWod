@@ -39,6 +39,7 @@ struct LevelSelectFeature {
             switch action {
             case .onAppear:
                 state.level = state.onboardingUserModel.level
+                state.isValidLevel = state.level != nil
                 return .none
             case .didTapBackButton:
                 if let level = state.level {
