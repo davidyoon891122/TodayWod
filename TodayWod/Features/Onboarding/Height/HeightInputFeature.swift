@@ -31,6 +31,7 @@ struct HeightInputFeature {
         case setHeight(String)
         case finishInputHeight(WeightInputFeature.State)
         case binding(BindingAction<State>)
+        case saveDataBeforeDismiss(String)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -40,21 +41,32 @@ struct HeightInputFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                if let savedHeight = state.onboardingUserModel.height {
+                    state.height = String(savedHeight)
+                }
                 state.focusedField = .height
                 return .none
             case .didTapBackButton:
-                
-                return .run { _ in await dismiss() }
+                DLog.d(state.height)
+                return .merge(
+                    .send(.saveDataBeforeDismiss(state.height)),
+                    .run { _ in await dismiss() }
+                )
             case .didTapNextButton:
                 state.onboardingUserModel.height = Int(state.height)
                 return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
                 state.height = height
+                if height.isEmpty {
+                    state.height = ""
+                }
                 state.isValidHeight = state.height.isValidHeightWeight()
                 return .none
             case .finishInputHeight:
                 return .none
             case .binding:
+                return .none
+            case .saveDataBeforeDismiss:
                 return .none
             }
         }
