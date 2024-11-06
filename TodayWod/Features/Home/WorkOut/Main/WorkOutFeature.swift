@@ -38,6 +38,7 @@ struct WorkOutFeature {
     enum Action {
         case onAppear
         case didTapNewChallengeButton
+        case setNewChallenge
         case didTapResetButton
         case setDayWorkouts
         case updateOwnProgram(ProgramEntity?)
@@ -52,7 +53,7 @@ struct WorkOutFeature {
         
         @CasePathable
         enum Alert: Equatable {
-            case setNewChallenge
+            case startNewChallenge
             case resetProgram
         }
     }
@@ -84,14 +85,16 @@ struct WorkOutFeature {
                     ButtonState(role: .destructive) {
                         TextState("취소")
                     }
-                    ButtonState(role: .cancel, action: .send(.setNewChallenge)) {
+                    ButtonState(role: .cancel, action: .send(.startNewChallenge)) {
                         TextState("확인")
                     }
                 } message: {
                     TextState("새로운 운동 루틴을 만들어요")
                 }
                 return .none
-            case .alert(.presented(.setNewChallenge)):
+            case .alert(.presented(.startNewChallenge)):
+                return .send(.setNewChallenge)
+            case .setNewChallenge:
                 guard let program = state.ownProgram else { return .none }
                 return .run { send in
                     do {
@@ -146,6 +149,8 @@ struct WorkOutFeature {
                     state.celebrateState = CelebrateFeature.State()
                 }
                 return .none
+            case .celebrateAction(.presented(.didTapNewChallengeButton)):
+                return .send(.setNewChallenge)
             case let .didTapDayView(item):
                 if item.isCompleted {
                     state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
