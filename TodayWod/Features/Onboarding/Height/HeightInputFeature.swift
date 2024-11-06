@@ -57,9 +57,6 @@ struct HeightInputFeature {
                 return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
                 state.height = height
-                if height.isEmpty {
-                    state.height = ""
-                }
                 state.isValidHeight = state.height.isValidHeightWeight()
                 return .none
             case .finishInputHeight:

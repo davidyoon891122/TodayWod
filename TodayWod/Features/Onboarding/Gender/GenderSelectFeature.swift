@@ -56,10 +56,12 @@ struct GenderSelectFeature {
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
                     var heightState = heightState
-                    heightState.onboardingUserModel = state.onboardingUserModel
+                    heightState.onboardingUserModel.height = state.onboardingUserModel.height
                     state.path.append(.height(heightState))
                     return .none
                 case .element(id: _, action: .height(.finishInputHeight(let weightState))):
+                    var weightState = weightState
+                    weightState.onboardingUserModel.weight = state.onboardingUserModel.weight
                     state.path.append(.weight(weightState))
                     return .none
                 case .element(id: _, action: .weight(.finishInputWeight(let levelState))):
@@ -78,6 +80,13 @@ struct GenderSelectFeature {
                         state.onboardingUserModel.height = intHeight
                     } else {
                         state.onboardingUserModel.height = nil
+                    }
+                    return .none
+                case .element(id: _, action: .weight(.saveDataBeforeDismiss(let weight))):
+                    if let intWeight = Int(weight) {
+                        state.onboardingUserModel.weight = intWeight
+                    } else {
+                        state.onboardingUserModel.weight = nil
                     }
                     return .none
                 default:
