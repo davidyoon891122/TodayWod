@@ -23,10 +23,12 @@ struct LevelSelectFeature {
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
         case setLevel(LevelType)
         case finishInputLevel(MethodSelectFeature.State)
+        case saveDataBeforeDismiss(LevelType)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -35,8 +37,18 @@ struct LevelSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.level = state.onboardingUserModel.level
+                return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                if let level = state.level {
+                    return .merge(
+                        .send(.saveDataBeforeDismiss(level)),
+                        .run { _ in await dismiss() }
+                    )
+                } else {
+                    return .run { _ in await dismiss() }
+                }
             case .didTapNextButton:
                 switch state.entryType {
                 case .onBoarding:
@@ -66,6 +78,8 @@ struct LevelSelectFeature {
                 }
                 return .none
             case .finishInputLevel:
+                return .none
+            case .saveDataBeforeDismiss:
                 return .none
             }
         }
@@ -136,6 +150,9 @@ struct LevelSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 

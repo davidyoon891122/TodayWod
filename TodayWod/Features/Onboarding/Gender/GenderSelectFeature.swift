@@ -65,6 +65,8 @@ struct GenderSelectFeature {
                     state.path.append(.weight(weightState))
                     return .none
                 case .element(id: _, action: .weight(.finishInputWeight(let levelState))):
+                    var levelState = levelState
+                    levelState.onboardingUserModel.level = state.onboardingUserModel.level
                     state.path.append(.level(levelState))
                     return .none
                 case .element(id: _, action: .level(.finishInputLevel(let methodState))):
@@ -88,6 +90,9 @@ struct GenderSelectFeature {
                     } else {
                         state.onboardingUserModel.weight = nil
                     }
+                    return .none
+                case .element(id: _, action: .level(.saveDataBeforeDismiss(let level))):
+                    state.onboardingUserModel.level = level
                     return .none
                 default:
                     return .none
