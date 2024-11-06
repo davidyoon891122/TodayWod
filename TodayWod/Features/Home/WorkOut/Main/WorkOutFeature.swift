@@ -223,6 +223,7 @@ struct WorkOutView: View {
                 }
                 
             }
+            .toolbar(.hidden, for: .navigationBar)
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { celebrateStore in
                 CelebrateView(store: celebrateStore)
                     .measureHeight { height in
