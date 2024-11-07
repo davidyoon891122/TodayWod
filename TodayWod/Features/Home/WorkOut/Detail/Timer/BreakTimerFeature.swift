@@ -132,7 +132,7 @@ struct BreakTimerView: View {
                 .clipShape(.rect(cornerRadius: 16.0))
             }
             .padding(20.0)
-            .background(.blue10)
+            .background(.clear)
             .onAppear {
                 store.send(.onAppear)
             }
