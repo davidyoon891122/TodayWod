@@ -26,7 +26,7 @@ struct WorkOutDetailFeature {
         var confirmationViewDynamicHeight: CGFloat = 0
         var breakTimerSettingsViewDynamicHeight: CGFloat = 0
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
