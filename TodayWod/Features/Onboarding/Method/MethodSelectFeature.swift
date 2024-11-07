@@ -17,14 +17,19 @@ struct MethodSelectFeature {
         var methodType: ProgramMethodType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
         var entryType: EntryType = .onBoarding
+        var buttonTitle: String {
+            self.entryType == .modify ? "확인" : "시작하기"
+        }
 
         var dynamicHeight: CGFloat = .zero
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
 
         @Presents var methodDescription: MethodDescriptionFeature.State?
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapStartButton
         case saveUserInfo
@@ -42,6 +47,11 @@ struct MethodSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                if state.entryType == .modify {
+                    state.hideTabBar = true
+                }
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapStartButton:
@@ -138,7 +148,7 @@ struct MethodSelectView: View {
                         }
                         .padding(.bottom, 56.0 + 20.0 + 20.0)
                     }
-                    BottomButton(title: Constants.buttonTitle) {
+                    BottomButton(title: store.state.buttonTitle) {
                         store.send(.didTapStartButton)
                     }
                     .disabled(!store.isValidMethod)
@@ -157,6 +167,9 @@ struct MethodSelectView: View {
 
                 }
             }
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 }
@@ -166,7 +179,6 @@ private extension MethodSelectView {
     enum Constants {
         static let title: String = "나만의 운동 프로그램을\n설정할게요!"
         static let subTitle: String = "운동 방식을 선택해주세요."
-        static let buttonTitle: String = "시작하기"
     }
     
 }

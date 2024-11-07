@@ -136,6 +136,8 @@ struct WorkOutFeature {
                 guard let programEntity = programEntity else { return .none }
                 let programModel = ProgramModel(data: programEntity)
                 state.ownProgram = programModel
+                state.isEnabledReset = programModel.isEnabledReset
+                
                 return .merge(.run { send in
                     do {
                         let _ = try await wodClient.addWodProgram(programModel)

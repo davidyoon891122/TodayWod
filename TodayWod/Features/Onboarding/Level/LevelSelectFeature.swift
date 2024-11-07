@@ -18,11 +18,16 @@ struct LevelSelectFeature {
 
         var isValidLevel: Bool = false
         var entryType: EntryType = .onBoarding
+        var buttonTitle: String {
+            self.entryType == .modify ? "확인" : "다음"
+        }
 
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
         case setLevel(LevelType)
@@ -35,6 +40,11 @@ struct LevelSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                if state.entryType == .modify {
+                    state.hideTabBar = true
+                }
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
@@ -126,7 +136,7 @@ struct LevelSelectView: View {
                     }
 
                     VStack {
-                        BottomButton(title: Constants.buttonTitle) {
+                        BottomButton(title: store.state.buttonTitle) {
                             store.send(.didTapNextButton)
                         }
                         .disabled(!store.isValidLevel)
@@ -136,6 +146,9 @@ struct LevelSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 
@@ -146,7 +159,6 @@ extension LevelSelectView {
     enum Constants {
         static let title: String = "나만의 운동 프로그램을\n설정할게요!"
         static let subTitle: String = "운동 수준을 알려주세요."
-        static let buttonTitle: String = "다음"
     }
     
 }
