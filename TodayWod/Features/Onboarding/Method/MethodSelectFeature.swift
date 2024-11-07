@@ -35,7 +35,7 @@ struct MethodSelectFeature {
         case didTapMachineDescriptionButton
         case finishOnboarding
         case setDynamicHeight(CGFloat)
-        case saveDataBeforeDismiss(ProgramMethodType)
+        case saveData(ProgramMethodType)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -50,8 +50,8 @@ struct MethodSelectFeature {
                 return .none
             case .didTapBackButton:
                 if let method = state.methodType {
-                    return .merge(
-                        .send(.saveDataBeforeDismiss(method)),
+                    return .concatenate(
+                        .send(.saveData(method)),
                         .run { _ in await dismiss() }
                     )
                 } else {
@@ -103,7 +103,7 @@ struct MethodSelectFeature {
             case let .setDynamicHeight(height):
                 state.dynamicHeight = height
                 return .none
-            case .saveDataBeforeDismiss:
+            case .saveData:
                 return .none
             }
         }

@@ -34,7 +34,7 @@ struct NicknameFeature {
         case setNickname(String)
         case didTapNextButton
         case didTapBackButton
-        case saveDataBeforeDismiss(String)
+        case saveData(String)
         case finishInputNickname(HeightInputFeature.State)
         case binding(BindingAction<State>)
     }
@@ -58,15 +58,15 @@ struct NicknameFeature {
                 return .send(.finishInputNickname(HeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case .didTapBackButton:
 
-                return .merge(
-                    .send(.saveDataBeforeDismiss(state.nickName)),
+                return .concatenate(
+                    .send(.saveData(state.nickName)),
                     .run { _ in await dismiss() }
                 )
             case .finishInputNickname:
                 return .none
             case .binding:
                 return .none
-            case .saveDataBeforeDismiss:
+            case .saveData:
                 return .none
             }
         }

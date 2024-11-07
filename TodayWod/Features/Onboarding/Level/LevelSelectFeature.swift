@@ -28,7 +28,7 @@ struct LevelSelectFeature {
         case didTapNextButton
         case setLevel(LevelType)
         case finishInputLevel(MethodSelectFeature.State)
-        case saveDataBeforeDismiss(LevelType)
+        case saveData(LevelType)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -43,8 +43,8 @@ struct LevelSelectFeature {
                 return .none
             case .didTapBackButton:
                 if let level = state.level {
-                    return .merge(
-                        .send(.saveDataBeforeDismiss(level)),
+                    return .concatenate(
+                        .send(.saveData(level)),
                         .run { _ in await dismiss() }
                     )
                 } else {
@@ -80,7 +80,7 @@ struct LevelSelectFeature {
                 return .none
             case .finishInputLevel:
                 return .none
-            case .saveDataBeforeDismiss:
+            case .saveData:
                 return .none
             }
         }

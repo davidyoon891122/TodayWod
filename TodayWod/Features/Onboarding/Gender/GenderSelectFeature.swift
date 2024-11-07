@@ -76,27 +76,27 @@ struct GenderSelectFeature {
                     return .none
                 case .element(id: _, action: .method(.finishOnboarding)):
                     return .send(.finishOnboarding)
-                case .element(id: _, action: .nickName(.saveDataBeforeDismiss(let nickName))):
+                case .element(id: _, action: .nickName(.saveData(let nickName))):
                     state.onboardingUserModel.nickName = nickName
                     return .none
-                case .element(id: _, action: .height(.saveDataBeforeDismiss(let height))):
+                case .element(id: _, action: .height(.saveData(let height))):
                     if let intHeight = Int(height) {
                         state.onboardingUserModel.height = intHeight
                     } else {
                         state.onboardingUserModel.height = nil
                     }
                     return .none
-                case .element(id: _, action: .weight(.saveDataBeforeDismiss(let weight))):
+                case .element(id: _, action: .weight(.saveData(let weight))):
                     if let intWeight = Int(weight) {
                         state.onboardingUserModel.weight = intWeight
                     } else {
                         state.onboardingUserModel.weight = nil
                     }
                     return .none
-                case .element(id: _, action: .level(.saveDataBeforeDismiss(let level))):
+                case .element(id: _, action: .level(.saveData(let level))):
                     state.onboardingUserModel.level = level
                     return .none
-                case .element(id: _, action: .method(.saveDataBeforeDismiss(let method))):
+                case .element(id: _, action: .method(.saveData(let method))):
                     state.onboardingUserModel.method = method
                     return .none
                 default:

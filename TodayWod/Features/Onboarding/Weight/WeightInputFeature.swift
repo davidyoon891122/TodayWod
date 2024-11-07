@@ -31,7 +31,7 @@ struct WeightInputFeature {
         case setWeight(String)
         case finishInputWeight(LevelSelectFeature.State)
         case binding(BindingAction<State>)
-        case saveDataBeforeDismiss(String)
+        case saveData(String)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -47,9 +47,8 @@ struct WeightInputFeature {
                 state.focusedField = .weight
                 return .none
             case .didTapBackButton:
-                DLog.d(state.weight)
-                return .merge(
-                    .send(.saveDataBeforeDismiss(state.weight)),
+                return .concatenate(
+                    .send(.saveData(state.weight)),
                     .run { _ in await dismiss() }
                 )
             case .didTapNextButton:
@@ -63,7 +62,7 @@ struct WeightInputFeature {
                 return .none
             case .binding:
                 return .none
-            case .saveDataBeforeDismiss:
+            case .saveData:
                 return .none
             }
         }

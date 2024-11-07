@@ -31,7 +31,7 @@ struct HeightInputFeature {
         case setHeight(String)
         case finishInputHeight(WeightInputFeature.State)
         case binding(BindingAction<State>)
-        case saveDataBeforeDismiss(String)
+        case saveData(String)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -47,9 +47,8 @@ struct HeightInputFeature {
                 state.focusedField = .height
                 return .none
             case .didTapBackButton:
-                DLog.d(state.height)
-                return .merge(
-                    .send(.saveDataBeforeDismiss(state.height)),
+                return .concatenate(
+                    .send(.saveData(state.height)),
                     .run { _ in await dismiss() }
                 )
             case .didTapNextButton:
@@ -63,7 +62,7 @@ struct HeightInputFeature {
                 return .none
             case .binding:
                 return .none
-            case .saveDataBeforeDismiss:
+            case .saveData:
                 return .none
             }
         }
