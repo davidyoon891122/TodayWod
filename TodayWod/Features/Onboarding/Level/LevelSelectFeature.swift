@@ -32,6 +32,7 @@ struct LevelSelectFeature {
         case didTapNextButton
         case setLevel(LevelType)
         case finishInputLevel(MethodSelectFeature.State)
+        case saveData(LevelType)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -41,12 +42,21 @@ struct LevelSelectFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.level = state.onboardingUserModel.level
+                state.isValidLevel = state.level != nil
                 if state.entryType == .modify {
                     state.hideTabBar = true
                 }
                 return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                if let level = state.level {
+                    return .concatenate(
+                        .send(.saveData(level)),
+                        .run { _ in await dismiss() }
+                    )
+                } else {
+                    return .run { _ in await dismiss() }
+                }
             case .didTapNextButton:
                 switch state.entryType {
                 case .onBoarding:
@@ -76,6 +86,8 @@ struct LevelSelectFeature {
                 }
                 return .none
             case .finishInputLevel:
+                return .none
+            case .saveData:
                 return .none
             }
         }

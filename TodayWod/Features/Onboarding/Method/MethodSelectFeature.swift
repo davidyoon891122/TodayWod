@@ -39,6 +39,7 @@ struct MethodSelectFeature {
         case didTapMachineDescriptionButton
         case finishOnboarding
         case setDynamicHeight(CGFloat)
+        case saveData(ProgramMethodType)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -48,12 +49,21 @@ struct MethodSelectFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.methodType = state.onboardingUserModel.method
+                state.isValidMethod = state.methodType != nil
                 if state.entryType == .modify {
                     state.hideTabBar = true
                 }
                 return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                if let method = state.methodType {
+                    return .concatenate(
+                        .send(.saveData(method)),
+                        .run { _ in await dismiss() }
+                    )
+                } else {
+                    return .run { _ in await dismiss() }
+                }
             case .didTapStartButton:
                 return .send(.saveUserInfo)
             case .saveUserInfo:
@@ -99,6 +109,8 @@ struct MethodSelectFeature {
                 return .none
             case let .setDynamicHeight(height):
                 state.dynamicHeight = height
+                return .none
+            case .saveData:
                 return .none
             }
         }
