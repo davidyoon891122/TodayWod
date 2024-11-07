@@ -19,8 +19,6 @@ struct ModifyProfileFeature {
         var focusedField: FieldType?
         var onboardingUserInfoModel: OnboardingUserInfoModel
         
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
-        
         enum FieldType: Hashable {
             case nickName
         }
@@ -41,7 +39,6 @@ struct ModifyProfileFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.hideTabBar = true
                 state.placeHolder = state.onboardingUserInfoModel.nickName ?? ""
                 state.focusedField = .nickName
                 return .none

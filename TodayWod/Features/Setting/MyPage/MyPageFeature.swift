@@ -37,6 +37,7 @@ struct MyPageFeature {
                 state.userInfoModel = onboardingUserInfoModel
                 return .none
             case .didTapBackButton:
+                state.hideTabBar = false
                 return .run { _ in await dismiss() }
             case .didTapModifyProfileButton:
                 return .none
