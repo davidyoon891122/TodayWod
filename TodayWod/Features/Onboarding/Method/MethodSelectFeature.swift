@@ -23,20 +23,31 @@ struct MethodSelectFeature {
 
         var dynamicHeight: CGFloat = .zero
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
+        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
 
         @Presents var methodDescription: MethodDescriptionFeature.State?
+        @Presents var alert: AlertState<Action.Alert>?
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapStartButton
         case saveUserInfo
+        case onConfirmAlert
         case setMethod(ProgramMethodType)
         case methodDescriptionTap(PresentationAction<MethodDescriptionFeature.Action>)
         case didTapBodyDescriptionButton
         case didTapMachineDescriptionButton
         case finishOnboarding
         case setDynamicHeight(CGFloat)
+        case saveData(ProgramMethodType)
+        case alert(PresentationAction<Alert>)
+        
+        @CasePathable
+        enum Alert: Equatable {
+            case resetMethod
+        }
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -45,28 +56,51 @@ struct MethodSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.methodType = state.onboardingUserModel.method
+                state.isValidMethod = state.methodType != nil
+                return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                if let method = state.methodType {
+                    return .concatenate(
+                        .send(.saveData(method)),
+                        .run { _ in await dismiss() }
+                    )
+                } else {
+                    return .run { _ in await dismiss() }
+                }
             case .didTapStartButton:
-                return .send(.saveUserInfo)
+                return state.entryType == .onBoarding ? .send(.saveUserInfo) : .send(.onConfirmAlert)
             case .saveUserInfo:
                 let userDefaultsManager = UserDefaultsManager()
-                
-                switch state.entryType {
-                case .onBoarding:
-                    userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
-
-                    return .send(.finishOnboarding)
-                case .modify:
-                    guard var onboadingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
-                    onboadingUserModel.method = state.methodType
-                    userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
-
-                    state.isLaunchProgram = false
-                    return .run { _ in
-                        try await wodClient.removePrograms()
-                        await dismiss()
+                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+                return .send(.finishOnboarding)
+            case .onConfirmAlert:
+                state.alert = AlertState {
+                    TextState("운동 루틴 초기화")
+                } actions: {
+                    ButtonState(role: .destructive) {
+                        TextState("취소")
                     }
+                    ButtonState(role: .cancel, action: .send(.resetMethod)) {
+                        TextState("확인")
+                    }
+                } message: {
+                    TextState("새로운 수준과 방식에 맞게\n운동 루틴이 초기화돼요")
+                }
+                return .none
+            case .alert(.presented(.resetMethod)):
+                let userDefaultsManager = UserDefaultsManager()
+                guard var onboadingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                onboadingUserModel.method = state.methodType
+                userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
+
+                state.isLaunchProgram = false
+                state.onCelebrate = false
+                
+                return .run { _ in
+                    try await wodClient.removePrograms()
+                    await dismiss()
                 }
             case let .setMethod(methodType):
                 state.methodType = methodType
@@ -93,11 +127,16 @@ struct MethodSelectFeature {
             case let .setDynamicHeight(height):
                 state.dynamicHeight = height
                 return .none
+            case .alert:
+                return .none
+            case .saveData:
+                return .none
             }
         }
         .ifLet(\.$methodDescription, action: \.methodDescriptionTap) {
             MethodDescriptionFeature()
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 
 }
@@ -160,6 +199,10 @@ struct MethodSelectView: View {
 
                 }
             }
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .alert($store.scope(state: \.alert, action: \.alert))
         }
     }
 }

@@ -23,13 +23,26 @@ struct LevelSelectFeature {
         }
 
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
+        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
+        
+        @Presents var alert: AlertState<Action.Alert>?
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
+        case saveUserInfo
+        case onConfirmAlert
         case setLevel(LevelType)
         case finishInputLevel(MethodSelectFeature.State)
+        case saveData(LevelType)
+        case alert(PresentationAction<Alert>)
+        
+        @CasePathable
+        enum Alert: Equatable {
+            case resetLevel
+        }
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -38,27 +51,52 @@ struct LevelSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.level = state.onboardingUserModel.level
+                state.isValidLevel = state.level != nil
+                return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
-            case .didTapNextButton:
-                switch state.entryType {
-                case .onBoarding:
-                    state.onboardingUserModel.level = state.level
-
-                    return .send(.finishInputLevel(MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
-                case .modify:
-                    let userDefaultsManager = UserDefaultsManager()
-                    guard var onboardingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
-                    onboardingUserModel.level = state.level
-                    userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
-
-                    state.isLaunchProgram = false
-                    return .run { _ in
-                        try await wodClient.removePrograms()
-                        await dismiss()
-                    }
+                if let level = state.level {
+                    return .concatenate(
+                        .send(.saveData(level)),
+                        .run { _ in await dismiss() }
+                    )
+                } else {
+                    return .run { _ in await dismiss() }
                 }
+            case .didTapNextButton:
+                return state.entryType == .onBoarding ? .send(.saveUserInfo) : .send(.onConfirmAlert)
+            case .saveUserInfo:
+                state.onboardingUserModel.level = state.level
 
+                return .send(.finishInputLevel(MethodSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
+            case .onConfirmAlert:
+                state.alert = AlertState {
+                    TextState("운동 루틴 초기화")
+                } actions: {
+                    ButtonState(role: .destructive) {
+                        TextState("취소")
+                    }
+                    ButtonState(role: .cancel, action: .send(.resetLevel)) {
+                        TextState("확인")
+                    }
+                } message: {
+                    TextState("새로운 수준과 방식에 맞게\n운동 루틴이 초기화돼요")
+                }
+                return .none
+            case .alert(.presented(.resetLevel)):
+                let userDefaultsManager = UserDefaultsManager()
+                guard var onboardingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                onboardingUserModel.level = state.level
+                userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
+
+                state.isLaunchProgram = false
+                state.onCelebrate = false
+                
+                return .run { _ in
+                    try await wodClient.removePrograms()
+                    await dismiss()
+                }
             case let .setLevel(level):
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.prepare()
@@ -70,8 +108,13 @@ struct LevelSelectFeature {
                 return .none
             case .finishInputLevel:
                 return .none
+            case .alert:
+                return .none
+            case .saveData:
+                return .none
             }
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 
 }
@@ -139,6 +182,10 @@ struct LevelSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .alert($store.scope(state: \.alert, action: \.alert))
         }
     }
 

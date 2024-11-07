@@ -55,23 +55,53 @@ struct GenderSelectFeature {
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
+                    var heightState = heightState
+                    heightState.onboardingUserModel.height = state.onboardingUserModel.height
                     state.path.append(.height(heightState))
                     return .none
                 case .element(id: _, action: .height(.finishInputHeight(let weightState))):
+                    var weightState = weightState
+                    weightState.onboardingUserModel.weight = state.onboardingUserModel.weight
                     state.path.append(.weight(weightState))
                     return .none
                 case .element(id: _, action: .weight(.finishInputWeight(let levelState))):
+                    var levelState = levelState
+                    levelState.onboardingUserModel.level = state.onboardingUserModel.level
                     state.path.append(.level(levelState))
                     return .none
                 case .element(id: _, action: .level(.finishInputLevel(let methodState))):
+                    var methodState = methodState
+                    methodState.onboardingUserModel.method = state.onboardingUserModel.method
                     state.path.append(.method(methodState))
                     return .none
                 case .element(id: _, action: .method(.finishOnboarding)):
                     return .send(.finishOnboarding)
+                case .element(id: _, action: .nickName(.saveData(let nickName))):
+                    state.onboardingUserModel.nickName = nickName
+                    return .none
+                case .element(id: _, action: .height(.saveData(let height))):
+                    if let intHeight = Int(height) {
+                        state.onboardingUserModel.height = intHeight
+                    } else {
+                        state.onboardingUserModel.height = nil
+                    }
+                    return .none
+                case .element(id: _, action: .weight(.saveData(let weight))):
+                    if let intWeight = Int(weight) {
+                        state.onboardingUserModel.weight = intWeight
+                    } else {
+                        state.onboardingUserModel.weight = nil
+                    }
+                    return .none
+                case .element(id: _, action: .level(.saveData(let level))):
+                    state.onboardingUserModel.level = level
+                    return .none
+                case .element(id: _, action: .method(.saveData(let method))):
+                    state.onboardingUserModel.method = method
+                    return .none
                 default:
                     return .none
                 }
-
             case .toNickname:
                 state.path.append(.nickName(NicknameFeature.State(onboardingUserModel: state.onboardingUserModel)))
                 return .none
