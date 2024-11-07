@@ -103,9 +103,11 @@ struct BreakTimerView: View {
                 HStack {
                     Text("휴식")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
+                        .foregroundStyle(.white100)
                     
                     Text("\(store.state.currentSeconds) 초")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 28.0))
+                        .foregroundStyle(.white100)
                     Spacer()
                     Button(action: {
                         store.send(.didTapReset)
@@ -126,11 +128,11 @@ struct BreakTimerView: View {
                 }
                 .padding(.horizontal, 20.0)
                 .padding(.vertical, 20.0)
-                .background(.white)
+                .background(.blue60)
                 .clipShape(.rect(cornerRadius: 16.0))
             }
             .padding(20.0)
-            .background(.blue20)
+            .background(.blue10)
             .onAppear {
                 store.send(.onAppear)
             }

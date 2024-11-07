@@ -187,7 +187,6 @@ struct WorkOutDetailFeature {
             case .breakTimerSettingsAction(.presented(.didTapRecommend)):
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
-                DLog.d("Resume BreakTimer")
                 if state.isDoneEnabled {
                     return .send(.resetBreakTimer)
                 } else {
