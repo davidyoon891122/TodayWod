@@ -83,6 +83,7 @@ struct WorkoutConfirmationView: View {
             .padding(.horizontal, 20.0)
             .padding(.bottom, 20.0)
             .background(.white)
+            .interactiveDismissDisabled()
         }
     }
     

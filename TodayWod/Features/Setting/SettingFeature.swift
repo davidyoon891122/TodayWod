@@ -29,7 +29,6 @@ struct SettingFeature {
         
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var completedState: WorkoutCompletedFeature.State?
-        @Presents var alert: AlertState<Action.Alert>?
     }
     
     @Dependency(\.wodClient) var wodClient
@@ -45,13 +44,6 @@ struct SettingFeature {
         case didTapMyActivity(DayWorkoutModel)
         case completedAction(PresentationAction<WorkoutCompletedFeature.Action>)
         case binding(BindingAction<State>)
-        case alert(PresentationAction<Alert>)
-        
-        @CasePathable
-        enum Alert: Equatable {
-            case resetLevel
-            case resetMethod
-        }
     }
 
     var body: some ReducerOf<Self> {
@@ -105,31 +97,13 @@ struct SettingFeature {
                         state.path.append(.modifyWeight(ModifyWeightFeature.State()))
                         return .none
                     case .level:
-                        state.alert = AlertState {
-                            TextState("운동 루틴 초기화")
-                        } actions: {
-                            ButtonState(role: .destructive) {
-                                TextState("취소")
-                            }
-                            ButtonState(role: .cancel, action: .send(.resetLevel)) {
-                                TextState("확인")
-                            }
-                        } message: {
-                            TextState("새로운 수준과 방식에 맞게\n운동 루틴이 초기화돼요")
+                        if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                            state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         }
                         return .none
                     case .method:
-                        state.alert = AlertState {
-                            TextState("운동 루틴 초기화")
-                        } actions: {
-                            ButtonState(role: .destructive) {
-                                TextState("취소")
-                            }
-                            ButtonState(role: .cancel, action: .send(.resetMethod)) {
-                                TextState("확인")
-                            }
-                        } message: {
-                            TextState("새로운 수준과 방식에 맞게\n운동 루틴이 초기화돼요")
+                        if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                            state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         }
                         return .none
                     }
@@ -142,16 +116,6 @@ struct SettingFeature {
             case let .didTapMyActivity(workout):
                 state.completedState = WorkoutCompletedFeature.State(item: workout)
                 return .none
-            case .alert(.presented(.resetLevel)):
-                if let onboardingUserInfoModel = state.onboardingUserInfoModel {
-                    state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
-                }
-                return .none
-            case .alert(.presented(.resetMethod)):
-                if let onboardingUserInfoModel = state.onboardingUserInfoModel {
-                    state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
-                }
-                return .none
             case .completedAction(.presented(.didTapCloseButton)):
                 return .none
             default:
@@ -162,7 +126,6 @@ struct SettingFeature {
         .ifLet(\.$completedState, action: \.completedAction) {
             WorkoutCompletedFeature()
         }
-        .ifLet(\.$alert, action: \.alert)
     }
 
 }
@@ -230,7 +193,6 @@ struct SettingView: View {
             .sheet(item: $store.scope(state: \.completedState, action: \.completedAction)) { store in
                 WorkoutCompletedView(store: store)
             }
-            .alert($store.scope(state: \.alert, action: \.alert))
         }
 
     }
