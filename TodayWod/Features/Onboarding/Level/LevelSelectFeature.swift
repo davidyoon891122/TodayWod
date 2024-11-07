@@ -18,6 +18,9 @@ struct LevelSelectFeature {
 
         var isValidLevel: Bool = false
         var entryType: EntryType = .onBoarding
+        var buttonTitle: String {
+            self.entryType == .modify ? "확인" : "다음"
+        }
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
@@ -133,7 +136,7 @@ struct LevelSelectView: View {
                     }
 
                     VStack {
-                        BottomButton(title: Constants.buttonTitle) {
+                        BottomButton(title: store.state.buttonTitle) {
                             store.send(.didTapNextButton)
                         }
                         .disabled(!store.isValidLevel)
@@ -156,7 +159,6 @@ extension LevelSelectView {
     enum Constants {
         static let title: String = "나만의 운동 프로그램을\n설정할게요!"
         static let subTitle: String = "운동 수준을 알려주세요."
-        static let buttonTitle: String = "다음"
     }
     
 }
