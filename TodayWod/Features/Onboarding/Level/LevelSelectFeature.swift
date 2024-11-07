@@ -18,6 +18,9 @@ struct LevelSelectFeature {
 
         var isValidLevel: Bool = false
         var entryType: EntryType = .onBoarding
+        var buttonTitle: String {
+            self.entryType == .modify ? "확인" : "다음"
+        }
 
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
     }
@@ -126,7 +129,7 @@ struct LevelSelectView: View {
                     }
 
                     VStack {
-                        BottomButton(title: store.entryType.levelButtonTitle) {
+                        BottomButton(title: store.state.buttonTitle) {
                             store.send(.didTapNextButton)
                         }
                         .disabled(!store.isValidLevel)

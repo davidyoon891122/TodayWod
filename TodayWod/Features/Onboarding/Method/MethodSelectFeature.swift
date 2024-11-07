@@ -17,6 +17,9 @@ struct MethodSelectFeature {
         var methodType: ProgramMethodType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
         var entryType: EntryType = .onBoarding
+        var buttonTitle: String {
+            self.entryType == .modify ? "확인" : "시작하기"
+        }
 
         var dynamicHeight: CGFloat = .zero
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
@@ -138,7 +141,7 @@ struct MethodSelectView: View {
                         }
                         .padding(.bottom, 56.0 + 20.0 + 20.0)
                     }
-                    BottomButton(title: store.state.entryType.methodButtonTitle) {
+                    BottomButton(title: store.state.buttonTitle) {
                         store.send(.didTapStartButton)
                     }
                     .disabled(!store.isValidMethod)
