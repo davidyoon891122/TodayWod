@@ -206,11 +206,13 @@ struct WorkOutDetailFeature {
                 }
             case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 if isCompleted {
-                    // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
                     return .merge(.send(.resetBreakTimer),
                                   .send(.synchronizeModel(id)))
                 } else {
-                    return .send(.synchronizeModel(id))
+                    return .merge(
+                        .send(.pauseBreakTimer),
+                        .send(.synchronizeModel(id))
+                    )
                 }
             case let .workoutActions(.element(id: id, action: .updateUnitText(_))):
                 return .send(.synchronizeModel(id))
