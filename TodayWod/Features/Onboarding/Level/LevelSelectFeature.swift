@@ -19,10 +19,12 @@ struct LevelSelectFeature {
         var isValidLevel: Bool = false
         var entryType: EntryType = .onBoarding
 
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapNextButton
         case setLevel(LevelType)
@@ -35,6 +37,11 @@ struct LevelSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                if state.entryType == .modify {
+                    state.hideTabBar = true
+                }
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapNextButton:
@@ -136,6 +143,9 @@ struct LevelSelectView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 

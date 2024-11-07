@@ -19,12 +19,14 @@ struct MethodSelectFeature {
         var entryType: EntryType = .onBoarding
 
         var dynamicHeight: CGFloat = .zero
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
 
         @Presents var methodDescription: MethodDescriptionFeature.State?
     }
 
     enum Action {
+        case onAppear
         case didTapBackButton
         case didTapStartButton
         case saveUserInfo
@@ -42,6 +44,11 @@ struct MethodSelectFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                if state.entryType == .modify {
+                    state.hideTabBar = true
+                }
+                return .none
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapStartButton:
@@ -156,6 +163,9 @@ struct MethodSelectView: View {
                         .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
 
                 }
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }
