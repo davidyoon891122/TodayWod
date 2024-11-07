@@ -129,7 +129,6 @@ struct WorkOutDetailFeature {
                 return .cancel(id: CancelID.timer)
             case .timerTick:
                 state.duration += 1
-                print("duration : \(state.duration)")
                 
                 state.item.duration = state.duration
                 return .none
@@ -188,7 +187,12 @@ struct WorkOutDetailFeature {
             case .breakTimerSettingsAction(.presented(.didTapRecommend)):
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
-                return .none
+                DLog.d("Resume BreakTimer")
+                if state.isDoneEnabled {
+                    return .send(.resetBreakTimer)
+                } else {
+                    return .send(.pauseBreakTimer)
+                }
             case .resetBreakTimer:
                 return .run { send in
                     await send(.breakTimerAction(.didTapReset))
