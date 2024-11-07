@@ -15,6 +15,8 @@ struct BreakTimerSettingsFeature {
     struct State: Equatable {
         @Shared(.appStorage("BreakTime")) var currentTime: Int = 60
         let recommendTimes: [Int] = [30, 60, 90, 120]
+        let maxTime: Int = 300
+        let minTime: Int = 10
     }
 
     enum Action {
@@ -27,12 +29,14 @@ struct BreakTimerSettingsFeature {
         Reduce { state, action in
             switch action {
             case .didTapMinusButton:
-                if state.currentTime >= 10 { // min 값 확인필요
+                if state.currentTime > state.minTime { // min 값 확인필요
                     state.currentTime -= 10
                 }
                 return .none
             case .didTapPlusButton:
-                state.currentTime += 10 // max 값 확인필요
+                if state.currentTime < state.maxTime {
+                    state.currentTime += 10
+                }
                 return .none
             case .didTapRecommend(let time):
                 state.currentTime = time
