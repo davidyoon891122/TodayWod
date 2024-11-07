@@ -15,6 +15,8 @@ struct MyPageFeature {
     struct State: Equatable {
         var userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
         let version: String = AppEnvironment.shortVersion
+        
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
     }
 
     enum Action {
@@ -30,6 +32,7 @@ struct MyPageFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.hideTabBar = true
                 guard let onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() else { return .none }
                 state.userInfoModel = onboardingUserInfoModel
                 return .none

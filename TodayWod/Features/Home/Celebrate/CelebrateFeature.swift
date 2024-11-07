@@ -18,6 +18,7 @@ struct CelebrateFeature {
 
     enum Action {
         case didTapCloesButton
+        case didTapNewChallengeButton
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -26,10 +27,12 @@ struct CelebrateFeature {
         Reduce { state, action in
             switch action {
             case .didTapCloesButton:
-
+                return .run { _ in await dismiss() }
+            case .didTapNewChallengeButton:
                 return .run { _ in await dismiss() }
             }
         }
+        
     }
 
 }
@@ -70,7 +73,7 @@ struct CelebrateView: View {
                 })
 
                 Button(action: {
-                    // TODO: - did tap new challenge
+                    store.send(.didTapNewChallengeButton)
                 }, label: {
                     Text("새로운 도전하기")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
