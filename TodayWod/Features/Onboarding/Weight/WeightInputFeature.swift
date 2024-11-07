@@ -31,6 +31,7 @@ struct WeightInputFeature {
         case setWeight(String)
         case finishInputWeight(LevelSelectFeature.State)
         case binding(BindingAction<State>)
+        case saveData(String)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -40,13 +41,18 @@ struct WeightInputFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                if let savedWeight = state.onboardingUserModel.weight {
+                    state.weight = String(savedWeight)
+                }
                 state.focusedField = .weight
                 return .none
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+                return .concatenate(
+                    .send(.saveData(state.weight)),
+                    .run { _ in await dismiss() }
+                )
             case .didTapNextButton:
                 state.onboardingUserModel.weight = Int(state.weight)
-
                 return .send(.finishInputWeight(LevelSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setWeight(weight):
                 state.weight = weight
@@ -55,6 +61,8 @@ struct WeightInputFeature {
             case .finishInputWeight:
                 return .none
             case .binding:
+                return .none
+            case .saveData:
                 return .none
             }
         }

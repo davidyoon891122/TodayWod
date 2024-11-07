@@ -27,6 +27,7 @@ struct SettingFeature {
         var completedDates: Set<Date> = []
         var path = StackState<Path.State>()
         
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var completedState: WorkoutCompletedFeature.State?
     }
     
@@ -50,6 +51,7 @@ struct SettingFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.hideTabBar = false
                 if let onbarodingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() {
                     state.onboardingUserInfoModel = onbarodingUserInfoModel
                 }

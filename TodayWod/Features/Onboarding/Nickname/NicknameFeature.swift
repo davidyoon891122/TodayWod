@@ -34,6 +34,7 @@ struct NicknameFeature {
         case setNickname(String)
         case didTapNextButton
         case didTapBackButton
+        case saveData(String)
         case finishInputNickname(HeightInputFeature.State)
         case binding(BindingAction<State>)
     }
@@ -45,6 +46,7 @@ struct NicknameFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.nickName = state.onboardingUserModel.nickName ?? ""
                 state.focusedField = .nickName
                 return .none
             case let .setNickname(nickName):
@@ -55,10 +57,16 @@ struct NicknameFeature {
                 state.onboardingUserModel.nickName = state.nickName
                 return .send(.finishInputNickname(HeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case .didTapBackButton:
-                return .run { _ in await dismiss() }
+
+                return .concatenate(
+                    .send(.saveData(state.nickName)),
+                    .run { _ in await dismiss() }
+                )
             case .finishInputNickname:
                 return .none
             case .binding:
+                return .none
+            case .saveData:
                 return .none
             }
         }
