@@ -27,6 +27,7 @@ struct WorkOutFeature {
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
         @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
+        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
 
         @Presents var celebrateState: CelebrateFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
@@ -95,6 +96,7 @@ struct WorkOutFeature {
             case .alert(.presented(.startNewChallenge)):
                 return .send(.setNewChallenge)
             case .setNewChallenge:
+                state.onCelebrate = false
                 guard let program = state.ownProgram else { return .none }
                 return .run { send in
                     do {
@@ -147,7 +149,8 @@ struct WorkOutFeature {
                 }, .send(.setDayWorkouts))
             case .updateWeekCompleted:
                 let isCelebrate = state.dayWorkouts.allSatisfy { $0.isCompleted }
-                if isCelebrate {
+                if isCelebrate, !state.onCelebrate {
+                    state.onCelebrate = true
                     state.celebrateState = CelebrateFeature.State()
                 }
                 return .none
@@ -203,7 +206,7 @@ struct WorkOutView: View {
         WithPerceptionTracking {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
                 ScrollView {
-                    VStack(alignment: .leading) {
+                    LazyVStack(alignment: .leading) {
                         WorkOutNewChallengeView(store: store)
                         WorkOutTitleView(store: store)
                         

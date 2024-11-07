@@ -24,6 +24,7 @@ struct MethodSelectFeature {
         var dynamicHeight: CGFloat = .zero
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
+        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
 
         @Presents var methodDescription: MethodDescriptionFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
@@ -99,6 +100,8 @@ struct MethodSelectFeature {
                 userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
 
                 state.isLaunchProgram = false
+                state.onCelebrate = false
+                
                 return .run { _ in
                     try await wodClient.removePrograms()
                     await dismiss()

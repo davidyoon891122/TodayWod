@@ -24,6 +24,7 @@ struct LevelSelectFeature {
 
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
+        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
         
         @Presents var alert: AlertState<Action.Alert>?
     }
@@ -94,6 +95,8 @@ struct LevelSelectFeature {
                 userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
 
                 state.isLaunchProgram = false
+                state.onCelebrate = false
+                
                 return .run { _ in
                     try await wodClient.removePrograms()
                     await dismiss()
