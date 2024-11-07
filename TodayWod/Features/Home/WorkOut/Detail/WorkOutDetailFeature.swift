@@ -25,7 +25,9 @@ struct WorkOutDetailFeature {
 
         var confirmationViewDynamicHeight: CGFloat = 0
         var breakTimerSettingsViewDynamicHeight: CGFloat = 0
+        var breakTimerCurrentTime: Int = 60
 
+        @Shared(.appStorage("BreakTime")) var currentTime: Int = 60
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
@@ -93,6 +95,7 @@ struct WorkOutDetailFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.breakTimerCurrentTime = state.currentTime
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
             case .didEnterBackground:
@@ -187,10 +190,13 @@ struct WorkOutDetailFeature {
             case .breakTimerSettingsAction(.presented(.didTapRecommend)):
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
-                if state.isDoneEnabled {
+                let hasBreakTimeModified = state.breakTimerCurrentTime != state.currentTime
+                state.breakTimerCurrentTime = state.currentTime
+                DLog.d(hasBreakTimeModified)
+                if state.isDoneEnabled && hasBreakTimeModified {
                     return .send(.resetBreakTimer)
                 } else {
-                    return .send(.pauseBreakTimer)
+                    return .none
                 }
             case .resetBreakTimer:
                 return .run { send in

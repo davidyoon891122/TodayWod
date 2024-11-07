@@ -64,6 +64,7 @@ struct BreakTimerFeature {
                     .cancellable(id: CancelID.timer)
                 )
             case .didTapPause:
+                state.buttonState = .pause
                 return .cancel(id: CancelID.timer)
             case .didTapResume:
                 return .run { send in
