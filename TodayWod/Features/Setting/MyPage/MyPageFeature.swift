@@ -16,7 +16,7 @@ struct MyPageFeature {
         var userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
         let version: String = AppEnvironment.shortVersion
         
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
     }
 
     enum Action {

@@ -27,7 +27,7 @@ struct SettingFeature {
         var completedDates: Set<Date> = []
         var path = StackState<Path.State>()
         
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
         @Presents var completedState: WorkoutCompletedFeature.State?
     }
     
