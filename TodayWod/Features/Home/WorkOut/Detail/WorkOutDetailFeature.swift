@@ -44,7 +44,7 @@ struct WorkOutDetailFeature {
     
     enum Action: BindableAction {
         case onAppear
-        case onDisappear
+        case willDisappear
         case didEnterBackground
         case willEnterForeground
         case setWorkoutStates
@@ -96,7 +96,7 @@ struct WorkOutDetailFeature {
             case .onAppear:
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
-            case .onDisappear:
+            case .willDisappear:
                 state.hideTabBar = false
                 return .run { _ in await dismiss() }
             case .didEnterBackground:
@@ -110,7 +110,7 @@ struct WorkOutDetailFeature {
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
                 return .none
             case .didTapBackButton:
-                return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .send(.onDisappear)
+                return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .send(.willDisappear)
             case .didTapDoneButton:
                 return state.isDayCompleted ? .send(.doneWorkout) : .send(.onConfirm(.quit))
             case .didTapStartButton:
