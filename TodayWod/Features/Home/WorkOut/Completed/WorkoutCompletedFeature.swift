@@ -14,9 +14,12 @@ struct WorkoutCompletedFeature {
     @ObservableState
     struct State: Equatable {
         let item: DayWorkoutModel
+        
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
     }
     
     enum Action {
+        case onAppear
         case didTapCloseButton
     }
     
@@ -25,7 +28,11 @@ struct WorkoutCompletedFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.hideTabBar = true
+                return .none
             case .didTapCloseButton:
+                state.hideTabBar = false
                 return .run { _ in await dismiss() }
             }
         }
@@ -68,6 +75,9 @@ struct WorkoutCompletedView: View {
                     .padding(.horizontal, 38.0)
                 }
                 
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
             .background(Colors.blue10.swiftUIColor)
             .toolbar(.hidden, for: .navigationBar)
