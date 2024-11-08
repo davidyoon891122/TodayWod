@@ -341,12 +341,8 @@
 		1C1D050A2CBE2C1800BDA52D /* InternalStorage */ = {
 			isa = PBXGroup;
 			children = (
-				1C6DCBD42CC1522000ED56B2 /* CoreDataError.swift */,
-				1C1D05072CBE2C1800BDA52D /* WodClient.swift */,
-				1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */,
-				1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */,
-				1C6DCBB82CC1488800ED56B2 /* RecentWodCoreDataProvider.swift */,
-				1CF3E2432CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift */,
+				1C79997F2CDE013A00553674 /* CoreData */,
+				1C7999802CDE014000553674 /* UserDefaults */,
 			);
 			path = InternalStorage;
 			sourceTree = "<group>";
@@ -379,6 +375,34 @@
 				1C6DCCA02CC6697100ED56B2 /* MyActivityView.swift */,
 			);
 			path = Row;
+			sourceTree = "<group>";
+		};
+		1C79997E2CDE010F00553674 /* StorageClient */ = {
+			isa = PBXGroup;
+			children = (
+				1C1D05072CBE2C1800BDA52D /* WodClient.swift */,
+			);
+			path = StorageClient;
+			sourceTree = "<group>";
+		};
+		1C79997F2CDE013A00553674 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1C6DCBD42CC1522000ED56B2 /* CoreDataError.swift */,
+				1C1D05082CBE2C1800BDA52D /* WodCoreData.swift */,
+				1C1D05092CBE2C1800BDA52D /* WodCoreDataProvider.swift */,
+				1C6DCBB82CC1488800ED56B2 /* RecentWodCoreDataProvider.swift */,
+				1CF3E2432CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		1C7999802CDE014000553674 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		1C8708BE2CACDB8A00967DFE /* Common */ = {
@@ -506,7 +530,6 @@
 		49101A812C90871600FDB709 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -742,6 +765,7 @@
 				497C0F202CA0369900F7444E /* Extensions */,
 				1C8708BE2CACDB8A00967DFE /* Common */,
 				ADCEE11A2CBE3D9D00D71FEB /* APIClient */,
+				1C79997E2CDE010F00553674 /* StorageClient */,
 				49101A842C90878700FDB709 /* Model */,
 				499B076A2C8BEFDF00C46FDD /* Features */,
 				499B07672C8BEFC600C46FDD /* Resources */,
