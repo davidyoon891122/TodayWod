@@ -26,7 +26,7 @@ struct WorkOutDetailFeature {
         var confirmationViewDynamicHeight: CGFloat = 0
         var breakTimerSettingsViewDynamicHeight: CGFloat = 0
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
@@ -44,6 +44,7 @@ struct WorkOutDetailFeature {
     
     enum Action: BindableAction {
         case onAppear
+        case willDisappear
         case didEnterBackground
         case willEnterForeground
         case setWorkoutStates
@@ -95,12 +96,13 @@ struct WorkOutDetailFeature {
             case .onAppear:
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
+            case .willDisappear:
+                state.hideTabBar = false
+                return .run { _ in await dismiss() }
             case .didEnterBackground:
-                DLog.d("didEnterBackground")
                 return .merge(.send(.stopTimer),
                               .send(.pauseBreakTimer))
             case .willEnterForeground:
-                DLog.d("willEnterForeground")
                 return .merge(.send(.startTimer),
                               .send(.resumeBreakTimer))
             case .setWorkoutStates:
@@ -108,7 +110,7 @@ struct WorkOutDetailFeature {
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
                 return .none
             case .didTapBackButton:
-                return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .run { _ in await dismiss() }
+                return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .send(.willDisappear)
             case .didTapDoneButton:
                 return state.isDayCompleted ? .send(.doneWorkout) : .send(.onConfirm(.quit))
             case .didTapStartButton:

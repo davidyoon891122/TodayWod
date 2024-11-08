@@ -22,7 +22,6 @@ struct MethodSelectFeature {
         }
 
         var dynamicHeight: CGFloat = .zero
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
         @Shared(.appStorage("onCelebrate")) var onCelebrate = false
 
@@ -60,9 +59,6 @@ struct MethodSelectFeature {
             case .onAppear:
                 state.methodType = state.onboardingUserModel.method
                 state.isValidMethod = state.methodType != nil
-                if state.entryType == .modify {
-                    state.hideTabBar = true
-                }
                 return .none
             case .didTapBackButton:
                 if let method = state.methodType {

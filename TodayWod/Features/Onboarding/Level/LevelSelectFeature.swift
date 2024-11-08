@@ -22,7 +22,6 @@ struct LevelSelectFeature {
             self.entryType == .modify ? "확인" : "다음"
         }
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
         @Shared(.appStorage("onCelebrate")) var onCelebrate = false
         
@@ -55,9 +54,6 @@ struct LevelSelectFeature {
             case .onAppear:
                 state.level = state.onboardingUserModel.level
                 state.isValidLevel = state.level != nil
-                if state.entryType == .modify {
-                    state.hideTabBar = true
-                }
                 return .none
             case .didTapBackButton:
                 if let level = state.level {

@@ -19,8 +19,6 @@ struct ModifyWeightFeature {
         var onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo()
         var focusedField: FieldType?
         
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
-        
         enum FieldType: Hashable {
             case weight
         }
@@ -41,7 +39,6 @@ struct ModifyWeightFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.hideTabBar = true
                 state.placeHolder = String(state.onboardingUserInfoModel?.weight ?? 0)
                 state.focusedField = .weight
                 return .none
