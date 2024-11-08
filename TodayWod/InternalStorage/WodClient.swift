@@ -12,14 +12,14 @@ struct WodClient {
     
     static let coreData = WodCoreData()
     
-    var getCurrentProgram: () throws -> ProgramModel
-    var getDayModels: () throws -> [DayWorkoutModel]
+    var getCurrentProgram: () async throws -> ProgramModel
+    var getDayModels: () async throws -> [DayWorkoutModel]
     var addWodProgram: (ProgramModel) async throws -> ProgramModel
     var updateWodProgram: (DayWorkoutModel) async throws -> Void
     var removePrograms: () throws -> Void
-    var getRecentDayWorkouts: () throws -> [DayWorkoutModel]
+    var getRecentDayWorkouts: () async throws -> [DayWorkoutModel]
     var addRecentDayWorkouts: (DayWorkoutModel) async throws -> Void
-    var getCompletedDates: () throws -> [CompletedDateModel]
+    var getCompletedDates: () async throws -> [CompletedDateModel]
     var addCompletedDates: (CompletedDateModel) async throws -> Void
     
 }
@@ -39,9 +39,9 @@ extension WodClient: DependencyKey {
     }
 
     static let liveValue: WodClient = Self(getCurrentProgram: {
-        try WodClient.wodProvider.getCurrentProgram()
+        try await WodClient.wodProvider.getCurrentProgram()
     }, getDayModels: {
-        try WodClient.wodProvider.getDayWorkoutEntities()
+        try await WodClient.wodProvider.getDayWorkoutEntities()
     }, addWodProgram: { programsModel in
         try await WodClient.wodProvider.setProgram(model: programsModel) // TOOD: 호출부에 파람 추가하여 3가지 프로그램 중 랜덤 값을 세팅하도록 수정
     }, updateWodProgram: { dayWorkout in
@@ -49,11 +49,11 @@ extension WodClient: DependencyKey {
     }, removePrograms: {
         try WodClient.wodProvider.removeProgram()
     }, getRecentDayWorkouts: {
-        try WodClient.recentWodProvider.getRecentActivities()
+        try await WodClient.recentWodProvider.getRecentActivities()
     }, addRecentDayWorkouts: { dayWorkout in
         try await WodClient.recentWodProvider.setRecentActivities(model: dayWorkout)
     }, getCompletedDates: {
-        try WodClient.completedWodProvider.getCompletedDates()
+        try await WodClient.completedWodProvider.getCompletedDates()
     }, addCompletedDates: { dayWorkout in
         try await WodClient.completedWodProvider.setCompletedDates(model: dayWorkout)
     })

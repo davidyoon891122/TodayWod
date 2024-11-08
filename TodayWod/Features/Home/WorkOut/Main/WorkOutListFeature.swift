@@ -32,7 +32,7 @@ struct WorkOutListFeature {
             case .onAppear:
                 return .run { send in
                     do {
-                        let dayModels = try wodClient.getDayModels()
+                        let dayModels = try await wodClient.getDayModels()
                         await send(.dayModelsResult(.success(dayModels)))
                     } catch {
                         await send(.dayModelsResult(.failure(error)))

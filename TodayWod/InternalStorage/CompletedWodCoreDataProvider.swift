@@ -18,9 +18,11 @@ final class CompletedWodCoreDataProvider {
         self.coreData.context
     }
     
-    func getCompletedDates() throws -> [CompletedDateModel] {
-        try self.fetchCompletedDates().map {
-            CompletedDateModel(coreData: $0)
+    func getCompletedDates() async throws -> [CompletedDateModel] {
+        try await context.perform {
+            try self.fetchCompletedDates().map {
+                CompletedDateModel(coreData: $0)
+            }
         }
     }
     
