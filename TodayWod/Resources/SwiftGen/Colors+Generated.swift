@@ -26,6 +26,7 @@ internal enum Colors {
   internal static let blue20 = ColorAsset(name: "blue20")
   internal static let blue30 = ColorAsset(name: "blue30")
   internal static let blue40 = ColorAsset(name: "blue40")
+  internal static let blue50 = ColorAsset(name: "blue50")
   internal static let blue60 = ColorAsset(name: "blue60")
   internal static let black100 = ColorAsset(name: "black100")
   internal static let green10 = ColorAsset(name: "green10")
