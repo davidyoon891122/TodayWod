@@ -25,9 +25,11 @@ struct WorkOutDetailFeature {
 
         var confirmationViewDynamicHeight: CGFloat = 0
         var breakTimerSettingsViewDynamicHeight: CGFloat = 0
-        var breakTimerCurrentTime: Int = 60
+        // 현재 보여지고 있는 휴식시간의 값(현재 값과 변경된 값 비교를 위해 사용)
+        var currentBreakCountDownTime: Int = 60
 
-        @Shared(.appStorage("BreakTime")) var currentTime: Int = 60
+        // 유저가 세팅하여 변경된 휴식시간의 값
+        @Shared(.appStorage("BreakTime")) var userSetBreakCountDownTime: Int = 60
         @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
@@ -95,7 +97,7 @@ struct WorkOutDetailFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.breakTimerCurrentTime = state.currentTime
+                state.currentBreakCountDownTime = state.userSetBreakCountDownTime
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
             case .didEnterBackground:
@@ -190,8 +192,8 @@ struct WorkOutDetailFeature {
             case .breakTimerSettingsAction(.presented(.didTapRecommend)):
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
-                let hasBreakTimeModified = state.breakTimerCurrentTime != state.currentTime
-                state.breakTimerCurrentTime = state.currentTime
+                let hasBreakTimeModified = state.currentBreakCountDownTime != state.userSetBreakCountDownTime
+                state.currentBreakCountDownTime = state.userSetBreakCountDownTime
                 DLog.d(hasBreakTimeModified)
                 if state.isDoneEnabled && hasBreakTimeModified {
                     return .send(.resetBreakTimer)
