@@ -16,7 +16,6 @@ struct ModifyWeightFeature {
         var placeHolder: String = "0"
         var weight: String = ""
         var isValidWeight: Bool = false
-        var onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo()
         var focusedField: FieldType?
         
         enum FieldType: Hashable {
@@ -33,13 +32,16 @@ struct ModifyWeightFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
-    
+    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.placeHolder = String(state.onboardingUserInfoModel?.weight ?? 0)
+                if let onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                    state.placeHolder = String(onboardingUserInfoModel.weight ?? 0)
+                }
                 state.focusedField = .weight
                 return .none
             case let .setWeight(weight):
@@ -52,9 +54,9 @@ struct ModifyWeightFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapConfirmButton:
-                guard var onboardingUserInfoModel = state.onboardingUserInfoModel else { return .none }
+                guard var onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() else { return .none }
                 onboardingUserInfoModel.weight = Int(state.weight)
-                UserDefaultsManager().saveOnboardingUserInfo(data: onboardingUserInfoModel)
+                userDefaultsAPIClient.saveOnboardingUserInfo(onboardingUserInfoModel)
 
                 return .run { _ in await dismiss() }
             }

@@ -45,7 +45,7 @@ private extension MyInfoView {
 }
 
 #Preview {
-    MyInfoView(store: Store(initialState: MyPageFeature.State()) {
+    MyInfoView(store: Store(initialState: MyPageFeature.State(onboardingUserInfoModel: .preview)) {
         MyPageFeature()
     }, userInfo: OnboardingUserInfoModel.preview.convertToSubArray())
 }
