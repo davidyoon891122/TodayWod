@@ -38,12 +38,14 @@ struct DayWorkoutEntity: Codable, Equatable {
     let minExpectedCalorie: Int
     let maxExpectedCalorie: Int
     var workouts: [WorkoutEntity]
-    
+    let imageName: String
+
+
 }
 
 extension DayWorkoutEntity {
     
-    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay1Info)
+    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay1Info, imageName: "coreStrength1")
 
 }
 
@@ -70,14 +72,17 @@ struct WodEntity: Codable, Equatable {
     let unitValue: Int
     let set: Int?
     let wodSets: [WodSetEntity]?
-    
-    init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int?, wodSets: [WodSetEntity]?) {
+    let expectedCalorie: Int
+
+
+    init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int?, wodSets: [WodSetEntity]?, expectedCalorie: Int) {
         self.title = title
         self.subTitle = subTitle
         self.unit = unit
         self.unitValue = unitValue
         self.set = set
         self.wodSets = wodSets
+        self.expectedCalorie = expectedCalorie
     }
     
 }
@@ -85,7 +90,7 @@ struct WodEntity: Codable, Equatable {
 extension WodEntity {
     
     static var fake: Self {
-        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3, wodSets: WodSetEntity.fakes)
+        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3, wodSets: WodSetEntity.fakes, expectedCalorie: 35)
     }
 
 }

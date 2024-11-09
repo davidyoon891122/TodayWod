@@ -527,13 +527,6 @@
 			path = SocialLogin;
 			sourceTree = "<group>";
 		};
-		49101A812C90871600FDB709 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
 		49101A842C90878700FDB709 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,7 +754,6 @@
 				ADCEE1002CBDDD1900D71FEB /* Network */,
 				ADCEE1112CBE25E300D71FEB /* Repository */,
 				1C1D050A2CBE2C1800BDA52D /* InternalStorage */,
-				49101A812C90871600FDB709 /* Manager */,
 				497C0F202CA0369900F7444E /* Extensions */,
 				1C8708BE2CACDB8A00967DFE /* Common */,
 				ADCEE11A2CBE3D9D00D71FEB /* APIClient */,
