@@ -38,7 +38,8 @@ struct LevelSelectFeature {
         case finishInputLevel(MethodSelectFeature.State)
         case saveData(LevelType)
         case alert(PresentationAction<Alert>)
-        
+        case reloadUserInfo
+
         @CasePathable
         enum Alert: Equatable {
             case resetLevel
@@ -54,7 +55,15 @@ struct LevelSelectFeature {
             switch action {
             case .onAppear:
                 state.level = state.onboardingUserModel.level
-                state.isValidLevel = state.level != nil
+                switch state.entryType {
+                case .onBoarding:
+                    state.isValidLevel = state.level != nil
+                case .modify:
+                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                        state.isValidLevel = savedData.level != state.level && state.level != nil
+                    }
+                }
+
                 return .none
             case .didTapBackButton:
                 if let level = state.level {
@@ -84,7 +93,7 @@ struct LevelSelectFeature {
                 } message: {
                     TextState("새로운 수준과 방식에 맞게\n운동 루틴이 초기화돼요")
                 }
-                return .none
+                return .send(.reloadUserInfo)
             case .alert(.presented(.resetLevel)):
                 guard var onboardingUserModel = userDefaultsClient.loadOnboardingUserInfo() else { return .none }
                 onboardingUserModel.level = state.level
@@ -102,15 +111,26 @@ struct LevelSelectFeature {
                 generator.prepare()
                 generator.impactOccurred()
                 state.level = level
-                if state.level != nil {
-                    state.isValidLevel = true
+
+                switch state.entryType {
+                case .onBoarding:
+                    if state.level != nil {
+                        state.isValidLevel = true
+                    }
+                case .modify:
+                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                        state.isValidLevel = savedData.level != state.level && state.level != nil
+                    }
                 }
+
                 return .none
             case .finishInputLevel:
                 return .none
             case .alert:
                 return .none
             case .saveData:
+                return .none
+            case .reloadUserInfo:
                 return .none
             }
         }

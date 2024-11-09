@@ -33,7 +33,8 @@ struct ModifyProfileFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
-    
+    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
@@ -45,8 +46,8 @@ struct ModifyProfileFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapConfirmButton:
-                UserDefaultsManager().saveOnboardingUserInfo(data: state.onboardingUserInfoModel)
-                
+                userDefaultsAPIClient.saveOnboardingUserInfo(state.onboardingUserInfoModel)
+
                 return .run { _ in await dismiss() }
             case .binding:
                 return .none
