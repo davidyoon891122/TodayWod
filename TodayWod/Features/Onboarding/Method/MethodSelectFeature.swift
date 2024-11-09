@@ -52,6 +52,7 @@ struct MethodSelectFeature {
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.wodClient) var wodClient
+    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -72,8 +73,7 @@ struct MethodSelectFeature {
             case .didTapStartButton:
                 return state.entryType == .onBoarding ? .send(.saveUserInfo) : .send(.onConfirmAlert)
             case .saveUserInfo:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+                userDefaultsAPIClient.saveOnboardingUserInfo(state.onboardingUserModel)
                 return .send(.finishOnboarding)
             case .onConfirmAlert:
                 state.alert = AlertState {
@@ -90,10 +90,9 @@ struct MethodSelectFeature {
                 }
                 return .none
             case .alert(.presented(.resetMethod)):
-                let userDefaultsManager = UserDefaultsManager()
-                guard var onboadingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                guard var onboadingUserModel = userDefaultsAPIClient.loadOnboardingUserInfo() else { return .none }
                 onboadingUserModel.method = state.methodType
-                userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
+                userDefaultsAPIClient.saveOnboardingUserInfo(onboadingUserModel)
 
                 state.isLaunchProgram = false
                 state.onCelebrate = false
