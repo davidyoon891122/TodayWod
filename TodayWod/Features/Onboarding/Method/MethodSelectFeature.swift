@@ -59,7 +59,16 @@ struct MethodSelectFeature {
             switch action {
             case .onAppear:
                 state.methodType = state.onboardingUserModel.method
-                state.isValidMethod = state.methodType != nil
+                switch state.entryType {
+
+                case .onBoarding:
+                    state.isValidMethod = state.methodType != nil
+                case .modify:
+                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                        state.isValidMethod = savedData.method != state.methodType && state.methodType != nil
+                    }
+                }
+
                 return .none
             case .didTapBackButton:
                 if let method = state.methodType {
@@ -108,8 +117,14 @@ struct MethodSelectFeature {
                 generator.prepare()
                 generator.impactOccurred()
 
-                if let _ = state.methodType {
-                    state.isValidMethod = true
+                switch state.entryType {
+
+                case .onBoarding:
+                    state.isValidMethod = state.methodType != nil
+                case .modify:
+                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                        state.isValidMethod = savedData.method != state.methodType && state.methodType != nil
+                    }
                 }
 
                 return .none
