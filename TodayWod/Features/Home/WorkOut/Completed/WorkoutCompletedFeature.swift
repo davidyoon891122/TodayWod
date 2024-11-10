@@ -15,7 +15,7 @@ struct WorkoutCompletedFeature {
     struct State: Equatable {
         let item: DayWorkoutModel
         
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = false
     }
     
     enum Action {

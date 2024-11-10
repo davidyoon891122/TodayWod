@@ -25,9 +25,9 @@ struct WorkOutFeature {
         var dynamicHeight: CGFloat = .zero
         var isEnabledReset: Bool = false
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
-        @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
-        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = false
+        @Shared(.inMemory(SharedConstants.tabType)) var tabType: TabMenuType = .home
+        @Shared(.appStorage(SharedConstants.onCelebrate)) var onCelebrate = false
 
         @Presents var celebrateState: CelebrateFeature.State?
         @Presents var alert: AlertState<Action.Alert>?

@@ -13,7 +13,7 @@ struct BreakTimerFeature {
 
     @ObservableState
     struct State: Equatable {
-        @Shared(.appStorage("BreakTime")) var defaultTime: Int = 60
+        @Shared(.appStorage(SharedConstants.breakTime)) var defaultTime: Int = 60
         var currentSeconds: Int = 0
         var buttonState: ButtonState = .pause
     }

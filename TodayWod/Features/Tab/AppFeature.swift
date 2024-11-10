@@ -16,8 +16,8 @@ struct AppFeature {
         var homeTab = HomeFeature.State()
         var settingsTab = SettingFeature.State()
 
-        @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
+        @Shared(.inMemory(SharedConstants.tabType)) var tabType: TabMenuType = .home
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = false
     }
 
     enum Action: BindableAction {
