@@ -44,8 +44,7 @@ struct WorkOutDayView: View {
                     }
                     Spacer()
                     ZStack {
-                        Images.genderMan.swiftUIImage
-                            .resizable()
+                        item.imageName.toSwiftUIImage
                         if item.isCompleted {
                             Circle()
                                 .foregroundStyle(Colors.blue60.swiftUIColor.opacity(0.8))
