@@ -25,8 +25,12 @@ struct WorkOutDetailFeature {
 
         var confirmationViewDynamicHeight: CGFloat = 0
         var breakTimerSettingsViewDynamicHeight: CGFloat = 0
+        // 현재 보여지고 있는 휴식시간의 값(현재 값과 변경된 값 비교를 위해 사용)
+        var currentBreakCountDownTime: Int = 60
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
+        // 유저가 세팅하여 변경된 휴식시간의 값
+        @Shared(.appStorage("BreakTime")) var userSetBreakCountDownTime: Int = 60
+        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
@@ -94,6 +98,7 @@ struct WorkOutDetailFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                state.currentBreakCountDownTime = state.userSetBreakCountDownTime
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
             case .willDisappear:
@@ -131,7 +136,6 @@ struct WorkOutDetailFeature {
                 return .cancel(id: CancelID.timer)
             case .timerTick:
                 state.duration += 1
-                print("duration : \(state.duration)")
                 
                 state.item.duration = state.duration
                 return .none
@@ -190,7 +194,14 @@ struct WorkOutDetailFeature {
             case .breakTimerSettingsAction(.presented(.didTapRecommend)):
                 return .send(.breakTimerAction(.setDefaultTime))
             case .breakTimerSettingsAction:
-                return .none
+                let hasBreakTimeModified = state.currentBreakCountDownTime != state.userSetBreakCountDownTime
+                state.currentBreakCountDownTime = state.userSetBreakCountDownTime
+                DLog.d(hasBreakTimeModified)
+                if state.isDoneEnabled && hasBreakTimeModified {
+                    return .send(.resetBreakTimer)
+                } else {
+                    return .none
+                }
             case .resetBreakTimer:
                 return .run { send in
                     await send(.breakTimerAction(.didTapReset))
@@ -205,11 +216,13 @@ struct WorkOutDetailFeature {
                 }
             case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 if isCompleted {
-                    // TODO: - 완료상태에서 -> 다시 비완료 처리를 할 경우에는 리셋을 해주어야 할까라는 의문이 있음(기획 확인 필요)
                     return .merge(.send(.resetBreakTimer),
                                   .send(.synchronizeModel(id)))
                 } else {
-                    return .send(.synchronizeModel(id))
+                    return .merge(
+                        .send(.pauseBreakTimer),
+                        .send(.synchronizeModel(id))
+                    )
                 }
             case let .workoutActions(.element(id: id, action: .updateUnitText(_))):
                 return .send(.synchronizeModel(id))

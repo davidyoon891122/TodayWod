@@ -32,7 +32,7 @@ struct BreakTimerFeature {
 
     enum ButtonState {
         case pause
-        case resume
+        case play
     }
 
     @Dependency(\.continuousClock) var clock
@@ -42,13 +42,7 @@ struct BreakTimerFeature {
             switch action {
             case .onAppear:
                 state.currentSeconds = state.defaultTime
-                return .run { send in
-                    while true {
-                        try await Task.sleep(for: .seconds(1))
-                        await send(.timerTick)
-                    }
-                }
-                .cancellable(id: CancelID.timer)
+                return .none
             case .timerTick:
                 if state.currentSeconds <= 0 {
                     return .cancel(id: CancelID.timer)
@@ -58,7 +52,7 @@ struct BreakTimerFeature {
                 return .none
             case .didTapReset:
                 state.currentSeconds = state.defaultTime
-                state.buttonState = .pause
+                state.buttonState = .play
                 return .concatenate(
                     .cancel(id: CancelID.timer),
                     .run { send in
@@ -70,6 +64,7 @@ struct BreakTimerFeature {
                     .cancellable(id: CancelID.timer)
                 )
             case .didTapPause:
+                state.buttonState = .pause
                 return .cancel(id: CancelID.timer)
             case .didTapResume:
                 return .run { send in
@@ -82,11 +77,11 @@ struct BreakTimerFeature {
             case .setButtonState:
                 switch state.buttonState {
                 case .pause:
-                    state.buttonState = .resume
-                    return .send(.didTapPause)
-                case .resume:
-                    state.buttonState = .pause
+                    state.buttonState = .play
                     return .send(.didTapResume)
+                case .play:
+                    state.buttonState = .pause
+                    return .send(.didTapPause)
                 }
             case .setDefaultTime:
                 state.currentSeconds = state.defaultTime
@@ -109,9 +104,11 @@ struct BreakTimerView: View {
                 HStack {
                     Text("휴식")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
+                        .foregroundStyle(.white100)
                     
                     Text("\(store.state.currentSeconds) 초")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 28.0))
+                        .foregroundStyle(.white100)
                     Spacer()
                     Button(action: {
                         store.send(.didTapReset)
@@ -123,20 +120,20 @@ struct BreakTimerView: View {
                         store.send(.setButtonState)
                     }, label: {
                         if (store.buttonState == .pause) {
-                            Images.icPause24.swiftUIImage
-                        } else {
                             Images.icPlay24.swiftUIImage
+                        } else {
+                            Images.icPause24.swiftUIImage
                         }
                         
                     })
                 }
                 .padding(.horizontal, 20.0)
                 .padding(.vertical, 20.0)
-                .background(.white)
+                .background(.blue60)
                 .clipShape(.rect(cornerRadius: 16.0))
             }
             .padding(20.0)
-            .background(.blue20)
+            .background(.clear)
             .onAppear {
                 store.send(.onAppear)
             }
