@@ -26,6 +26,7 @@ extension DayWorkoutCoreEntity {
     @NSManaged public var date: Date?
     @NSManaged public var duration: Int64
     @NSManaged public var workouts: NSOrderedSet
+    @NSManaged public var imageName: String
 
 }
 

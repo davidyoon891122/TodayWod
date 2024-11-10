@@ -23,6 +23,7 @@ extension WodCoreEntity {
     @NSManaged public var unit: String
     @NSManaged public var unitValue: Int64
     @NSManaged public var wodSets: NSOrderedSet
+    @NSManaged public var expectedCalorie: Int64
 
 }
 

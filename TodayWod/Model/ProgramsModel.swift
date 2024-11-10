@@ -66,7 +66,8 @@ struct DayWorkoutModel: Codable, Equatable, Identifiable {
     let minExpectedCalorie: Int
     let maxExpectedCalorie: Int
     var workouts: [WorkoutModel]
-    
+    let imageName: String
+
     init(data: DayWorkoutEntity) {
         self.id = UUID()
         self.date = nil
@@ -79,6 +80,7 @@ struct DayWorkoutModel: Codable, Equatable, Identifiable {
         self.minExpectedCalorie = data.minExpectedCalorie
         self.maxExpectedCalorie = data.maxExpectedCalorie
         self.workouts = data.workouts.map { WorkoutModel(data: $0) }
+        self.imageName = data.imageName
     }
     
     init(coreData: DayWorkoutCoreEntity) {
@@ -95,6 +97,7 @@ struct DayWorkoutModel: Codable, Equatable, Identifiable {
         self.workouts = coreData.workouts
             .compactMap { $0 as? WorkoutCoreEntity}
             .map { WorkoutModel(coreData: $0) }
+        self.imageName = coreData.imageName
     }
     
 }
