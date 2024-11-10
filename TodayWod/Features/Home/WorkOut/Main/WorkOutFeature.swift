@@ -66,7 +66,7 @@ struct WorkOutFeature {
                 state.hideTabBar = false
                 return .run { send in
                     do {
-                        let currentProgram = try wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
+                        let currentProgram = try await wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
                         await send(.loadSuccess(currentProgram))
                     } catch {
                         // TODO: - Load 에러 처리

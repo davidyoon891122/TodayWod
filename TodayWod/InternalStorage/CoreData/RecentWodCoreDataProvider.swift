@@ -19,12 +19,14 @@ final class RecentWodCoreDataProvider {
         self.coreData.context
     }
     
-    func getRecentActivities() throws -> [DayWorkoutModel] {
-        guard let recentActivitiesEntity = try self.fetchRecentActivities() else { return [] }
-        let dayWorkOutEntities = recentActivitiesEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
-
-        return dayWorkOutEntities.map {
-            DayWorkoutModel(coreData: $0)
+    func getRecentActivities() async throws -> [DayWorkoutModel] {
+        try await context.perform {
+            guard let recentActivitiesEntity = try self.fetchRecentActivities() else { return [] }
+            let dayWorkOutEntities = recentActivitiesEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
+            
+            return dayWorkOutEntities.map {
+                DayWorkoutModel(coreData: $0)
+            }
         }
     }
     

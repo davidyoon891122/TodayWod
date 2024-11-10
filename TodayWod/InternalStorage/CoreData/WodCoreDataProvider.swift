@@ -20,22 +20,26 @@ final class WodCoreDataProvider {
         self.coreData.context
     }
 
-    func getCurrentProgram() throws -> ProgramModel {
-        do {
-            guard let result = try fetchProgram() else { throw CoreDataError.emptyData }
-            
-            return ProgramModel(coreData: result)
-        } catch {
-            throw error
+    func getCurrentProgram() async throws -> ProgramModel {
+        try await context.perform {
+            do {
+                guard let result = try self.fetchProgram() else { throw CoreDataError.emptyData }
+                
+                return ProgramModel(coreData: result)
+            } catch {
+                throw error
+            }
         }
     }
     
-    func getDayWorkoutEntities() throws -> [DayWorkoutModel] {
-        guard let programEntity = try self.fetchProgram() else { return [] }
-        let dayWorkOutEntities = programEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
-
-        return dayWorkOutEntities.map {
-            DayWorkoutModel(coreData: $0)
+    func getDayWorkoutEntities() async throws -> [DayWorkoutModel] {
+        try await context.perform {
+            guard let programEntity = try self.fetchProgram() else { return [] }
+            let dayWorkOutEntities = programEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
+            
+            return dayWorkOutEntities.map {
+                DayWorkoutModel(coreData: $0)
+            }
         }
     }
 
@@ -78,13 +82,13 @@ final class WodCoreDataProvider {
     }
 
     func removeProgram() throws -> Void {
-        let currentPrograms = try fetchPrograms()
-
+        let currentPrograms = try self.fetchPrograms()
+        
         currentPrograms.forEach {
-            context.delete($0)
+            self.context.delete($0)
         }
-
-        try context.save()
+        
+        try self.context.save()
     }
 
 }
