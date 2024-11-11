@@ -22,7 +22,7 @@ struct SettingFeature {
 
     @ObservableState
     struct State: Equatable {
-        var onboardingUserInfoModel: OnboardingUserInfoModel? = UserDefaultsManager().loadOnboardingUserInfo()
+        var onboardingUserInfoModel: OnboardingUserInfoModel?
         var recentDayWorkouts: [DayWorkoutModel] = []
         var completedDates: Set<Date> = []
         var path = StackState<Path.State>()
@@ -32,6 +32,7 @@ struct SettingFeature {
     }
     
     @Dependency(\.wodClient) var wodClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     enum Action: BindableAction {
         case onAppear
@@ -44,6 +45,8 @@ struct SettingFeature {
         case didTapMyActivity(DayWorkoutModel)
         case completedAction(PresentationAction<WorkoutCompletedFeature.Action>)
         case binding(BindingAction<State>)
+        case loadUserDefault
+        case loadUserDefaultResult(Result<OnboardingUserInfoModel, Error>)
     }
 
     var body: some ReducerOf<Self> {
@@ -52,12 +55,9 @@ struct SettingFeature {
             switch action {
             case .onAppear:
                 state.hideTabBar = false
-                if let onbarodingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() {
-                    state.onboardingUserInfoModel = onbarodingUserInfoModel
-                }
-                
-                return .merge(.send(.getRecentDayWorkouts),
-                              .send(.getCompletedDates))
+                return .concatenate(.send(.loadUserDefault),
+                                    .send(.getRecentDayWorkouts),
+                                    .send(.getCompletedDates))
             case .getRecentDayWorkouts:
                 return .run { send in
                     do {
@@ -87,7 +87,9 @@ struct SettingFeature {
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .myPage(let .didTapModifyProfileButton(onboardingUserInfoModel))):
-                    state.path.append(.modifyProfile(ModifyProfileFeature.State(onboardingUserInfoModel: onboardingUserInfoModel)))
+                    if let onboardingUserInfoModel = onboardingUserInfoModel {
+                        state.path.append(.modifyProfile(ModifyProfileFeature.State(onboardingUserInfoModel: onboardingUserInfoModel)))
+                    }
                     return .none
                 case .element(id: _, action: .myPage(let .didTapInfoButton(userInfoType))):
                     switch userInfoType {
@@ -97,12 +99,12 @@ struct SettingFeature {
                         state.path.append(.modifyWeight(ModifyWeightFeature.State()))
                         return .none
                     case .level:
-                        if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                        if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                             state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         }
                         return .none
                     case .method:
-                        if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                        if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                             state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         }
                         return .none
@@ -111,12 +113,25 @@ struct SettingFeature {
                     return .none
                 }
             case .didTapMyPage:
-                state.path.append(.myPage(MyPageFeature.State()))
+                if let onboardingUserInfoModel = state.onboardingUserInfoModel {
+                    state.path.append(.myPage(MyPageFeature.State(onboardingUserInfoModel: onboardingUserInfoModel)))
+                }
                 return .none
             case let .didTapMyActivity(workout):
                 state.completedState = WorkoutCompletedFeature.State(item: workout)
                 return .none
             case .completedAction(.presented(.didTapCloseButton)):
+                return .none
+            case .loadUserDefault:
+                return .run { send in
+                    if let result = userDefaultsClient.loadOnboardingUserInfo() {
+                        await send(.loadUserDefaultResult(.success(result)))
+                    } else {
+                        await send(.loadUserDefaultResult(.failure(UserDefaultsError.emptyData)))
+                    }
+                }
+            case .loadUserDefaultResult(.success(let userInfo)):
+                state.onboardingUserInfoModel = userInfo
                 return .none
             default:
                 return .none

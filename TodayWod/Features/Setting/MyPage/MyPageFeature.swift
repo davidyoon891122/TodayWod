@@ -13,8 +13,14 @@ struct MyPageFeature {
     
     @ObservableState
     struct State: Equatable {
-        var userInfoModel = UserDefaultsManager().loadOnboardingUserInfo() ?? .preview
         let version: String = AppEnvironment.shortVersion
+
+
+        var onboardingUserInfoModel: OnboardingUserInfoModel
+
+        init(onboardingUserInfoModel: OnboardingUserInfoModel) {
+            self.onboardingUserInfoModel = onboardingUserInfoModel
+        }
         
         @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
     }
@@ -22,19 +28,21 @@ struct MyPageFeature {
     enum Action {
         case onAppear
         case didTapBackButton
-        case didTapModifyProfileButton(OnboardingUserInfoModel)
+        case didTapModifyProfileButton(OnboardingUserInfoModel?)
         case didTapInfoButton(UserInfoType)
     }
     
     @Dependency(\.dismiss) var dismiss
-    
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
+
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
+                    state.onboardingUserInfoModel = onboardingUserInfoModel
+                }
                 state.hideTabBar = true
-                guard let onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo() else { return .none }
-                state.userInfoModel = onboardingUserInfoModel
                 return .none
             case .didTapBackButton:
                 state.hideTabBar = false
@@ -62,11 +70,11 @@ struct MyPageView: View {
                 }
                 ScrollView {
                     LazyVStack {
-                        ProfileView(nickName: store.userInfoModel.nickName ?? "", gender: store.userInfoModel.gender ?? .man) {
-                            store.send(.didTapModifyProfileButton(store.state.userInfoModel))
+                        ProfileView(nickName: store.onboardingUserInfoModel.nickName ?? "", gender: store.onboardingUserInfoModel.gender ?? .man) {
+                            store.send(.didTapModifyProfileButton(store.state.onboardingUserInfoModel))
                         }
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                        MyInfoView(store: store, userInfo: store.userInfoModel.convertToSubArray())
+                        MyInfoView(store: store, userInfo: store.onboardingUserInfoModel.convertToSubArray())
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
                         VersionInfoView(version: store.version)
                     }
@@ -83,7 +91,7 @@ struct MyPageView: View {
 }
 
 #Preview {
-    MyPageView(store: Store(initialState: MyPageFeature.State()) {
+    MyPageView(store: Store(initialState: MyPageFeature.State(onboardingUserInfoModel: .preview)) {
         MyPageFeature()
     })
 }

@@ -16,7 +16,7 @@ struct LevelSelectFeature {
         var level: LevelType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
 
-        var isValidLevel: Bool = false
+        var isButtonEnabled: Bool = false
         var entryType: EntryType = .onBoarding
         var buttonTitle: String {
             self.entryType == .modify ? "확인" : "다음"
@@ -38,7 +38,8 @@ struct LevelSelectFeature {
         case finishInputLevel(MethodSelectFeature.State)
         case saveData(LevelType)
         case alert(PresentationAction<Alert>)
-        
+        case reloadUserInfo
+
         @CasePathable
         enum Alert: Equatable {
             case resetLevel
@@ -47,13 +48,22 @@ struct LevelSelectFeature {
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.wodClient) var wodClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
                 state.level = state.onboardingUserModel.level
-                state.isValidLevel = state.level != nil
+                switch state.entryType {
+                case .onBoarding:
+                    state.isButtonEnabled = state.level != nil
+                case .modify:
+                    if state.level != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.level != state.level
+                    }
+                }
+
                 return .none
             case .didTapBackButton:
                 if let level = state.level {
@@ -83,12 +93,11 @@ struct LevelSelectFeature {
                 } message: {
                     TextState("새로운 수준과 방식에 맞게\n운동 루틴이 초기화돼요")
                 }
-                return .none
+                return .send(.reloadUserInfo)
             case .alert(.presented(.resetLevel)):
-                let userDefaultsManager = UserDefaultsManager()
-                guard var onboardingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                guard var onboardingUserModel = userDefaultsClient.loadOnboardingUserInfo() else { return .none }
                 onboardingUserModel.level = state.level
-                userDefaultsManager.saveOnboardingUserInfo(data: onboardingUserModel)
+                userDefaultsClient.saveOnboardingUserInfo(onboardingUserModel)
 
                 state.isLaunchProgram = false
                 state.onCelebrate = false
@@ -102,15 +111,26 @@ struct LevelSelectFeature {
                 generator.prepare()
                 generator.impactOccurred()
                 state.level = level
-                if state.level != nil {
-                    state.isValidLevel = true
+
+                switch state.entryType {
+                case .onBoarding:
+                    if state.level != nil {
+                        state.isButtonEnabled = true
+                    }
+                case .modify:
+                    if state.level != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.level != state.level
+                    }
                 }
+
                 return .none
             case .finishInputLevel:
                 return .none
             case .alert:
                 return .none
             case .saveData:
+                return .none
+            case .reloadUserInfo:
                 return .none
             }
         }
@@ -175,7 +195,7 @@ struct LevelSelectView: View {
                         BottomButton(title: store.state.buttonTitle) {
                             store.send(.didTapNextButton)
                         }
-                        .disabled(!store.isValidLevel)
+                        .disabled(!store.isButtonEnabled)
                         .padding(.bottom, 20.0)
                         .padding(.horizontal, 38.0)
                     }

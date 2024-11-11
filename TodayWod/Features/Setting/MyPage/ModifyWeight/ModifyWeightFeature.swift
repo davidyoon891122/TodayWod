@@ -15,8 +15,7 @@ struct ModifyWeightFeature {
     struct State: Equatable {
         var placeHolder: String = "0"
         var weight: String = ""
-        var isValidWeight: Bool = false
-        var onboardingUserInfoModel = UserDefaultsManager().loadOnboardingUserInfo()
+        var isButtonEnabled: Bool = false
         var focusedField: FieldType?
         
         enum FieldType: Hashable {
@@ -33,18 +32,21 @@ struct ModifyWeightFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
-    
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
+
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.placeHolder = String(state.onboardingUserInfoModel?.weight ?? 0)
+                if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
+                    state.placeHolder = String(onboardingUserInfoModel.weight ?? 0)
+                }
                 state.focusedField = .weight
                 return .none
             case let .setWeight(weight):
                 state.weight = weight
-                state.isValidWeight = state.weight.isValidHeightWeight()
+                state.isButtonEnabled = state.weight.isValidHeightWeight()
                 
                 return .none
             case .binding:
@@ -52,9 +54,9 @@ struct ModifyWeightFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapConfirmButton:
-                guard var onboardingUserInfoModel = state.onboardingUserInfoModel else { return .none }
+                guard var onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() else { return .none }
                 onboardingUserInfoModel.weight = Int(state.weight)
-                UserDefaultsManager().saveOnboardingUserInfo(data: onboardingUserInfoModel)
+                userDefaultsClient.saveOnboardingUserInfo(onboardingUserInfoModel)
 
                 return .run { _ in await dismiss() }
             }
@@ -102,7 +104,7 @@ struct ModifyWeightView: View {
                 BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapConfirmButton)
                 }
-                .disabled(!store.isValidWeight)
+                .disabled(!store.isButtonEnabled)
                 .padding(.horizontal, 38.0)
                 .padding(.bottom, 20.0)
             }

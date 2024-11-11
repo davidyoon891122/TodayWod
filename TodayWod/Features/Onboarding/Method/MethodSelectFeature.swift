@@ -13,7 +13,7 @@ struct MethodSelectFeature {
 
     @ObservableState
     struct State: Equatable {
-        var isValidMethod: Bool = false
+        var isButtonEnabled: Bool = false
         var methodType: ProgramMethodType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
         var entryType: EntryType = .onBoarding
@@ -52,13 +52,23 @@ struct MethodSelectFeature {
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.wodClient) var wodClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
                 state.methodType = state.onboardingUserModel.method
-                state.isValidMethod = state.methodType != nil
+                switch state.entryType {
+
+                case .onBoarding:
+                    state.isButtonEnabled = state.methodType != nil
+                case .modify:
+                    if state.methodType != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.method != state.methodType
+                    }
+                }
+
                 return .none
             case .didTapBackButton:
                 if let method = state.methodType {
@@ -72,8 +82,7 @@ struct MethodSelectFeature {
             case .didTapStartButton:
                 return state.entryType == .onBoarding ? .send(.saveUserInfo) : .send(.onConfirmAlert)
             case .saveUserInfo:
-                let userDefaultsManager = UserDefaultsManager()
-                userDefaultsManager.saveOnboardingUserInfo(data: state.onboardingUserModel)
+                userDefaultsClient.saveOnboardingUserInfo(state.onboardingUserModel)
                 return .send(.finishOnboarding)
             case .onConfirmAlert:
                 state.alert = AlertState {
@@ -90,10 +99,9 @@ struct MethodSelectFeature {
                 }
                 return .none
             case .alert(.presented(.resetMethod)):
-                let userDefaultsManager = UserDefaultsManager()
-                guard var onboadingUserModel = userDefaultsManager.loadOnboardingUserInfo() else { return .none }
+                guard var onboadingUserModel = userDefaultsClient.loadOnboardingUserInfo() else { return .none }
                 onboadingUserModel.method = state.methodType
-                userDefaultsManager.saveOnboardingUserInfo(data: onboadingUserModel)
+                userDefaultsClient.saveOnboardingUserInfo(onboadingUserModel)
 
                 state.isLaunchProgram = false
                 state.onCelebrate = false
@@ -109,8 +117,14 @@ struct MethodSelectFeature {
                 generator.prepare()
                 generator.impactOccurred()
 
-                if let _ = state.methodType {
-                    state.isValidMethod = true
+                switch state.entryType {
+
+                case .onBoarding:
+                    state.isButtonEnabled = state.methodType != nil
+                case .modify:
+                    if state.methodType != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.method != state.methodType
+                    }
                 }
 
                 return .none
@@ -183,7 +197,7 @@ struct MethodSelectView: View {
                     BottomButton(title: store.state.buttonTitle) {
                         store.send(.didTapStartButton)
                     }
-                    .disabled(!store.isValidMethod)
+                    .disabled(!store.isButtonEnabled)
                     .padding(.bottom, 20.0)
                     .padding(.horizontal, 38.0)
                 }
