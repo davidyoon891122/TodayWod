@@ -35,6 +35,7 @@ struct WorkOutFeature {
     
     @Dependency(\.apiClient) var apiClient
     @Dependency(\.wodClient) var wodClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     enum Action {
         case onAppear
@@ -97,10 +98,11 @@ struct WorkOutFeature {
                 return .send(.setNewChallenge)
             case .setNewChallenge:
                 state.onCelebrate = false
-                guard let program = state.ownProgram else { return .none }
+                guard let program = state.ownProgram,
+                      let gender = userDefaultsClient.loadOnboardingUserInfo()?.gender else { return .none }
                 return .run { send in
                     do {
-                        let programEntity = try await apiClient.requestOtherRandomProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue, id: program.id))
+                        let programEntity = try await apiClient.requestOtherRandomProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue, gender: gender.rawValue, id: program.id))
                         await send(.updateOwnProgram(programEntity))
                     } catch {
                         await send(.fetchProgramError(error))
@@ -121,11 +123,13 @@ struct WorkOutFeature {
                 }
                 return .none
             case .alert(.presented(.resetProgram)):
-                guard let program = state.ownProgram else { return .none }
+                guard let program = state.ownProgram,
+                      let gender = userDefaultsClient.loadOnboardingUserInfo()?.gender else { return .none }
+            
 
                 return .run { send in
                     do {
-                        let programEntity = try await apiClient.requestCurrentProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue), "\(program.id)")
+                        let programEntity = try await apiClient.requestCurrentProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue, gender: gender.rawValue), "\(program.id)")
                         await send(.updateOwnProgram(programEntity))
                     } catch {
                         await send(.fetchProgramError(error))
