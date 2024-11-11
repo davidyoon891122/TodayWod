@@ -23,14 +23,14 @@ struct TodayWod {
         case onBoarding(GenderSelectFeature.Action)
     }
 
-    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .splash(.finishSplash):
 
-                if userDefaultsAPIClient.checkUserInfoExists() {
+                if userDefaultsClient.checkUserInfoExists() {
                     state = .app(AppFeature.State())
                 } else {
                     state = .onBoarding(GenderSelectFeature.State())

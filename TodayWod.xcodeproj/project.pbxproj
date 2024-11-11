@@ -74,7 +74,7 @@
 		49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */; };
 		49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */; };
 		49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A822C90878300FDB709 /* UserInfoModel.swift */; };
-		494132A52CDEED9200EB5192 /* UserDefaultsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494132A42CDEED9200EB5192 /* UserDefaultsAPIClient.swift */; };
+		494132A52CDEED9200EB5192 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494132A42CDEED9200EB5192 /* UserDefaultsClient.swift */; };
 		49593C292C9570F4006105D1 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C202C9570F3006105D1 /* Pretendard-Thin.otf */; };
 		49593C2A2C9570F4006105D1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C212C9570F3006105D1 /* Pretendard-Bold.otf */; };
 		49593C2B2C9570F4006105D1 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C222C9570F4006105D1 /* Pretendard-Medium.otf */; };
@@ -216,7 +216,7 @@
 		49101A7B2C8F3D3100FDB709 /* SocialLoginFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginFeature.swift; sourceTree = "<group>"; };
 		49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		49101A822C90878300FDB709 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
-		494132A42CDEED9200EB5192 /* UserDefaultsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAPIClient.swift; sourceTree = "<group>"; };
+		494132A42CDEED9200EB5192 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
 		49593C202C9570F3006105D1 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		49593C212C9570F3006105D1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		49593C222C9570F4006105D1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				1C1D05072CBE2C1800BDA52D /* WodClient.swift */,
-				494132A42CDEED9200EB5192 /* UserDefaultsAPIClient.swift */,
+				494132A42CDEED9200EB5192 /* UserDefaultsClient.swift */,
 			);
 			path = StorageClient;
 			sourceTree = "<group>";
@@ -1152,7 +1152,7 @@
 				ADCEE10E2CBE202D00D71FEB /* ProgramRepository.swift in Sources */,
 				1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */,
 				1C9C9F682CABA85900157001 /* Programs+Entity.swift in Sources */,
-				494132A52CDEED9200EB5192 /* UserDefaultsAPIClient.swift in Sources */,
+				494132A52CDEED9200EB5192 /* UserDefaultsClient.swift in Sources */,
 				1C5371F32CCF0DDC00EA4FB0 /* WorkoutDetailContentFeature.swift in Sources */,
 				1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */,
 				ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */,

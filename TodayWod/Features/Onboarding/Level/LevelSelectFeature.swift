@@ -47,7 +47,7 @@ struct LevelSelectFeature {
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.wodClient) var wodClient
-    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -86,9 +86,9 @@ struct LevelSelectFeature {
                 }
                 return .none
             case .alert(.presented(.resetLevel)):
-                guard var onboardingUserModel = userDefaultsAPIClient.loadOnboardingUserInfo() else { return .none }
+                guard var onboardingUserModel = userDefaultsClient.loadOnboardingUserInfo() else { return .none }
                 onboardingUserModel.level = state.level
-                userDefaultsAPIClient.saveOnboardingUserInfo(onboardingUserModel)
+                userDefaultsClient.saveOnboardingUserInfo(onboardingUserModel)
 
                 state.isLaunchProgram = false
                 state.onCelebrate = false
