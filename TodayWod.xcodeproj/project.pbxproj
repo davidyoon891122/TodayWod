@@ -65,7 +65,7 @@
 		1CFED2D22C9B9C0D000A09E5 /* ProgramsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CD2C9B9C0D000A09E5 /* ProgramsModel.swift */; };
 		1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2CE2C9B9C0D000A09E5 /* DayWorkoutTagType.swift */; };
 		1CFED2D52C9B9C0D000A09E5 /* ExerciseUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */; };
-		1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyView.swift */; };
+		1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyFeature.swift */; };
 		1CFED2E52C9B9C9B000A09E5 /* WorkOutDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */; };
 		1CFED2E62C9B9C9B000A09E5 /* WorkOutFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2DF2C9B9C9B000A09E5 /* WorkOutFeature.swift */; };
 		1CFED2E72C9B9C9B000A09E5 /* WorkOutDayFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFED2E12C9B9C9B000A09E5 /* WorkOutDayFeature.swift */; };
@@ -133,6 +133,9 @@
 		AD386C462CA69B040038C27F /* ModifyWeightFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD386C452CA69B040038C27F /* ModifyWeightFeature.swift */; };
 		AD386C4A2CAA90ED0038C27F /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD386C492CAA90ED0038C27F /* Extension+String.swift */; };
 		AD87AD092CE183F800D5EA6A /* UserDefaultsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87AD082CE183F800D5EA6A /* UserDefaultsError.swift */; };
+		AD87AD0B2CE1D4F500D5EA6A /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87AD0A2CE1D4F500D5EA6A /* ToastModifier.swift */; };
+		AD87AD0D2CE1D8CD00D5EA6A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87AD0C2CE1D8CD00D5EA6A /* ToastView.swift */; };
+		AD87AD112CE1E2F100D5EA6A /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87AD102CE1E2F100D5EA6A /* ToastModel.swift */; };
 		ADBACAA32C92D4BF00BED61C /* GenderSelectFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */; };
 		ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */; };
 		ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */; };
@@ -209,7 +212,7 @@
 		1CFED2CD2C9B9C0D000A09E5 /* ProgramsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgramsModel.swift; sourceTree = "<group>"; };
 		1CFED2CE2C9B9C0D000A09E5 /* DayWorkoutTagType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayWorkoutTagType.swift; sourceTree = "<group>"; };
 		1CFED2D02C9B9C0D000A09E5 /* ExerciseUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseUnit.swift; sourceTree = "<group>"; };
-		1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutEmptyView.swift; sourceTree = "<group>"; };
+		1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutEmptyFeature.swift; sourceTree = "<group>"; };
 		1CFED2DD2C9B9C9B000A09E5 /* WorkOutDetailFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDetailFeature.swift; sourceTree = "<group>"; };
 		1CFED2DF2C9B9C9B000A09E5 /* WorkOutFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutFeature.swift; sourceTree = "<group>"; };
 		1CFED2E12C9B9C9B000A09E5 /* WorkOutDayFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOutDayFeature.swift; sourceTree = "<group>"; };
@@ -277,6 +280,9 @@
 		AD386C452CA69B040038C27F /* ModifyWeightFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyWeightFeature.swift; sourceTree = "<group>"; };
 		AD386C492CAA90ED0038C27F /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		AD87AD082CE183F800D5EA6A /* UserDefaultsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsError.swift; sourceTree = "<group>"; };
+		AD87AD0A2CE1D4F500D5EA6A /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
+		AD87AD0C2CE1D8CD00D5EA6A /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		AD87AD102CE1E2F100D5EA6A /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
 		ADBACAA22C92D4BF00BED61C /* GenderSelectFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectFeature.swift; sourceTree = "<group>"; };
 		ADC5B0572C92E04000E06C8E /* NicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameFeature.swift; sourceTree = "<group>"; };
 		ADC5B0632C93D4DC00E06C8E /* Fonts+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
@@ -459,7 +465,7 @@
 		1CFED2D92C9B9C9B000A09E5 /* Empty */ = {
 			isa = PBXGroup;
 			children = (
-				1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyView.swift */,
+				1CFED2DA2C9B9C9B000A09E5 /* WorkOutEmptyFeature.swift */,
 			);
 			path = Empty;
 			sourceTree = "<group>";
@@ -563,6 +569,7 @@
 				497C0F0C2C9E5F8300F7444E /* Calendar */,
 				498B92AC2CC933EE00B51910 /* Preference */,
 				498B92AB2CC933E800B51910 /* Extension */,
+				AD87AD0F2CE1DC6100D5EA6A /* Toast */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -584,6 +591,7 @@
 			children = (
 				49593C352C969293006105D1 /* ButtonTextModifier.swift */,
 				497C0F0F2C9ECDBC00F7444E /* BottomSheetModifier.swift */,
+				AD87AD0A2CE1D4F500D5EA6A /* ToastModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -614,6 +622,7 @@
 				497C0F1A2CA02CD800F7444E /* Extension+Date.swift */,
 				AD386C492CAA90ED0038C27F /* Extension+String.swift */,
 				1C9C9F722CABBA3A00157001 /* Extension+Array.swift */,
+				498B92A82CC9339C00B51910 /* Extension+View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -646,7 +655,6 @@
 		498B92AB2CC933E800B51910 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				498B92A82CC9339C00B51910 /* Extension+View.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -884,6 +892,15 @@
 			path = Nickname;
 			sourceTree = "<group>";
 		};
+		AD87AD0F2CE1DC6100D5EA6A /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				AD87AD0C2CE1D8CD00D5EA6A /* ToastView.swift */,
+				AD87AD102CE1E2F100D5EA6A /* ToastModel.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		ADBACA9F2C92BBB900BED61C /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1102,6 +1119,7 @@
 				1C0B53762CAFA33A00256FE2 /* WorkoutConfirmationFeature.swift in Sources */,
 				AD386C342CA38FF20038C27F /* MyInfoView.swift in Sources */,
 				1CFED2E62C9B9C9B000A09E5 /* WorkOutFeature.swift in Sources */,
+				AD87AD0B2CE1D4F500D5EA6A /* ToastModifier.swift in Sources */,
 				AD386C462CA69B040038C27F /* ModifyWeightFeature.swift in Sources */,
 				497C0F072C9E463900F7444E /* OnboardingUserInfoModel.swift in Sources */,
 				ADCEE1192CBE2DD800D71FEB /* APIClient.swift in Sources */,
@@ -1161,7 +1179,7 @@
 				1C9C9F682CABA85900157001 /* Programs+Entity.swift in Sources */,
 				494132A52CDEED9200EB5192 /* UserDefaultsClient.swift in Sources */,
 				1C5371F32CCF0DDC00EA4FB0 /* WorkoutDetailContentFeature.swift in Sources */,
-				1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyView.swift in Sources */,
+				1CFED2E32C9B9C9B000A09E5 /* WorkOutEmptyFeature.swift in Sources */,
 				ADC5B0642C93D4DC00E06C8E /* Fonts+Generated.swift in Sources */,
 				498B934F2CCE5DD100B51910 /* EnvironmentConfiguration.swift in Sources */,
 				499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */,
@@ -1175,6 +1193,7 @@
 				AD386C362CA390290038C27F /* MyPageRowItemView.swift in Sources */,
 				4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */,
 				4992E6902C9AA82A001A1375 /* CustomTabView.swift in Sources */,
+				AD87AD0D2CE1D8CD00D5EA6A /* ToastView.swift in Sources */,
 				ADCEE1622CBF8F5900D71FEB /* Logger.swift in Sources */,
 				1C9C9F702CABB67300157001 /* WorkOutTitleView.swift in Sources */,
 				AD386C432CA66F460038C27F /* ModifyProfileFeature.swift in Sources */,
@@ -1185,6 +1204,7 @@
 				1C4EE0AB2CA18B630017F1D4 /* WodSetFeature.swift in Sources */,
 				1CF3E2442CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift in Sources */,
 				1C6DCBD72CC158E600ED56B2 /* RecentActivitesModel.swift in Sources */,
+				AD87AD112CE1E2F100D5EA6A /* ToastModel.swift in Sources */,
 				49101A7C2C8F3D3100FDB709 /* SocialLoginFeature.swift in Sources */,
 				1CF3E2422CC8AF6E00225EDD /* CompletedDateModel.swift in Sources */,
 				ADCEE1172CBE2A8E00D71FEB /* DictPresentable.swift in Sources */,

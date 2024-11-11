@@ -24,6 +24,7 @@ struct WorkOutFeature {
         var path = StackState<Path.State>()
         var dynamicHeight: CGFloat = .zero
         var isEnabledReset: Bool = false
+        var toast: ToastModel?
 
         @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = false
         @Shared(.inMemory(SharedConstants.tabType)) var tabType: TabMenuType = .home
@@ -48,9 +49,10 @@ struct WorkOutFeature {
         case path(StackActionOf<Path>)
         case celebrateAction(PresentationAction<CelebrateFeature.Action>)
         case setDynamicHeight(CGFloat)
-        case loadSuccess(ProgramModel)
+        case loadResult(Result<ProgramModel, Error>)
         case fetchProgramError(Error)
         case alert(PresentationAction<Alert>)
+        case setToast(ToastModel?)
         
         @CasePathable
         enum Alert: Equatable {
@@ -67,18 +69,19 @@ struct WorkOutFeature {
                 return .run { send in
                     do {
                         let currentProgram = try await wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
-                        await send(.loadSuccess(currentProgram))
+                        await send(.loadResult(.success(currentProgram)))
                     } catch {
-                        // TODO: - Load 에러 처리
-                        print("error: \(error.localizedDescription)")
+                        await send(.loadResult(.failure(error)))
                     }
                 }
-            case .loadSuccess(let programModel):
+            case .loadResult(.success(let programModel)):
                 state.ownProgram = programModel // 코어데이터에서 가져온 데이터 현재 ownProgram에 set
                 state.isEnabledReset = programModel.isEnabledReset
                 
                 return .concatenate(.send(.setDayWorkouts),
                                     .send(.updateWeekCompleted))
+            case .loadResult(.failure(let error)):
+                return .send(.setToast(.init(message: error.localizedDescription)))
             case .didTapNewChallengeButton:
                 state.alert = AlertState {
                     TextState("새로운 도전")
@@ -144,7 +147,7 @@ struct WorkOutFeature {
                     do {
                         let _ = try await wodClient.addWodProgram(programModel)
                     } catch {
-                        print(error.localizedDescription)
+                        await send(.setToast(.init(message: error.localizedDescription)))
                     }
                 }, .send(.setDayWorkouts))
             case .updateWeekCompleted:
@@ -181,9 +184,11 @@ struct WorkOutFeature {
                 state.dynamicHeight = height
                 return .none
             case .fetchProgramError(let error):
-                print("Fetch error : \(error.localizedDescription)")
-                return .none
+                return .send(.setToast(.init(message: error.localizedDescription)))
             case .alert:
+                return .none
+            case .setToast(let toast):
+                state.toast = toast
                 return .none
             }
         }
@@ -242,6 +247,7 @@ struct WorkOutView: View {
                     .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
             }
             .alert($store.scope(state: \.alert, action: \.alert))
+            .toastView(toast: $store.toast.sending(\.setToast))
         }
     }
     

@@ -14,6 +14,7 @@ struct WorkOutEmptyFeature {
     @ObservableState
     struct State: Equatable {
         var onboardingUserModel: OnboardingUserInfoModel?
+        var toast: ToastModel?
         @Shared(.appStorage(SharedConstants.isLaunchProgram)) var isLaunchProgram = false
     }
     
@@ -22,6 +23,7 @@ struct WorkOutEmptyFeature {
         case didTapStartButton
         case requestResult(Result<ProgramEntity, Error>)
         case setProgramResult(Result<ProgramModel, Error>)
+        case setToast(ToastModel?)
     }
 
     @Dependency(\.apiClient) var apiClient
@@ -57,12 +59,14 @@ struct WorkOutEmptyFeature {
                     }
                 }
             case .requestResult(.failure(let error)):
-                // TODO: - reqeust 에러 처리
-                return .none
+                return .send(.setToast(.init(message: error.localizedDescription)))
             case .setProgramResult(.success):
                 state.isLaunchProgram = true
                 return .none
             case .setProgramResult:
+                return .none
+            case .setToast(let toast):
+                state.toast = toast
                 return .none
             }
         }
@@ -73,7 +77,7 @@ struct WorkOutEmptyFeature {
 
 struct WorkOutEmptyView: View {
     
-    let store: StoreOf<WorkOutEmptyFeature>
+    @Perception.Bindable var store: StoreOf<WorkOutEmptyFeature>
     
     var body: some View {
         WithPerceptionTracking {
@@ -115,6 +119,7 @@ struct WorkOutEmptyView: View {
             .onAppear {
                 store.send(.onAppear)
             }
+            .toastView(toast: $store.toast.sending(\.setToast))
         }
     }
     
