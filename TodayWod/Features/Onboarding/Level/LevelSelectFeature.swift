@@ -16,7 +16,7 @@ struct LevelSelectFeature {
         var level: LevelType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
 
-        var isValidLevel: Bool = false
+        var isButtonEnabled: Bool = false
         var entryType: EntryType = .onBoarding
         var buttonTitle: String {
             self.entryType == .modify ? "확인" : "다음"
@@ -57,10 +57,10 @@ struct LevelSelectFeature {
                 state.level = state.onboardingUserModel.level
                 switch state.entryType {
                 case .onBoarding:
-                    state.isValidLevel = state.level != nil
+                    state.isButtonEnabled = state.level != nil
                 case .modify:
-                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
-                        state.isValidLevel = savedData.level != state.level && state.level != nil
+                    if state.level != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.level != state.level
                     }
                 }
 
@@ -115,11 +115,11 @@ struct LevelSelectFeature {
                 switch state.entryType {
                 case .onBoarding:
                     if state.level != nil {
-                        state.isValidLevel = true
+                        state.isButtonEnabled = true
                     }
                 case .modify:
-                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
-                        state.isValidLevel = savedData.level != state.level && state.level != nil
+                    if state.level != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.level != state.level
                     }
                 }
 
@@ -195,7 +195,7 @@ struct LevelSelectView: View {
                         BottomButton(title: store.state.buttonTitle) {
                             store.send(.didTapNextButton)
                         }
-                        .disabled(!store.isValidLevel)
+                        .disabled(!store.isButtonEnabled)
                         .padding(.bottom, 20.0)
                         .padding(.horizontal, 38.0)
                     }

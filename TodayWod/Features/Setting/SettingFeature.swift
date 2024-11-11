@@ -219,8 +219,3 @@ struct SettingView: View {
         SettingFeature()
     })
 }
-
-
-enum UserDefaultsError: Error {
-    case emptyData
-}

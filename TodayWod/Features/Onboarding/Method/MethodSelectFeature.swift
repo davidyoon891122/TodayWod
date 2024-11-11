@@ -13,7 +13,7 @@ struct MethodSelectFeature {
 
     @ObservableState
     struct State: Equatable {
-        var isValidMethod: Bool = false
+        var isButtonEnabled: Bool = false
         var methodType: ProgramMethodType? = nil
         var onboardingUserModel: OnboardingUserInfoModel
         var entryType: EntryType = .onBoarding
@@ -62,10 +62,10 @@ struct MethodSelectFeature {
                 switch state.entryType {
 
                 case .onBoarding:
-                    state.isValidMethod = state.methodType != nil
+                    state.isButtonEnabled = state.methodType != nil
                 case .modify:
-                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
-                        state.isValidMethod = savedData.method != state.methodType && state.methodType != nil
+                    if state.methodType != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.method != state.methodType
                     }
                 }
 
@@ -120,10 +120,10 @@ struct MethodSelectFeature {
                 switch state.entryType {
 
                 case .onBoarding:
-                    state.isValidMethod = state.methodType != nil
+                    state.isButtonEnabled = state.methodType != nil
                 case .modify:
-                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
-                        state.isValidMethod = savedData.method != state.methodType && state.methodType != nil
+                    if state.methodType != nil, let savedData = userDefaultsClient.loadOnboardingUserInfo() {
+                        state.isButtonEnabled = savedData.method != state.methodType
                     }
                 }
 
@@ -197,7 +197,7 @@ struct MethodSelectView: View {
                     BottomButton(title: store.state.buttonTitle) {
                         store.send(.didTapStartButton)
                     }
-                    .disabled(!store.isValidMethod)
+                    .disabled(!store.isButtonEnabled)
                     .padding(.bottom, 20.0)
                     .padding(.horizontal, 38.0)
                 }

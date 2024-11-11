@@ -17,7 +17,7 @@ struct WeightInputFeature {
         var onboardingUserModel: OnboardingUserInfoModel
         var focusedField: FieldType?
 
-        var isValidWeight: Bool = false
+        var isButtonEnabled: Bool = false
 
         enum FieldType: Hashable {
             case weight
@@ -56,7 +56,7 @@ struct WeightInputFeature {
                 return .send(.finishInputWeight(LevelSelectFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setWeight(weight):
                 state.weight = weight
-                state.isValidWeight = state.weight.isValidHeightWeight()
+                state.isButtonEnabled = state.weight.isValidHeightWeight()
                 return .none
             case .finishInputWeight:
                 return .none
@@ -133,7 +133,7 @@ struct WeightInputView: View {
                 BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapNextButton)
                 }
-                .disabled(!store.isValidWeight)
+                .disabled(!store.isButtonEnabled)
                 .padding(.bottom, 20.0)
                 .padding(.horizontal, 38.0)
             }

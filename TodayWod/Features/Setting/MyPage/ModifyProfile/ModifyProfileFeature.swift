@@ -15,7 +15,7 @@ struct ModifyProfileFeature {
     struct State: Equatable {
         var placeHolder: String = ""
         var nickName: String = ""
-        var isValidNickname: Bool = false
+        var isButtonEnabled: Bool = false
         var focusedField: FieldType?
         var onboardingUserInfoModel: OnboardingUserInfoModel
         
@@ -54,7 +54,7 @@ struct ModifyProfileFeature {
             case let .setNickname(nickname):
                 state.nickName = nickname
                 state.onboardingUserInfoModel.nickName = nickname
-                state.isValidNickname = nickname.isValidNickName()
+                state.isButtonEnabled = nickname.isValidNickName()
                 return .none
             }
         }
@@ -92,10 +92,10 @@ struct ModifyProfileView: View {
                     .padding(.horizontal, 20.0)
                     
                     HStack {
-                        Text(store.isValidNickname ? Constants.validNicknameMessage : Constants.ruleDescription)
+                        Text(store.isButtonEnabled ? Constants.validNicknameMessage : Constants.ruleDescription)
                             .multilineTextAlignment(.center)
                             .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                            .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
+                            .foregroundStyle(store.isButtonEnabled ? Colors.green10.swiftUIColor : .grey80)
                     }
                     .padding(.top, 8.0)
                 }
@@ -105,7 +105,7 @@ struct ModifyProfileView: View {
                 BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapConfirmButton)
                 }
-                .disabled(!store.isValidNickname)
+                .disabled(!store.isButtonEnabled)
                 .padding(.horizontal, 38.0)
                 .padding(.bottom, 20.0)
             }

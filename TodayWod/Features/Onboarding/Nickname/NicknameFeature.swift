@@ -20,7 +20,7 @@ struct NicknameFeature {
         let validNicknameMessage: String = "멋진 닉네임이에요!"
         let buttonTitle: String = "다음"
         var nickName: String = ""
-        var isValidNickname: Bool = false
+        var isButtonEnabled: Bool = false
         var onboardingUserModel: OnboardingUserInfoModel
         var focusedField: FieldType?
 
@@ -51,7 +51,7 @@ struct NicknameFeature {
                 return .none
             case let .setNickname(nickName):
                 state.nickName = nickName
-                state.isValidNickname = nickName.isValidNickName()
+                state.isButtonEnabled = nickName.isValidNickName()
                 return .none
             case .didTapNextButton:
                 state.onboardingUserModel.nickName = state.nickName
@@ -127,10 +127,10 @@ struct NicknameInputView: View {
                         .padding(.horizontal, 20.0)
                         
                         HStack {
-                            Text(store.isValidNickname ? store.validNicknameMessage : store.ruleDescription)
+                            Text(store.isButtonEnabled ? store.validNicknameMessage : store.ruleDescription)
                                 .multilineTextAlignment(.center)
                                 .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                                .foregroundStyle(store.isValidNickname ? Colors.green10.swiftUIColor : .grey80)
+                                .foregroundStyle(store.isButtonEnabled ? Colors.green10.swiftUIColor : .grey80)
                         }
                     }
                 }
@@ -138,7 +138,7 @@ struct NicknameInputView: View {
                 BottomButton(title: store.buttonTitle) {
                     store.send(.didTapNextButton)
                 }
-                .disabled(!store.isValidNickname)
+                .disabled(!store.isButtonEnabled)
                 .padding(.bottom, 20.0)
                 .padding(.horizontal, 38.0)
             }

@@ -15,7 +15,7 @@ struct ModifyWeightFeature {
     struct State: Equatable {
         var placeHolder: String = "0"
         var weight: String = ""
-        var isValidWeight: Bool = false
+        var isButtonEnabled: Bool = false
         var focusedField: FieldType?
         
         enum FieldType: Hashable {
@@ -46,7 +46,7 @@ struct ModifyWeightFeature {
                 return .none
             case let .setWeight(weight):
                 state.weight = weight
-                state.isValidWeight = state.weight.isValidHeightWeight()
+                state.isButtonEnabled = state.weight.isValidHeightWeight()
                 
                 return .none
             case .binding:
@@ -104,7 +104,7 @@ struct ModifyWeightView: View {
                 BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapConfirmButton)
                 }
-                .disabled(!store.isValidWeight)
+                .disabled(!store.isButtonEnabled)
                 .padding(.horizontal, 38.0)
                 .padding(.bottom, 20.0)
             }
