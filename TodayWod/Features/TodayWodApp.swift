@@ -7,7 +7,9 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Firebase
 import FirebaseCore
+import FirebaseAnalytics
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,

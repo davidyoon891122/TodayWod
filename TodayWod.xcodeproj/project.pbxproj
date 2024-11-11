@@ -425,6 +425,14 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
+		1C7999962CE1C82500553674 /* GoogleService */ = {
+			isa = PBXGroup;
+			children = (
+				1C7999832CE1B7B800553674 /* GoogleService-Info.plist */,
+			);
+			path = GoogleService;
+			sourceTree = "<group>";
+		};
 		1C8708BE2CACDB8A00967DFE /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,7 +792,6 @@
 				499B07672C8BEFC600C46FDD /* Resources */,
 				499B07582C8BD6B900C46FDD /* Preview Content */,
 				1C8708C02CACDB9D00967DFE /* info.plist */,
-				1C7999832CE1B7B800553674 /* GoogleService-Info.plist */,
 				1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */,
 			);
 			path = TodayWod;
@@ -801,6 +808,7 @@
 		499B07672C8BEFC600C46FDD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1C7999962CE1C82500553674 /* GoogleService */,
 				49B8AEFF2C8C5B8000EA78CC /* SwiftGen */,
 				ADC5B0592C93D02300E06C8E /* Fonts */,
 				499B07562C8BD6B900C46FDD /* Assets.xcassets */,
@@ -988,7 +996,6 @@
 				499B074D2C8BD6B700C46FDD /* Resources */,
 				49B8AEFE2C8C577800EA78CC /* SwiftGen */,
 				1C7999912CE1BE1B00553674 /* Run Firebase Crashlytics */,
-				1C7999922CE1BE8700553674 /* Upload DSYM */,
 			);
 			buildRules = (
 			);
@@ -1079,8 +1086,11 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
 			);
 			name = "Run Firebase Crashlytics";
 			outputFileListPaths = (
@@ -1089,25 +1099,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run Firebase Crashlytics\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nfi\n";
-		};
-		1C7999922CE1BE8700553674 /* Upload DSYM */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Upload DSYM";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Upload DSYM\n\"find ${DWARF_DSYM_FOLDER_PATH}\" -name \"*.dSYM\" | xargs -I \\{\\} \"$PODS_ROOT/FirebaseCrashlytics/upload-symbols\" -gsp \"$PROJECT_DIR/TodayWod/GoogleService-Info.plist\" -p ios \\{\\}\n";
+			shellScript = "# Run Firebase Crashlytics\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n    # Crashlytics 실행\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \n    # 여러 가능한 위치에서 dSYM 찾기\n    POSSIBLE_DSYM_PATHS=(\n        \"${BUILT_PRODUCTS_DIR}/TodayWod.app.dSYM\"\n        \"${DWARF_DSYM_FOLDER_PATH}/TodayWod.app.dSYM\"\n    )\n    \n    for DSYM_PATH in \"${POSSIBLE_DSYM_PATHS[@]}\"; do\n        if [ -d \"$DSYM_PATH\" ]; then\n            echo \"Found dSYM at: $DSYM_PATH\"\n            \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" \\\n                -gsp \"${PROJECT_DIR}/TodayWod/Resources/GoogleService/GoogleService-Info.plist\" \\\n                -p ios \\\n                \"${DSYM_PATH}\"\n            break\n        fi\n    done\nfi\n";
 		};
 		49B8AEFE2C8C577800EA78CC /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1390,7 +1382,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1413,10 +1405,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TodayWod Dev PP";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TodayWod PP";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1433,6 +1425,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"TodayWod/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
