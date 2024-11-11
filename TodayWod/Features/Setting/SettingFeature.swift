@@ -32,7 +32,7 @@ struct SettingFeature {
     }
     
     @Dependency(\.wodClient) var wodClient
-    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     enum Action: BindableAction {
         case onAppear
@@ -99,12 +99,12 @@ struct SettingFeature {
                         state.path.append(.modifyWeight(ModifyWeightFeature.State()))
                         return .none
                     case .level:
-                        if let onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                        if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                             state.path.append(.modifyLevel(LevelSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         }
                         return .none
                     case .method:
-                        if let onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                        if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                             state.path.append(.modifyMethod(MethodSelectFeature.State(onboardingUserModel: onboardingUserInfoModel, entryType: .modify)))
                         }
                         return .none
@@ -124,7 +124,7 @@ struct SettingFeature {
                 return .none
             case .loadUserDefault:
                 return .run { send in
-                    if let result = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                    if let result = userDefaultsClient.loadOnboardingUserInfo() {
                         await send(.loadUserDefaultResult(.success(result)))
                     } else {
                         await send(.loadUserDefaultResult(.failure(UserDefaultsError.emptyData)))

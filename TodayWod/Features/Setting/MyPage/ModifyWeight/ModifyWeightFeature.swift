@@ -32,14 +32,14 @@ struct ModifyWeightFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
-    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
-                if let onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                     state.placeHolder = String(onboardingUserInfoModel.weight ?? 0)
                 }
                 state.focusedField = .weight
@@ -54,9 +54,9 @@ struct ModifyWeightFeature {
             case .didTapBackButton:
                 return .run { _ in await dismiss() }
             case .didTapConfirmButton:
-                guard var onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() else { return .none }
+                guard var onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() else { return .none }
                 onboardingUserInfoModel.weight = Int(state.weight)
-                userDefaultsAPIClient.saveOnboardingUserInfo(onboardingUserInfoModel)
+                userDefaultsClient.saveOnboardingUserInfo(onboardingUserInfoModel)
 
                 return .run { _ in await dismiss() }
             }

@@ -59,7 +59,7 @@ struct LevelSelectFeature {
                 case .onBoarding:
                     state.isValidLevel = state.level != nil
                 case .modify:
-                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
                         state.isValidLevel = savedData.level != state.level && state.level != nil
                     }
                 }
@@ -118,7 +118,7 @@ struct LevelSelectFeature {
                         state.isValidLevel = true
                     }
                 case .modify:
-                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
                         state.isValidLevel = savedData.level != state.level && state.level != nil
                     }
                 }

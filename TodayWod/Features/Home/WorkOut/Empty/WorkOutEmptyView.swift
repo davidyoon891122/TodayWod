@@ -26,13 +26,13 @@ struct WorkOutEmptyFeature {
 
     @Dependency(\.apiClient) var apiClient
     @Dependency(\.wodClient) var wodClient
-    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.onboardingUserModel = userDefaultsAPIClient.loadOnboardingUserInfo()
+                state.onboardingUserModel = userDefaultsClient.loadOnboardingUserInfo()
                 return .none
             case .didTapStartButton:
                 guard let method = state.onboardingUserModel?.method,

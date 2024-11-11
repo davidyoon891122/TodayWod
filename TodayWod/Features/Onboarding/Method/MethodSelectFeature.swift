@@ -64,7 +64,7 @@ struct MethodSelectFeature {
                 case .onBoarding:
                     state.isValidMethod = state.methodType != nil
                 case .modify:
-                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
                         state.isValidMethod = savedData.method != state.methodType && state.methodType != nil
                     }
                 }
@@ -122,7 +122,7 @@ struct MethodSelectFeature {
                 case .onBoarding:
                     state.isValidMethod = state.methodType != nil
                 case .modify:
-                    if let savedData = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                    if let savedData = userDefaultsClient.loadOnboardingUserInfo() {
                         state.isValidMethod = savedData.method != state.methodType && state.methodType != nil
                     }
                 }

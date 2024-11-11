@@ -32,13 +32,13 @@ struct MyPageFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
-    @Dependency(\.userDefaultsAPIClient) var userDefaultsAPIClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                if let onboardingUserInfoModel = userDefaultsAPIClient.loadOnboardingUserInfo() {
+                if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                     state.onboardingUserInfoModel = onboardingUserInfoModel
                 }
                 state.hideTabBar = true
