@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum GenderType: Codable {
+enum GenderType: String, Codable {
     
-    case man
-    case woman
+    case man = "man"
+    case woman = "woman"
     
     var title: String {
         switch self {

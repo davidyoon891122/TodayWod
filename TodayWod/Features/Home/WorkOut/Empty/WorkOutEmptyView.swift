@@ -36,11 +36,12 @@ struct WorkOutEmptyFeature {
                 return .none
             case .didTapStartButton:
                 guard let method = state.onboardingUserModel?.method,
-                        let level = state.onboardingUserModel?.level else { return .none }
+                      let level = state.onboardingUserModel?.level,
+                      let gender = state.onboardingUserModel?.gender else { return .none }
 
                 return .run { send in
                     do {
-                        let result = try await apiClient.requestProgram(.init(methodType: method.rawValue, level: level.rawValue))
+                        let result = try await apiClient.requestProgram(.init(methodType: method.rawValue, level: level.rawValue, gender: gender.rawValue))
 
                         await send(.requestResult(.success(result)))
                     } catch {

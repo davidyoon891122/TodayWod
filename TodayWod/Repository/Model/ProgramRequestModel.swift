@@ -11,5 +11,6 @@ struct ProgramRequestModel: Codable, RequestBodyPresentable {
     
     let methodType: String
     let level: String
+    let gender: String
     
 }
