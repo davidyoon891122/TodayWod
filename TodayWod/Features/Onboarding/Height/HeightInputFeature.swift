@@ -16,7 +16,7 @@ struct HeightInputFeature {
         var height: String = ""
         var onboardingUserModel: OnboardingUserInfoModel
 
-        var isValidHeight: Bool = false
+        var isButtonEnabled: Bool = false
         var focusedField: FieldType?
 
         enum FieldType: Hashable {
@@ -56,7 +56,7 @@ struct HeightInputFeature {
                 return .send(.finishInputHeight(WeightInputFeature.State(onboardingUserModel: state.onboardingUserModel)))
             case let .setHeight(height):
                 state.height = height
-                state.isValidHeight = state.height.isValidHeightWeight()
+                state.isButtonEnabled = state.height.isValidHeightWeight()
                 return .none
             case .finishInputHeight:
                 return .none
@@ -132,7 +132,7 @@ struct HeightInputView: View {
                 BottomButton(title: Constants.buttonTitle) {
                     store.send(.didTapNextButton)
                 }
-                .disabled(!store.isValidHeight)
+                .disabled(!store.isButtonEnabled)
                 .padding(.bottom, 20.0)
                 .padding(.horizontal, 38.0)
             }

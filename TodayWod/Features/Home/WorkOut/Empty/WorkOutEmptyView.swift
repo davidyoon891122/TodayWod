@@ -13,11 +13,12 @@ struct WorkOutEmptyFeature {
     
     @ObservableState
     struct State: Equatable {
-        let onboardingUserModel = UserDefaultsManager().loadOnboardingUserInfo()
+        var onboardingUserModel: OnboardingUserInfoModel?
         @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
     }
     
     enum Action {
+        case onAppear
         case didTapStartButton
         case requestResult(Result<ProgramEntity, Error>)
         case setProgramResult(Result<ProgramModel, Error>)
@@ -25,10 +26,14 @@ struct WorkOutEmptyFeature {
 
     @Dependency(\.apiClient) var apiClient
     @Dependency(\.wodClient) var wodClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.onboardingUserModel = userDefaultsClient.loadOnboardingUserInfo()
+                return .none
             case .didTapStartButton:
                 guard let method = state.onboardingUserModel?.method,
                         let level = state.onboardingUserModel?.level else { return .none }
@@ -106,6 +111,9 @@ struct WorkOutEmptyView: View {
                 .padding(.top, 40.0)
                 
                 Spacer()
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }
