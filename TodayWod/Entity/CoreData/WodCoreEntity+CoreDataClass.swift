@@ -32,6 +32,7 @@ extension WodCoreEntity {
             newItem.set = Int64(model.set)
             let wodSets = WodSetCoreEntity.createWodSetEntity(with: context, models: model.wodSets)
             newItem.wodSets = NSOrderedSet(array: wodSets)
+            newItem.expectedCalorie = Int64(model.expectedCalorie)
             return newItem
         }
     }

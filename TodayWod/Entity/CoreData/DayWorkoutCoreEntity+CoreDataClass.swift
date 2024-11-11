@@ -35,6 +35,7 @@ extension DayWorkoutCoreEntity {
             newItem.maxExpectedCalorie = Int64(model.maxExpectedCalorie)
             let workOutInfos = WorkoutCoreEntity.createWorkoutInfoEntities(with: context, models: model.workouts)
             newItem.workouts = NSOrderedSet(array: workOutInfos)
+            newItem.imageName = model.imageName
             return newItem
         }
     }

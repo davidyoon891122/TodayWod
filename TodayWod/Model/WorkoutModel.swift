@@ -72,7 +72,8 @@ struct WodModel: Codable, Equatable, Identifiable {
     let unitValue: Int
     let set: Int
     var wodSets: [WodSetModel] = []
-    
+    let expectedCalorie: Int
+
     init(data: WodEntity) {
         self.id = UUID()
         
@@ -82,6 +83,7 @@ struct WodModel: Codable, Equatable, Identifiable {
         self.unitValue = data.unitValue
         self.set = data.set ?? 1
         self.wodSets = data.wodSets?.map { WodSetModel(data: $0) } ?? [WodSetModel(unitValue: data.unitValue)]
+        self.expectedCalorie = data.expectedCalorie
     }
     
     init(coreData: WodCoreEntity) {
@@ -94,6 +96,7 @@ struct WodModel: Codable, Equatable, Identifiable {
         self.wodSets = coreData.wodSets
             .compactMap { $0 as? WodSetCoreEntity }
             .map { WodSetModel(coreData: $0) }
+        self.expectedCalorie = Int(coreData.expectedCalorie)
     }
     
 }
