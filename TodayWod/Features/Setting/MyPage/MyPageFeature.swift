@@ -15,13 +15,14 @@ struct MyPageFeature {
     struct State: Equatable {
         let version: String = AppEnvironment.shortVersion
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
 
         var onboardingUserInfoModel: OnboardingUserInfoModel
 
         init(onboardingUserInfoModel: OnboardingUserInfoModel) {
             self.onboardingUserInfoModel = onboardingUserInfoModel
         }
+        
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
     }
 
     enum Action {

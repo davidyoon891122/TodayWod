@@ -14,7 +14,7 @@ struct WorkOutEmptyFeature {
     @ObservableState
     struct State: Equatable {
         var onboardingUserModel: OnboardingUserInfoModel?
-        @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
+        @Shared(.appStorage(SharedConstants.isLaunchProgram)) var isLaunchProgram = false
     }
     
     enum Action {

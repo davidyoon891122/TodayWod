@@ -27,7 +27,7 @@ struct SettingFeature {
         var completedDates: Set<Date> = []
         var path = StackState<Path.State>()
         
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
         @Presents var completedState: WorkoutCompletedFeature.State?
     }
     
@@ -61,7 +61,7 @@ struct SettingFeature {
             case .getRecentDayWorkouts:
                 return .run { send in
                     do {
-                        let recentDayWorkouts = try wodClient.getRecentDayWorkouts()
+                        let recentDayWorkouts = try await wodClient.getRecentDayWorkouts()
                         await send(.recentDayWorkoutsResponse(recentDayWorkouts))
                     } catch {
                         // TODO: - Load 에러 처리
@@ -74,7 +74,7 @@ struct SettingFeature {
             case .getCompletedDates:
                 return .run { send in
                     do {
-                        let dates = try wodClient.getCompletedDates()
+                        let dates = try await wodClient.getCompletedDates()
                         await send(.completedDatesResponse(dates))
                     } catch {
                         // TODO: - Load 에러 처리

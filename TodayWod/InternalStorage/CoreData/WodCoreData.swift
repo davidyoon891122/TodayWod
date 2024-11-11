@@ -19,6 +19,7 @@ final class WodCoreData {
                 print("Load store error: \(error)")
             }
             
+            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
         })
         
         return container

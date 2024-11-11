@@ -13,7 +13,7 @@ struct HomeFeature {
     
     @ObservableState
     struct State: Equatable {
-        @Shared(.appStorage("IsLaunchProgram")) var hasWod = false
+        @Shared(.appStorage(SharedConstants.isLaunchProgram)) var hasWod = false
         var workOutEmpty = WorkOutEmptyFeature.State()
         var workOut = WorkOutFeature.State()
 

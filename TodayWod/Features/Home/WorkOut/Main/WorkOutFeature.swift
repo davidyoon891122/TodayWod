@@ -25,9 +25,9 @@ struct WorkOutFeature {
         var dynamicHeight: CGFloat = .zero
         var isEnabledReset: Bool = false
 
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = false
-        @Shared(.inMemory("TabType")) var tabType: TabMenuType = .home
-        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = false
+        @Shared(.inMemory(SharedConstants.tabType)) var tabType: TabMenuType = .home
+        @Shared(.appStorage(SharedConstants.onCelebrate)) var onCelebrate = false
 
         @Presents var celebrateState: CelebrateFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
@@ -66,7 +66,7 @@ struct WorkOutFeature {
                 state.hideTabBar = false
                 return .run { send in
                     do {
-                        let currentProgram = try wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
+                        let currentProgram = try await wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴
                         await send(.loadSuccess(currentProgram))
                     } catch {
                         // TODO: - Load 에러 처리

@@ -29,8 +29,8 @@ struct WorkOutDetailFeature {
         var currentBreakCountDownTime: Int = 60
 
         // 유저가 세팅하여 변경된 휴식시간의 값
-        @Shared(.appStorage("BreakTime")) var userSetBreakCountDownTime: Int = 60
-        @Shared(.inMemory("HideTabBar")) var hideTabBar: Bool = true
+        @Shared(.appStorage(SharedConstants.breakTime)) var userSetBreakCountDownTime: Int = 60
+        @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
         @Presents var alert: AlertState<Action.Alert>?

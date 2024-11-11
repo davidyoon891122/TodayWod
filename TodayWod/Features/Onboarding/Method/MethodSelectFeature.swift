@@ -22,8 +22,8 @@ struct MethodSelectFeature {
         }
 
         var dynamicHeight: CGFloat = .zero
-        @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
-        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
+        @Shared(.appStorage(SharedConstants.isLaunchProgram)) var isLaunchProgram = false
+        @Shared(.appStorage(SharedConstants.onCelebrate)) var onCelebrate = false
 
         @Presents var methodDescription: MethodDescriptionFeature.State?
         @Presents var alert: AlertState<Action.Alert>?

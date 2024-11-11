@@ -22,8 +22,8 @@ struct LevelSelectFeature {
             self.entryType == .modify ? "확인" : "다음"
         }
 
-        @Shared(.appStorage("IsLaunchProgram")) var isLaunchProgram = false
-        @Shared(.appStorage("onCelebrate")) var onCelebrate = false
+        @Shared(.appStorage(SharedConstants.isLaunchProgram)) var isLaunchProgram = false
+        @Shared(.appStorage(SharedConstants.onCelebrate)) var onCelebrate = false
         
         @Presents var alert: AlertState<Action.Alert>?
     }
