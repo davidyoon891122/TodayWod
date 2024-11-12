@@ -10,37 +10,31 @@ import SwiftUI
 struct ToastModifier: ViewModifier {
     
     @Binding var toast: ToastModel?
-    @State private var workItem: DispatchWorkItem?
+    var yOffset: CGFloat = 0
     
-    var yOffset: CGFloat = -32.0
+    @State private var workItem: DispatchWorkItem? = nil
     
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(
                 ZStack {
-                    mainToastView()
+                    if let toast = toast {
+                        VStack {
+                            Spacer()
+                            ToastView(toast: toast)
+                        }
                         .offset(y: yOffset)
+                    }
                 }
                     .animation(.spring(), value: toast)
             )
             .onChange(of: toast) { _ in
-                showToast()
+                configureToast()
             }
     }
     
-    @ViewBuilder
-    func mainToastView() -> some View {
-        if let toast = toast {
-            VStack {
-                Spacer()
-                ToastView(toast: toast)
-            }
-        }
-    }
-    
-    
-    private func showToast() {
+    private func configureToast() {
         guard let toast = toast else { return }
         
         UIImpactFeedbackGenerator(style: .light)
@@ -59,7 +53,7 @@ struct ToastModifier: ViewModifier {
         }
     }
     
-    private func dismissToast() {
+    func dismissToast() {
         withAnimation {
             toast = nil
         }

@@ -568,7 +568,6 @@
 				49593C382C969378006105D1 /* Modifier */,
 				497C0F0C2C9E5F8300F7444E /* Calendar */,
 				498B92AC2CC933EE00B51910 /* Preference */,
-				498B92AB2CC933E800B51910 /* Extension */,
 				AD87AD0F2CE1DC6100D5EA6A /* Toast */,
 			);
 			path = Common;
@@ -650,13 +649,6 @@
 				4987120E2CA447C700FB876E /* CelebrateFeature.swift */,
 			);
 			path = Celebrate;
-			sourceTree = "<group>";
-		};
-		498B92AB2CC933E800B51910 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		498B92AC2CC933EE00B51910 /* Preference */ = {
