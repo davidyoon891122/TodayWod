@@ -8,6 +8,9 @@ xcuserdata
 DerivedData/
 *.xcodeproj
 
+### FireBase ###
+*/GoogleService-Info.plist
+
 ### Fastlane ###
 *.dSYM.zip
 *.ipa
