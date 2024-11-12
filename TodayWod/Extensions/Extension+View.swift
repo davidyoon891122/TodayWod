@@ -22,3 +22,12 @@ extension View {
     }
 
 }
+
+// Toast
+extension View {
+    
+    func toastView(toast: Binding<ToastModel?>, yOffset: CGFloat = 0.0) -> some View {
+        self.modifier(ToastModifier(toast: toast, yOffset: yOffset))
+    }
+    
+}
