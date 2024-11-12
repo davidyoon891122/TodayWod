@@ -70,7 +70,7 @@ struct WorkOutDetailFeature {
         case pauseBreakTimer
         case resumeBreakTimer
         case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
-        case synchronizeModel(UUID)
+        case synchronizeModel(String)
         case binding(BindingAction<State>)
         case setConfirmationViewDynamicHeight(CGFloat)
         case setBreakTimerSettingsViewDynamicHeight(CGFloat)
@@ -103,7 +103,9 @@ struct WorkOutDetailFeature {
                 return .send(.setWorkoutStates)
             case .willDisappear:
                 state.hideTabBar = false
-                return .run { _ in await dismiss() }
+                return .merge(.send(.stopTimer),
+                              .send(.pauseBreakTimer),
+                              .run { _ in await dismiss() })
             case .didEnterBackground:
                 return .merge(.send(.stopTimer),
                               .send(.pauseBreakTimer))

@@ -12,11 +12,6 @@ import CoreData
 @objc(WodSetCoreEntity)
 public class WodSetCoreEntity: NSManagedObject {
 
-    public override func awakeFromInsert() {
-        super.awakeFromInsert()
-        self.id = UUID()
-    }
-    
 }
 
 extension WodSetCoreEntity {

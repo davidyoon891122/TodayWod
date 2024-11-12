@@ -21,42 +21,24 @@ final class RecentWodCoreDataProvider {
     
     func getRecentActivities() async throws -> [DayWorkoutModel] {
         try await context.perform {
-            guard let recentActivitiesEntity = try self.fetchRecentActivities() else { return [] }
-            let dayWorkOutEntities = recentActivitiesEntity.dayWorkouts.compactMap { $0 as? DayWorkoutCoreEntity }
-            
-            return dayWorkOutEntities.map {
-                DayWorkoutModel(coreData: $0)
-            }
+            try self.fetchRecentActivities().map {
+                DayWorkoutModel(recentCoreData: $0)
+            }.reversed()
         }
     }
     
     func setRecentActivities(model: DayWorkoutModel) async throws {
         try await context.perform {
-            var dayWorkouts: [DayWorkoutModel] = []
-            
-            if let currentActivityEntity = try self.fetchRecentActivities() {
-                dayWorkouts = RecentActivitiesModel(coreData: currentActivityEntity).dayWorkouts
+            let recentActivitiesModels = try self.removeLeastRecentActivities().map {
+                DayWorkoutModel(recentCoreData: $0)
             }
             
-            if dayWorkouts.count >= 10 { // 최대 10개 저장.
-                dayWorkouts.removeLast()
+            var currentActivitiesModel = model
+            if recentActivitiesModels.contains(where: { $0.id == model.id }) { // 중복 데이터를 구분 처리.
+                currentActivitiesModel.id = UUID().uuidString
             }
             
-            var updatedModel = model
-            if dayWorkouts.contains(where: { $0.id == model.id }) { // 중복 데이터를 구분 처리.
-                updatedModel.id = UUID()
-            }
-            dayWorkouts.insert(updatedModel, at: 0)
-            
-            let recentActivities = RecentActivitiesModel(dayWorkouts: dayWorkouts)
-            
-            do {
-                try self.removeRecentActivities()
-            } catch {
-                throw error
-            }
-            
-            _ = RecentActivitiesCoreEntity.instance(with: self.context, model: recentActivities)
+            _ = RecentActivitiesCoreEntity.instance(with: self.context, model: currentActivitiesModel)
             
             self.coreData.saveContext()
         }
@@ -65,9 +47,9 @@ final class RecentWodCoreDataProvider {
 
 private extension RecentWodCoreDataProvider {
 
-    func fetchRecentActivities() throws -> RecentActivitiesCoreEntity? {
+    func fetchRecentActivities() throws -> [RecentActivitiesCoreEntity] {
         let recentActivities = try context.fetch(self.coreData.recentActivitiesFetchRequest)
-        return recentActivities.first
+        return recentActivities
     }
     
     func removeRecentActivities() throws -> Void {
@@ -78,6 +60,21 @@ private extension RecentWodCoreDataProvider {
         }
 
         try context.save()
+    }
+    
+    func removeLeastRecentActivities() throws -> [RecentActivitiesCoreEntity] {
+        var recentActivities = try self.fetchRecentActivities()
+        
+        if recentActivities.count >= 10 { // 최대 10개 저장.
+            if let firstEntity = recentActivities.first {
+                self.context.delete(firstEntity)
+            }
+            self.coreData.saveContext()
+            
+            recentActivities.removeFirst()
+        }
+        
+        return recentActivities
     }
 
 }

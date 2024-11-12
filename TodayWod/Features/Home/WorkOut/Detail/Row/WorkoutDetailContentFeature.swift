@@ -2,7 +2,7 @@
 //  WorkoutDetailContentView.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 10/28/24.
+//  Created by 오지연 on 10/28/24.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ struct WorkoutDetailContentFeature {
     
     @ObservableState
     struct State: Equatable, Identifiable {
-        let id: UUID
+        let id: String
         var model: WorkoutModel
         
         var wodStates: IdentifiedArrayOf<WodFeature.State> = []
@@ -32,7 +32,7 @@ struct WorkoutDetailContentFeature {
         case updateUnitText(String)
         case addWodSet
         case removeWodSet(Bool)
-        case synchronizeModel(UUID)
+        case synchronizeModel(String)
         case wodActions(IdentifiedActionOf<WodFeature>)
     }
     

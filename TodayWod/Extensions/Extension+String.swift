@@ -15,6 +15,10 @@ enum DateFormat: String {
 
 extension String {
     
+    var toUUID: UUID {
+        UUID(uuidString: self) ?? UUID()
+    }
+    
     var toInt: Int {
         Int(self) ?? 0
     }

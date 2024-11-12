@@ -12,20 +12,24 @@ import CoreData
 @objc(RecentActivitiesCoreEntity)
 public class RecentActivitiesCoreEntity: NSManagedObject {
 
-    public override func awakeFromInsert() {
-        super.awakeFromInsert()
-        self.id = UUID()
-    }
-    
 }
 
 extension RecentActivitiesCoreEntity {
-    
-    static func instance(with context: NSManagedObjectContext, model: RecentActivitiesModel) -> RecentActivitiesCoreEntity {
+
+    static func instance(with context: NSManagedObjectContext, model: DayWorkoutModel) -> RecentActivitiesCoreEntity {
         let newItem = RecentActivitiesCoreEntity(context: context)
         newItem.id = model.id
-        let dayWorkouts = DayWorkoutCoreEntity.createProgramEntities(with: context, programModel: model.dayWorkouts)
-        newItem.dayWorkouts = NSOrderedSet(array: dayWorkouts)
+        newItem.duration = Int64(model.duration)
+        newItem.date = model.date
+        newItem.type = model.type.rawValue
+        newItem.title = model.title
+        newItem.subTitle = model.subTitle
+        newItem.expectedMinute = Int64(model.expectedMinute)
+        newItem.minExpectedCalorie = Int64(model.minExpectedCalorie)
+        newItem.maxExpectedCalorie = Int64(model.maxExpectedCalorie)
+        newItem.workouts = NSOrderedSet(array: WorkoutCoreEntity.createWorkoutInfoEntities(with: context, models: model.workouts))
+        newItem.imageName = model.imageName
+
         return newItem
     }
     

@@ -2,7 +2,7 @@
 //  RoundedCorner.swift
 //  PrivateBank
 //
-//  Created by D프로젝트노드_오지연 on 12/11/23.
+//  Created by 오지연 on 12/11/23.
 //
 
 import SwiftUI

@@ -9,8 +9,8 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="duration" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="expectedMinute" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="imageName" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="imageName" attributeType="String"/>
         <attribute name="maxExpectedCalorie" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="minExpectedCalorie" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subTitle" attributeType="String"/>
@@ -25,12 +25,21 @@
         <relationship name="dayWorkouts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayWorkoutCoreEntity"/>
     </entity>
     <entity name="RecentActivitiesCoreEntity" representedClassName="RecentActivitiesCoreEntity" syncable="YES">
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="dayWorkouts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayWorkoutCoreEntity"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="expectedMinute" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="imageName" attributeType="String"/>
+        <attribute name="maxExpectedCalorie" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="minExpectedCalorie" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subTitle" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <relationship name="workouts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WorkoutCoreEntity"/>
     </entity>
     <entity name="WodCoreEntity" representedClassName="WodCoreEntity" syncable="YES">
         <attribute name="expectedCalorie" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="set" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subTitle" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
@@ -39,13 +48,13 @@
         <relationship name="wodSets" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodSetCoreEntity"/>
     </entity>
     <entity name="WodSetCoreEntity" representedClassName="WodSetCoreEntity" syncable="YES">
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="unitValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="WorkoutCoreEntity" representedClassName="WorkoutCoreEntity" syncable="YES">
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="type" attributeType="String"/>
         <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodCoreEntity"/>
     </entity>

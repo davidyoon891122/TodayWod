@@ -14,7 +14,7 @@ struct WodFeature {
     
     @ObservableState
     struct State: Equatable, Identifiable {
-        let id: UUID
+        let id: String
         let hasStart: Bool
         var model: WodModel
         

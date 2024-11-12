@@ -2,7 +2,7 @@
 //  DayWorkoutCoreEntity+CoreDataProperties.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 10/15/24.
+//  Created by 오지연 on 10/15/24.
 //
 //
 
@@ -17,7 +17,7 @@ extension DayWorkoutCoreEntity {
     }
 
     @NSManaged public var expectedMinute: Int64
-    @NSManaged public var id: UUID
+    @NSManaged public var id: String
     @NSManaged public var maxExpectedCalorie: Int64
     @NSManaged public var minExpectedCalorie: Int64
     @NSManaged public var subTitle: String
