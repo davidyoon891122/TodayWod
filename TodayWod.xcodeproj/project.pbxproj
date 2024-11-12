@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,6 +62,7 @@
 		1C9C9F712CABB67300157001 /* WorkOutNewChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C9F6F2CABB67300157001 /* WorkOutNewChallengeView.swift */; };
 		1C9C9F732CABBA3A00157001 /* Extension+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C9F722CABBA3A00157001 /* Extension+Array.swift */; };
 		1CC1FCCD2C91C532005FC6A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC1FCCC2C91C532005FC6A2 /* Images.xcassets */; };
+		1CE33C7A2CE34E7800E4B682 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE33C792CE34E7800E4B682 /* ComposableArchitecture */; };
 		1CF3E2402CC8AF5500225EDD /* CompletedDate+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3E23F2CC8AF5500225EDD /* CompletedDate+Entity.swift */; };
 		1CF3E2422CC8AF6E00225EDD /* CompletedDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3E2412CC8AF6E00225EDD /* CompletedDateModel.swift */; };
 		1CF3E2442CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3E2432CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift */; };
@@ -123,7 +124,6 @@
 		499B07532C8BD6B700C46FDD /* TodayWodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07522C8BD6B700C46FDD /* TodayWodApp.swift */; };
 		499B07572C8BD6B900C46FDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07562C8BD6B900C46FDD /* Assets.xcassets */; };
 		499B075A2C8BD6B900C46FDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07592C8BD6B900C46FDD /* Preview Assets.xcassets */; };
-		499B07622C8BEEFD00C46FDD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 499B07612C8BEEFD00C46FDD /* ComposableArchitecture */; };
 		499B07662C8BEFBF00C46FDD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499B07652C8BEFBF00C46FDD /* Colors.xcassets */; };
 		499B07692C8BEFDB00C46FDD /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B07682C8BEFDB00C46FDD /* SplashFeature.swift */; };
 		49B8AF062C8C5D3900EA78CC /* Colors+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AF042C8C5D3900EA78CC /* Colors+Generated.swift */; };
@@ -158,6 +158,16 @@
 		ADCEE1622CBF8F5900D71FEB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1612CBF8F5900D71FEB /* Logger.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1C5DBB162CE32AF300DCE6C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 499B07472C8BD6B700C46FDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 499B074E2C8BD6B700C46FDD;
+			remoteInfo = TodayWod;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1C0B53702CAD34F300256FE2 /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
 		1C0B53752CAFA33A00256FE2 /* WorkoutConfirmationFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutConfirmationFeature.swift; sourceTree = "<group>"; };
@@ -187,6 +197,7 @@
 		1C5371F22CCF0DC700EA4FB0 /* WorkoutDetailContentFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailContentFeature.swift; sourceTree = "<group>"; };
 		1C5DBB0A2CE32A1400DCE6C4 /* DayWorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWorkoutModel.swift; sourceTree = "<group>"; };
 		1C5DBB0B2CE32A1400DCE6C4 /* WodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WodModel.swift; sourceTree = "<group>"; };
+		1C5DBB122CE32AF300DCE6C4 /* TodayWodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodayWodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C622DB82CABCBB20034834E /* Extension+Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Int.swift"; sourceTree = "<group>"; };
 		1C6DCBB42CC0049800ED56B2 /* WorkoutConfirmationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutConfirmationType.swift; sourceTree = "<group>"; };
 		1C6DCBB82CC1488800ED56B2 /* RecentWodCoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWodCoreDataProvider.swift; sourceTree = "<group>"; };
@@ -305,14 +316,25 @@
 		ADCEE1612CBF8F5900D71FEB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		1C5DBB132CE32AF300DCE6C4 /* TodayWodTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TodayWodTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		1C5DBB0F2CE32AF300DCE6C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		499B074C2C8BD6B700C46FDD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1C79998F2CE1B98600553674 /* FirebaseAppDistribution-Beta in Frameworks */,
-				499B07622C8BEEFD00C46FDD /* ComposableArchitecture in Frameworks */,
 				1C79998B2CE1B98600553674 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				1CE33C7A2CE34E7800E4B682 /* ComposableArchitecture in Frameworks */,
 				ADCEE1082CBDEC5000D71FEB /* Alamofire in Frameworks */,
 				1C7999872CE1B98600553674 /* FirebaseAnalytics in Frameworks */,
 				1C79998D2CE1B98600553674 /* FirebaseAppCheck in Frameworks */,
@@ -763,6 +785,7 @@
 			isa = PBXGroup;
 			children = (
 				499B07512C8BD6B700C46FDD /* TodayWod */,
+				1C5DBB132CE32AF300DCE6C4 /* TodayWodTests */,
 				499B07502C8BD6B700C46FDD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -771,6 +794,7 @@
 			isa = PBXGroup;
 			children = (
 				499B074F2C8BD6B700C46FDD /* TodayWod.app */,
+				1C5DBB122CE32AF300DCE6C4 /* TodayWodTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -996,6 +1020,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1C5DBB112CE32AF300DCE6C4 /* TodayWodTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C5DBB1A2CE32AF300DCE6C4 /* Build configuration list for PBXNativeTarget "TodayWodTests" */;
+			buildPhases = (
+				1C5DBB0E2CE32AF300DCE6C4 /* Sources */,
+				1C5DBB0F2CE32AF300DCE6C4 /* Frameworks */,
+				1C5DBB102CE32AF300DCE6C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1C5DBB172CE32AF300DCE6C4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				1C5DBB132CE32AF300DCE6C4 /* TodayWodTests */,
+			);
+			name = TodayWodTests;
+			packageProductDependencies = (
+			);
+			productName = TodayWodTests;
+			productReference = 1C5DBB122CE32AF300DCE6C4 /* TodayWodTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		499B074E2C8BD6B700C46FDD /* TodayWod */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 499B075D2C8BD6B900C46FDD /* Build configuration list for PBXNativeTarget "TodayWod" */;
@@ -1012,13 +1059,13 @@
 			);
 			name = TodayWod;
 			packageProductDependencies = (
-				499B07612C8BEEFD00C46FDD /* ComposableArchitecture */,
 				ADCEE1072CBDEC5000D71FEB /* Alamofire */,
 				1C7999862CE1B98600553674 /* FirebaseAnalytics */,
 				1C7999882CE1B98600553674 /* FirebaseAnalyticsOnDeviceConversion */,
 				1C79998A2CE1B98600553674 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				1C79998C2CE1B98600553674 /* FirebaseAppCheck */,
 				1C79998E2CE1B98600553674 /* FirebaseAppDistribution-Beta */,
+				1CE33C792CE34E7800E4B682 /* ComposableArchitecture */,
 			);
 			productName = TodayWod;
 			productReference = 499B074F2C8BD6B700C46FDD /* TodayWod.app */;
@@ -1031,9 +1078,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					1C5DBB112CE32AF300DCE6C4 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 499B074E2C8BD6B700C46FDD;
+					};
 					499B074E2C8BD6B700C46FDD = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -1049,20 +1100,28 @@
 			);
 			mainGroup = 499B07462C8BD6B700C46FDD;
 			packageReferences = (
-				499B07602C8BEEFD00C46FDD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				ADCEE1062CBDEC5000D71FEB /* XCRemoteSwiftPackageReference "Alamofire" */,
 				1C7999852CE1B98600553674 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1CE33C782CE34E7800E4B682 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 499B07502C8BD6B700C46FDD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				499B074E2C8BD6B700C46FDD /* TodayWod */,
+				1C5DBB112CE32AF300DCE6C4 /* TodayWodTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1C5DBB102CE32AF300DCE6C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		499B074D2C8BD6B700C46FDD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1131,6 +1190,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1C5DBB0E2CE32AF300DCE6C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		499B074B2C8BD6B700C46FDD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1268,7 +1334,55 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1C5DBB172CE32AF300DCE6C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 499B074E2C8BD6B700C46FDD /* TodayWod */;
+			targetProxy = 1C5DBB162CE32AF300DCE6C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1C5DBB182CE32AF300DCE6C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L66GN843PC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oji.TodayWodTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodayWod.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TodayWod";
+			};
+			name = Debug;
+		};
+		1C5DBB192CE32AF300DCE6C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L66GN843PC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oji.TodayWodTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodayWod.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TodayWod";
+			};
+			name = Release;
+		};
 		499B075B2C8BD6B900C46FDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1471,6 +1585,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1C5DBB1A2CE32AF300DCE6C4 /* Build configuration list for PBXNativeTarget "TodayWodTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C5DBB182CE32AF300DCE6C4 /* Debug */,
+				1C5DBB192CE32AF300DCE6C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		499B074A2C8BD6B700C46FDD /* Build configuration list for PBXProject "TodayWod" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1500,12 +1623,12 @@
 				minimumVersion = 11.4.0;
 			};
 		};
-		499B07602C8BEEFD00C46FDD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+		1CE33C782CE34E7800E4B682 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.14.0;
+				minimumVersion = 1.15.2;
 			};
 		};
 		ADCEE1062CBDEC5000D71FEB /* XCRemoteSwiftPackageReference "Alamofire" */ = {
@@ -1544,9 +1667,9 @@
 			package = 1C7999852CE1B98600553674 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAppDistribution-Beta";
 		};
-		499B07612C8BEEFD00C46FDD /* ComposableArchitecture */ = {
+		1CE33C792CE34E7800E4B682 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 499B07602C8BEEFD00C46FDD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			package = 1CE33C782CE34E7800E4B682 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
 		ADCEE1072CBDEC5000D71FEB /* Alamofire */ = {

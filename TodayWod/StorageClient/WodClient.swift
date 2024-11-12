@@ -57,6 +57,27 @@ extension WodClient: DependencyKey {
     }, addCompletedDates: { dayWorkout in
         try await WodClient.completedWodProvider.setCompletedDates(model: dayWorkout)
     })
+    
+//    static let testValue: WodClient = .init {
+//        ProgramModel.bodyBeginner
+//    } getDayModels: {
+//        []
+//    } addWodProgram: { _ in
+//        ProgramModel.bodyBeginner
+//    } updateWodProgram: { _ in
+//        //
+//    } removePrograms: {
+//        //
+//    } getRecentDayWorkouts: {
+//        ProgramModel.bodyBeginner.dayWorkouts
+//    } addRecentDayWorkouts: { _ in
+//        //
+//    } getCompletedDates: {
+//        []
+//    } addCompletedDates: { _ in
+//        //
+//    }
+
 
 }
 
