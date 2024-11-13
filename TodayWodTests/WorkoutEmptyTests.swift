@@ -13,7 +13,8 @@ import ComposableArchitecture
 @MainActor
 struct WorkoutEmptyTests {
 
-    @Test func onAppear() async {
+    @Test
+    func onAppear() async {
         let store = TestStore(initialState: WorkOutEmptyFeature.State()) {
             WorkOutEmptyFeature()
         } withDependencies: { value in

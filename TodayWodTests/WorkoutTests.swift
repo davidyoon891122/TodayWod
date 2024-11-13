@@ -13,7 +13,8 @@ import ComposableArchitecture
 @MainActor
 struct WorkoutTests {
 
-    @Test func didTapNewChallenge() async {
+    @Test
+    func didTapNewChallenge() async {
         
         let initModel = ProgramModel.bodyBeginner
         let newEntity = ProgramEntity.fake
