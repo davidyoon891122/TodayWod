@@ -9,7 +9,7 @@ DerivedData/
 *.xcodeproj
 
 ### FireBase ###
-GoogleService-Info.plist
+**/GoogleService-Info.plist
 
 ### Fastlane ###
 *.dSYM.zip

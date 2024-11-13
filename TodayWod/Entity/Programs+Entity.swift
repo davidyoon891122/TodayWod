@@ -25,7 +25,7 @@ struct ProgramEntity: Codable, Equatable {
 
 extension ProgramEntity {
     
-    static var fake: Self = .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
+    static let fake: Self = .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
 
 }
 
