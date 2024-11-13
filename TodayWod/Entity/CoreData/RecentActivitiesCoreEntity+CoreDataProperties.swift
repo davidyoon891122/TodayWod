@@ -1,14 +1,13 @@
 //
 //  RecentActivitiesCoreEntity+CoreDataProperties.swift
-//  TodayWod
 //
-//  Created by 오지연 on 10/17/24.
+//
+//  Created by 오지연 on 11/11/24.
 //
 //
 
 import Foundation
 import CoreData
-
 
 extension RecentActivitiesCoreEntity {
 
@@ -16,46 +15,51 @@ extension RecentActivitiesCoreEntity {
         return NSFetchRequest<RecentActivitiesCoreEntity>(entityName: "RecentActivitiesCoreEntity")
     }
 
-    @NSManaged public var id: UUID
-    @NSManaged public var dayWorkouts: NSOrderedSet
+    @NSManaged public var date: Date?
+    @NSManaged public var duration: Int64
+    @NSManaged public var expectedMinute: Int64
+    @NSManaged public var id: String
+    @NSManaged public var imageName: String
+    @NSManaged public var maxExpectedCalorie: Int64
+    @NSManaged public var minExpectedCalorie: Int64
+    @NSManaged public var subTitle: String
+    @NSManaged public var title: String
+    @NSManaged public var type: String
+    @NSManaged public var workouts: NSOrderedSet
 
 }
 
-// MARK: Generated accessors for dayWorkouts
+// MARK: Generated accessors for workouts
 extension RecentActivitiesCoreEntity {
 
-    @objc(insertObject:inDayWorkoutsAtIndex:)
-    @NSManaged public func insertIntoDayWorkouts(_ value: NSManagedObject, at idx: Int)
+    @objc(insertObject:inWorkoutsAtIndex:)
+    @NSManaged public func insertIntoWorkouts(_ value: RecentActivitiesCoreEntity, at idx: Int)
 
-    @objc(removeObjectFromDayWorkoutsAtIndex:)
-    @NSManaged public func removeFromDayWorkouts(at idx: Int)
+    @objc(removeObjectFromWorkoutsAtIndex:)
+    @NSManaged public func removeFromWorkouts(at idx: Int)
 
-    @objc(insertDayWorkouts:atIndexes:)
-    @NSManaged public func insertIntoDayWorkouts(_ values: [NSManagedObject], at indexes: NSIndexSet)
+    @objc(insertWorkouts:atIndexes:)
+    @NSManaged public func insertIntoWorkouts(_ values: [RecentActivitiesCoreEntity], at indexes: NSIndexSet)
 
-    @objc(removeDayWorkoutsAtIndexes:)
-    @NSManaged public func removeFromDayWorkouts(at indexes: NSIndexSet)
+    @objc(removeWorkoutsAtIndexes:)
+    @NSManaged public func removeFromWorkouts(at indexes: NSIndexSet)
 
-    @objc(replaceObjectInDayWorkoutsAtIndex:withObject:)
-    @NSManaged public func replaceDayWorkouts(at idx: Int, with value: NSManagedObject)
+    @objc(replaceObjectInWorkoutsAtIndex:withObject:)
+    @NSManaged public func replaceWorkouts(at idx: Int, with value: RecentActivitiesCoreEntity)
 
-    @objc(replaceDayWorkoutsAtIndexes:withDayWorkouts:)
-    @NSManaged public func replaceDayWorkouts(at indexes: NSIndexSet, with values: [NSManagedObject])
+    @objc(replaceWorkoutsAtIndexes:withWorkouts:)
+    @NSManaged public func replaceWorkouts(at indexes: NSIndexSet, with values: [RecentActivitiesCoreEntity])
 
-    @objc(addDayWorkoutsObject:)
-    @NSManaged public func addToDayWorkouts(_ value: NSManagedObject)
+    @objc(addWorkoutsObject:)
+    @NSManaged public func addToWorkouts(_ value: RecentActivitiesCoreEntity)
 
-    @objc(removeDayWorkoutsObject:)
-    @NSManaged public func removeFromDayWorkouts(_ value: NSManagedObject)
+    @objc(removeWorkoutsObject:)
+    @NSManaged public func removeFromWorkouts(_ value: RecentActivitiesCoreEntity)
 
-    @objc(addDayWorkouts:)
-    @NSManaged public func addToDayWorkouts(_ values: NSOrderedSet)
+    @objc(addWorkouts:)
+    @NSManaged public func addToWorkouts(_ values: NSOrderedSet)
 
-    @objc(removeDayWorkouts:)
-    @NSManaged public func removeFromDayWorkouts(_ values: NSOrderedSet)
-
-}
-
-extension RecentActivitiesCoreEntity : Identifiable {
+    @objc(removeWorkouts:)
+    @NSManaged public func removeFromWorkouts(_ values: NSOrderedSet)
 
 }

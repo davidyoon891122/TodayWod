@@ -15,7 +15,7 @@ struct WodSetFeature {
     struct State: Equatable, Identifiable {
         var unitText: String = ""
         
-        let id: UUID
+        let id: String
         let hasStart: Bool
         let isOrderSetVisible: Bool
         var model: WodSetModel

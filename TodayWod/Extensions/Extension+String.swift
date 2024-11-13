@@ -14,7 +14,7 @@ enum DateFormat: String {
 }
 
 extension String {
-    
+
     var toInt: Int {
         Int(self) ?? 0
     }

@@ -2,21 +2,20 @@
 //  WodSetModel.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 9/24/24.
+//  Created by 오지연 on 9/24/24.
 //
 
 import Foundation
 
 struct WodSetModel: Codable, Equatable, Identifiable {
 
-    var id: UUID
-    
+    var id: String
     let order: Int
     var unitValue: Int
     var isCompleted: Bool
     
     init(unitValue: Int, order: Int = 1) {
-        self.id = UUID()
+        self.id = UUID().uuidString
         
         self.unitValue = unitValue
         self.order = order
@@ -24,8 +23,7 @@ struct WodSetModel: Codable, Equatable, Identifiable {
     }
     
     init(data: WodSetEntity) {
-        self.id = UUID()
-        
+        self.id = data.id
         self.order = data.order
         self.unitValue = data.unitValue
         self.isCompleted = data.isCompleted
@@ -33,7 +31,6 @@ struct WodSetModel: Codable, Equatable, Identifiable {
     
     init(coreData: WodSetCoreEntity) {
         self.id = coreData.id
-        
         self.order = Int(coreData.order)
         self.unitValue = Int(coreData.unitValue)
         self.isCompleted = coreData.isCompleted

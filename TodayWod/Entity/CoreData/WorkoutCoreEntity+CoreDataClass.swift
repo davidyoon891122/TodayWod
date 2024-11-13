@@ -2,7 +2,7 @@
 //  WorkoutCoreEntity+CoreDataClass.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 10/15/24.
+//  Created by 오지연 on 10/15/24.
 //
 //
 
@@ -11,11 +11,6 @@ import CoreData
 
 @objc(WorkoutCoreEntity)
 public class WorkoutCoreEntity: NSManagedObject {
-
-    public override func awakeFromInsert() {
-        super.awakeFromInsert()
-        self.id = UUID()
-    }
     
 }
 

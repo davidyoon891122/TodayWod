@@ -2,7 +2,7 @@
 //  WodCoreEntity+CoreDataProperties.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 10/15/24.
+//  Created by 오지연 on 10/15/24.
 //
 //
 
@@ -16,7 +16,7 @@ extension WodCoreEntity {
         return NSFetchRequest<WodCoreEntity>(entityName: "WodCoreEntity")
     }
 
-    @NSManaged public var id: UUID
+    @NSManaged public var id: String
     @NSManaged public var set: Int64
     @NSManaged public var subTitle: String
     @NSManaged public var title: String

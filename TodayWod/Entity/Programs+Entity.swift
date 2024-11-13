@@ -25,12 +25,13 @@ struct ProgramEntity: Codable, Equatable {
 
 extension ProgramEntity {
     
-    static var fake: Self = .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
+    static let fake: Self = .init(id: UUID().uuidString, methodType: .body, level: .beginner, dayWorkouts: DayWorkoutEntity.bodyBeginnerAlphaWeek)
 
 }
 
 struct DayWorkoutEntity: Codable, Equatable {
     
+    let id: String
     let type: DayWorkoutTagType
     let title: String
     let subTitle: String
@@ -45,12 +46,13 @@ struct DayWorkoutEntity: Codable, Equatable {
 
 extension DayWorkoutEntity {
     
-    static var fake: Self = .init(type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay1Info, imageName: "coreStrength1")
+    static var fake: Self = .init(id: UUID().uuidString, type: .start, title: "알파 데이", subTitle: "한주를 시작하는", expectedMinute: 60, minExpectedCalorie: 400, maxExpectedCalorie: 500, workouts: WorkoutEntity.bodyBeginnerAlphaDay1Info, imageName: "coreStrength1")
 
 }
 
 struct WorkoutEntity: Codable, Equatable {
     
+    let id: String
     let type: WorkoutType
     var wods: [WodEntity]
     
@@ -59,13 +61,14 @@ struct WorkoutEntity: Codable, Equatable {
 extension WorkoutEntity {
     
     static var fake: Self {
-        .init(type: .main, wods: [WodEntity.main1, WodEntity.main2, WodEntity.main3])
+        .init(id: UUID().uuidString, type: .main, wods: [WodEntity.main1, WodEntity.main2, WodEntity.main3])
     }
 
 }
 
 struct WodEntity: Codable, Equatable {
     
+    let id: String
     let title: String
     let subTitle: String
     let unit: ExerciseUnit
@@ -75,7 +78,8 @@ struct WodEntity: Codable, Equatable {
     let expectedCalorie: Int
 
 
-    init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int?, wodSets: [WodSetEntity]?, expectedCalorie: Int) {
+    init(id: String, title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int?, wodSets: [WodSetEntity]?, expectedCalorie: Int) {
+        self.id = id
         self.title = title
         self.subTitle = subTitle
         self.unit = unit
@@ -90,13 +94,14 @@ struct WodEntity: Codable, Equatable {
 extension WodEntity {
     
     static var fake: Self {
-        .init(title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3, wodSets: WodSetEntity.fakes, expectedCalorie: 35)
+        .init(id: UUID().uuidString, title: "덤밸 스내치", subTitle: "lowing abc", unit: .repetitions, unitValue: 8, set: 3, wodSets: WodSetEntity.fakes, expectedCalorie: 35)
     }
 
 }
 
 struct WodSetEntity: Codable, Equatable {
     
+    let id: String
     let order: Int
     let unitValue: Int
     let isCompleted: Bool
@@ -106,12 +111,12 @@ struct WodSetEntity: Codable, Equatable {
 extension WodSetEntity {
     
     static var fake: Self {
-        .init(order: 0, unitValue: 15, isCompleted: false)
+        .init(id: UUID().uuidString, order: 0, unitValue: 15, isCompleted: false)
     }
     
     static var fakes: [Self] = [
-        .init(order: 0, unitValue: 5, isCompleted: false),
-        .init(order: 1, unitValue: 5, isCompleted: false)
+        .init(id: UUID().uuidString, order: 0, unitValue: 5, isCompleted: false),
+        .init(id: UUID().uuidString, order: 1, unitValue: 5, isCompleted: false)
     ]
     
 }

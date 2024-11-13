@@ -57,7 +57,7 @@ extension WodClient: DependencyKey {
     }, addCompletedDates: { dayWorkout in
         try await WodClient.completedWodProvider.setCompletedDates(model: dayWorkout)
     })
-
+    
 }
 
 extension DependencyValues {
