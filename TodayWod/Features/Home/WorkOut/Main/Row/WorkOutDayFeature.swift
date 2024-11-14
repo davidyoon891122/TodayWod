@@ -28,7 +28,9 @@ struct WorkOutDayView: View {
                         .background(Colors.blue60.swiftUIColor)
                         .cornerRadius(30)
                 }
-                CustomDivider(color: Colors.grey20.swiftUIColor, direction: .vertical)
+                if item.type != .end {
+                    CustomDivider(color: Colors.grey20.swiftUIColor, direction: .vertical)                    
+                }
             }
             .frame(width: 40)
             
