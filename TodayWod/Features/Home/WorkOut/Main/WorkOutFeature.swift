@@ -206,6 +206,7 @@ struct WorkOutFeature {
 }
 
 import SwiftUI
+import GoogleMobileAds
 
 struct WorkOutView: View {
     
@@ -217,6 +218,7 @@ struct WorkOutView: View {
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         WorkOutNewChallengeView(store: store)
+                        BannerAdView()
                         WorkOutTitleView(store: store)
                         
                         ForEach(Array(store.dayWorkouts.enumerated()), id: \.element.id) { index, item in
