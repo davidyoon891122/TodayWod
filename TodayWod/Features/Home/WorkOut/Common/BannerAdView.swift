@@ -14,7 +14,6 @@ struct BannerAdView: View {
         GeometryReader { geometry in
             let adSize = GADInlineAdaptiveBannerAdSizeWithWidthAndMaxHeight(geometry.size.width, geometry.size.height)
             AdmobBannerView(adSize)
-                .background(Colors.grey40.swiftUIColor)
         }
         .frame(height: 86)
         .cornerRadius(12, corners: .allCorners)

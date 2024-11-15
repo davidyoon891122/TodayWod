@@ -71,6 +71,10 @@
 		1CDBE35F2CE6CE7E0026E4FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CDBE35E2CE6CE7E0026E4FF /* GoogleService-Info.plist */; };
 		1CDBE3612CE6DEED0026E4FF /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDBE3602CE6DEEA0026E4FF /* PlistReader.swift */; };
 		1CE33C7A2CE34E7800E4B682 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE33C792CE34E7800E4B682 /* ComposableArchitecture */; };
+		1CE8E54E2CE7158300523C54 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE8E54D2CE7158300523C54 /* Lottie */; };
+		1CE8E5512CE7187E00523C54 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8E5502CE7187700523C54 /* LottieView.swift */; };
+		1CE8E5542CE71A5500523C54 /* banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CE8E5532CE71A5500523C54 /* banner.json */; };
+		1CE8E5572CE71C5400523C54 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE8E5562CE71C5400523C54 /* SnapKit */; };
 		1CF3E2402CC8AF5500225EDD /* CompletedDate+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3E23F2CC8AF5500225EDD /* CompletedDate+Entity.swift */; };
 		1CF3E2422CC8AF6E00225EDD /* CompletedDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3E2412CC8AF6E00225EDD /* CompletedDateModel.swift */; };
 		1CF3E2442CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3E2432CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift */; };
@@ -236,6 +240,8 @@
 		1CDBE35E2CE6CE7E0026E4FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1CDBE3602CE6DEEA0026E4FF /* PlistReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		1CE33CA22CE429ED00E4B682 /* TodayWodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodayWodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CE8E5502CE7187700523C54 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		1CE8E5532CE71A5500523C54 /* banner.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = banner.json; sourceTree = "<group>"; };
 		1CF3E23F2CC8AF5500225EDD /* CompletedDate+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedDate+Entity.swift"; sourceTree = "<group>"; };
 		1CF3E2412CC8AF6E00225EDD /* CompletedDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedDateModel.swift; sourceTree = "<group>"; };
 		1CF3E2432CC8AF9700225EDD /* CompletedWodCoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedWodCoreDataProvider.swift; sourceTree = "<group>"; };
@@ -345,12 +351,14 @@
 			files = (
 				1C79998F2CE1B98600553674 /* FirebaseAppDistribution-Beta in Frameworks */,
 				1C79998B2CE1B98600553674 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				1CE8E54E2CE7158300523C54 /* Lottie in Frameworks */,
 				1CE33C7A2CE34E7800E4B682 /* ComposableArchitecture in Frameworks */,
 				ADCEE1082CBDEC5000D71FEB /* Alamofire in Frameworks */,
 				1CA28CE22CE5897800A2A8B6 /* GoogleMobileAds in Frameworks */,
 				1C7999872CE1B98600553674 /* FirebaseAnalytics in Frameworks */,
 				1C79998D2CE1B98600553674 /* FirebaseAppCheck in Frameworks */,
 				1C7999892CE1B98600553674 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				1CE8E5572CE71C5400523C54 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +522,22 @@
 			path = Ads;
 			sourceTree = "<group>";
 		};
+		1CE8E54F2CE7186400523C54 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				1CE8E5502CE7187700523C54 /* LottieView.swift */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		1CE8E5522CE71A2700523C54 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				1CE8E5532CE71A5500523C54 /* banner.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		1CFED2D82C9B9C9B000A09E5 /* WorkOut */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +659,7 @@
 				49593C382C969378006105D1 /* Modifier */,
 				497C0F0C2C9E5F8300F7444E /* Calendar */,
 				498B92AC2CC933EE00B51910 /* Preference */,
+				1CE8E54F2CE7186400523C54 /* Lottie */,
 				AD87AD0F2CE1DC6100D5EA6A /* Toast */,
 			);
 			path = Common;
@@ -859,6 +884,7 @@
 		499B07672C8BEFC600C46FDD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1CE8E5522CE71A2700523C54 /* Lottie */,
 				49B8AEFF2C8C5B8000EA78CC /* SwiftGen */,
 				ADC5B0592C93D02300E06C8E /* Fonts */,
 				499B07562C8BD6B900C46FDD /* Assets.xcassets */,
@@ -1088,6 +1114,8 @@
 				1C79998E2CE1B98600553674 /* FirebaseAppDistribution-Beta */,
 				1CE33C792CE34E7800E4B682 /* ComposableArchitecture */,
 				1CA28CE12CE5897800A2A8B6 /* GoogleMobileAds */,
+				1CE8E54D2CE7158300523C54 /* Lottie */,
+				1CE8E5562CE71C5400523C54 /* SnapKit */,
 			);
 			productName = TodayWod;
 			productReference = 499B074F2C8BD6B700C46FDD /* TodayWod.app */;
@@ -1127,6 +1155,8 @@
 				1C7999852CE1B98600553674 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1CE33C782CE34E7800E4B682 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				1CA28CE02CE5897800A2A8B6 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				1CE8E54C2CE7158300523C54 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				1CE8E5552CE71C5400523C54 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 499B07502C8BD6B700C46FDD /* Products */;
 			projectDirPath = "";
@@ -1159,6 +1189,7 @@
 				49593C2D2C9570F4006105D1 /* Pretendard-Regular.otf in Resources */,
 				49593C2F2C9570F4006105D1 /* Pretendard-Light.otf in Resources */,
 				49593C312C9570F4006105D1 /* Pretendard-ExtraLight.otf in Resources */,
+				1CE8E5542CE71A5500523C54 /* banner.json in Resources */,
 				1CC1FCCD2C91C532005FC6A2 /* Images.xcassets in Resources */,
 				499B075A2C8BD6B900C46FDD /* Preview Assets.xcassets in Resources */,
 				49593C2E2C9570F4006105D1 /* Pretendard-SemiBold.otf in Resources */,
@@ -1267,6 +1298,7 @@
 				1C1D050B2CBE2C1800BDA52D /* WodClient.swift in Sources */,
 				1C1D050C2CBE2C1800BDA52D /* WodCoreDataProvider.swift in Sources */,
 				1C1D050D2CBE2C1800BDA52D /* WodCoreData.swift in Sources */,
+				1CE8E5512CE7187E00523C54 /* LottieView.swift in Sources */,
 				49101A722C8D374400FDB709 /* HomeFeature.swift in Sources */,
 				1C0B53712CAD34F300256FE2 /* BottomButton.swift in Sources */,
 				1C8708BF2CACDB8A00967DFE /* AppEnvironment.swift in Sources */,
@@ -1673,6 +1705,22 @@
 				minimumVersion = 1.15.2;
 			};
 		};
+		1CE8E54C2CE7158300523C54 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+		1CE8E5552CE71C5400523C54 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 		ADCEE1062CBDEC5000D71FEB /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1718,6 +1766,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1CE33C782CE34E7800E4B682 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		1CE8E54D2CE7158300523C54 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CE8E54C2CE7158300523C54 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+		1CE8E5562CE71C5400523C54 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CE8E5552CE71C5400523C54 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 		ADCEE1072CBDEC5000D71FEB /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
