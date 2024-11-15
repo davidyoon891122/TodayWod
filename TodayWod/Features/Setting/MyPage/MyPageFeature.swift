@@ -17,6 +17,7 @@ struct MyPageFeature {
         var shouldUpdate: Bool = false
         var onboardingUserInfoModel: OnboardingUserInfoModel
         var toast: ToastModel?
+        var versionInfoState: VersionInfoFeature.State = VersionInfoFeature.State(version: AppEnvironment.shortVersion)
 
         init(onboardingUserInfoModel: OnboardingUserInfoModel) {
             self.onboardingUserInfoModel = onboardingUserInfoModel
@@ -30,8 +31,9 @@ struct MyPageFeature {
         case didTapBackButton
         case didTapModifyProfileButton(OnboardingUserInfoModel?)
         case didTapInfoButton(UserInfoType)
-        case versionRequestResult(Result<AppInfoEntity, Error>)
+        case versionRequestResult(Result<VersionInfoModel, Error>)
         case setToast(ToastModel?)
+        case versionInfoAction(VersionInfoFeature.Action)
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -39,6 +41,10 @@ struct MyPageFeature {
     @Dependency(\.apiClient) var apiClient
 
     var body: some ReducerOf<Self> {
+        Scope(state: \.versionInfoState, action: \.versionInfoAction) {
+            VersionInfoFeature()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -47,12 +53,11 @@ struct MyPageFeature {
                 }
                 state.hideTabBar = true
                 
-                let bundleId = AppEnvironment.mainBundle.bundleIdentifier ?? ""
-                let testBundleId = "com.ycompany.DreamTodo"
+                let bundleId = AppEnvironment.mainBundle.bundleIdentifier ?? "" // "com.ycompany.DreamTodo"
                 
                 return .run { send in
                     do {
-                        let result = try await apiClient.requestAppVersion(.init(bundleId: testBundleId))
+                        let result = try await apiClient.requestAppVersion(.init(bundleId: bundleId))
                         
                         await send(.versionRequestResult(.success(result)))
                     } catch {
@@ -67,18 +72,19 @@ struct MyPageFeature {
             case .didTapInfoButton:
                 return .none
             case .versionRequestResult(.success(let result)):
-                if Int(result.version.replacingOccurrences(of: ".", with: "")) ?? 0 >= Int(AppEnvironment.shortVersion.replacingOccurrences(of: ".", with: "")) ?? 0 {
-                    state.shouldUpdate = true
+                if let currentVersion = VersionInfoModel(from: AppEnvironment.shortVersion) {
+                    state.shouldUpdate = result > currentVersion
                 }
                 
-                state.version = AppEnvironment.shortVersion
+                state.versionInfoState = VersionInfoFeature.State(version: state.version, shouldUpdate: state.shouldUpdate)
                 return .none
-                
             case .versionRequestResult(.failure(let error)):
-                state.version = "버전 정보를 확인할 수 없어요."
+                state.versionInfoState = VersionInfoFeature.State(version: state.version, shouldUpdate: state.shouldUpdate, versionInfo: "")
                 return .send(.setToast(.init(message: error.localizedDescription)))
             case .setToast(let toast):
                 state.toast = toast
+                return .none
+            case .versionInfoAction:
                 return .none
             }
         }
@@ -106,7 +112,7 @@ struct MyPageView: View {
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
                         MyInfoView(store: store, userInfo: store.onboardingUserInfoModel.convertToSubArray())
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                        VersionInfoView(version: store.version)
+                        VersionInfoView(store: store.scope(state: \.versionInfoState, action: \.versionInfoAction))
                     }
                 }
             }
