@@ -16,7 +16,6 @@ struct VersionInfoFeature {
         var version: String
         var shouldUpdate: Bool = false
         var versionInfo: String = "최신버전"
-        let url: String = "itms-apps://itunes.apple.com/app/6677019235" // 여기에 선언하는게 맞을지 ? 고민
     }
     
     enum Action {
@@ -27,6 +26,8 @@ struct VersionInfoFeature {
         Reduce { state, action in
             switch action {
             case .didTapUpdate:
+                guard let url = URL(string: "itms-apps://itunes.apple.com/app/6677019235") else { return .none }
+                UIApplication.shared.open(url)
                 return .none
             }
         }
@@ -54,7 +55,7 @@ struct VersionInfoView: View {
                     Spacer()
                     
                     Button(action: {
-                        UIApplication.shared.open(URL(string: store.url)!)
+                        store.send(.didTapUpdate)
                     }, label: {
                         if store.shouldUpdate {
                             HStack {
