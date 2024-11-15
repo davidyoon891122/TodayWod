@@ -96,7 +96,7 @@ extension DayWorkoutModel {
     }
     
     var displayEstimatedCalorie: String {
-        "약 \(minExpectedCalorie)~\(maxExpectedCalorie) Kcal"
+        "약 \(maxExpectedCalorie) Kcal"
     }
     
     var completedWodsCount: Int {
