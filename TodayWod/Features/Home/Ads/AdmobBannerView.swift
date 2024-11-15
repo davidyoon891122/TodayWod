@@ -17,12 +17,23 @@ struct AdmobBannerView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
-        view.addSubview(context.coordinator.bannerView)
+        
+        [
+            context.coordinator.bannerView,
+            context.coordinator.lottieView
+        ].forEach {
+            view.addSubview($0)
+        }
+        
         return view
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
         context.coordinator.bannerView.adSize = adSize
+        
+        context.coordinator.lottieView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func makeCoordinator() -> AdmobBannerCoordinator {
@@ -41,21 +52,34 @@ class AdmobBannerCoordinator: NSObject, GADBannerViewDelegate {
         return banner
     }()
     
+    let lottieView = LottieView(type: .banner)
+    
     let parent: AdmobBannerView
     
     init(_ parent: AdmobBannerView) {
         self.parent = parent
+        
+        self.lottieView.start()
     }
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+        self.lottieView.alpha = 1
         self.bannerView.alpha = 0
         UIView.animate(withDuration: 1.0, animations: {
+            self.lottieView.alpha = 0
             self.bannerView.alpha = 1
+            
+            self.lottieView.stop()
         })
     }
     
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         DLog.e("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+        self.lottieView.alpha = 0
+        self.bannerView.alpha = 0
+        UIView.animate(withDuration: 1.0, animations: {
+            self.lottieView.alpha = 1
+        })
     }
     
     func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
