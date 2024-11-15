@@ -11,6 +11,9 @@ DerivedData/
 ### FireBase ###
 **/GoogleService-Info.plist
 
+### Admob ###
+**/AdmobBanner-Info.plist
+
 ### Fastlane ###
 *.dSYM.zip
 *.ipa

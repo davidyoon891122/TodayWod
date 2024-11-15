@@ -34,7 +34,6 @@ struct WorkOutTitleView: View {
         }
         .frame(height: 54)
         .padding(.horizontal, 20)
-        .padding(.top, 20)
     }
     
 }

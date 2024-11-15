@@ -305,6 +305,8 @@ struct WorkOutDetailView: View {
                         ZStack {
                             VStack {
                                 WorkOutDetailTitleView(item: store.item)
+                                BannerAdView()
+                                    .padding(.bottom, 20)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     ForEach(store.scope(state: \.workoutStates, action: \.workoutActions)) { store in
