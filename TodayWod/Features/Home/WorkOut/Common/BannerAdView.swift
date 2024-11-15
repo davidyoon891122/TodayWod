@@ -18,7 +18,6 @@ struct BannerAdView: View {
         }
         .frame(height: 86)
         .cornerRadius(12, corners: .allCorners)
-        .padding(20)
     }
     
 }

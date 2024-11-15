@@ -219,6 +219,7 @@ struct WorkOutView: View {
                     LazyVStack(alignment: .leading) {
                         WorkOutNewChallengeView(store: store)
                         BannerAdView()
+                            .padding(20)
                         WorkOutTitleView(store: store)
                         
                         ForEach(Array(store.dayWorkouts.enumerated()), id: \.element.id) { index, item in

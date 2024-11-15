@@ -171,8 +171,11 @@ struct SettingView: View {
                             }
 
                         CalendarView(month: Date(), markedDates: $store.completedDates)
-                            .padding(.horizontal, 19)
-                            .padding(.vertical, 24.0)
+                            .padding(.horizontal, 19.0)
+                            .padding(.top, 4.0)
+                        
+                        BannerAdView()
+                            .padding(20.0)
 
                         HStack {
                             Text("최근 활동")
@@ -182,6 +185,7 @@ struct SettingView: View {
                                 .foregroundStyle(.grey100)
                             Spacer()
                         }
+                        .padding(.top, 20.0)
                         LazyVStack {
                             if store.recentDayWorkouts.isEmpty {
                                 MyActivityEmptyView()
