@@ -54,24 +54,15 @@ struct BreakTimerSettingsView: View {
 
     var body: some View {
         VStack {
-            Rectangle()
-                .frame(width: 32.0, height: 4.0)
-                .foregroundStyle(.black100)
-                .clipShape(.rect(cornerRadius: 200.0))
-                .padding(.top, 8.0)
-
-            VStack(alignment: .leading) {
-
+            VStack(alignment: .leading, spacing: 20.0) {
                 Text("휴식 타이머")
                     .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
-                    .foregroundStyle(.white100)
-                    .padding(.top, 20.0)
-                    .padding(.leading, 20.0)
+                    .foregroundStyle(.grey100)
 
                 HStack(spacing: 10.0) {
                     Text("\(store.state.currentTime)초")
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 24.0))
-                        .foregroundStyle(.white100)
+                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 28.0))
+                        .foregroundStyle(.grey100)
                     Spacer()
 
                     Button(action: {
@@ -82,9 +73,9 @@ struct BreakTimerSettingsView: View {
                             .frame(width: 64.0, height: 38.0)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 4.0)
-                                    .stroke(.white100)
+                                    .stroke(.grey60)
                             }
-                            .tint(.white100)
+                            .tint(.grey100)
                     })
 
                     Button(action: {
@@ -95,46 +86,37 @@ struct BreakTimerSettingsView: View {
                             .frame(width: 64.0, height: 38.0)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 4.0)
-                                    .stroke(.white100)
+                                    .stroke(.grey60)
                             }
-                            .tint(.white100)
+                            .tint(.grey100)
                     })
                 }
-                .padding(.top, 20.0)
-                .padding(.horizontal, 20.0)
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 10.0) {
                     Text("추천 휴식 시간")
                         .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                        .foregroundStyle(.white100)
-                    HStack(spacing: 17.0) {
+                        .foregroundStyle(.grey80)
+                    HStack(spacing: 6.0) {
                         ForEach(store.state.recommendTimes, id: \.self) { time in
                             Button(action: {
                                 store.send(.didTapRecommend(time))
                             }, label: {
                                 Text("\(time)초")
                                     .font(Fonts.Pretendard.regular.swiftUIFont(size: 13.0))
-                                    .tint(.white100)
-                                    .frame(width: 56.0, height: 30.0)
-                                    .background(.blue50)
+                                    .tint(.grey80)
+                                    .frame(width: 59.0, height: 34.0)
+                                    .background(.grey20)
                                     .clipShape(.rect(cornerRadius: 300))
-
                             })
                         }
                     }
-                    .padding(.top, 10.0)
                 }
-                .padding(.top, 26.0)
-                .padding(.horizontal, 20.0)
-                .padding(.bottom, 20.0)
             }
-            .background(.blue60)
+            .padding(20.0)
+            .background(.white)
             .clipShape(.rect(cornerRadius: 12.0))
-            .padding(.horizontal, 20.0)
-            .padding(.top, 10.0)
-            .padding(.bottom, 20.0)
         }
-        .background(.white)
+        .padding(10.0)
     }
 
 }
