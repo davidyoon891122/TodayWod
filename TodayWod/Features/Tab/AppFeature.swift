@@ -60,12 +60,13 @@ struct AppTabView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            // TODO: - 테스트를 위한 버튼
+            #if DEBUG
             Button(action: {
                 store.send(.resetOnboarding)
             }, label: {
                 Text("Back to onBoarding")
             })
+            #endif
             VStack(spacing: 0) {
                 switch store.tabType {
                 case .home:
