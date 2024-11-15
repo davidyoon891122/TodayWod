@@ -13,7 +13,7 @@ struct MyActivityView: View {
     
     var body: some View {
         HStack(spacing: 8.0) {
-            Images.genderMan.swiftUIImage
+            model.imageName.toSwiftUIImage
                 .resizable()
                 .frame(width: 48.0, height: 48.0)
             VStack(alignment: .leading, spacing: 6.0) {
