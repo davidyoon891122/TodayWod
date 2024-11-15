@@ -12,6 +12,8 @@ struct APIClient {
     var requestProgram: @Sendable (ProgramRequestModel) async throws -> ProgramEntity
     var requestCurrentProgram: @Sendable (ProgramRequestModel, String) async throws -> ProgramEntity
     var requestOtherRandomProgram: @Sendable (OtherProgramRequestModel) async throws -> ProgramEntity
+    
+    var requestAppVersion: @Sendable (AppStoreResultRequestModel) async throws -> AppInfoEntity
 }
 
 extension APIClient: DependencyKey {
@@ -25,6 +27,10 @@ extension APIClient: DependencyKey {
     }, requestOtherRandomProgram: { requestModel in
         let repository = ProgramRepository()
         return try await repository.requestOtherRandomProgram(input: requestModel)
+    }, requestAppVersion: { requestModel in
+        let repository = AppStoreRepository()
+        
+        return try await repository.requestVersion(input: requestModel)
     })
 
 }

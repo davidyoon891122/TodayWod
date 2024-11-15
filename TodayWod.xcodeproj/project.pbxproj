@@ -164,6 +164,9 @@
 		ADCEE1172CBE2A8E00D71FEB /* DictPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */; };
 		ADCEE1192CBE2DD800D71FEB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1182CBE2DD800D71FEB /* APIClient.swift */; };
 		ADCEE1622CBF8F5900D71FEB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1612CBF8F5900D71FEB /* Logger.swift */; };
+		ADDEF2662CE7125C007CE696 /* AppStoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEF2652CE7125C007CE696 /* AppStoreRepository.swift */; };
+		ADDEF2682CE7137C007CE696 /* AppStoreInfoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEF2672CE7137C007CE696 /* AppStoreInfoEntity.swift */; };
+		ADDEF26A2CE71456007CE696 /* AppStoreResultRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEF2692CE71456007CE696 /* AppStoreResultRequestModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,6 +332,9 @@
 		ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictPresentable.swift; sourceTree = "<group>"; };
 		ADCEE1182CBE2DD800D71FEB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		ADCEE1612CBF8F5900D71FEB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		ADDEF2652CE7125C007CE696 /* AppStoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreRepository.swift; sourceTree = "<group>"; };
+		ADDEF2672CE7137C007CE696 /* AppStoreInfoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreInfoEntity.swift; sourceTree = "<group>"; };
+		ADDEF2692CE71456007CE696 /* AppStoreResultRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreResultRequestModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,6 +498,7 @@
 				1C9C9F6C2CABB49B00157001 /* Programs+Dummy.swift */,
 				1CF3E23F2CC8AF5500225EDD /* CompletedDate+Entity.swift */,
 				ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */,
+				ADDEF2672CE7137C007CE696 /* AppStoreInfoEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -740,6 +747,7 @@
 			children = (
 				ADCEE1122CBE296600D71FEB /* ProgramRequestModel.swift */,
 				498B93502CCE5FFD00B51910 /* OtherProgramRequestModel.swift */,
+				ADDEF2692CE71456007CE696 /* AppStoreResultRequestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1023,6 +1031,7 @@
 			children = (
 				498B93522CCE61A700B51910 /* Model */,
 				ADCEE10D2CBE202D00D71FEB /* ProgramRepository.swift */,
+				ADDEF2652CE7125C007CE696 /* AppStoreRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1240,6 +1249,7 @@
 				49593C3A2C969BC2006105D1 /* HeightInputFeature.swift in Sources */,
 				1C622DB92CABCBB20034834E /* Extension+Int.swift in Sources */,
 				1C1D05112CBE2ED800BDA52D /* WorkoutModel.swift in Sources */,
+				ADDEF2682CE7137C007CE696 /* AppStoreInfoEntity.swift in Sources */,
 				1C6DCBB92CC1488800ED56B2 /* RecentWodCoreDataProvider.swift in Sources */,
 				497C0F1F2CA0309100F7444E /* CalendarCellView.swift in Sources */,
 				ADC5B0582C92E04000E06C8E /* NicknameFeature.swift in Sources */,
@@ -1324,6 +1334,7 @@
 				497C0F142CA02A6400F7444E /* CalendarHeaderView.swift in Sources */,
 				1C6DCBCE2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataClass.swift in Sources */,
 				1C6DCBCF2CC14F3800ED56B2 /* RecentActivitiesCoreEntity+CoreDataProperties.swift in Sources */,
+				ADDEF26A2CE71456007CE696 /* AppStoreResultRequestModel.swift in Sources */,
 				ADCEE0FF2CBDDD0400D71FEB /* APIRequest.swift in Sources */,
 				AD1FE4352CB4A9560045CE57 /* LevelCardView.swift in Sources */,
 				1C5DBB0C2CE32A1400DCE6C4 /* DayWorkoutModel.swift in Sources */,
@@ -1360,6 +1371,7 @@
 				497C0F092C9E466500F7444E /* TabMenuType.swift in Sources */,
 				AD87AD092CE183F800D5EA6A /* UserDefaultsError.swift in Sources */,
 				1CA28CE72CE5B53D00A2A8B6 /* AdmobBannerView.swift in Sources */,
+				ADDEF2662CE7125C007CE696 /* AppStoreRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

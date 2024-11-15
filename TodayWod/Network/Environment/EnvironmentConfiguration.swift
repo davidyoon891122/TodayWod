@@ -10,5 +10,6 @@ import Foundation
 class EnvironmentConfiguration {
 
     static var environment: TOWEnvironment = .real
+    static var appStoreEnvironment: TOWEnvironment = .appStore
 
 }

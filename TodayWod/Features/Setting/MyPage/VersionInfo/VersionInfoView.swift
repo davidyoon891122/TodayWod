@@ -6,6 +6,28 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+
+@Reducer
+struct VersionInfoFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        
+    }
+    
+    enum Action {
+        
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+                
+            }
+        }
+    }
+}
 
 struct VersionInfoView: View {
     
@@ -21,6 +43,7 @@ struct VersionInfoView: View {
             .padding(.top, 25.0)
             
             MyPageRowItemView(model: .init(title: "\(version)", value: Constants.menuTitle, type: .version))
+            
         }
         .padding(.horizontal, 20.0)
         .padding(.bottom, 30.0)
