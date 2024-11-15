@@ -14,6 +14,7 @@ struct WorkoutConfirmationFeature {
     @ObservableState
     struct State: Equatable {
         let type: WorkoutConfirmationType
+        var isProcessing: Bool = false
     }
     
     enum Action {
@@ -27,6 +28,9 @@ struct WorkoutConfirmationFeature {
         Reduce { state, action in
             switch action {
             case .didTapDoneButton:
+                
+                guard !state.isProcessing else { return .none }
+                state.isProcessing = true
                 return .run { _ in await dismiss() }
             case .didTapCloseButton:
                 return .run { _ in await dismiss() }
@@ -76,6 +80,7 @@ struct WorkoutConfirmationView: View {
                             .background(.blue60)
                             .clipShape(.rect(cornerRadius: 300.0))
                     })
+                    .disabled(store.isProcessing)
                 }
                 .padding(.top, 40.0)
             }
