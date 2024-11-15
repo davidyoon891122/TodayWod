@@ -48,7 +48,7 @@ struct HomeFeature {
             case .setWodInfo:
                 state.hasWod = true
                 return .none
-            case .workOutEmpty(.setProgramResult(.success(let model))):
+            case .workOutEmpty(.setProgramResult(.success(_))):
                 return .run(operation: { send in
                     await send(.setWodInfo)
                 })

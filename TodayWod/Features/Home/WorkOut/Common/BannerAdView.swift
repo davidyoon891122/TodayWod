@@ -17,7 +17,6 @@ struct BannerAdView: View {
                 .background(Colors.grey40.swiftUIColor)
         }
         .frame(height: 86)
-        .cornerRadius(12, corners: .allCorners)
     }
     
 }
