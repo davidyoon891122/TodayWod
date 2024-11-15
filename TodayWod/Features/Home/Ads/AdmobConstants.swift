@@ -2,7 +2,7 @@
 //  AdmobConstants.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 11/15/24.
+//  Created by 오지연 on 11/15/24.
 //
 
 import Foundation

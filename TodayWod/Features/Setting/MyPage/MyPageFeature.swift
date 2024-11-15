@@ -13,8 +13,7 @@ struct MyPageFeature {
     
     @ObservableState
     struct State: Equatable {
-        let version: String = AppEnvironment.shortVersion
-
+        let version: String = PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion)
 
         var onboardingUserInfoModel: OnboardingUserInfoModel
 
