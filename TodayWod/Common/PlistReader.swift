@@ -2,7 +2,7 @@
 //  PlistReader.swift
 //  TodayWod
 //
-//  Created by D프로젝트노드_오지연 on 11/15/24.
+//  Created by 오지연 on 11/15/24.
 //
 import Foundation
 
@@ -12,18 +12,42 @@ enum PlistType: String {
     
     case admobInfo = "AdmobBanner-Info"
     case googleInfo = "GoogleService-Info"
-    case mainInfo = "info"
     
 }
                                                           
 struct PlistReader {
     
-    func getData(type: PlistType, key: String) -> String? {
-        guard let plistPath = Bundle.main.path(forResource: type.rawValue, ofType: PlistType.plistExtension),
+    func getData(type: PlistType, key: String) -> String {
+        guard let plistPath = mainBundle.path(forResource: type.rawValue, ofType: PlistType.plistExtension),
               let plistDict = NSDictionary(contentsOfFile: plistPath) else {
-            return nil
+            fatalError("\(type.rawValue) Plist <\(key)> not found")
         }
-        return plistDict[key] as? String
+        
+        return plistDict[key] as? String ?? ""
+    }
+    
+    func getMainInfo(key: String) -> String {
+        guard let value = mainBundle.infoDictionary?[key] as? String else {
+            fatalError("Main Info Plist <\(key)> not found")
+        }
+        
+        return value
+    }
+    
+    var identifier: String {
+        guard let identifier = mainBundle.bundleIdentifier else {
+            fatalError("Plist bundleIdentifier not found")
+        }
+        
+        return identifier
+    }
+    
+}
+
+private extension PlistReader {
+    
+    var mainBundle: Bundle {
+        Bundle.main
     }
     
 }

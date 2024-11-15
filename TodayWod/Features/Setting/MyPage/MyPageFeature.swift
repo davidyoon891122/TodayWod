@@ -13,11 +13,12 @@ struct MyPageFeature {
     
     @ObservableState
     struct State: Equatable {
-        var version: String = AppEnvironment.shortVersion
         var shouldUpdate: Bool = false
+        let version: String = PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion)
+
         var onboardingUserInfoModel: OnboardingUserInfoModel
         var toast: ToastModel?
-        var versionInfoState: VersionInfoFeature.State = VersionInfoFeature.State(version: AppEnvironment.shortVersion)
+        var versionInfoState: VersionInfoFeature.State = VersionInfoFeature.State(version: PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion))
 
         init(onboardingUserInfoModel: OnboardingUserInfoModel) {
             self.onboardingUserInfoModel = onboardingUserInfoModel
@@ -52,8 +53,8 @@ struct MyPageFeature {
                     state.onboardingUserInfoModel = onboardingUserInfoModel
                 }
                 state.hideTabBar = true
-                
-                let bundleId = AppEnvironment.mainBundle.bundleIdentifier ?? "" // "com.ycompany.DreamTodo"
+
+                let bundleId = PlistReader().identifier // "com.ycompany.DreamTodo"
                 
                 return .run { send in
                     do {
@@ -72,7 +73,7 @@ struct MyPageFeature {
             case .didTapInfoButton:
                 return .none
             case .versionRequestResult(.success(let result)):
-                if let currentVersion = VersionInfoModel(from: AppEnvironment.shortVersion) {
+                if let currentVersion = VersionInfoModel(from: state.version) {
                     state.shouldUpdate = result > currentVersion
                 }
                 
