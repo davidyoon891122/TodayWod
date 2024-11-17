@@ -19,15 +19,38 @@ struct VersionInfoFeature {
     }
     
     enum Action {
+        case onAppear
         case didTapUpdate
+        case versionRequestResult(Result<VersionInfoModel, Error>)
     }
+    
+    @Dependency(\.apiClient) var apiClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                let bundleId = PlistReader().identifier // "com.ycompany.DreamTodo"
+                return .run { send in
+                    do {
+                        let result = try await apiClient.requestAppVersion(.init(bundleId: bundleId))
+                        
+                        await send(.versionRequestResult(.success(result)))
+                    } catch {
+                        await send(.versionRequestResult(.failure(error)))
+                    }
+                }
             case .didTapUpdate:
                 guard let url = URL(string: "itms-apps://itunes.apple.com/app/6677019235") else { return .none }
                 UIApplication.shared.open(url)
+                return .none
+            case .versionRequestResult(.success(let result)):
+                if let currentVersion = VersionInfoModel(from: state.version) {
+                    state.shouldUpdate = result > currentVersion
+                }
+                return .none
+            case .versionRequestResult(.failure(let error)):
+                state.versionInfo = ""
                 return .none
             }
         }
@@ -78,6 +101,9 @@ struct VersionInfoView: View {
             }
             .padding(.horizontal, 20.0)
             .padding(.bottom, 30.0)
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
     

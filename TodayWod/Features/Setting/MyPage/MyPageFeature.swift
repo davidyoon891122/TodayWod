@@ -13,9 +13,6 @@ struct MyPageFeature {
     
     @ObservableState
     struct State: Equatable {
-        var shouldUpdate: Bool = false
-        let version: String = PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion)
-
         var onboardingUserInfoModel: OnboardingUserInfoModel
         var toast: ToastModel?
         var versionInfoState: VersionInfoFeature.State = VersionInfoFeature.State(version: PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion))
@@ -32,14 +29,12 @@ struct MyPageFeature {
         case didTapBackButton
         case didTapModifyProfileButton(OnboardingUserInfoModel?)
         case didTapInfoButton(UserInfoType)
-        case versionRequestResult(Result<VersionInfoModel, Error>)
         case setToast(ToastModel?)
         case versionInfoAction(VersionInfoFeature.Action)
     }
     
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.userDefaultsClient) var userDefaultsClient
-    @Dependency(\.apiClient) var apiClient
 
     var body: some ReducerOf<Self> {
         Scope(state: \.versionInfoState, action: \.versionInfoAction) {
@@ -53,18 +48,7 @@ struct MyPageFeature {
                     state.onboardingUserInfoModel = onboardingUserInfoModel
                 }
                 state.hideTabBar = true
-
-                let bundleId = PlistReader().identifier // "com.ycompany.DreamTodo"
-                
-                return .run { send in
-                    do {
-                        let result = try await apiClient.requestAppVersion(.init(bundleId: bundleId))
-                        
-                        await send(.versionRequestResult(.success(result)))
-                    } catch {
-                        await send(.versionRequestResult(.failure(error)))
-                    }
-                }
+                return .none
             case .didTapBackButton:
                 state.hideTabBar = false
                 return .run { _ in await dismiss() }
@@ -72,19 +56,11 @@ struct MyPageFeature {
                 return .none
             case .didTapInfoButton:
                 return .none
-            case .versionRequestResult(.success(let result)):
-                if let currentVersion = VersionInfoModel(from: state.version) {
-                    state.shouldUpdate = result > currentVersion
-                }
-                
-                state.versionInfoState = VersionInfoFeature.State(version: state.version, shouldUpdate: state.shouldUpdate)
-                return .none
-            case .versionRequestResult(.failure(let error)):
-                state.versionInfoState = VersionInfoFeature.State(version: state.version, shouldUpdate: state.shouldUpdate, versionInfo: "")
-                return .send(.setToast(.init(message: error.localizedDescription)))
             case .setToast(let toast):
                 state.toast = toast
                 return .none
+            case .versionInfoAction(.versionRequestResult(.failure(let error))):
+                return .send(.setToast(.init(message: error.localizedDescription)))
             case .versionInfoAction:
                 return .none
             }
