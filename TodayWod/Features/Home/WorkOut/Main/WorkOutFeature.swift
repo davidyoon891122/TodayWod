@@ -68,7 +68,6 @@ struct WorkOutFeature {
             case .onAppear:
                 FLog().enter()
                 
-                state.hideTabBar = false
                 return .run { send in
                     do {
                         let currentProgram = try await wodClient.getCurrentProgram() // 코어데이터에서 program 가져옴

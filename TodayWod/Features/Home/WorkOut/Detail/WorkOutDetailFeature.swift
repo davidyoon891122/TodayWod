@@ -104,17 +104,27 @@ struct WorkOutDetailFeature {
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
             case .willDisappear:
+                DLog.d("willDisappear")
                 state.hideTabBar = false
                 return .concatenate(.send(.stopTimer),
-                              .run { _ in await dismiss() })
+                                    .run { _ in await dismiss() })
             case .didEnterBackground:
                 FLog().event("didEnterBackground")
                 return .merge(.send(.stopTimer),
                               .send(.pauseBreakTimer))
             case .willEnterForeground:
                 FLog().event("willEnterForeground")
-                return .merge(.send(.startTimer),
-                              .send(.resumeBreakTimer))
+                 
+                if state.hasStart {
+                    if state.breakTimerState.buttonUIState == .play && state.item.isContainCompleted {
+                        return .merge(.send(.startTimer),
+                                      .send(.resumeBreakTimer))
+                    } else {
+                        return .send(.startTimer)
+                    }
+                } else {
+                    return .none
+                }
             case .setWorkoutStates:
                 let states = state.item.workouts.map { WorkoutDetailContentFeature.State(hasStart: state.hasStart, model: $0) }
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
@@ -332,7 +342,9 @@ struct WorkOutDetailView: View {
                     }
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
-                } else {
+                }
+                
+                if store.item.isContainCompleted {
                     BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
                         .onTapGesture {
                             store.send(.didTapBreakTimer)
