@@ -21,7 +21,7 @@ extension FLogLevel {
     var title: String {
         switch self {
         case .enter:
-            return "enter_screen"
+            return "screen_view"
         case .tap:
             return "button_click"
         case .event:
