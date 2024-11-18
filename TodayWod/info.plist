@@ -29,8 +29,6 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>Executable file</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-5929295585911192~8723330721</string>
 	<key>Launch Screen</key>
 	<dict>
 		<key>UILaunchScreen</key>
@@ -41,6 +39,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>Supported interface orientations</key>
+	<array>
+		<string>Portrait (bottom home button)</string>
+		<string>Landscape (left home button)</string>
+		<string>Landscape (right home button)</string>
+	</array>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3905309774750442~7247269974</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -211,12 +217,6 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
-	</array>
-	<key>Supported interface orientations</key>
-	<array>
-		<string>Portrait (bottom home button)</string>
-		<string>Landscape (left home button)</string>
-		<string>Landscape (right home button)</string>
 	</array>
 </dict>
 </plist>

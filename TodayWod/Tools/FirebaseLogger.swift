@@ -51,8 +51,9 @@ private extension FLog {
     
     func log(_ level: FLogLevel, _ message: String, _ file: String) {
         #if RELEASE
+        let fileName = file.components(separatedBy: "/").last ?? file
         Analytics.logEvent("\(level.title)", parameters: [
-            "file": file,
+            "file": fileName,
             "message": message
         ])
         #endif

@@ -105,7 +105,7 @@ struct WorkOutDetailFeature {
                 return .send(.setWorkoutStates)
             case .willDisappear:
                 state.hideTabBar = false
-                return .merge(.send(.stopTimer),
+                return .concatenate(.send(.stopTimer),
                               .run { _ in await dismiss() })
             case .didEnterBackground:
                 FLog().event("didEnterBackground")
