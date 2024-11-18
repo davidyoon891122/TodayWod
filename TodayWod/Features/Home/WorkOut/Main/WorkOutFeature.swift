@@ -66,6 +66,8 @@ struct WorkOutFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                FLog().enter()
+                
                 state.hideTabBar = false
                 return .run { send in
                     do {
@@ -98,6 +100,7 @@ struct WorkOutFeature {
                 }
                 return .none
             case .alert(.presented(.startNewChallenge)):
+                FLog().tap("new_challenge")
                 return .send(.setNewChallenge)
             case .setNewChallenge:
                 state.onCelebrate = false
@@ -126,10 +129,11 @@ struct WorkOutFeature {
                 }
                 return .none
             case .alert(.presented(.resetProgram)):
+                FLog().tap("reset")
+                
                 guard let program = state.ownProgram,
                       let gender = userDefaultsClient.loadOnboardingUserInfo()?.gender else { return .none }
             
-
                 return .run { send in
                     do {
                         let programEntity = try await apiClient.requestCurrentProgram(.init(methodType: program.methodType.rawValue, level: program.level.rawValue, gender: gender.rawValue), "\(program.id)")

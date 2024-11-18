@@ -44,6 +44,8 @@ struct MyPageFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                FLog().enter()
+                
                 if let onboardingUserInfoModel = userDefaultsClient.loadOnboardingUserInfo() {
                     state.onboardingUserInfoModel = onboardingUserInfoModel
                 }

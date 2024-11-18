@@ -13,6 +13,7 @@
 		1C0B537D2CAFB97900256FE2 /* WorkoutCompletedTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B537C2CAFB97100256FE2 /* WorkoutCompletedTopView.swift */; };
 		1C0B537F2CAFBAD000256FE2 /* WorkoutCompletedProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B537E2CAFBAC500256FE2 /* WorkoutCompletedProgramView.swift */; };
 		1C109C2C2CE73C55004E878A /* ColorBackgroundSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C109C2B2CE73C55004E878A /* ColorBackgroundSheetModifier.swift */; };
+		1C109C322CEAD638004E878A /* FirebaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C109C312CEAD635004E878A /* FirebaseLogger.swift */; };
 		1C1D04F72CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */; };
 		1C1D04F82CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EF2CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift */; };
 		1C1D04F92CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */; };
@@ -168,7 +169,7 @@
 		ADCEE1152CBE2A3800D71FEB /* RequestBodyPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1142CBE2A3800D71FEB /* RequestBodyPresentable.swift */; };
 		ADCEE1172CBE2A8E00D71FEB /* DictPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */; };
 		ADCEE1192CBE2DD800D71FEB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1182CBE2DD800D71FEB /* APIClient.swift */; };
-		ADCEE1622CBF8F5900D71FEB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1612CBF8F5900D71FEB /* Logger.swift */; };
+		ADCEE1622CBF8F5900D71FEB /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEE1612CBF8F5900D71FEB /* DebugLogger.swift */; };
 		ADDEF2662CE7125C007CE696 /* AppStoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEF2652CE7125C007CE696 /* AppStoreRepository.swift */; };
 		ADDEF2682CE7137C007CE696 /* AppStoreInfoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEF2672CE7137C007CE696 /* AppStoreInfoEntity.swift */; };
 		ADDEF26A2CE71456007CE696 /* AppStoreResultRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEF2692CE71456007CE696 /* AppStoreResultRequestModel.swift */; };
@@ -192,6 +193,7 @@
 		1C0B537C2CAFB97100256FE2 /* WorkoutCompletedTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletedTopView.swift; sourceTree = "<group>"; };
 		1C0B537E2CAFBAC500256FE2 /* WorkoutCompletedProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletedProgramView.swift; sourceTree = "<group>"; };
 		1C109C2B2CE73C55004E878A /* ColorBackgroundSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBackgroundSheetModifier.swift; sourceTree = "<group>"; };
+		1C109C312CEAD635004E878A /* FirebaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLogger.swift; sourceTree = "<group>"; };
 		1C1D04EC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -340,7 +342,7 @@
 		ADCEE1142CBE2A3800D71FEB /* RequestBodyPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyPresentable.swift; sourceTree = "<group>"; };
 		ADCEE1162CBE2A8E00D71FEB /* DictPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictPresentable.swift; sourceTree = "<group>"; };
 		ADCEE1182CBE2DD800D71FEB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		ADCEE1612CBF8F5900D71FEB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		ADCEE1612CBF8F5900D71FEB /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		ADDEF2652CE7125C007CE696 /* AppStoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreRepository.swift; sourceTree = "<group>"; };
 		ADDEF2672CE7137C007CE696 /* AppStoreInfoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreInfoEntity.swift; sourceTree = "<group>"; };
 		ADDEF2692CE71456007CE696 /* AppStoreResultRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreResultRequestModel.swift; sourceTree = "<group>"; };
@@ -1079,7 +1081,8 @@
 		ADCEE1632CBF8F5F00D71FEB /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				ADCEE1612CBF8F5900D71FEB /* Logger.swift */,
+				1C109C312CEAD635004E878A /* FirebaseLogger.swift */,
+				ADCEE1612CBF8F5900D71FEB /* DebugLogger.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1380,9 +1383,10 @@
 				1C5DBB0D2CE32A1400DCE6C4 /* WodModel.swift in Sources */,
 				AD386C362CA390290038C27F /* MyPageRowItemView.swift in Sources */,
 				4992E6822C97E068001A1375 /* WeightInputFeature.swift in Sources */,
+				1C109C322CEAD638004E878A /* FirebaseLogger.swift in Sources */,
 				4992E6902C9AA82A001A1375 /* CustomTabView.swift in Sources */,
 				AD87AD0D2CE1D8CD00D5EA6A /* ToastView.swift in Sources */,
-				ADCEE1622CBF8F5900D71FEB /* Logger.swift in Sources */,
+				ADCEE1622CBF8F5900D71FEB /* DebugLogger.swift in Sources */,
 				1C9C9F702CABB67300157001 /* WorkOutTitleView.swift in Sources */,
 				AD386C432CA66F460038C27F /* ModifyProfileFeature.swift in Sources */,
 				497C0F032C9E463900F7444E /* LevelType.swift in Sources */,

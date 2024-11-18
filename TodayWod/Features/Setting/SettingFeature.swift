@@ -7,7 +7,6 @@
 
 import Foundation
 import ComposableArchitecture
-import FirebaseAnalytics
 
 @Reducer
 struct SettingFeature {
@@ -55,14 +54,9 @@ struct SettingFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.hideTabBar = false
+                FLog().enter()
                 
-                /*
-                Analytics.logEvent("onSetting", parameters: [
-                    "screen_name": "SettingView",
-                    "screen_class": "SettingFeature"
-                ])
-                */
+                state.hideTabBar = false
                 
                 return .concatenate(.send(.loadUserDefault),
                                     .send(.getRecentDayWorkouts),
@@ -127,6 +121,7 @@ struct SettingFeature {
                 }
                 return .none
             case let .didTapMyActivity(workout):
+                FLog().tap("myActivity")
                 state.completedState = WorkoutCompletedFeature.State(item: workout)
                 return .none
             case .completedAction(.presented(.didTapCloseButton)):

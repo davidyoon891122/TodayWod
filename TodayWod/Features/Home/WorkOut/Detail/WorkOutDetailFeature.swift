@@ -98,17 +98,21 @@ struct WorkOutDetailFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                FLog().enter()
+                
                 state.currentBreakCountDownTime = state.userSetBreakCountDownTime
                 state.hideTabBar = true
                 return .send(.setWorkoutStates)
             case .willDisappear:
                 state.hideTabBar = false
-                return .merge(.send(.stopTimer),
+                return .concatenate(.send(.stopTimer),
                               .run { _ in await dismiss() })
             case .didEnterBackground:
+                FLog().event("didEnterBackground")
                 return .merge(.send(.stopTimer),
                               .send(.pauseBreakTimer))
             case .willEnterForeground:
+                FLog().event("willEnterForeground")
                 return .merge(.send(.startTimer),
                               .send(.resumeBreakTimer))
             case .setWorkoutStates:
@@ -120,6 +124,7 @@ struct WorkOutDetailFeature {
             case .didTapDoneButton:
                 return state.isDayCompleted ? .send(.doneWorkout) : .send(.onConfirm(.quit))
             case .didTapStartButton:
+                FLog().tap("start_workout")
                 state.hasStart = true
                 state.isDoneEnabled = state.item.isContainCompleted
                 
@@ -177,6 +182,7 @@ struct WorkOutDetailFeature {
                                     .send(.saveRecentActivity),
                                     .send(.finishWorkOut(state.item)))
             case let .onConfirm(type):
+                FLog().tap(type == .quit ? "quit_workout" : "finish_workout")
                 state.confirmState = WorkoutConfirmationFeature.State(type: type) // 운동 종료 재확인.
                 return .none
             case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
@@ -220,16 +226,15 @@ struct WorkOutDetailFeature {
                     return .merge(.send(.resetBreakTimer),
                                   .send(.synchronizeModel(id)))
                 } else {
-                    return .merge(
-                        .send(.pauseBreakTimer),
-                        .send(.synchronizeModel(id))
-                    )
+                    return .merge(.send(.pauseBreakTimer),
+                                  .send(.synchronizeModel(id)))
                 }
             case let .workoutActions(.element(id: id, action: .updateUnitText(_))):
                 return .send(.synchronizeModel(id))
             case let .workoutActions(.element(id: id, action: .addWodSet)):
                 return .send(.synchronizeModel(id))
             case let .workoutActions(.element(id: id, action: .removeWodSet(disableRemove))):
+                
                 if disableRemove {
                     state.alert = AlertState {
                         TextState("최소 1세트 이상 진행해야 해요")
