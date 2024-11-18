@@ -30,6 +30,7 @@ struct WorkoutCompletedFeature {
             switch action {
             case .onAppear:
                 state.hideTabBar = true
+                DLog.i("Enter Completed Workout")
                 return .none
             case .didTapCloseButton:
                 state.hideTabBar = false
