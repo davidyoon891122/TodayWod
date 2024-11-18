@@ -12,6 +12,7 @@
 		1C0B53782CAFA40C00256FE2 /* WorkoutCompletedFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B53772CAFA40900256FE2 /* WorkoutCompletedFeature.swift */; };
 		1C0B537D2CAFB97900256FE2 /* WorkoutCompletedTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B537C2CAFB97100256FE2 /* WorkoutCompletedTopView.swift */; };
 		1C0B537F2CAFBAD000256FE2 /* WorkoutCompletedProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B537E2CAFBAC500256FE2 /* WorkoutCompletedProgramView.swift */; };
+		1C109C2C2CE73C55004E878A /* ColorBackgroundSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C109C2B2CE73C55004E878A /* ColorBackgroundSheetModifier.swift */; };
 		1C1D04F72CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */; };
 		1C1D04F82CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EF2CBE295900BDA52D /* ProgramCoreEntity+CoreDataProperties.swift */; };
 		1C1D04F92CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */; };
@@ -190,6 +191,7 @@
 		1C0B53772CAFA40900256FE2 /* WorkoutCompletedFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletedFeature.swift; sourceTree = "<group>"; };
 		1C0B537C2CAFB97100256FE2 /* WorkoutCompletedTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletedTopView.swift; sourceTree = "<group>"; };
 		1C0B537E2CAFBAC500256FE2 /* WorkoutCompletedProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletedProgramView.swift; sourceTree = "<group>"; };
+		1C109C2B2CE73C55004E878A /* ColorBackgroundSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBackgroundSheetModifier.swift; sourceTree = "<group>"; };
 		1C1D04EC2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1C1D04ED2CBE295900BDA52D /* DayWorkoutCoreEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayWorkoutCoreEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1C1D04EE2CBE295900BDA52D /* ProgramCoreEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgramCoreEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 				49593C352C969293006105D1 /* ButtonTextModifier.swift */,
 				497C0F0F2C9ECDBC00F7444E /* BottomSheetModifier.swift */,
 				AD87AD0A2CE1D4F500D5EA6A /* ToastModifier.swift */,
+				1C109C2B2CE73C55004E878A /* ColorBackgroundSheetModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -1347,6 +1350,7 @@
 				1C1D05002CBE295900BDA52D /* WorkoutCoreEntity+CoreDataClass.swift in Sources */,
 				1CFED2D22C9B9C0D000A09E5 /* ProgramsModel.swift in Sources */,
 				ADCEE1132CBE296600D71FEB /* ProgramRequestModel.swift in Sources */,
+				1C109C2C2CE73C55004E878A /* ColorBackgroundSheetModifier.swift in Sources */,
 				1C9C9F712CABB67300157001 /* WorkOutNewChallengeView.swift in Sources */,
 				1C0B537F2CAFBAD000256FE2 /* WorkoutCompletedProgramView.swift in Sources */,
 				AD386C4A2CAA90ED0038C27F /* Extension+String.swift in Sources */,

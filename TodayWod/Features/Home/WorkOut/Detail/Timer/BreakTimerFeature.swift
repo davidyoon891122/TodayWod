@@ -20,6 +20,7 @@ struct BreakTimerFeature {
 
     enum Action {
         case onAppear
+        case onDisappear
         case timerTick
         case didTapReset
         case didTapPause
@@ -43,6 +44,8 @@ struct BreakTimerFeature {
             case .onAppear:
                 state.currentSeconds = state.defaultTime
                 return .none
+            case .onDisappear:
+                return .cancel(id: CancelID.timer)
             case .timerTick:
                 if state.currentSeconds <= 0 {
                     return .cancel(id: CancelID.timer)
@@ -99,22 +102,25 @@ struct BreakTimerView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            
             VStack {
-                HStack {
+                HStack(spacing: 0) {
                     Text("휴식")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
                         .foregroundStyle(.white100)
-                    
+                        .padding(.trailing, 8.0)
                     Text("\(store.state.currentSeconds) 초")
                         .font(Fonts.Pretendard.bold.swiftUIFont(size: 28.0))
                         .foregroundStyle(.white100)
+                    
                     Spacer()
+                    
                     Button(action: {
                         store.send(.didTapReset)
                     }, label: {
                         Images.icRefresh24.swiftUIImage
                     })
+                    .frame(width: 40, height: 40)
+                    .padding(.trailing, 5.0)
                     
                     Button(action: {
                         store.send(.setButtonState)
@@ -126,18 +132,20 @@ struct BreakTimerView: View {
                         }
                         
                     })
+                    .frame(width: 40, height: 40)
                 }
-                .padding(.horizontal, 20.0)
-                .padding(.vertical, 20.0)
+                .padding(20.0)
                 .background(.blue60)
                 .clipShape(.rect(cornerRadius: 16.0))
             }
-            .padding(20.0)
+            .padding(10.0)
             .background(.clear)
             .onAppear {
                 store.send(.onAppear)
             }
-
+            .onDisappear {
+                store.send(.onDisappear)
+            }
         }
     }
 

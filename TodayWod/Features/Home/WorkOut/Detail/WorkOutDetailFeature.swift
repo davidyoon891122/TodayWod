@@ -104,7 +104,6 @@ struct WorkOutDetailFeature {
             case .willDisappear:
                 state.hideTabBar = false
                 return .merge(.send(.stopTimer),
-                              .send(.pauseBreakTimer),
                               .run { _ in await dismiss() })
             case .didEnterBackground:
                 return .merge(.send(.stopTimer),
@@ -349,6 +348,7 @@ struct WorkOutDetailView: View {
                         store.send(.setBreakTimerSettingsViewDynamicHeight(height))
                     }
                     .presentationDetents([.height(store.state.breakTimerSettingsViewDynamicHeight)])
+                    .sheetBackground(.clear)
             }
             .alert($store.scope(state: \.alert, action: \.alert))
             .onAppear {
