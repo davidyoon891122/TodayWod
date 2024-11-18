@@ -54,6 +54,8 @@ struct SettingFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                FLog().enter()
+                
                 state.hideTabBar = false
                 
                 return .concatenate(.send(.loadUserDefault),
@@ -119,6 +121,7 @@ struct SettingFeature {
                 }
                 return .none
             case let .didTapMyActivity(workout):
+                FLog().tap("myActivity")
                 state.completedState = WorkoutCompletedFeature.State(item: workout)
                 return .none
             case .completedAction(.presented(.didTapCloseButton)):

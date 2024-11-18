@@ -5,9 +5,11 @@
 //  Created by 오지연 on 10/16/24.
 //
 
-enum WorkoutConfirmationType {
+enum WorkoutConfirmationType: String {
+    
     case quit
     case completed
+    
 }
 
 extension WorkoutConfirmationType {
@@ -37,4 +39,5 @@ extension WorkoutConfirmationType {
     var doneButtonTitle: String {
         "운동 완료"
     }
+    
 }

@@ -7,9 +7,8 @@
 
 import Foundation
 import OSLog
-import FirebaseAnalytics
 
-public enum LogLevel: Int {
+public enum DLogLevel: Int {
     case debug
     case info
     case warning
@@ -40,13 +39,6 @@ public struct DLog {
     
     /// info
     public static func i(_ message: Any, functionName: String = #function, file: String = #file, line: Int = #line, privacy: OSLogPrivacy = .auto) {
-        #if RELEASE
-        Analytics.logEvent("info \(message)", parameters: [
-            "file": file,
-            "function": functionName
-        ])
-        #endif
-        
         log(.info, file, line, functionName, message, privacy)
     }
     
@@ -60,7 +52,7 @@ public struct DLog {
         log(.error, file, line, functionName, message, privacy)
     }
     
-    private static func log(_ level: LogLevel, _ file: String, _ line: Int, _ functionName: String, _ message: Any, _ privacy: OSLogPrivacy) {
+    private static func log(_ level: DLogLevel, _ file: String, _ line: Int, _ functionName: String, _ message: Any, _ privacy: OSLogPrivacy) {
         
         let message = "\(String.timestamp()) \(level.header) [Main:\(Thread.isMainThread)] [\(file.components(separatedBy: "/").last ?? ""):\(line)] \(String(describing: functionName)) > \(message)"
         
