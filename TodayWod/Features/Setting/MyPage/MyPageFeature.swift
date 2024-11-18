@@ -13,9 +13,9 @@ struct MyPageFeature {
     
     @ObservableState
     struct State: Equatable {
-        let version: String = PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion)
-
         var onboardingUserInfoModel: OnboardingUserInfoModel
+        var toast: ToastModel?
+        var versionInfoState: VersionInfoFeature.State = VersionInfoFeature.State(version: PlistReader().getMainInfo(key: AppEnvironmentConstants.shortVersion))
 
         init(onboardingUserInfoModel: OnboardingUserInfoModel) {
             self.onboardingUserInfoModel = onboardingUserInfoModel
@@ -29,12 +29,18 @@ struct MyPageFeature {
         case didTapBackButton
         case didTapModifyProfileButton(OnboardingUserInfoModel?)
         case didTapInfoButton(UserInfoType)
+        case setToast(ToastModel?)
+        case versionInfoAction(VersionInfoFeature.Action)
     }
     
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some ReducerOf<Self> {
+        Scope(state: \.versionInfoState, action: \.versionInfoAction) {
+            VersionInfoFeature()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -50,6 +56,13 @@ struct MyPageFeature {
                 return .none
             case .didTapInfoButton:
                 return .none
+            case .setToast(let toast):
+                state.toast = toast
+                return .none
+            case .versionInfoAction(.versionRequestResult(.failure(let error))):
+                return .send(.setToast(.init(message: error.localizedDescription)))
+            case .versionInfoAction:
+                return .none
             }
         }
     }
@@ -59,7 +72,8 @@ struct MyPageFeature {
 import SwiftUI
 
 struct MyPageView: View {
-    let store: StoreOf<MyPageFeature>
+    
+    @Perception.Bindable var store: StoreOf<MyPageFeature>
 
     var body: some View {
         WithPerceptionTracking { 
@@ -75,7 +89,7 @@ struct MyPageView: View {
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
                         MyInfoView(store: store, userInfo: store.onboardingUserInfoModel.convertToSubArray())
                         CustomDivider(color: .grey20, size: 5, direction: .horizontal)
-                        VersionInfoView(version: store.version)
+                        VersionInfoView(store: store.scope(state: \.versionInfoState, action: \.versionInfoAction))
                     }
                 }
             }
@@ -83,6 +97,7 @@ struct MyPageView: View {
                 store.send(.onAppear)
             }
             .toolbar(.hidden, for: .navigationBar)
+            .toastView(toast: $store.toast.sending(\.setToast))
         }
         
     }

@@ -27,7 +27,7 @@ struct MyPageRowItemView: View {
                     Text(model.value)
                         .font(Fonts.Pretendard.regular.swiftUIFont(size: 16.0))
                         .foregroundStyle(.grey80)
-                    if model.modifiable{
+                    if model.modifiable {
                         Images.icChevronForward16.swiftUIImage
                     }
                         

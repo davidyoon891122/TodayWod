@@ -26,5 +26,6 @@ struct TOWEnvironment: ServerEnvironment {
 extension TOWEnvironment {
 
     static let real: Self = .init(baseURL: "http://158.179.170.39:3000")
+    static let appStore: Self = .init(baseURL: "https://itunes.apple.com")
 
 }

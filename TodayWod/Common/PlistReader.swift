@@ -34,6 +34,14 @@ struct PlistReader {
         return value
     }
     
+    var identifier: String {
+        guard let identifier = mainBundle.bundleIdentifier else {
+            fatalError("Plist bundleIdentifier not found")
+        }
+        
+        return identifier
+    }
+    
 }
 
 private extension PlistReader {

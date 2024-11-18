@@ -29,6 +29,7 @@ enum RequestAPIType {
 
     case program
     case sameProgram(String)
+    case appStore
 
 }
 
@@ -47,11 +48,18 @@ extension RequestAPIType: APITypePresentable {
             "wod"
         case .sameProgram(let id):
             "wod/\(id)"
+        case .appStore:
+            "lookup"
         }
     }
     
     var base: String {
-        EnvironmentConfiguration.environment.baseURL
+        switch self {
+        case .appStore:
+            EnvironmentConfiguration.appStoreEnvironment.baseURL
+        default:
+            EnvironmentConfiguration.environment.baseURL
+        }
     }
 
 }
