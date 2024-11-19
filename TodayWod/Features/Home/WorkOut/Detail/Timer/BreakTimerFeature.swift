@@ -23,9 +23,9 @@ struct BreakTimerFeature {
         case onDisappear
         case timerTick
         case didTapReset
-        case didTapPause
-        case didTapResume
-        case setbuttonUIState
+        case stopTimer
+        case startTimer
+        case didTapTimerControlButton
         case setDefaultTime
         case enterBackground
     }
@@ -67,10 +67,10 @@ struct BreakTimerFeature {
                     }
                     .cancellable(id: CancelID.timer)
                 )
-            case .didTapPause:
+            case .stopTimer:
                 state.buttonUIState = .play
                 return .cancel(id: CancelID.timer)
-            case .didTapResume:
+            case .startTimer:
                 state.buttonUIState = .pause
                 return .run { send in
                     while true {
@@ -79,12 +79,12 @@ struct BreakTimerFeature {
                     }
                 }
                 .cancellable(id: CancelID.timer)
-            case .setbuttonUIState:
+            case .didTapTimerControlButton:
                 switch state.buttonUIState {
                 case .pause:
-                    return .send(.didTapPause)
+                    return .send(.stopTimer)
                 case .play:
-                    return .send(.didTapResume)
+                    return .send(.startTimer)
                 }
             case .setDefaultTime:
                 state.currentSeconds = state.defaultTime
@@ -121,20 +121,15 @@ struct BreakTimerView: View {
                     }, label: {
                         Images.icRefresh24.swiftUIImage
                     })
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40.0, height: 40.0)
                     .padding(.trailing, 5.0)
                     
                     Button(action: {
-                        store.send(.setbuttonUIState)
+                        store.send(.didTapTimerControlButton)
                     }, label: {
-                        if (store.buttonUIState == .play) {
-                            Images.icPlay24.swiftUIImage
-                        } else {
-                            Images.icPause24.swiftUIImage
-                        }
-                        
+                        store.buttonUIState == .play ? Images.icPlay24.swiftUIImage : Images.icPause24.swiftUIImage
                     })
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40.0, height: 40.0)
                 }
                 .padding(20.0)
                 .background(.blue60)

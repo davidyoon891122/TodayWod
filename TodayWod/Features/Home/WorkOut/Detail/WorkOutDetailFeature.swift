@@ -226,7 +226,7 @@ struct WorkOutDetailFeature {
                 }
             case .pauseBreakTimer:
                 return .run { send in
-                    await send(.breakTimerAction(.didTapPause))
+                    await send(.breakTimerAction(.stopTimer))
                 }
             case .enterBackgroundBreakTimer:
                 return .run { send in
@@ -234,7 +234,7 @@ struct WorkOutDetailFeature {
                 }
             case .resumeBreakTimer:
                 return .run { send in
-                    await send(.breakTimerAction(.didTapResume))
+                    await send(.breakTimerAction(.startTimer))
                 }
             case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 if isCompleted {
