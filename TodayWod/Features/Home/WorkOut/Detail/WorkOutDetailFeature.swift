@@ -117,7 +117,7 @@ struct WorkOutDetailFeature {
                 FLog().event("willEnterForeground")
                  
                 if state.hasStart {
-                    if state.breakTimerState.buttonUIState == .pause && state.item.isContainCompleted {
+                    if state.breakTimerState.timerState == .play && state.item.isContainCompleted {
                         return .merge(.send(.startTimer),
                                       .send(.resumeBreakTimer))
                     } else {
