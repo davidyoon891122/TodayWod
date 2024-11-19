@@ -27,6 +27,7 @@ struct BreakTimerFeature {
         case didTapResume
         case setbuttonUIState
         case setDefaultTime
+        case enterBackground
     }
 
     enum CancelID { case timer }
@@ -87,6 +88,8 @@ struct BreakTimerFeature {
                 }
             case .setDefaultTime:
                 state.currentSeconds = state.defaultTime
+                return .cancel(id: CancelID.timer)
+            case .enterBackground:
                 return .cancel(id: CancelID.timer)
             }
         }

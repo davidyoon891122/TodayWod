@@ -68,6 +68,7 @@ struct WorkOutDetailFeature {
         case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
         case resetBreakTimer
         case pauseBreakTimer
+        case enterBackgroundBreakTimer
         case resumeBreakTimer
         case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
         case synchronizeModel(String)
@@ -111,12 +112,12 @@ struct WorkOutDetailFeature {
             case .didEnterBackground:
                 FLog().event("didEnterBackground")
                 return .merge(.send(.stopTimer),
-                              .send(.pauseBreakTimer))
+                              .send(.enterBackgroundBreakTimer))
             case .willEnterForeground:
                 FLog().event("willEnterForeground")
                  
                 if state.hasStart {
-                    if state.breakTimerState.buttonUIState == .play && state.item.isContainCompleted {
+                    if state.breakTimerState.buttonUIState == .pause && state.item.isContainCompleted {
                         return .merge(.send(.startTimer),
                                       .send(.resumeBreakTimer))
                     } else {
@@ -226,6 +227,10 @@ struct WorkOutDetailFeature {
             case .pauseBreakTimer:
                 return .run { send in
                     await send(.breakTimerAction(.didTapPause))
+                }
+            case .enterBackgroundBreakTimer:
+                return .run { send in
+                    await send(.breakTimerAction(.enterBackground))
                 }
             case .resumeBreakTimer:
                 return .run { send in
