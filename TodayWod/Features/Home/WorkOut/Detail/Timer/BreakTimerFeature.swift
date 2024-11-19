@@ -15,7 +15,7 @@ struct BreakTimerFeature {
     struct State: Equatable {
         @Shared(.appStorage(SharedConstants.breakTime)) var defaultTime: Int = 60
         var currentSeconds: Int = 0
-        var buttonState: ButtonState = .pause
+        var buttonUIState: buttonUIState = .play
     }
 
     enum Action {
@@ -25,13 +25,13 @@ struct BreakTimerFeature {
         case didTapReset
         case didTapPause
         case didTapResume
-        case setButtonState
+        case setbuttonUIState
         case setDefaultTime
     }
 
     enum CancelID { case timer }
 
-    enum ButtonState {
+    enum buttonUIState {
         case pause
         case play
     }
@@ -55,7 +55,7 @@ struct BreakTimerFeature {
                 return .none
             case .didTapReset:
                 state.currentSeconds = state.defaultTime
-                state.buttonState = .play
+                state.buttonUIState = .pause
                 return .concatenate(
                     .cancel(id: CancelID.timer),
                     .run { send in
@@ -67,9 +67,10 @@ struct BreakTimerFeature {
                     .cancellable(id: CancelID.timer)
                 )
             case .didTapPause:
-                state.buttonState = .pause
+                state.buttonUIState = .play
                 return .cancel(id: CancelID.timer)
             case .didTapResume:
+                state.buttonUIState = .pause
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
@@ -77,14 +78,12 @@ struct BreakTimerFeature {
                     }
                 }
                 .cancellable(id: CancelID.timer)
-            case .setButtonState:
-                switch state.buttonState {
+            case .setbuttonUIState:
+                switch state.buttonUIState {
                 case .pause:
-                    state.buttonState = .play
-                    return .send(.didTapResume)
-                case .play:
-                    state.buttonState = .pause
                     return .send(.didTapPause)
+                case .play:
+                    return .send(.didTapResume)
                 }
             case .setDefaultTime:
                 state.currentSeconds = state.defaultTime
@@ -123,9 +122,9 @@ struct BreakTimerView: View {
                     .padding(.trailing, 5.0)
                     
                     Button(action: {
-                        store.send(.setButtonState)
+                        store.send(.setbuttonUIState)
                     }, label: {
-                        if (store.buttonState == .pause) {
+                        if (store.buttonUIState == .play) {
                             Images.icPlay24.swiftUIImage
                         } else {
                             Images.icPause24.swiftUIImage

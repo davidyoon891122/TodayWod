@@ -12,7 +12,7 @@ struct BannerAdView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let adSize = GADInlineAdaptiveBannerAdSizeWithWidthAndMaxHeight(geometry.size.width, geometry.size.height)
+            let adSize = GADInlineAdaptiveBannerAdSizeWithWidthAndMaxHeight(geometry.size.width, 86)
             AdmobBannerView(adSize)
         }
         .frame(height: 86)
