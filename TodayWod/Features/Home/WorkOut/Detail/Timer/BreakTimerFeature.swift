@@ -15,7 +15,7 @@ struct BreakTimerFeature {
     struct State: Equatable {
         @Shared(.appStorage(SharedConstants.breakTime)) var defaultTime: Int = 60
         var currentSeconds: Int = 0
-        var buttonUIState: buttonUIState = .play
+        var timerState: TimerState = .stop
     }
 
     enum Action {
@@ -23,16 +23,17 @@ struct BreakTimerFeature {
         case onDisappear
         case timerTick
         case didTapReset
-        case didTapPause
-        case didTapResume
-        case setbuttonUIState
+        case stopTimer
+        case startTimer
+        case didTapTimerControlButton
         case setDefaultTime
+        case enterBackground
     }
 
     enum CancelID { case timer }
-
-    enum buttonUIState {
-        case pause
+    
+    enum TimerState {
+        case stop
         case play
     }
 
@@ -55,7 +56,7 @@ struct BreakTimerFeature {
                 return .none
             case .didTapReset:
                 state.currentSeconds = state.defaultTime
-                state.buttonUIState = .pause
+                state.timerState = .play
                 return .concatenate(
                     .cancel(id: CancelID.timer),
                     .run { send in
@@ -66,11 +67,11 @@ struct BreakTimerFeature {
                     }
                     .cancellable(id: CancelID.timer)
                 )
-            case .didTapPause:
-                state.buttonUIState = .play
+            case .stopTimer:
+                state.timerState = .stop
                 return .cancel(id: CancelID.timer)
-            case .didTapResume:
-                state.buttonUIState = .pause
+            case .startTimer:
+                state.timerState = .play
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
@@ -78,15 +79,17 @@ struct BreakTimerFeature {
                     }
                 }
                 .cancellable(id: CancelID.timer)
-            case .setbuttonUIState:
-                switch state.buttonUIState {
-                case .pause:
-                    return .send(.didTapPause)
+            case .didTapTimerControlButton:
+                switch state.timerState {
+                case .stop:
+                    return .send(.startTimer)
                 case .play:
-                    return .send(.didTapResume)
+                    return .send(.stopTimer)
                 }
             case .setDefaultTime:
                 state.currentSeconds = state.defaultTime
+                return .cancel(id: CancelID.timer)
+            case .enterBackground:
                 return .cancel(id: CancelID.timer)
             }
         }
@@ -118,20 +121,15 @@ struct BreakTimerView: View {
                     }, label: {
                         Images.icRefresh24.swiftUIImage
                     })
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40.0, height: 40.0)
                     .padding(.trailing, 5.0)
                     
                     Button(action: {
-                        store.send(.setbuttonUIState)
+                        store.send(.didTapTimerControlButton)
                     }, label: {
-                        if (store.buttonUIState == .play) {
-                            Images.icPlay24.swiftUIImage
-                        } else {
-                            Images.icPause24.swiftUIImage
-                        }
-                        
+                        store.timerState == .play ? Images.icPause24.swiftUIImage : Images.icPlay24.swiftUIImage
                     })
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40.0, height: 40.0)
                 }
                 .padding(20.0)
                 .background(.blue60)
