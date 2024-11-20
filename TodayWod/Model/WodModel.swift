@@ -82,6 +82,10 @@ extension WodModel {
         }
     }
     
+    var expectedCalorieDescription: String {
+        self.isOrderSetVisible ? "세트 당 약 \(self.expectedCalorie)Kcal" : "약 \(self.expectedCalorie)Kcal"
+    }
+    
 }
 
 extension WodModel {
