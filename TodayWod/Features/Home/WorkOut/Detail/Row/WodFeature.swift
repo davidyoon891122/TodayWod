@@ -138,7 +138,7 @@ struct WodView: View {
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 20))
                 .foregroundStyle(Colors.grey100.swiftUIColor)
                 .frame(height: 28)
-            Text(store.model.subTitle)
+            Text(store.model.expectedCalorieDescription)
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                 .foregroundStyle(Colors.grey70.swiftUIColor)
         }
