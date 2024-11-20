@@ -55,10 +55,9 @@ struct SplashView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack {
-                Text(Constants.title)
-                    .bold()
-                    .font(.system(size: 26.0))
-                    .foregroundStyle(.white)
+                Images.icLogoWhite.swiftUIImage
+                    .resizable()
+                    .frame(width: 146, height: 32)
                     .opacity(store.opacity)
             }
             .animation(.spring(duration: store.duration), value: store.opacity)
