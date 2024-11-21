@@ -213,7 +213,7 @@ struct SettingView: View {
                     MethodSelectView(store: store)
                 }
             }
-            .sheet(item: $store.scope(state: \.completedState, action: \.completedAction)) { store in
+            .fullScreenCover(item: $store.scope(state: \.completedState, action: \.completedAction)) { store in
                 WorkoutCompletedView(store: store)
             }
         }
