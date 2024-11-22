@@ -169,8 +169,8 @@ struct SettingView: View {
                             .padding(.horizontal, 19.0)
                             .padding(.top, 4.0)
                         
-                        BannerAdView()
-                            .padding(20.0)
+//                        BannerAdView()
+//                            .padding(20.0)
 
                         HStack {
                             Text("최근 활동")
