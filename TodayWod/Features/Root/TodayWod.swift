@@ -66,18 +66,20 @@ struct TodayWodView: View {
     let store: StoreOf<TodayWod>
 
     var body: some View {
-        switch store.state {
-        case .splash:
-            if let store = store.scope(state: \.splash, action: \.splash) {
-                SplashView(store: store)
-            }
-        case .app:
-            if let store = store.scope(state: \.app, action: \.app) {
-                AppTabView(store: store)
-            }
-        case .onBoarding:
-            if let store = store.scope(state: \.onBoarding, action: \.onBoarding) {
-                GenderSelectView(store: store)
+        WithPerceptionTracking {
+            switch store.state {
+            case .splash:
+                if let store = store.scope(state: \.splash, action: \.splash) {
+                    SplashView(store: store)
+                }
+            case .app:
+                if let store = store.scope(state: \.app, action: \.app) {
+                    AppTabView(store: store)
+                }
+            case .onBoarding:
+                if let store = store.scope(state: \.onBoarding, action: \.onBoarding) {
+                    GenderSelectView(store: store)
+                }
             }
         }
     }
