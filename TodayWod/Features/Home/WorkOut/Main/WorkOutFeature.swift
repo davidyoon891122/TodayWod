@@ -240,21 +240,24 @@ struct WorkOutView: View {
                     }
                 }
             } destination: { store in
-                switch store.case {
-                case let .detail(store):
-                    WorkOutDetailView(store: store)
-                case let .completed(store):
-                    WorkoutCompletedView(store: store)
+                WithPerceptionTracking {
+                    switch store.case {
+                    case let .detail(store):
+                        WorkOutDetailView(store: store)
+                    case let .completed(store):
+                        WorkoutCompletedView(store: store)
+                    }
                 }
-                
             }
             .toolbar(.hidden, for: .navigationBar)
             .sheet(item: $store.scope(state: \.celebrateState, action: \.celebrateAction)) { celebrateStore in
-                CelebrateView(store: celebrateStore)
-                    .measureHeight { height in
-                        store.send(.setDynamicHeight(height))
-                    }
-                    .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
+                WithPerceptionTracking {
+                    CelebrateView(store: celebrateStore)
+                        .measureHeight { height in
+                            store.send(.setDynamicHeight(height))
+                        }
+                        .presentationDetents([.height(store.state.dynamicHeight + 20.0)])
+                }
             }
             .alert($store.scope(state: \.alert, action: \.alert))
             .toastView(toast: $store.toast.sending(\.setToast))

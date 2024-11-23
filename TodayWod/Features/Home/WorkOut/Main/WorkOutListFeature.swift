@@ -51,7 +51,7 @@ struct WorkOutListFeature {
             case .dayModelsResult(.success(let result)):
                 state.dayWorkouts = result
                 return .none
-            case .dayModelsResult(.failure(let error)):
+            case .dayModelsResult(.failure(_)):
                 // TODO: - 에러 표시 여기서
                 state.dayWorkouts = []
                 return .none

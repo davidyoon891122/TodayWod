@@ -49,7 +49,7 @@ struct VersionInfoFeature {
                     state.shouldUpdate = result > currentVersion
                 }
                 return .none
-            case .versionRequestResult(.failure(let error)):
+            case .versionRequestResult(.failure(_)):
                 state.versionInfo = ""
                 return .none
             }
