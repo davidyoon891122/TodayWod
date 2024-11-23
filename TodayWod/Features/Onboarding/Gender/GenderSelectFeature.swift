@@ -171,17 +171,19 @@ struct GenderSelectView: View {
                     }
                 }
             } destination: { store in
-                switch store.case {
-                case let .nickName(store):
-                    NicknameInputView(store: store)
-                case let .height(store):
-                    HeightInputView(store: store)
-                case let .weight(store):
-                    WeightInputView(store: store)
-                case let .level(store):
-                    LevelSelectView(store: store)
-                case let .method(store):
-                    MethodSelectView(store: store)
+                WithPerceptionTracking {
+                    switch store.case {
+                    case let .nickName(store):
+                        NicknameInputView(store: store)
+                    case let .height(store):
+                        HeightInputView(store: store)
+                    case let .weight(store):
+                        WeightInputView(store: store)
+                    case let .level(store):
+                        LevelSelectView(store: store)
+                    case let .method(store):
+                        MethodSelectView(store: store)
+                    }
                 }
             }
         }
