@@ -30,11 +30,11 @@ struct VersionInfoFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                let bundleId = PlistReader().identifier // "com.ycompany.DreamTodo"
+                let bundleId = PlistReader().identifier
                 return .run { send in
                     do {
                         let result = try await apiClient.requestAppVersion(.init(bundleId: bundleId))
-                        
+
                         await send(.versionRequestResult(.success(result)))
                     } catch {
                         await send(.versionRequestResult(.failure(error)))
@@ -49,7 +49,7 @@ struct VersionInfoFeature {
                     state.shouldUpdate = result > currentVersion
                 }
                 return .none
-            case .versionRequestResult(.failure(let error)):
+            case .versionRequestResult(.failure(_)):
                 state.versionInfo = ""
                 return .none
             }

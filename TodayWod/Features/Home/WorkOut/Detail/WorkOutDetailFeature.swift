@@ -324,8 +324,8 @@ struct WorkOutDetailView: View {
                         ZStack {
                             VStack {
                                 WorkOutDetailTitleView(item: store.item)
-//                                BannerAdView()
-//                                    .padding(.bottom, 20)
+                                BannerAdView()
+                                    .padding(.bottom, 20)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     ForEach(store.scope(state: \.workoutStates, action: \.workoutActions)) { store in
@@ -358,19 +358,23 @@ struct WorkOutDetailView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { conirmationStore in
-                WorkoutConfirmationView(store: conirmationStore)
-                    .measureHeight { height in
-                        store.send(.setConfirmationViewDynamicHeight(height))
-                    }
-                    .presentationDetents([.height(store.state.confirmationViewDynamicHeight + 20.0)])
+                WithPerceptionTracking {
+                    WorkoutConfirmationView(store: conirmationStore)
+                        .measureHeight { height in
+                            store.send(.setConfirmationViewDynamicHeight(height))
+                        }
+                        .presentationDetents([.height(store.state.confirmationViewDynamicHeight + 20.0)])
+                }
             }
             .sheet(item: $store.scope(state: \.breakTimerSettingsState, action: \.breakTimerSettingsAction)) { breakTimerSettingsStore in
-                BreakTimerSettingsView(store: breakTimerSettingsStore)
-                    .measureHeight { height in
-                        store.send(.setBreakTimerSettingsViewDynamicHeight(height))
-                    }
-                    .presentationDetents([.height(store.state.breakTimerSettingsViewDynamicHeight)])
-                    .sheetBackground(.clear)
+                WithPerceptionTracking {
+                    BreakTimerSettingsView(store: breakTimerSettingsStore)
+                        .measureHeight { height in
+                            store.send(.setBreakTimerSettingsViewDynamicHeight(height))
+                        }
+                        .presentationDetents([.height(store.state.breakTimerSettingsViewDynamicHeight)])
+                        .sheetBackground(.clear)
+                }
             }
             .alert($store.scope(state: \.alert, action: \.alert))
             .onAppear {

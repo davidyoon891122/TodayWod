@@ -103,7 +103,7 @@ struct LevelSelectFeature {
                 state.onCelebrate = false
                 
                 return .run { _ in
-                    try await wodClient.removePrograms()
+                    try wodClient.removePrograms()
                     await dismiss()
                 }
             case let .setLevel(level):

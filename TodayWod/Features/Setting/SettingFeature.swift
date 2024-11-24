@@ -169,8 +169,8 @@ struct SettingView: View {
                             .padding(.horizontal, 19.0)
                             .padding(.top, 4.0)
                         
-//                        BannerAdView()
-//                            .padding(20.0)
+                        BannerAdView()
+                            .padding(20.0)
 
                         HStack {
                             Text("최근 활동")
@@ -200,17 +200,19 @@ struct SettingView: View {
                     store.send(.onAppear)
                 }
             } destination: { store in
-                switch store.case {
-                case let .myPage(store):
-                    MyPageView(store: store)
-                case let .modifyProfile(store):
-                    ModifyProfileView(store: store)
-                case let .modifyWeight(store):
-                    ModifyWeightView(store: store)
-                case let .modifyLevel(store):
-                    LevelSelectView(store: store)
-                case let .modifyMethod(store):
-                    MethodSelectView(store: store)
+                WithPerceptionTracking {
+                    switch store.case {
+                    case let .myPage(store):
+                        MyPageView(store: store)
+                    case let .modifyProfile(store):
+                        ModifyProfileView(store: store)
+                    case let .modifyWeight(store):
+                        ModifyWeightView(store: store)
+                    case let .modifyLevel(store):
+                        LevelSelectView(store: store)
+                    case let .modifyMethod(store):
+                        MethodSelectView(store: store)
+                    }
                 }
             }
             .fullScreenCover(item: $store.scope(state: \.completedState, action: \.completedAction)) { store in
