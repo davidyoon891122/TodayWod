@@ -97,6 +97,7 @@
 		49101A802C9086B800FDB709 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */; };
 		49101A832C90878300FDB709 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49101A822C90878300FDB709 /* UserInfoModel.swift */; };
 		494132A52CDEED9200EB5192 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494132A42CDEED9200EB5192 /* UserDefaultsClient.swift */; };
+		4954F4A92CF2C55B001704FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4954F4A82CF2C55B001704FA /* GoogleService-Info.plist */; };
 		49593C292C9570F4006105D1 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C202C9570F3006105D1 /* Pretendard-Thin.otf */; };
 		49593C2A2C9570F4006105D1 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C212C9570F3006105D1 /* Pretendard-Bold.otf */; };
 		49593C2B2C9570F4006105D1 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49593C222C9570F4006105D1 /* Pretendard-Medium.otf */; };
@@ -270,6 +271,7 @@
 		49101A7F2C9086B800FDB709 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		49101A822C90878300FDB709 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		494132A42CDEED9200EB5192 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
+		4954F4A82CF2C55B001704FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		49593C202C9570F3006105D1 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		49593C212C9570F3006105D1 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		49593C222C9570F4006105D1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -883,6 +885,7 @@
 				499B07582C8BD6B900C46FDD /* Preview Content */,
 				1C8708C02CACDB9D00967DFE /* info.plist */,
 				1CDBE35E2CE6CE7E0026E4FF /* GoogleService-Info.plist */,
+				4954F4A82CF2C55B001704FA /* GoogleService-Info.plist */,
 				1CDBE35C2CE6CBD80026E4FF /* AdmobBanner-Info.plist */,
 				1C1D05152CBE421200BDA52D /* TodayWodCoreData.xcdatamodeld */,
 			);
@@ -1210,6 +1213,7 @@
 				1CE8E5542CE71A5500523C54 /* banner.json in Resources */,
 				1CC1FCCD2C91C532005FC6A2 /* Images.xcassets in Resources */,
 				499B075A2C8BD6B900C46FDD /* Preview Assets.xcassets in Resources */,
+				4954F4A92CF2C55B001704FA /* GoogleService-Info.plist in Resources */,
 				49593C2E2C9570F4006105D1 /* Pretendard-SemiBold.otf in Resources */,
 				49593C2C2C9570F4006105D1 /* Pretendard-Black.otf in Resources */,
 				1CDBE35D2CE6CBD80026E4FF /* AdmobBanner-Info.plist in Resources */,
@@ -1621,6 +1625,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1665,6 +1670,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
