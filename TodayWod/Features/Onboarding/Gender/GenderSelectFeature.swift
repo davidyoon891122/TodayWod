@@ -27,7 +27,7 @@ struct GenderSelectFeature {
         var gender: GenderType? = nil
         var path = StackState<Path.State>()
         var onboardingUserModel: OnboardingUserInfoModel = .init()
-        var isProcessing: Bool = false
+        var isSelected: Bool = false
     }
     
     enum Action {
@@ -38,20 +38,17 @@ struct GenderSelectFeature {
         case finishOnboarding
     }
 
-    enum ThrottleID: Hashable {
-        case throttle
-    }
-
     @Dependency(\.continuousClock) var clock
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.isProcessing = false
+                state.isSelected = false
                 return .none
             case let .setGender(genderType):
-                state.isProcessing = true
+                guard !state.isSelected else { return .none }
+                state.isSelected.toggle()
                 state.gender = genderType
                 state.onboardingUserModel.gender = genderType
                 let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -59,12 +56,6 @@ struct GenderSelectFeature {
                 generator.impactOccurred()
 
                 return .send(.toNickname)
-                    .throttle(
-                        id: ThrottleID.throttle,
-                        for: 1.0,
-                        scheduler: DispatchQueue.main,
-                        latest: true
-                    )
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
@@ -168,7 +159,7 @@ struct GenderSelectView: View {
                                     .clipShape(.circle)
                                     .opacity(store.gender == .man ? 1.0 : 0.6)
                             })
-                            .disabled(store.isProcessing)
+                            .disabled(store.isSelected)
 
                             Button(action: {
                                 store.send(.setGender(.woman))
@@ -179,7 +170,7 @@ struct GenderSelectView: View {
                                     .clipShape(.circle)
                                     .opacity(store.gender == .woman ? 1.0 : 0.6)
                             })
-                            .disabled(store.isProcessing)
+                            .disabled(store.isSelected)
                         }
                         .padding(.top, 80.0)
                         .padding(.horizontal)
