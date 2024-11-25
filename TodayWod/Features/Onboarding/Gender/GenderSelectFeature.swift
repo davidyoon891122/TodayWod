@@ -36,7 +36,7 @@ struct GenderSelectFeature {
         case finishOnboarding
     }
 
-    enum ID: Hashable {
+    enum ThrottleID: Hashable {
         case throttle
     }
 
@@ -52,16 +52,13 @@ struct GenderSelectFeature {
                 generator.prepare()
                 generator.impactOccurred()
 
-                return .run(operation: { send in
-                    try await clock.sleep(for: .seconds(0.3))
-                    await send(.toNickname)
-                })
-                .throttle(
-                    id: ID.throttle,
-                    for: 0.5,
-                    scheduler: DispatchQueue.main,
-                    latest: true
-                )
+                return .send(.toNickname)
+                    .throttle(
+                        id: ThrottleID.throttle,
+                        for: 0.5,
+                        scheduler: DispatchQueue.main,
+                        latest: false
+                    )
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
