@@ -38,6 +38,10 @@ struct GenderSelectFeature {
         case finishOnboarding
     }
 
+    enum ThrottleID: Hashable {
+        case throttle
+    }
+
     @Dependency(\.continuousClock) var clock
     
     var body: some ReducerOf<Self> {
@@ -47,8 +51,6 @@ struct GenderSelectFeature {
                 state.isProcessing = false
                 return .none
             case let .setGender(genderType):
-                guard !state.isProcessing else { return .none }
-
                 state.isProcessing = true
                 state.gender = genderType
                 state.onboardingUserModel.gender = genderType
@@ -57,6 +59,12 @@ struct GenderSelectFeature {
                 generator.impactOccurred()
 
                 return .send(.toNickname)
+                    .throttle(
+                        id: ThrottleID.throttle,
+                        for: 1.0,
+                        scheduler: DispatchQueue.main,
+                        latest: true
+                    )
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
