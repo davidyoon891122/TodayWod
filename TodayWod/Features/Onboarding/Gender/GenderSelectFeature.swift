@@ -27,7 +27,7 @@ struct GenderSelectFeature {
         var gender: GenderType? = nil
         var path = StackState<Path.State>()
         var onboardingUserModel: OnboardingUserInfoModel = .init()
-        var isProcessing: Bool = false
+        var isSelected: Bool = false
     }
     
     enum Action {
@@ -44,11 +44,11 @@ struct GenderSelectFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.isProcessing = false
+                state.isSelected = false
                 return .none
             case let .setGender(genderType):
-                guard !state.isProcessing else { return .none }
-                state.isProcessing.toggle()
+                guard !state.isSelected else { return .none }
+                state.isSelected.toggle()
                 state.gender = genderType
                 state.onboardingUserModel.gender = genderType
                 let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -159,7 +159,7 @@ struct GenderSelectView: View {
                                     .clipShape(.circle)
                                     .opacity(store.gender == .man ? 1.0 : 0.6)
                             })
-                            .disabled(store.isProcessing)
+                            .disabled(store.isSelected)
 
                             Button(action: {
                                 store.send(.setGender(.woman))
@@ -170,7 +170,7 @@ struct GenderSelectView: View {
                                     .clipShape(.circle)
                                     .opacity(store.gender == .woman ? 1.0 : 0.6)
                             })
-                            .disabled(store.isProcessing)
+                            .disabled(store.isSelected)
                         }
                         .padding(.top, 80.0)
                         .padding(.horizontal)
