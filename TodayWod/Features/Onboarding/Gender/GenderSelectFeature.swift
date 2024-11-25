@@ -27,31 +27,35 @@ struct GenderSelectFeature {
         var gender: GenderType? = nil
         var path = StackState<Path.State>()
         var onboardingUserModel: OnboardingUserInfoModel = .init()
+        var isSelected: Bool = false
     }
     
     enum Action {
+        case onAppear
         case setGender(GenderType)
         case path(StackActionOf<Path>)
         case toNickname
         case finishOnboarding
     }
-    
+
     @Dependency(\.continuousClock) var clock
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.isSelected = false
+                return .none
             case let .setGender(genderType):
+                guard !state.isSelected else { return .none }
+                state.isSelected.toggle()
                 state.gender = genderType
                 state.onboardingUserModel.gender = genderType
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.prepare()
                 generator.impactOccurred()
 
-                return .run(operation: { send in
-                    try await clock.sleep(for: .seconds(0.3))
-                    await send(.toNickname)
-                })
+                return .send(.toNickname)
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
@@ -155,7 +159,8 @@ struct GenderSelectView: View {
                                     .clipShape(.circle)
                                     .opacity(store.gender == .man ? 1.0 : 0.6)
                             })
-                            
+                            .disabled(store.isSelected)
+
                             Button(action: {
                                 store.send(.setGender(.woman))
                             }, label: {
@@ -165,10 +170,14 @@ struct GenderSelectView: View {
                                     .clipShape(.circle)
                                     .opacity(store.gender == .woman ? 1.0 : 0.6)
                             })
+                            .disabled(store.isSelected)
                         }
                         .padding(.top, 80.0)
                         .padding(.horizontal)
                     }
+                }
+                .onAppear {
+                    store.send(.onAppear)
                 }
             } destination: { store in
                 WithPerceptionTracking {

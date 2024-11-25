@@ -34,7 +34,9 @@ extension String {
     }
     
     func filteredNickName() -> String {
-        let regex = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]*$"
+        guard !self.isEmpty else { return "" }
+        
+        let regex = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\\u1100-\\u1112\\u318D\\u119E\\u11A2\\u2022\\u2025\\u00B7\\uFE55]*$"
                         
         if let _ = self.range(of: regex, options: .regularExpression) {
             return "\(self.prefix(Constants.nickNameMaxLength))"
