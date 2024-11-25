@@ -37,7 +37,7 @@ struct GenderSelectFeature {
     }
 
     enum ID: Hashable {
-        case debounce, throttle
+        case throttle
     }
 
     @Dependency(\.continuousClock) var clock
