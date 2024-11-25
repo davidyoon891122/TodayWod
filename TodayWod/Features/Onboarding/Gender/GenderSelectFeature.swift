@@ -35,7 +35,11 @@ struct GenderSelectFeature {
         case toNickname
         case finishOnboarding
     }
-    
+
+    enum ID: Hashable {
+        case debounce, throttle
+    }
+
     @Dependency(\.continuousClock) var clock
     
     var body: some ReducerOf<Self> {
@@ -52,6 +56,12 @@ struct GenderSelectFeature {
                     try await clock.sleep(for: .seconds(0.3))
                     await send(.toNickname)
                 })
+                .throttle(
+                    id: ID.throttle,
+                    for: 0.5,
+                    scheduler: DispatchQueue.main,
+                    latest: true
+                )
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .nickName(.finishInputNickname(let heightState))):
