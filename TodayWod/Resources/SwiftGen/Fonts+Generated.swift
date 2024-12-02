@@ -32,7 +32,28 @@ internal enum Fonts {
     internal static let thin = FontConvertible(name: "Pretendard-Thin", family: "Pretendard", path: "Pretendard-Thin.otf")
     internal static let all: [FontConvertible] = [black, bold, extraBold, extraLight, light, medium, regular, semiBold, thin]
   }
-  internal static let allCustomFonts: [FontConvertible] = [Pretendard.all].flatMap { $0 }
+  internal enum Raleway {
+    internal static let black = FontConvertible(name: "Raleway-Black", family: "Raleway", path: "Raleway-Black.ttf")
+    internal static let blackItalic = FontConvertible(name: "Raleway-BlackItalic", family: "Raleway", path: "Raleway-BlackItalic.ttf")
+    internal static let bold = FontConvertible(name: "Raleway-Bold", family: "Raleway", path: "Raleway-Bold.ttf")
+    internal static let boldItalic = FontConvertible(name: "Raleway-BoldItalic", family: "Raleway", path: "Raleway-BoldItalic.ttf")
+    internal static let extraBold = FontConvertible(name: "Raleway-ExtraBold", family: "Raleway", path: "Raleway-ExtraBold.ttf")
+    internal static let extraBoldItalic = FontConvertible(name: "Raleway-ExtraBoldItalic", family: "Raleway", path: "Raleway-ExtraBoldItalic.ttf")
+    internal static let extraLight = FontConvertible(name: "Raleway-ExtraLight", family: "Raleway", path: "Raleway-ExtraLight.ttf")
+    internal static let extraLightItalic = FontConvertible(name: "Raleway-ExtraLightItalic", family: "Raleway", path: "Raleway-ExtraLightItalic.ttf")
+    internal static let italic = FontConvertible(name: "Raleway-Italic", family: "Raleway", path: "Raleway-Italic.ttf")
+    internal static let light = FontConvertible(name: "Raleway-Light", family: "Raleway", path: "Raleway-Light.ttf")
+    internal static let lightItalic = FontConvertible(name: "Raleway-LightItalic", family: "Raleway", path: "Raleway-LightItalic.ttf")
+    internal static let medium = FontConvertible(name: "Raleway-Medium", family: "Raleway", path: "Raleway-Medium.ttf")
+    internal static let mediumItalic = FontConvertible(name: "Raleway-MediumItalic", family: "Raleway", path: "Raleway-MediumItalic.ttf")
+    internal static let regular = FontConvertible(name: "Raleway-Regular", family: "Raleway", path: "Raleway-Regular.ttf")
+    internal static let semiBold = FontConvertible(name: "Raleway-SemiBold", family: "Raleway", path: "Raleway-SemiBold.ttf")
+    internal static let semiBoldItalic = FontConvertible(name: "Raleway-SemiBoldItalic", family: "Raleway", path: "Raleway-SemiBoldItalic.ttf")
+    internal static let thin = FontConvertible(name: "Raleway-Thin", family: "Raleway", path: "Raleway-Thin.ttf")
+    internal static let thinItalic = FontConvertible(name: "Raleway-ThinItalic", family: "Raleway", path: "Raleway-ThinItalic.ttf")
+    internal static let all: [FontConvertible] = [black, blackItalic, bold, boldItalic, extraBold, extraBoldItalic, extraLight, extraLightItalic, italic, light, lightItalic, medium, mediumItalic, regular, semiBold, semiBoldItalic, thin, thinItalic]
+  }
+  internal static let allCustomFonts: [FontConvertible] = [Pretendard.all, Raleway.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {
     allCustomFonts.forEach { $0.register() }
   }

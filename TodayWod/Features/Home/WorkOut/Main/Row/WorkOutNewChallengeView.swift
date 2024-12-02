@@ -35,7 +35,7 @@ struct WorkOutNewChallengeView: View {
         .background(Colors.grey10.swiftUIColor)
         .cornerRadius(12, corners: .allCorners)
         .padding(.horizontal, 16)
-        .padding(.top, 48)
+        .padding(.bottom, 20.0)
     }
     
 }
