@@ -218,26 +218,29 @@ struct WorkOutView: View {
     var body: some View {
         WithPerceptionTracking {
             NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-                ScrollView {
-                    LazyVStack(alignment: .leading) {
-                        WorkOutNewChallengeView(store: store)
-                        BannerAdView()
-                            .padding(20)
-                        WorkOutTitleView(store: store)
-                        
-                        ForEach(Array(store.dayWorkouts.enumerated()), id: \.element.id) { index, item in
-                            WorkOutDayView(index: index, item: item)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    store.send(.didTapDayView(item: item))
-                                }
+                VStack {
+                    BannerAdView()
+                        .padding(.horizontal, 20.0)
+                        .padding(.vertical, 10.0)
+                    ScrollView {
+                        LazyVStack(alignment: .leading) {
+                            WorkOutNewChallengeView(store: store)
+                            WorkOutTitleView(store: store)
+                            
+                            ForEach(Array(store.dayWorkouts.enumerated()), id: \.element.id) { index, item in
+                                WorkOutDayView(index: index, item: item)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        store.send(.didTapDayView(item: item))
+                                    }
+                            }
+                            
+                            Spacer()
                         }
-                        
-                        Spacer()
                     }
-                    .onAppear {
-                        store.send(.onAppear)
-                    }
+                }
+                .onAppear {
+                    store.send(.onAppear)
                 }
             } destination: { store in
                 WithPerceptionTracking {

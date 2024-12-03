@@ -17,17 +17,9 @@ struct WorkOutDayView: View {
         HStack(alignment: .top) {
             VStack(spacing: 0) {
                 Text(Constants.dayTitle + "\(index+1)")
-                    .font(Fonts.Pretendard.regular.swiftUIFont(size: 11))
-                    .foregroundStyle(Colors.grey100.swiftUIColor)
+                    .font(Fonts.Raleway.extraBold.swiftUIFont(size: 14))
+                    .foregroundStyle(Colors.grey80.swiftUIColor)
                     .padding(.vertical, 9)
-                if let title = item.type.title {
-                    Text(title)
-                        .font(Fonts.Pretendard.bold.swiftUIFont(size: 11))
-                        .foregroundStyle(.white)
-                        .frame(width: 40, height: 26)
-                        .background(Colors.blue60.swiftUIColor)
-                        .cornerRadius(30)
-                }
                 if item.type != .end {
                     CustomDivider(color: Colors.grey20.swiftUIColor, direction: .vertical)                    
                 }
