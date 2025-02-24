@@ -31,6 +31,7 @@ struct WodFeature {
     }
     
     enum Action {
+        case didTapOpenYoutube
         case updateCompleted(Bool)
         case updateUnitText(String)
         case addWodSetOf(WodSetModel)
@@ -43,6 +44,9 @@ struct WodFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .didTapOpenYoutube:
+                ApplicationLoader.open(type: .youtube(query: state.model.title))
+                return .none
             case let .wodSetActions(.element(id: id, action: .updateCompleted(isCompleted))):
                 if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
                     state.model.wodSets[index].isCompleted = isCompleted
@@ -98,6 +102,8 @@ struct WodView: View {
             VStack(alignment: .leading) {
                 titleView
                 
+                mediaView
+                
                 headerView
                 
                 VStack(spacing: 10) {
@@ -142,7 +148,22 @@ struct WodView: View {
                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                 .foregroundStyle(Colors.grey70.swiftUIColor)
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, 10)
+    }
+    
+    var mediaView: some View {
+        Button {
+            store.send(.didTapOpenYoutube)
+        } label: {
+            HStack {
+                Images.icYoutube.swiftUIImage
+                Text("운동하는 법 보기")
+                    .font(Fonts.Pretendard.bold.swiftUIFont(size: 16.0))
+                    .foregroundStyle(.grey90)
+            }
+        }
+        .frame(height: 44)
+        .padding(.bottom, 10)
     }
     
     var headerView: some View {

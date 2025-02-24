@@ -72,6 +72,7 @@
 		1CDBE35D2CE6CBD80026E4FF /* AdmobBanner-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CDBE35C2CE6CBD80026E4FF /* AdmobBanner-Info.plist */; };
 		1CDBE35F2CE6CE7E0026E4FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CDBE35E2CE6CE7E0026E4FF /* GoogleService-Info.plist */; };
 		1CDBE3612CE6DEED0026E4FF /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDBE3602CE6DEEA0026E4FF /* PlistReader.swift */; };
+		1CE2329B2D6C58B70043C457 /* ApplicationLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE2329A2D6C58650043C457 /* ApplicationLoader.swift */; };
 		1CE33C7A2CE34E7800E4B682 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE33C792CE34E7800E4B682 /* ComposableArchitecture */; };
 		1CE8E54E2CE7158300523C54 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1CE8E54D2CE7158300523C54 /* Lottie */; };
 		1CE8E5512CE7187E00523C54 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8E5502CE7187700523C54 /* LottieView.swift */; };
@@ -265,6 +266,7 @@
 		1CDBE35C2CE6CBD80026E4FF /* AdmobBanner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AdmobBanner-Info.plist"; sourceTree = "<group>"; };
 		1CDBE35E2CE6CE7E0026E4FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1CDBE3602CE6DEEA0026E4FF /* PlistReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
+		1CE2329A2D6C58650043C457 /* ApplicationLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationLoader.swift; sourceTree = "<group>"; };
 		1CE33CA22CE429ED00E4B682 /* TodayWodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodayWodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE8E5502CE7187700523C54 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		1CE8E5532CE71A5500523C54 /* banner.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = banner.json; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				1CDBE3602CE6DEEA0026E4FF /* PlistReader.swift */,
 				1C7999812CDE038600553674 /* SharedConstants.swift */,
 				1C8708BD2CACDB8A00967DFE /* AppEnvironmentConstants.swift */,
+				1CE2329A2D6C58650043C457 /* ApplicationLoader.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1435,6 +1438,7 @@
 				49101A7A2C8D3DE800FDB709 /* TodayWod.swift in Sources */,
 				49B8AF072C8C5D3900EA78CC /* Images+Generated.swift in Sources */,
 				ADCEE10E2CBE202D00D71FEB /* ProgramRepository.swift in Sources */,
+				1CE2329B2D6C58B70043C457 /* ApplicationLoader.swift in Sources */,
 				1CFED2D32C9B9C0D000A09E5 /* DayWorkoutTagType.swift in Sources */,
 				1C9C9F682CABA85900157001 /* Programs+Entity.swift in Sources */,
 				494132A52CDEED9200EB5192 /* UserDefaultsClient.swift in Sources */,
@@ -1670,13 +1674,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"TodayWod/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
+				DEVELOPMENT_TEAM = VLXYWWGUU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodayWod/info.plist;
@@ -1697,7 +1699,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TodayWod PP";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1715,13 +1716,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"TodayWod/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VLXYWWGUU9;
+				DEVELOPMENT_TEAM = VLXYWWGUU9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodayWod/info.plist;
@@ -1742,7 +1741,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tow.TodayWod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TodayWod PP";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
