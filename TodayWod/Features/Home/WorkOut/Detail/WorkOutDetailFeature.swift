@@ -8,6 +8,31 @@
 import SwiftUI
 import ComposableArchitecture
 
+enum StartCountDownType {
+    
+    case three
+    case two
+    case one
+    case zero
+    case none
+    
+    var image: Image? {
+        switch self {
+        case .three:
+            return Images.imgThree.swiftUIImage
+        case .two:
+            return Images.imgTwo.swiftUIImage
+        case .one:
+            return Images.imgOne.swiftUIImage
+        case .zero:
+            return Images.imgGo.swiftUIImage
+        case .none:
+            return nil
+        }
+    }
+    
+}
+
 @Reducer
 struct WorkOutDetailFeature {
     
@@ -18,6 +43,8 @@ struct WorkOutDetailFeature {
         var hasStart: Bool
         var isDoneEnabled: Bool
         var isDayCompleted: Bool
+        
+        var countDownType: StartCountDownType = .none
         
         var workoutStates: IdentifiedArrayOf<WorkoutDetailContentFeature.State> = []
         
@@ -70,6 +97,7 @@ struct WorkOutDetailFeature {
     }
     
     enum InnerAction: Equatable {
+        case setCountDown
         case setWorkoutStates
         case startTimer
         case stopTimer
@@ -155,8 +183,7 @@ struct WorkOutDetailFeature {
                 state.hasStart = true
                 state.isDoneEnabled = state.item.isContainCompleted
                 
-                return .merge(.send(.inner(.setWorkoutStates)),
-                              .send(.inner(.startTimer)))
+                return .send(.inner(.setCountDown))
             case .view(.didTapBreakTimer):
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.prepare()
@@ -170,6 +197,25 @@ struct WorkOutDetailFeature {
             case .view(.setBreakTimerSettingsViewDynamicHeight(let height)):
                 state.breakTimerSettingsViewDynamicHeight = height
                 return .none
+            case .inner(.setCountDown):
+                switch state.countDownType {
+                case .three:
+                    state.countDownType = .two
+                case .two:
+                    state.countDownType = .one
+                case .one:
+                    state.countDownType = .zero
+                case .zero:
+                    state.countDownType = .none
+                    return .merge(.send(.inner(.setWorkoutStates)),
+                                  .send(.inner(.startTimer)))
+                case .none:
+                    state.countDownType = .three
+                }
+                return .run { send in
+                    try await Task.sleep(for: .seconds(1))
+                    await send(.inner(.setCountDown))
+                }
             case .inner(.setWorkoutStates):
                 let states = state.item.workouts.map { WorkoutDetailContentFeature.State(hasStart: state.hasStart, model: $0) }
                 state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
@@ -330,7 +376,6 @@ struct WorkOutDetailView: View {
     @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
-        Text("d")
         WithPerceptionTracking {
             ZStack(alignment: .bottom) {
                 VStack {
@@ -374,6 +419,16 @@ struct WorkOutDetailView: View {
                         .onTapGesture {
                             store.sendViewAction(.didTapBreakTimer)
                         }
+                }
+                
+                if store.countDownType != .none, let image = store.countDownType.image {
+                    VStack {
+                        Spacer()
+                        image
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.black.opacity(0.65))
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
