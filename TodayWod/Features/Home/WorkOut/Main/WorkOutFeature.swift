@@ -175,7 +175,7 @@ struct WorkOutFeature {
                 return .none
             case let .path(action):
                 switch action {
-                case .element(id: _, action: .detail(.finishWorkOut(let item))):
+                case .element(id: _, action: .detail(.delegate(.finishWorkOut(let item)))):
                     state.path.append(.completed(WorkoutCompletedFeature.State(item: item)))
                     return .none
                 case .element(id: _, action: .completed(.didTapCloseButton)):
