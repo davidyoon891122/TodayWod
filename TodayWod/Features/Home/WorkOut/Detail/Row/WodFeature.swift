@@ -30,34 +30,52 @@ struct WodFeature {
         }
     }
     
-    enum Action {
+    enum Action: FeatureAction {
+        case view(ViewAction)
+        case inner(InnerAction)
+        case scope(ScopeAction)
+        case delegate(DelegateAction)
+    }
+    
+    @CasePathable
+    enum ViewAction: Equatable {
         case didTapOpenYoutube
-        case updateCompleted(Bool)
-        case updateUnitText(String)
-        case addWodSetOf(WodSetModel)
-        case addWodSet
-        case removeWodSetOf(disableRemove: Bool)
-        case removeWodSet
+        case didTapAddWodSet
+        case didTapRemoveWodSet
+    }
+    
+    @CasePathable
+    enum InnerAction: Equatable {
+        
+    }
+    
+    @CasePathable
+    enum ScopeAction {
         case wodSetActions(IdentifiedActionOf<WodSetFeature>)
     }
+    
+    @CasePathable
+    enum DelegateAction: Equatable {
+        // Wod > WorkOutDetail 전달
+        case addWodSetOf(WodSetModel)
+        case removeWodSetOf(disableRemove: Bool)
+        
+        // WodSet > Wod > WorkoutDetail 전달
+        case updateCompleted(Bool)
+        case updateUnitText(String)
+    }
+    
+    @Dependency(\.applicationLoaderClient) var applicationLoaderClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .didTapOpenYoutube:
-                ApplicationLoader.open(type: .youtube(query: state.model.title))
-                return .none
-            case let .wodSetActions(.element(id: id, action: .updateCompleted(isCompleted))):
-                if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
-                    state.model.wodSets[index].isCompleted = isCompleted
+            case .view(.didTapOpenYoutube):
+                let query = state.model.title
+                return .run { send in
+                    await applicationLoaderClient.open(.youtube(query: query))
                 }
-                return .send(.updateCompleted(isCompleted))
-            case let .wodSetActions(.element(id: id, action: .updateUnitText(unit))):
-                if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
-                    state.model.wodSets[index].unitValue = unit.toInt
-                }
-                return .send(.updateUnitText(unit))
-            case .addWodSet:
+            case .view(.didTapAddWodSet):
                 let newWodSet = state.model.newWodSet
                 
                 let wodSetState = WodSetFeature.State(hasStart: state.hasStart, isOrderSetVisible: state.model.isOrderSetVisible, model: newWodSet)
@@ -65,28 +83,38 @@ struct WodFeature {
                 
                 state.model.wodSets.append(newWodSet) // local newWodSet order을 위한 처리.
                 
-                return .send(.addWodSetOf(newWodSet))
-            case .removeWodSet:
+                return .send(.delegate(.addWodSetOf(newWodSet)))
+            case .view(.didTapRemoveWodSet):
                 let disableRemove = !state.model.canRemoveSet
                 if state.model.canRemoveSet {
                     state.wodSetStates.removeLast()
                     
                     state.model.wodSets.removeLast() // local newWodSet order을 위한 처리.
                 }
-                return .send(.removeWodSetOf(disableRemove: disableRemove))
-            case .updateCompleted(_):
+                return .send(.delegate(.removeWodSetOf(disableRemove: disableRemove)))
+            case let .scope(.wodSetActions(.element(id: id, action: .updateCompleted(isCompleted)))):
+                if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
+                    state.model.wodSets[index].isCompleted = isCompleted
+                }
+                return .send(.delegate(.updateCompleted(isCompleted)))
+            case let .scope(.wodSetActions(.element(id: id, action: .updateUnitText(unit)))):
+                if let index = state.model.wodSets.firstIndex(where: { $0.id == id }) {
+                    state.model.wodSets[index].unitValue = unit.toInt
+                }
+                return .send(.delegate(.updateUnitText(unit)))
+            case .scope(.wodSetActions(_)):
                 return .none
-            case .updateUnitText(_):
+            case .delegate(.addWodSetOf(_)):
                 return .none
-            case .removeWodSetOf(_):
+            case .delegate(.removeWodSetOf(_)):
                 return .none
-            case .addWodSetOf(_):
+            case .delegate(.updateCompleted(_)):
                 return .none
-            case .wodSetActions(_):
+            case .delegate(.updateUnitText(_)):
                 return .none
             }
         }
-        .forEach(\.wodSetStates, action: \.wodSetActions) {
+        .forEach(\.wodSetStates, action: \.scope.wodSetActions) {
             WodSetFeature()
         }
     }
@@ -107,7 +135,7 @@ struct WodView: View {
                 headerView
                 
                 VStack(spacing: 10) {
-                    ForEach(store.scope(state: \.wodSetStates, action: \.wodSetActions)) { store in
+                    ForEach(store.scope(state: \.wodSetStates, action: \.scope.wodSetActions)) { store in
                         WodSetView(store: store)
                     }
                     
@@ -117,14 +145,14 @@ struct WodView: View {
                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                                 .foregroundStyle(Colors.grey60.swiftUIColor)
                                 .onTapGesture {
-                                    store.send(.addWodSet)
+                                    store.sendViewAction(.didTapAddWodSet)
                                 }
                             Spacer()
                             Text("- 세트 삭제")
                                 .font(Fonts.Pretendard.bold.swiftUIFont(size: 16))
                                 .foregroundStyle(Colors.grey60.swiftUIColor)
                                 .onTapGesture {
-                                    store.send(.removeWodSet)
+                                    store.sendViewAction(.didTapRemoveWodSet)
                                 }
                         }
                         .frame(height: 44.0)
@@ -153,7 +181,7 @@ struct WodView: View {
     
     var mediaView: some View {
         Button {
-            store.send(.didTapOpenYoutube)
+            store.sendViewAction(.didTapOpenYoutube)
         } label: {
             HStack {
                 Images.icYoutube.swiftUIImage

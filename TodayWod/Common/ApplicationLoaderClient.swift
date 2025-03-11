@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  ApplicationLoaderClient.swift
 //  TodayWod
 //
 //  Created by 오지연 on 2/24/25.
@@ -40,16 +40,32 @@ private extension ApplicationURL {
     
 }
 
-class ApplicationLoader {
-    
-    static func open(type: ApplicationURL, completion: ((Bool) -> Void)? = nil) {
-        if let url = type.url, UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: completion)
-        } else {
-            guard let webURL = type.webURL else { return }
-            UIApplication.shared.open(webURL)
-        }
-    }
+import ComposableArchitecture
 
+struct ApplicationLoaderClient {
+    
+    var open: (ApplicationURL) async -> Void
+    
 }
 
+extension ApplicationLoaderClient: DependencyKey {
+    
+    static let liveValue: ApplicationLoaderClient = .init { type in
+        if let url = type.url, UIApplication.shared.canOpenURL(url) {
+            await MainActor.run { UIApplication.shared.open(url) }
+        } else {
+            guard let webURL = type.webURL else { return }
+            await MainActor.run { UIApplication.shared.open(webURL) }
+        }
+    }
+    
+}
+
+extension DependencyValues {
+    
+    var applicationLoaderClient: ApplicationLoaderClient {
+        get { self[ApplicationLoaderClient.self] }
+        set { self[ApplicationLoaderClient.self] = newValue }
+    }
+    
+}
