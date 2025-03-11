@@ -8,6 +8,31 @@
 import SwiftUI
 import ComposableArchitecture
 
+enum StartCountDownType {
+    
+    case three
+    case two
+    case one
+    case zero
+    case none
+    
+    var image: Image? {
+        switch self {
+        case .three:
+            return Images.imgThree.swiftUIImage
+        case .two:
+            return Images.imgTwo.swiftUIImage
+        case .one:
+            return Images.imgOne.swiftUIImage
+        case .zero:
+            return Images.imgGo.swiftUIImage
+        case .none:
+            return nil
+        }
+    }
+    
+}
+
 @Reducer
 struct WorkOutDetailFeature {
     
@@ -18,6 +43,8 @@ struct WorkOutDetailFeature {
         var hasStart: Bool
         var isDoneEnabled: Bool
         var isDayCompleted: Bool
+        
+        var countDownType: StartCountDownType = .none
         
         var workoutStates: IdentifiedArrayOf<WorkoutDetailContentFeature.State> = []
         
@@ -33,7 +60,7 @@ struct WorkOutDetailFeature {
         @Shared(.inMemory(SharedConstants.hideTabBar)) var hideTabBar: Bool = true
         @Presents var confirmState: WorkoutConfirmationFeature.State?
         @Presents var breakTimerSettingsState: BreakTimerSettingsFeature.State?
-        @Presents var alert: AlertState<Action.Alert>?
+        @Presents var alert: AlertState<ScopeAction.Alert>?
 
         init(item: DayWorkoutModel) {
             self.item = item
@@ -46,43 +73,63 @@ struct WorkOutDetailFeature {
     
     @Dependency(\.wodClient) var wodClient
     
-    enum Action: BindableAction {
+    enum Action: FeatureAction, BindableAction {
+        case view(ViewAction)
+        case inner(InnerAction)
+        case scope(ScopeAction)
+        case delegate(DelegateAction)
+        case binding(BindingAction<State>)
+    }
+    
+    enum ViewAction: Equatable {
         case onAppear
         case willDisappear
         case didEnterBackground
         case willEnterForeground
-        case setWorkoutStates
+        
         case didTapBackButton
         case didTapDoneButton
         case didTapStartButton
+        case didTapBreakTimer
+        
+        case setConfirmationViewDynamicHeight(CGFloat)
+        case setBreakTimerSettingsViewDynamicHeight(CGFloat)
+    }
+    
+    enum InnerAction: Equatable {
+        case setCountDown
+        case setWorkoutStates
         case startTimer
         case stopTimer
         case timerTick
-        case saveOwnProgram
-        case saveRecentActivity
-        case saveCompletedDate
-        case doneWorkout
-        case onConfirm(WorkoutConfirmationType)
-        case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
-        case didTapBreakTimer
-        case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
         case resetBreakTimer
         case pauseBreakTimer
         case enterBackgroundBreakTimer
         case resumeBreakTimer
-        case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
+        case saveOwnProgram
+        case saveRecentActivity
+        case saveCompletedDate
+        case doneWorkout
         case synchronizeModel(String)
-        case binding(BindingAction<State>)
-        case setConfirmationViewDynamicHeight(CGFloat)
-        case setBreakTimerSettingsViewDynamicHeight(CGFloat)
-        case finishWorkOut(DayWorkoutModel)
-        case breakTimerAction(BreakTimerFeature.Action)
+        case onConfirm(WorkoutConfirmationType)
+    }
+    
+    @CasePathable
+    enum ScopeAction {
+        case confirmAction(PresentationAction<WorkoutConfirmationFeature.Action>)
+        case breakTimerSettingsAction(PresentationAction<BreakTimerSettingsFeature.Action>)
+        case workoutActions(IdentifiedActionOf<WorkoutDetailContentFeature>)
         case alert(PresentationAction<Alert>)
+        case breakTimerAction(BreakTimerFeature.Action)
         
         @CasePathable
         enum Alert: Equatable {
             case didTapUnRemovable
         }
+    }
+    
+    enum DelegateAction {
+        case finishWorkOut(DayWorkoutModel)
     }
     
     enum CancelID { case timer }
@@ -91,72 +138,120 @@ struct WorkOutDetailFeature {
     
     var body: some ReducerOf<Self> {
         
-        Scope(state: \.breakTimerState, action: \.breakTimerAction) {
+        Scope(state: \.breakTimerState, action: \.scope.breakTimerAction) {
             BreakTimerFeature()
         }
         
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .onAppear:
+            case .view(.onAppear):
                 FLog().enter()
                 
                 state.currentBreakCountDownTime = state.userSetBreakCountDownTime
                 state.hideTabBar = true
-                return .send(.setWorkoutStates)
-            case .willDisappear:
+                return .send(.inner(.setWorkoutStates))
+            case .view(.willDisappear):
                 DLog.d("willDisappear")
                 state.hideTabBar = false
-                return .concatenate(.send(.stopTimer),
+                return .concatenate(.send(.inner(.stopTimer)),
                                     .run { _ in await dismiss() })
-            case .didEnterBackground:
+            case .view(.didEnterBackground):
                 FLog().event("didEnterBackground")
-                return .merge(.send(.stopTimer),
-                              .send(.enterBackgroundBreakTimer))
-            case .willEnterForeground:
+                return .merge(.send(.inner(.stopTimer)),
+                              .send(.inner(.enterBackgroundBreakTimer)))
+            case .view(.willEnterForeground):
                 FLog().event("willEnterForeground")
                  
                 if state.hasStart {
                     if state.breakTimerState.timerState == .play && state.item.isContainCompleted {
-                        return .merge(.send(.startTimer),
-                                      .send(.resumeBreakTimer))
+                        return .merge(.send(.inner(.startTimer)),
+                                      .send(.inner(.resumeBreakTimer)))
                     } else {
-                        return .send(.startTimer)
+                        return .send(.inner(.startTimer))
                     }
                 } else {
                     return .none
                 }
-            case .setWorkoutStates:
-                let states = state.item.workouts.map { WorkoutDetailContentFeature.State(hasStart: state.hasStart, model: $0) }
-                state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
-                return .none
-            case .didTapBackButton:
-                return state.isDoneEnabled ? .send(.onConfirm(.quit)) : .send(.willDisappear)
-            case .didTapDoneButton:
-                return state.isDayCompleted ? .send(.doneWorkout) : .send(.onConfirm(.quit))
-            case .didTapStartButton:
+            
+            case .view(.didTapBackButton):
+                return state.isDoneEnabled ? .send(.inner(.onConfirm(.quit))) : .send(.view(.willDisappear))
+            case .view(.didTapDoneButton):
+                return state.isDayCompleted ? .send(.inner(.doneWorkout)) : .send(.inner(.onConfirm(.quit)))
+            case .view(.didTapStartButton):
                 FLog().tap("start_workout")
                 state.hasStart = true
                 state.isDoneEnabled = state.item.isContainCompleted
                 
-                return .merge(.send(.setWorkoutStates),
-                              .send(.startTimer))
-            case .startTimer:
+                return .send(.inner(.setCountDown))
+            case .view(.didTapBreakTimer):
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.prepare()
+                generator.impactOccurred()
+                
+                state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
+                return .none
+            case .view(.setConfirmationViewDynamicHeight(let height)):
+                state.confirmationViewDynamicHeight = height
+                return .none
+            case .view(.setBreakTimerSettingsViewDynamicHeight(let height)):
+                state.breakTimerSettingsViewDynamicHeight = height
+                return .none
+            case .inner(.setCountDown):
+                switch state.countDownType {
+                case .three:
+                    state.countDownType = .two
+                case .two:
+                    state.countDownType = .one
+                case .one:
+                    state.countDownType = .zero
+                case .zero:
+                    state.countDownType = .none
+                    return .merge(.send(.inner(.setWorkoutStates)),
+                                  .send(.inner(.startTimer)))
+                case .none:
+                    state.countDownType = .three
+                }
+                return .run { send in
+                    try await Task.sleep(for: .seconds(1))
+                    await send(.inner(.setCountDown))
+                }
+            case .inner(.setWorkoutStates):
+                let states = state.item.workouts.map { WorkoutDetailContentFeature.State(hasStart: state.hasStart, model: $0) }
+                state.workoutStates = IdentifiedArrayOf(uniqueElements: states)
+                return .none
+            case .inner(.startTimer):
                 return .run { send in
                     while true {
                         try await Task.sleep(for: .seconds(1))
-                        await send(.timerTick)
+                        await send(.inner(.timerTick))
                     }
                 }
                 .cancellable(id: CancelID.timer)
-            case .stopTimer:
+            case .inner(.stopTimer):
                 return .cancel(id: CancelID.timer)
-            case .timerTick:
+            case .inner(.timerTick):
                 state.duration += 1
                 
                 state.item.duration = state.duration
                 return .none
-            case .saveOwnProgram:
+            case .inner(.resetBreakTimer):
+                return .run { send in
+                    await send(.scope(.breakTimerAction(.didTapReset)))
+                }
+            case .inner(.pauseBreakTimer):
+                return .run { send in
+                    await send(.scope(.breakTimerAction(.stopTimer)))
+                }
+            case .inner(.enterBackgroundBreakTimer):
+                return .run { send in
+                    await send(.scope(.breakTimerAction(.enterBackground)))
+                }
+            case .inner(.resumeBreakTimer):
+                return .run { send in
+                    await send(.scope(.breakTimerAction(.startTimer)))
+                }
+            case .inner(.saveOwnProgram):
                 let dayWorkOut = state.item
                 return .run { send in
                     do {
@@ -165,7 +260,7 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case .saveRecentActivity:
+            case .inner(.saveRecentActivity):
                 let dayWorkouts = state.item
                 return .run { send in
                     do {
@@ -174,7 +269,7 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case .saveCompletedDate:
+            case .inner(.saveCompletedDate):
                 guard let completedDate = state.item.date else { return .none }
                 let model = CompletedDateModel(date: completedDate, duration: state.duration)
                 return .run { send in
@@ -184,83 +279,15 @@ struct WorkOutDetailFeature {
                         DLog.d(error.localizedDescription)
                     }
                 }
-            case .doneWorkout:
+            case .inner(.doneWorkout):
                 state.item.date = Date() // 운동 완료 Date 저장.
                 
-                return .concatenate(.send(.stopTimer),
-                                    .send(.saveCompletedDate),
-                                    .send(.saveOwnProgram),
-                                    .send(.saveRecentActivity),
-                                    .send(.finishWorkOut(state.item)))
-            case let .onConfirm(type):
-                FLog().tap(type == .quit ? "quit_workout" : "finish_workout")
-                state.confirmState = WorkoutConfirmationFeature.State(type: type) // 운동 종료 재확인.
-                return .none
-            case .confirmAction(.presented(.didTapDoneButton)): // 운동 완료 or 운동 종료.
-                return .send(.doneWorkout)
-            case .didTapBreakTimer:
-                let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.prepare()
-                generator.impactOccurred()
-                
-                state.breakTimerSettingsState = BreakTimerSettingsFeature.State()
-                return .none
-            case .breakTimerSettingsAction(.presented(.didTapMinusButton)):
-                return .send(.breakTimerAction(.setDefaultTime))
-            case .breakTimerSettingsAction(.presented(.didTapPlusButton)):
-                return .send(.breakTimerAction(.setDefaultTime))
-            case .breakTimerSettingsAction(.presented(.didTapRecommend)):
-                return .send(.breakTimerAction(.setDefaultTime))
-            case .breakTimerSettingsAction:
-                let hasBreakTimeModified = state.currentBreakCountDownTime != state.userSetBreakCountDownTime
-                state.currentBreakCountDownTime = state.userSetBreakCountDownTime
-                DLog.d(hasBreakTimeModified)
-                if state.isDoneEnabled && hasBreakTimeModified {
-                    return .send(.resetBreakTimer)
-                } else {
-                    return .none
-                }
-            case .resetBreakTimer:
-                return .run { send in
-                    await send(.breakTimerAction(.didTapReset))
-                }
-            case .pauseBreakTimer:
-                return .run { send in
-                    await send(.breakTimerAction(.stopTimer))
-                }
-            case .enterBackgroundBreakTimer:
-                return .run { send in
-                    await send(.breakTimerAction(.enterBackground))
-                }
-            case .resumeBreakTimer:
-                return .run { send in
-                    await send(.breakTimerAction(.startTimer))
-                }
-            case let .workoutActions(.element(id: id, action: .updateCompleted(isCompleted))):
-                if isCompleted {
-                    return .merge(.send(.resetBreakTimer),
-                                  .send(.synchronizeModel(id)))
-                } else {
-                    return .merge(.send(.pauseBreakTimer),
-                                  .send(.synchronizeModel(id)))
-                }
-            case let .workoutActions(.element(id: id, action: .updateUnitText(_))):
-                return .send(.synchronizeModel(id))
-            case let .workoutActions(.element(id: id, action: .addWodSet)):
-                return .send(.synchronizeModel(id))
-            case let .workoutActions(.element(id: id, action: .removeWodSet(disableRemove))):
-                
-                if disableRemove {
-                    state.alert = AlertState {
-                        TextState("최소 1세트 이상 진행해야 해요")
-                    } actions: {
-                        ButtonState(role: .cancel, action: .send(.didTapUnRemovable)) {
-                            TextState("확인")
-                        }
-                    }
-                }
-                return .send(.synchronizeModel(id))
-            case let .synchronizeModel(id):
+                return .concatenate(.send(.inner(.stopTimer)),
+                                    .send(.inner(.saveCompletedDate)),
+                                    .send(.inner(.saveOwnProgram)),
+                                    .send(.inner(.saveRecentActivity)),
+                                    .send(.delegate(.finishWorkOut(state.item))))
+            case let .inner(.synchronizeModel(id)):
                 // update local item from states
                 if let index = state.item.workouts.firstIndex(where: { $0.id == id }),
                 let model = state.workoutStates[id: id]?.model {
@@ -270,35 +297,73 @@ struct WorkOutDetailFeature {
                 state.isDoneEnabled = state.hasStart && state.item.isContainCompleted
                 // update day completed
                 state.isDayCompleted = state.item.isCompleted
-                return state.isDayCompleted ? .send(.onConfirm(.completed)) : .none
-            case .setConfirmationViewDynamicHeight(let height):
-                state.confirmationViewDynamicHeight = height
+                return state.isDayCompleted ? .send(.inner(.onConfirm(.completed))) : .none
+            case let .inner(.onConfirm(type)):
+                FLog().tap(type == .quit ? "quit_workout" : "finish_workout")
+                state.confirmState = WorkoutConfirmationFeature.State(type: type) // 운동 종료 재확인.
                 return .none
-            case .setBreakTimerSettingsViewDynamicHeight(let height):
-                state.breakTimerSettingsViewDynamicHeight = height
+            case .scope(.confirmAction(.presented(.didTapDoneButton))): // 운동 완료 or 운동 종료.
+                return .send(.inner(.doneWorkout))
+            case .scope(.breakTimerSettingsAction(.presented(.didTapMinusButton))):
+                return .send(.scope(.breakTimerAction(.setDefaultTime)))
+            case .scope(.breakTimerSettingsAction(.presented(.didTapPlusButton))):
+                return .send(.scope(.breakTimerAction(.setDefaultTime)))
+            case .scope(.breakTimerSettingsAction(.presented(.didTapRecommend))):
+                return .send(.scope(.breakTimerAction(.setDefaultTime)))
+            case .scope(.breakTimerSettingsAction):
+                let hasBreakTimeModified = state.currentBreakCountDownTime != state.userSetBreakCountDownTime
+                state.currentBreakCountDownTime = state.userSetBreakCountDownTime
+                DLog.d(hasBreakTimeModified)
+                if state.isDoneEnabled && hasBreakTimeModified {
+                    return .send(.inner(.resetBreakTimer))
+                } else {
+                    return .none
+                }
+            case let .scope(.workoutActions(.element(id: id, action: .updateCompleted(isCompleted)))):
+                if isCompleted {
+                    return .merge(.send(.inner(.resetBreakTimer)),
+                                  .send(.inner(.synchronizeModel(id))))
+                } else {
+                    return .merge(.send(.inner(.pauseBreakTimer)),
+                                  .send(.inner(.synchronizeModel(id))))
+                }
+            case let .scope(.workoutActions(.element(id: id, action: .updateUnitText(_)))):
+                return .send(.inner(.synchronizeModel(id)))
+            case let .scope(.workoutActions(.element(id: id, action: .addWodSet))):
+                return .send(.inner(.synchronizeModel(id)))
+            case let .scope(.workoutActions(.element(id: id, action: .removeWodSet(disableRemove)))):
+                if disableRemove {
+                    state.alert = AlertState {
+                        TextState("최소 1세트 이상 진행해야 해요")
+                    } actions: {
+                        ButtonState(role: .cancel, action: .send(.didTapUnRemovable)) {
+                            TextState("확인")
+                        }
+                    }
+                }
+                return .send(.inner(.synchronizeModel(id)))
+            case .scope(.confirmAction):
                 return .none
-            case .confirmAction:
+            case .scope(.breakTimerAction):
                 return .none
-            case .breakTimerAction:
+            case .scope(.workoutActions(_)):
                 return .none
-            case .finishWorkOut:
+            case .scope(.alert):
+                return .none
+            case .delegate(.finishWorkOut):
                 return .none
             case .binding:
                 return .none
-            case .workoutActions(_):
-                return .none
-            case .alert:
-                return .none
             }
         }
-        .ifLet(\.$confirmState, action: \.confirmAction) {
+        .ifLet(\.$confirmState, action: \.scope.confirmAction) {
             WorkoutConfirmationFeature()
         }
-        .ifLet(\.$breakTimerSettingsState, action: \.breakTimerSettingsAction) {
+        .ifLet(\.$breakTimerSettingsState, action: \.scope.breakTimerSettingsAction) {
             BreakTimerSettingsFeature()
         }
-        .ifLet(\.$alert, action: \.alert)
-        .forEach(\.workoutStates, action: \.workoutActions) {
+        .ifLet(\.$alert, action: \.scope.alert)
+        .forEach(\.workoutStates, action: \.scope.workoutActions) {
             WorkoutDetailContentFeature()
         }
     }
@@ -315,9 +380,9 @@ struct WorkOutDetailView: View {
             ZStack(alignment: .bottom) {
                 VStack {
                     WorkOutNavigationView(duration: store.duration, isEnabled: store.isDoneEnabled) {
-                        store.send(.didTapBackButton)
+                        store.sendViewAction(.didTapBackButton)
                     } doneAction: {
-                        store.send(.didTapDoneButton)
+                        store.sendViewAction(.didTapDoneButton)
                     }
                     
                     ScrollView {
@@ -328,7 +393,7 @@ struct WorkOutDetailView: View {
                                     .padding(.bottom, 20)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    ForEach(store.scope(state: \.workoutStates, action: \.workoutActions)) { store in
+                                    ForEach(store.scope(state: \.workoutStates, action: \.scope.workoutActions)) { store in
                                         WorkoutDetailContentView(store: store)
                                     }
                                 }
@@ -343,49 +408,59 @@ struct WorkOutDetailView: View {
                 
                 if !store.hasStart {
                     BottomButton(title: Constants.buttonTitle) {
-                        store.send(.didTapStartButton)
+                        store.sendViewAction(.didTapStartButton)
                     }
                     .padding(.horizontal, 38)
                     .padding(.bottom, 20)
                 }
                 
                 if store.item.isContainCompleted {
-                    BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.breakTimerAction))
+                    BreakTimerView(store: store.scope(state: \.breakTimerState, action: \.scope.breakTimerAction))
                         .onTapGesture {
-                            store.send(.didTapBreakTimer)
+                            store.sendViewAction(.didTapBreakTimer)
                         }
+                }
+                
+                if store.countDownType != .none, let image = store.countDownType.image {
+                    VStack {
+                        Spacer()
+                        image
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.black.opacity(0.65))
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-            .sheet(item: $store.scope(state: \.confirmState, action: \.confirmAction)) { conirmationStore in
+            .sheet(item: $store.scope(state: \.confirmState, action: \.scope.confirmAction)) { confirmationStore in
                 WithPerceptionTracking {
-                    WorkoutConfirmationView(store: conirmationStore)
+                    WorkoutConfirmationView(store: confirmationStore)
                         .measureHeight { height in
-                            store.send(.setConfirmationViewDynamicHeight(height))
+                            store.sendViewAction(.setConfirmationViewDynamicHeight(height))
                         }
                         .presentationDetents([.height(store.state.confirmationViewDynamicHeight + 20.0)])
                 }
             }
-            .sheet(item: $store.scope(state: \.breakTimerSettingsState, action: \.breakTimerSettingsAction)) { breakTimerSettingsStore in
+            .sheet(item: $store.scope(state: \.breakTimerSettingsState, action: \.scope.breakTimerSettingsAction)) { breakTimerSettingsStore in
                 WithPerceptionTracking {
                     BreakTimerSettingsView(store: breakTimerSettingsStore)
                         .measureHeight { height in
-                            store.send(.setBreakTimerSettingsViewDynamicHeight(height))
+                            store.sendViewAction(.setBreakTimerSettingsViewDynamicHeight(height))
                         }
                         .presentationDetents([.height(store.state.breakTimerSettingsViewDynamicHeight)])
                         .sheetBackground(.clear)
                 }
             }
-            .alert($store.scope(state: \.alert, action: \.alert))
+            .alert($store.scope(state: \.alert, action: \.scope.alert))
             .onAppear {
-                store.send(.onAppear)
+                store.sendViewAction(.onAppear)
             }
             .onChange(of: scenePhase) { phase in
                 switch phase {
                 case .active:
-                    store.send(.willEnterForeground)
+                    store.sendViewAction(.willEnterForeground)
                 case .background:
-                    store.send(.didEnterBackground)
+                    store.sendViewAction(.didEnterBackground)
                 default:
                     break
                 }
