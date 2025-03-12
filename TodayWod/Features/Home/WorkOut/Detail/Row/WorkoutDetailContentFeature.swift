@@ -39,22 +39,22 @@ struct WorkoutDetailContentFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .wodActions(.element(id: id, action: .addWodSetOf(newWodSet))):
+            case let .wodActions(.element(id: id, action: .delegate(.addWodSetOf(newWodSet)))):
                 if let index = state.model.wods.firstIndex(where: { $0.id == id }) {
                     state.model.wods[index].wodSets.append(newWodSet)
                 }
                 return .send(.addWodSet)
-            case let .wodActions(.element(id: id, action: .removeWodSetOf(disableRemove))):
+            case let .wodActions(.element(id: id, action: .delegate(.removeWodSetOf(disableRemove)))):
                 if let index = state.model.wods.firstIndex(where: { $0.id == id }) {
                     if state.model.wods[index].canRemoveSet {
                         state.model.wods[index].wodSets.removeLast()
                     }
                 }
                 return .send(.removeWodSet(disableRemove))
-            case let .wodActions(.element(id: id, action: .updateCompleted(isCompleted))):
+            case let .wodActions(.element(id: id, action: .delegate(.updateCompleted(isCompleted)))):
                 return .concatenate(.send(.synchronizeModel(id)),
                                     .send(.updateCompleted(isCompleted)))
-            case let .wodActions(.element(id: id, action: .updateUnitText(unit))):
+            case let .wodActions(.element(id: id, action: .delegate(.updateUnitText(unit)))):
                 return .concatenate(.send(.synchronizeModel(id)),
                                     .send(.updateUnitText(unit)))
             case let .synchronizeModel(id):
