@@ -44,18 +44,18 @@ import ComposableArchitecture
 
 struct ApplicationLoaderClient {
     
-    var open: (ApplicationURL) async -> Void
+    var open: (ApplicationURL) -> Void
     
 }
 
 extension ApplicationLoaderClient: DependencyKey {
-    
+
     static let liveValue: ApplicationLoaderClient = .init { type in
         if let url = type.url, UIApplication.shared.canOpenURL(url) {
-            await MainActor.run { UIApplication.shared.open(url) }
+            UIApplication.shared.open(url)
         } else {
             guard let webURL = type.webURL else { return }
-            await MainActor.run { UIApplication.shared.open(webURL) }
+            UIApplication.shared.open(webURL)
         }
     }
     

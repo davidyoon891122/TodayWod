@@ -72,9 +72,8 @@ struct WodFeature {
             switch action {
             case .view(.didTapOpenYoutube):
                 let query = state.model.title
-                return .run { send in
-                    await applicationLoaderClient.open(.youtube(query: query))
-                }
+                applicationLoaderClient.open(.youtube(query: query))
+                return .none
             case .view(.didTapAddWodSet):
                 let newWodSet = state.model.newWodSet
                 
